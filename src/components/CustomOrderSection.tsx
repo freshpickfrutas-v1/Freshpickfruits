@@ -281,7 +281,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 <AlertCircle className="w-4 h-4 shrink-0" /> {saveError}
               </p>
             )}
-            <
+            <a
               href={`https://wa.me/${WA}?text=Hola%20Fresh%20Pick!%20Confirmo%20pedido%20%23${completedOrder.id}%20a%20nombre%20de%20${encodeURIComponent(completedOrder.customerName)}`}
               target="_blank"
               rel="noopener noreferrer"

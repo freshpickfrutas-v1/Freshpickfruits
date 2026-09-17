@@ -12,6 +12,7 @@ import { TestimonialsAndFaq } from '../components/TestimonialsAndFaq';
 import { Footer } from '../components/Footer';
 import { CartDrawer, CartItem } from '../components/CartDrawer';
 import { FloatingWhatsApp } from '../components/FloatingWhatsApp';
+import { StructuredData } from '../components/StructuredData';
 
 export default function PublicHome() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -72,6 +73,7 @@ export default function PublicHome() {
 
   return (
     <div className="min-h-screen flex flex-col bg-transparent text-stone-900 font-sans selection:bg-[#2F183C] selection:text-[#DDA83A]">
+      <StructuredData />
       <Navbar
         cartItemCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}

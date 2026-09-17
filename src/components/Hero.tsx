@@ -109,7 +109,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               {/* Primary Image Container */}
               <div className="rounded-2xl overflow-hidden shadow-2xl shadow-[#2F183C]/20 border-4 border-white aspect-[4/3] sm:aspect-[5/4] relative">
                 <img
-                  src="/assets/blueberries.jpg"
+                  src="/assets/finca/finca-arandanos-mano-1.jpg"
                   alt="Arándanos frescos de Fresh Pick recién cosechados a mano en cultivo andino de alta montaña a más de 2.800 msnm con agricultura responsable y limpia"
                   className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
                   loading="eager"

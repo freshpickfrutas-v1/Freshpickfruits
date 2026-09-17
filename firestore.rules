@@ -25,20 +25,34 @@ service cloud.firestore {
       allow update: if isOwner(userId) || isAdmin();
       allow delete: if isAdmin();
     }
-    
+
     // Orders collection
     match /orders/{orderId} {
       // Anyone can create an order (guest or registered user)
       allow create: if true;
-      
-      // Admin can list/read all orders; registered user can read their own orders
-      allow read: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
-      
-      // Admin can update any order (change status, notes); owner can update if status is still 'pendiente'
-      allow update: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid && resource.data.status == 'pendiente');
-      
+
+      // MODO PRUEBAS (sin login todavía): lectura y cambio de estado abiertos
+      // para poder probar el panel admin/cliente sin autenticación.
+      // TODO: cuando se agregue login, reemplazar estas dos líneas por:
+      //   allow read: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      //   allow update: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid && resource.data.status == 'pendiente');
+      allow read: if true;
+      allow update: if true;
+
       // Only admin can delete orders
       allow delete: if isAdmin();
+    }
+
+    // Products collection (catálogo administrable desde el panel admin)
+    match /products/{productId} {
+      // Lectura pública: el catálogo se muestra en la tienda sin login.
+      allow read: if true;
+
+      // MODO PRUEBAS (sin login todavía): escritura abierta para poder
+      // probar el CRUD de productos desde el panel admin sin autenticación.
+      // TODO: cuando se agregue login, reemplazar esta línea por:
+      //   allow write: if isAdmin();
+      allow write: if true;
     }
   }
 }

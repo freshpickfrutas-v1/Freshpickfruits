@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Fresh Pick - sitemap.xml
+
+  El sitio hoy es una sola página con secciones por ancla (#variedades,
+  #pedidos-personalizados, #faq, etc.), así que solo existe una URL
+  indexable real: la home. Los <lastmod> hay que actualizarlos a mano
+  (o automatizarlos en el build) cada vez que cambien precios/catálogo
+  de forma relevante para SEO.
+
+  Si en el futuro se crean páginas propias por producto (recomendado
+  para SEO/GEO: cada fruta con su propia URL y su propio <url> aquí),
+  agregar una entrada por cada una con su propio <loc> y <lastmod>.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.freshpickfruits.com/</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { FruitItem, PackagingOption, AddOnItem, CustomOrder } from '../types';
+import { createOrder } from '../lib/firestore';
 import {
   Sparkles,
   CheckCircle2,
@@ -9,7 +10,8 @@ import {
   RotateCcw,
   MessageCircle,
   Plus,
-  Minus
+  Minus,
+  Loader2
 } from 'lucide-react';
 
 const WA = '573178931026';
@@ -70,6 +72,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   });
   const [completedOrder, setCompletedOrder] = useState<CustomOrder | null>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [saveError, setSaveError] = useState('');
 
   const totalGrams = fruits.reduce((sum, f) => sum + (fruitGrams[f.id] || 0), 0);
   const subtotal = Object.entries(fruitGrams).reduce<number>((sum, [fruitId, grams]) => {
@@ -149,9 +153,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmitOrder = (viaWhatsApp = false) => {
+  const handleSubmitOrder = async (viaWhatsApp = false) => {
     if (!validateForm()) return;
-    const orderId = 'FP-' + Math.floor(10000 + Math.random() * 90000);
+    setIsSubmitting(true);
+    setSaveError('');
+
     const fruitSelections = Object.entries(fruitGrams)
       .filter(([, grams]) => Number(grams) > 0)
       .map(([fruitId, grams]) => {
@@ -161,6 +167,45 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         const units = Math.round(g / step);
         return { fruitId, grams: g, units };
       });
+
+    let orderId = 'FP-' + Math.floor(10000 + Math.random() * 90000);
+
+    try {
+      const saved = await createOrder({
+        customerName,
+        customerEmail: '',
+        customerPhone,
+        shippingAddress: deliveryAddress,
+        shippingCity: deliveryCity,
+        deliveryDate,
+        deliveryTimeSlot: 'morning',
+        notes: '',
+        packaging: 'standard',
+        items: fruitSelections.map(item => {
+          const fruit = fruits.find(f => f.id === item.fruitId);
+          const step = fruit?.defaultGramUnit || 125;
+          const lineCost = item.units * (fruit?.standardPrice || 0);
+          return {
+            name: fruit?.name || item.fruitId,
+            quantityText: `${item.units} ${item.units === 1 ? 'estuche' : 'estuches'} (${item.grams}g)`,
+            price: lineCost,
+          };
+        }),
+        subtotal,
+        deliveryFee,
+        total: grandTotal,
+        paymentMethod: 'nequi_daviplata',
+      });
+      orderId = saved.orderNumber;
+    } catch (err) {
+      // No bloqueamos el pedido si Firestore falla (ej. reglas no desplegadas todavía);
+      // el cliente puede seguir confirmando por WhatsApp con un número local.
+      setSaveError(
+        err instanceof Error
+          ? `El pedido no se pudo guardar en el sistema (${err.message}), pero puedes confirmarlo por WhatsApp igual.`
+          : 'El pedido no se pudo guardar en el sistema, pero puedes confirmarlo por WhatsApp igual.'
+      );
+    }
 
     const newOrder: CustomOrder = {
       id: orderId,
@@ -189,6 +234,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
 
     setCompletedOrder(newOrder);
     onOrderCompleted?.(newOrder);
+    setIsSubmitting(false);
     try {
       confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
     } catch {}
@@ -230,6 +276,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             <p className="text-xl font-black text-[#2F183C] mt-4">
               ${completedOrder.total.toLocaleString('es-CO')} COP
             </p>
+            {saveError && (
+              <p className="mt-3 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-xl px-3 py-2 text-left flex gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" /> {saveError}
+              </p>
+            )}
             <a
               href={`https://wa.me/${WA}?text=Hola%20Fresh%20Pick!%20Confirmo%20pedido%20%23${completedOrder.id}%20a%20nombre%20de%20${encodeURIComponent(completedOrder.customerName)}`}
               target="_blank"
@@ -567,17 +618,19 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               <button
                 type="button"
                 onClick={() => handleSubmitOrder(true)}
-                className="w-full py-3 rounded-xl bg-[#2F183C] text-white font-bold flex items-center justify-center gap-2 hover:bg-[#432356] transition-colors cursor-pointer shadow-md"
+                disabled={isSubmitting}
+                className="w-full py-3 rounded-xl bg-[#2F183C] text-white font-bold flex items-center justify-center gap-2 hover:bg-[#432356] transition-colors cursor-pointer shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <MessageCircle className="w-4 h-4 text-[#DDA83A]" />
+                {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <MessageCircle className="w-4 h-4 text-[#DDA83A]" />}
                 Pedir por WhatsApp
               </button>
               <button
                 type="button"
                 onClick={() => handleSubmitOrder(false)}
-                className="w-full py-2.5 rounded-xl border border-[#DFCEE6] text-[#2F183C] font-bold text-sm hover:bg-[#F5ECF9] transition-colors cursor-pointer"
+                disabled={isSubmitting}
+                className="w-full py-2.5 rounded-xl border border-[#DFCEE6] text-[#2F183C] font-bold text-sm hover:bg-[#F5ECF9] transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Guardar pedido en la web
+                {isSubmitting ? 'Guardando...' : 'Guardar pedido en la web'}
               </button>
               <p className="text-[11px] text-stone-400 text-center">WhatsApp: +57 317 893 1026</p>
             </div>

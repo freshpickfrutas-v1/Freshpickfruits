@@ -3,14 +3,14 @@ import { Leaf, Phone, Mail, MapPin, ShieldCheck, Heart, Instagram, Facebook } fr
 
 export const Footer: React.FC = () => {
   return (
-    <footer id="contacto" className="bg-stone-950 text-stone-300 pt-16 pb-12 border-t border-stone-800">
+    <footer id="contacto" className="bg-[#1E0E27] text-stone-300 pt-16 pb-12 border-t border-[#432356]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-stone-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-[#432356]">
           
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-12 w-12 rounded-xl bg-white p-1 border border-stone-800 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+              <div className="h-12 w-12 rounded-xl bg-white p-1 border border-[#7B4382] shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
                 <img
                   src="/logo.jpg"
                   alt="Fresh Pick - Logo de arándanos de alta montaña y agricultura limpia"
@@ -23,11 +23,11 @@ export const Footer: React.FC = () => {
                   <span className="text-2xl font-black tracking-tight text-white font-display">
                     Fresh Pick
                   </span>
-                  <span className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-blue-950/80 text-blue-200 border border-blue-800/60">
+                  <span className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#432356] text-[#DDA83A] border border-[#7B4382]">
                     Arándanos
                   </span>
                 </div>
-                <p className="text-[11px] text-stone-400">
+                <p className="text-[11px] text-[#DFCEE6]">
                   Arándanos de Alta Montaña
                 </p>
               </div>
@@ -42,14 +42,14 @@ export const Footer: React.FC = () => {
                 href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20hacer%20un%20pedido%20de%20ar%C3%A1ndanos"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-emerald-400 hover:bg-emerald-700 hover:text-white transition-colors"
+                className="w-9 h-9 rounded-lg bg-[#2F183C] border border-[#7B4382] flex items-center justify-center text-[#DDA83A] hover:bg-[#DDA83A] hover:text-[#2F183C] transition-colors"
                 aria-label="WhatsApp"
               >
                 <Phone className="w-4 h-4" />
               </a>
               <a
                 href={`mailto:info@freshpickfruits.com`}
-                className="w-9 h-9 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300 hover:bg-emerald-700 hover:text-white transition-colors"
+                className="w-9 h-9 rounded-lg bg-[#2F183C] border border-[#7B4382] flex items-center justify-center text-stone-300 hover:bg-[#DDA83A] hover:text-[#2F183C] transition-colors"
                 aria-label="Email"
               >
                 <Mail className="w-4 h-4" />
@@ -63,22 +63,22 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#variedades" className="hover:text-emerald-400 transition-colors">
+                <a href="#variedades" className="hover:text-[#DDA83A] transition-colors">
                   Estuche 125g
                 </a>
               </li>
               <li>
-                <a href="#variedades" className="hover:text-emerald-400 transition-colors">
+                <a href="#variedades" className="hover:text-[#DDA83A] transition-colors">
                   Estuche 250g
                 </a>
               </li>
               <li>
-                <a href="#variedades" className="hover:text-emerald-400 transition-colors">
+                <a href="#variedades" className="hover:text-[#DDA83A] transition-colors">
                   Estuche 500g
                 </a>
               </li>
               <li>
-                <a href="#planes-mensuales" className="hover:text-emerald-400 transition-colors">
+                <a href="#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
                   Planes Mensuales
                 </a>
               </li>
@@ -91,32 +91,32 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#pedidos-personalizados" className="text-emerald-400 font-semibold hover:underline">
+                <a href="#pedidos-personalizados" className="text-[#DDA83A] font-semibold hover:underline">
                   ★ Armar Pedido Personalizado en Línea
                 </a>
               </li>
               <li>
-                <a href="#planes-mensuales" className="hover:text-emerald-400 transition-colors">
+                <a href="#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
                   Planes Mensuales Familiares
                 </a>
               </li>
               <li>
-                <a href="/panel" className="hover:text-emerald-400 transition-colors">
+                <a href="/panel" className="hover:text-[#DDA83A] transition-colors">
                   Mi cuenta / Panel usuario
                 </a>
               </li>
               <li>
-                <a href="/admin" className="hover:text-emerald-400 transition-colors">
+                <a href="/admin" className="hover:text-[#DDA83A] transition-colors">
                   Panel administración
                 </a>
               </li>
               <li>
-                <a href="#sostenibilidad" className="hover:text-emerald-400 transition-colors">
+                <a href="#sostenibilidad" className="hover:text-[#DDA83A] transition-colors">
                   Nuestra Biofábrica & Polinización
                 </a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-emerald-400 transition-colors">
+                <a href="#faq" className="hover:text-[#DDA83A] transition-colors">
                   Preguntas Frecuentes y Envíos
                 </a>
               </li>
@@ -130,7 +130,7 @@ export const Footer: React.FC = () => {
 
             <div className="space-y-2 text-stone-400">
               <div className="flex items-start gap-2.5">
-                <Phone className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <Phone className="w-4 h-4 text-[#DDA83A] shrink-0 mt-0.5" />
                 <div>
                   <span className="block text-white font-medium">Línea & WhatsApp:</span>
                   <span>+57 317 893 1026</span>
@@ -138,7 +138,7 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <Mail className="w-4 h-4 text-[#DDA83A] shrink-0 mt-0.5" />
                 <div>
                   <span className="block text-white font-medium">Correo:</span>
                   <span>info@freshpickfruits.com</span>
@@ -146,7 +146,7 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#DDA83A] shrink-0 mt-0.5" />
                 <div>
                   <span className="block text-white font-medium">Ubicación de Cultivos:</span>
                   <span>Vereda Santa Bárbara · Guasca, Cundinamarca</span>
@@ -157,8 +157,8 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="pt-2">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-stone-900 border border-stone-800 text-[11px] text-emerald-300">
-                <ShieldCheck className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6]">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
                 <span>GLOBALG.A.P. · GRASP · ICA</span>
               </div>
             </div>
@@ -171,8 +171,8 @@ export const Footer: React.FC = () => {
 
           <div className="flex items-center gap-2 text-[11px]">
             <span>Medios de pago:</span>
-            <span className="px-2 py-0.5 bg-stone-900 rounded text-stone-300 font-medium">Transferencia</span>
-            <span className="px-2 py-0.5 bg-stone-900 rounded text-stone-300 font-medium">Bre-B @9010401617</span>
+            <span className="px-2 py-0.5 bg-[#2F183C] border border-[#7B4382]/50 rounded text-[#DFCEE6] font-medium">Transferencia</span>
+            <span className="px-2 py-0.5 bg-[#2F183C] border border-[#7B4382]/50 rounded text-[#DDA83A] font-medium">Bre-B @9010401617</span>
           </div>
         </div>
 

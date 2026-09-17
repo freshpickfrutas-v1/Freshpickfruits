@@ -12,7 +12,7 @@ const MOCK_ORDERS = [
 
 const statusLabel: Record<string, { text: string; color: string }> = {
   en_camino: { text: 'En camino', color: 'bg-amber-100 text-amber-800' },
-  entregado: { text: 'Entregado', color: 'bg-emerald-100 text-emerald-800' },
+  entregado: { text: 'Entregado', color: 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' },
   pendiente: { text: 'Pendiente', color: 'bg-stone-100 text-stone-700' },
 };
 
@@ -20,25 +20,25 @@ export default function UserPanel() {
   const [tab, setTab] = useState<'pedidos' | 'suscripcion' | 'perfil'>('pedidos');
 
   return (
-    <div className="min-h-screen bg-[#F7F5F0] text-stone-900 font-sans">
-      <div className="bg-amber-500 text-amber-950 text-xs sm:text-sm font-semibold text-center py-2 px-4">
+    <div className="min-h-screen bg-[#F7F5F0]/90 backdrop-blur-[2px] text-stone-900 font-sans">
+      <div className="bg-[#DDA83A] text-[#2F183C] text-xs sm:text-sm font-bold text-center py-2 px-4">
         Vista previa del panel de usuario · Login y cuentas reales próximamente
       </div>
 
-      <header className="bg-white border-b border-stone-200 sticky top-0 z-30">
+      <header className="bg-white border-b border-[#EADBEE] sticky top-0 z-30">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <a href="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 hover:text-[#1B4D3E]">
+            <a href="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 hover:text-[#7B4382]">
               <ArrowLeft className="w-4 h-4" />
               Tienda
             </a>
             <span className="text-stone-300">|</span>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#1B4D3E] text-white flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#2F183C] text-[#DDA83A] flex items-center justify-center">
                 <Leaf className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-sm font-bold leading-tight">Mi cuenta</p>
+                <p className="text-sm font-bold leading-tight text-[#2F183C]">Mi cuenta</p>
                 <p className="text-[10px] text-stone-500">Fresh Pick</p>
               </div>
             </div>
@@ -62,11 +62,11 @@ export default function UserPanel() {
               onClick={() => setTab(item.id)}
               className={`w-full flex items-center gap-2.5 px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
                 tab === item.id
-                  ? 'bg-[#1B4D3E] text-white shadow-sm'
-                  : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-50'
+                  ? 'bg-[#2F183C] text-white shadow-sm'
+                  : 'bg-white text-stone-700 border border-[#EADBEE] hover:bg-[#F5ECF9]'
               }`}
             >
-              <item.icon className="w-4 h-4" />
+              <item.icon className={`w-4 h-4 ${tab === item.id ? 'text-[#DDA83A]' : 'text-stone-500'}`} />
               {item.label}
             </button>
           ))}
@@ -78,15 +78,15 @@ export default function UserPanel() {
         <main className="lg:col-span-9 space-y-6">
           {tab === 'pedidos' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight">Mis pedidos</h1>
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Mis pedidos</h1>
               <div className="space-y-3">
                 {MOCK_ORDERS.map(order => {
                   const st = statusLabel[order.status] || statusLabel.pendiente;
                   return (
-                    <div key={order.id} className="bg-white rounded-2xl border border-stone-200 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div key={order.id} className="bg-white rounded-2xl border border-[#EADBEE] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-bold text-stone-900">{order.id}</span>
+                          <span className="font-bold text-[#2F183C]">{order.id}</span>
                           <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${st.color}`}>{st.text}</span>
                         </div>
                         <p className="text-xs text-stone-500 flex items-center gap-1">
@@ -95,7 +95,7 @@ export default function UserPanel() {
                         <p className="text-sm text-stone-700 mt-1">{order.items}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-black text-[#1B4D3E]">${order.total.toLocaleString('es-CO')}</p>
+                        <p className="text-lg font-black text-[#2F183C]">${order.total.toLocaleString('es-CO')}</p>
                         {order.status === 'en_camino' && (
                           <p className="text-[11px] text-amber-700 flex items-center justify-end gap-1 mt-1">
                             <Truck className="w-3 h-3" /> Despacho hoy
@@ -111,24 +111,24 @@ export default function UserPanel() {
 
           {tab === 'suscripcion' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight">Mi suscripción</h1>
-              <div className="bg-white rounded-2xl border border-stone-200 p-6">
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Mi suscripción</h1>
+              <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 shadow-xs">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">Plan activo (demo)</span>
-                    <h2 className="text-xl font-bold mt-1">Plan Familiar</h2>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#7B4382]">Plan activo (demo)</span>
+                    <h2 className="text-xl font-bold mt-1 text-[#2F183C] font-display">Plan Familiar</h2>
                     <p className="text-sm text-stone-500 mt-1">1 kg semanal · Entrega martes</p>
                   </div>
-                  <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+                  <CheckCircle2 className="w-8 h-8 text-[#7B4382]" />
                 </div>
                 <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
-                  <div className="p-3 rounded-xl bg-stone-50">
+                  <div className="p-3 rounded-xl bg-[#FAF7F0] border border-[#EADBEE]">
                     <p className="text-xs text-stone-500">Próxima entrega</p>
-                    <p className="font-semibold">16 sep 2026</p>
+                    <p className="font-semibold text-[#2F183C]">16 sep 2026</p>
                   </div>
-                  <div className="p-3 rounded-xl bg-stone-50">
+                  <div className="p-3 rounded-xl bg-[#FAF7F0] border border-[#EADBEE]">
                     <p className="text-xs text-stone-500">Valor mensual</p>
-                    <p className="font-semibold">$68.000 COP</p>
+                    <p className="font-semibold text-[#2F183C]">$68.000 COP</p>
                   </div>
                 </div>
                 <p className="mt-4 text-xs text-stone-400">La gestión real de suscripciones se activará con el login.</p>
@@ -138,8 +138,8 @@ export default function UserPanel() {
 
           {tab === 'perfil' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight">Datos y entrega</h1>
-              <div className="bg-white rounded-2xl border border-stone-200 p-6 space-y-4">
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Datos y entrega</h1>
+              <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 space-y-4 shadow-xs">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <label className="block text-sm">
                     <span className="text-xs font-semibold text-stone-500">Nombre</span>
@@ -165,7 +165,7 @@ export default function UserPanel() {
                     </select>
                   </label>
                 </div>
-                <button type="button" className="px-5 py-2.5 rounded-xl bg-[#1B4D3E] text-white text-sm font-bold opacity-60 cursor-not-allowed" disabled>
+                <button type="button" className="px-5 py-2.5 rounded-xl bg-[#2F183C] text-white text-sm font-bold opacity-60 cursor-not-allowed" disabled>
                   Guardar (requiere login)
                 </button>
               </div>
@@ -173,9 +173,9 @@ export default function UserPanel() {
                 href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20actualizar%20mis%20datos%20de%20entrega"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[#1B4D3E] hover:underline"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-[#7B4382] hover:underline"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 text-[#DDA83A]" />
                 Actualizar datos por WhatsApp
               </a>
             </div>

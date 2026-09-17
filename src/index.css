@@ -2,98 +2,106 @@
 
 @layer base {
   :root {
-    --fp-forest: #1B4D3E;
-    --fp-forest-deep: #143D32;
-    --fp-green: #2E7D5B;
-    --fp-green-soft: #E8F0E9;
-    --fp-cream: #F7F5F0;
-    --fp-cream-dark: #EFEBE3;
-    --fp-berry: #3B2A5C;
-    --fp-blue: #2563EB;
-    --fp-ink: #1A1A1A;
+    --fp-plum: #2F183C;
+    --fp-plum-dark: #1E0E27;
+    --fp-mustard: #DDA83A;
+    --fp-mustard-hover: #C59328;
+    --fp-violet: #7B4382;
+    --fp-violet-soft: #F6F0F8;
+    --fp-lilac-border: #E5D5EB;
+    --fp-cream: #FAF7F0;
+    --fp-berry-pink: #C34375;
+    --fp-ink: #2F183C;
   }
 
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: var(--fp-cream);
-    color: var(--fp-ink);
+    background-color: #DDA83A;
+    background-image: url('/site_bg_pattern.jpg');
+    background-repeat: repeat;
+    background-size: 480px 480px;
+    background-attachment: fixed;
+    background-position: center;
+    color: #2F183C;
     -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, .font-display {
     font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    color: #2F183C;
   }
 
   ::selection {
-    background-color: #1B4D3E;
-    color: white;
+    background-color: #2F183C;
+    color: #DDA83A;
   }
 }
 
-/* Scrollbar premium */
+/* Scrollbar con colores oficiales */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #EFEBE3;
+  background: #F4ECF8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2E7D5B;
+  background: #7B4382;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #1B4D3E;
+  background: #2F183C;
 }
 
 /* Utilidades de marca */
 .fp-gradient-hero {
-  background: linear-gradient(180deg, #F7F5F0 0%, #E8F0E9 45%, #F7F5F0 100%);
+  background: rgba(250, 247, 240, 0.82);
+  backdrop-filter: blur(2px);
 }
 
 .fp-btn-primary {
-  background-color: #1B4D3E;
+  background-color: #2F183C;
   color: white;
   font-weight: 700;
   border-radius: 0.875rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(27, 77, 62, 0.25);
+  box-shadow: 0 4px 14px rgba(47, 24, 60, 0.25);
 }
 
 .fp-btn-primary:hover {
-  background-color: #143D32;
-  box-shadow: 0 6px 20px rgba(27, 77, 62, 0.35);
+  background-color: #422254;
+  box-shadow: 0 6px 20px rgba(47, 24, 60, 0.35);
   transform: translateY(-1px);
 }
 
 .fp-btn-secondary {
   background-color: white;
-  color: #1A1A1A;
+  color: #2F183C;
   font-weight: 600;
-  border: 1px solid #D6D3D1;
+  border: 1.5px solid #2F183C;
   border-radius: 0.875rem;
   transition: all 0.2s ease;
 }
 
 .fp-btn-secondary:hover {
-  border-color: #2E7D5B;
-  color: #1B4D3E;
-  background-color: #F7F5F0;
+  border-color: #7B4382;
+  color: #7B4382;
+  background-color: #F8F3FA;
 }
 
 .fp-card {
   background: white;
   border-radius: 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 4px 24px rgba(27, 77, 62, 0.06);
+  border: 1px solid #EADBEE;
+  box-shadow: 0 4px 20px rgba(47, 24, 60, 0.06);
   transition: all 0.25s ease;
 }
 
 .fp-card:hover {
-  box-shadow: 0 12px 32px rgba(27, 77, 62, 0.12);
+  box-shadow: 0 12px 30px rgba(47, 24, 60, 0.12);
   transform: translateY(-2px);
 }
 
@@ -104,8 +112,8 @@
   padding: 0.35rem 0.9rem;
   border-radius: 9999px;
   font-size: 0.75rem;
-  font-weight: 600;
-  background: #E8F0E9;
-  color: #1B4D3E;
-  border: 1px solid rgba(46, 125, 91, 0.2);
+  font-weight: 700;
+  background: #F4ECF8;
+  color: #2F183C;
+  border: 1px solid #DFCEE6;
 }

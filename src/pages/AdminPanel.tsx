@@ -16,37 +16,37 @@ const statusStyle: Record<string, string> = {
   nuevo: 'bg-sky-100 text-sky-800',
   preparando: 'bg-amber-100 text-amber-800',
   despachado: 'bg-violet-100 text-violet-800',
-  entregado: 'bg-emerald-100 text-emerald-800',
+  entregado: 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]',
 };
 
 export default function AdminPanel() {
   const [tab, setTab] = useState<'resumen' | 'pedidos' | 'productos' | 'clientes'>('resumen');
 
   return (
-    <div className="min-h-screen bg-stone-100 text-stone-900 font-sans">
-      <div className="bg-stone-900 text-amber-300 text-xs sm:text-sm font-semibold text-center py-2 px-4">
+    <div className="min-h-screen bg-stone-100/92 backdrop-blur-[2px] text-stone-900 font-sans">
+      <div className="bg-[#2F183C] text-[#DDA83A] text-xs sm:text-sm font-semibold text-center py-2 px-4 border-b border-[#432356]">
         Panel admin · Vista previa sin autenticación · Login de roles próximamente
       </div>
 
-      <header className="bg-stone-950 text-white sticky top-0 z-30">
+      <header className="bg-[#1E0E27] text-white sticky top-0 z-30 border-b border-[#432356]">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <a href="/" className="inline-flex items-center gap-1.5 text-sm text-stone-400 hover:text-white">
+            <a href="/" className="inline-flex items-center gap-1.5 text-sm text-stone-400 hover:text-[#DDA83A]">
               <ArrowLeft className="w-4 h-4" />
               Tienda
             </a>
             <span className="text-stone-600">|</span>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-[#1B4D3E] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-[#2F183C] text-[#DDA83A] border border-[#7B4382] flex items-center justify-center">
                 <Leaf className="w-4 h-4" />
               </div>
               <div>
                 <p className="text-sm font-bold leading-tight">Admin Fresh Pick</p>
-                <p className="text-[10px] text-stone-400">Operaciones</p>
+                <p className="text-[10px] text-[#DFCEE6]">Operaciones</p>
               </div>
             </div>
           </div>
-          <a href="/panel" className="text-xs text-stone-400 hover:text-white">
+          <a href="/panel" className="text-xs text-[#DFCEE6] hover:text-[#DDA83A]">
             Panel usuario →
           </a>
         </div>
@@ -65,11 +65,11 @@ export default function AdminPanel() {
               onClick={() => setTab(item.id)}
               className={`w-full flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
                 tab === item.id
-                  ? 'bg-[#1B4D3E] text-white'
-                  : 'bg-white text-stone-700 border border-stone-200 hover:bg-stone-50'
+                  ? 'bg-[#2F183C] text-white shadow-sm'
+                  : 'bg-white text-stone-700 border border-[#EADBEE] hover:bg-[#F5ECF9]'
               }`}
             >
-              <item.icon className="w-4 h-4" />
+              <item.icon className={`w-4 h-4 ${tab === item.id ? 'text-[#DDA83A]' : 'text-stone-500'}`} />
               {item.label}
             </button>
           ))}
@@ -78,25 +78,25 @@ export default function AdminPanel() {
         <main className="lg:col-span-10 space-y-6">
           {tab === 'resumen' && (
             <>
-              <h1 className="text-2xl font-black tracking-tight">Resumen del día</h1>
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Resumen del día</h1>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: 'Pedidos hoy', value: '12', icon: ShoppingBag, tone: 'text-sky-700 bg-sky-50' },
                   { label: 'Por despachar', value: '5', icon: Clock, tone: 'text-amber-700 bg-amber-50' },
-                  { label: 'Ingresos hoy', value: '$486k', icon: TrendingUp, tone: 'text-emerald-700 bg-emerald-50' },
+                  { label: 'Ingresos hoy', value: '$486k', icon: TrendingUp, tone: 'text-[#2F183C] bg-[#F5ECF9] border border-[#DFCEE6]' },
                   { label: 'Clientes activos', value: '84', icon: Users, tone: 'text-violet-700 bg-violet-50' },
                 ].map(card => (
-                  <div key={card.label} className="bg-white rounded-2xl border border-stone-200 p-4">
+                  <div key={card.label} className="bg-white rounded-2xl border border-[#EADBEE] p-4 shadow-xs">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-3 ${card.tone}`}>
                       <card.icon className="w-4 h-4" />
                     </div>
-                    <p className="text-2xl font-black">{card.value}</p>
+                    <p className="text-2xl font-black text-[#2F183C]">{card.value}</p>
                     <p className="text-xs text-stone-500 mt-0.5">{card.label}</p>
                   </div>
                 ))}
               </div>
-              <div className="bg-white rounded-2xl border border-stone-200 p-5">
-                <h2 className="font-bold mb-3">Pedidos recientes</h2>
+              <div className="bg-white rounded-2xl border border-[#EADBEE] p-5 shadow-xs">
+                <h2 className="font-bold mb-3 text-[#2F183C] font-display">Pedidos recientes</h2>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
@@ -111,9 +111,9 @@ export default function AdminPanel() {
                     <tbody>
                       {MOCK_ADMIN_ORDERS.slice(0, 3).map(o => (
                         <tr key={o.id} className="border-b border-stone-50">
-                          <td className="py-2.5 font-semibold">{o.id}</td>
+                          <td className="py-2.5 font-semibold text-[#2F183C]">{o.id}</td>
                           <td className="py-2.5">{o.customer}</td>
-                          <td className="py-2.5">${o.total.toLocaleString('es-CO')}</td>
+                          <td className="py-2.5 font-bold text-[#2F183C]">${o.total.toLocaleString('es-CO')}</td>
                           <td className="py-2.5">
                             <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${statusStyle[o.status]}`}>{o.status}</span>
                           </td>
@@ -129,11 +129,11 @@ export default function AdminPanel() {
 
           {tab === 'pedidos' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight">Pedidos</h1>
-              <div className="bg-white rounded-2xl border border-stone-200 overflow-hidden">
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Pedidos</h1>
+              <div className="bg-white rounded-2xl border border-[#EADBEE] overflow-hidden shadow-xs">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
-                    <thead className="bg-stone-50">
+                    <thead className="bg-[#FAF7F0]">
                       <tr className="text-left text-xs text-stone-500">
                         <th className="px-4 py-3 font-semibold">Orden</th>
                         <th className="px-4 py-3 font-semibold">Cliente</th>
@@ -145,11 +145,11 @@ export default function AdminPanel() {
                     </thead>
                     <tbody>
                       {MOCK_ADMIN_ORDERS.map(o => (
-                        <tr key={o.id} className="border-t border-stone-100 hover:bg-stone-50/80">
-                          <td className="px-4 py-3 font-semibold">{o.id}</td>
+                        <tr key={o.id} className="border-t border-stone-100 hover:bg-[#F5ECF9]/30">
+                          <td className="px-4 py-3 font-semibold text-[#2F183C]">{o.id}</td>
                           <td className="px-4 py-3">{o.customer}</td>
                           <td className="px-4 py-3 text-stone-500">{o.phone}</td>
-                          <td className="px-4 py-3 font-semibold">${o.total.toLocaleString('es-CO')}</td>
+                          <td className="px-4 py-3 font-bold text-[#2F183C]">${o.total.toLocaleString('es-CO')}</td>
                           <td className="px-4 py-3">
                             <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${statusStyle[o.status]}`}>{o.status}</span>
                           </td>
@@ -169,17 +169,17 @@ export default function AdminPanel() {
 
           {tab === 'productos' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight">Productos</h1>
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Productos</h1>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {FRUITS_DATA.map(f => (
-                  <div key={f.id} className="bg-white rounded-2xl border border-stone-200 p-4 flex gap-4">
-                    <img src={f.imageUrl} alt="" className="w-16 h-16 rounded-xl object-cover border border-stone-100" />
+                  <div key={f.id} className="bg-white rounded-2xl border border-[#EADBEE] p-4 flex gap-4 shadow-xs">
+                    <img src={f.imageUrl} alt="" className="w-16 h-16 rounded-xl object-cover border border-[#EADBEE]" />
                     <div className="min-w-0 flex-1">
-                      <p className="font-bold text-sm truncate">{f.name}</p>
+                      <p className="font-bold text-sm truncate text-[#2F183C]">{f.name}</p>
                       <p className="text-xs text-stone-500">{f.presentation}</p>
                       <div className="mt-2 flex items-center justify-between">
-                        <span className="text-sm font-black text-[#1B4D3E]">${f.standardPrice.toLocaleString('es-CO')}</span>
-                        <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${f.inStock ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
+                        <span className="text-sm font-black text-[#2F183C]">${f.standardPrice.toLocaleString('es-CO')}</span>
+                        <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${f.inStock ? 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' : 'bg-red-100 text-red-800'}`}>
                           {f.inStock ? 'Stock' : 'Agotado'}
                         </span>
                       </div>

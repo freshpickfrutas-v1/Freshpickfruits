@@ -18,17 +18,19 @@ export default function PublicHome() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [preselectedFruitForCustom, setPreselectedFruitForCustom] = useState<string | null>(null);
 
-  const handleAddToCart = (fruit: FruitItem, quantity: number = 1) => {
+  const handleAddToCart = (fruit: FruitItem, quantity?: number) => {
+    const step = (fruit.defaultGramUnit === 125 || fruit.defaultGramUnit === 250) ? 2 : 1;
+    const qtyToAdd = quantity ?? step;
     setCartItems(prev => {
       const existing = prev.find(item => item.fruit.id === fruit.id);
       if (existing) {
         return prev.map(item =>
           item.fruit.id === fruit.id
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { ...item, quantity: item.quantity + qtyToAdd }
             : item
         );
       }
-      return [...prev, { fruit, quantity }];
+      return [...prev, { fruit, quantity: qtyToAdd }];
     });
   };
 
@@ -69,7 +71,7 @@ export default function PublicHome() {
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F5F0] text-stone-900 font-sans selection:bg-[#1B4D3E] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-transparent text-stone-900 font-sans selection:bg-[#2F183C] selection:text-[#DDA83A]">
       <Navbar
         cartItemCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}

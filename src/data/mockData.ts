@@ -357,8 +357,8 @@ export const FAQ_DATA: FaqItem[] = [
   {
     id: 'faq-1',
     category: 'pedidos',
-    question: '¿Cuál es el pedido mínimo?',
-    answer: 'El pedido mínimo para entrega a domicilio es de 500g de arándanos. Puedes combinar estuches de 125g para alcanzarlo o elegir el estuche de 500g directamente.'
+    question: '¿Cuál es el pedido mínimo y condiciones de envío?',
+    answer: 'El pedido mínimo total para entrega a domicilio es de 500g. Puedes combinar formatos como desees. Por motivos de logística y seguridad en el empaque: los estuches de 125g y 250g se deben pedir obligatoriamente en múltiplos de 2 unidades (ej: 2, 4, 6); los de 500g se pueden pedir desde 1 unidad en adelante.'
   },
   {
     id: 'faq-2',

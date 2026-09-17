@@ -44,20 +44,20 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       {/* Top Banner Announcement */}
-      <div className="bg-[#143D32] text-emerald-50 text-xs sm:text-sm py-2 px-4">
+      <div className="bg-[#2F183C] text-[#FAF7F0] text-xs sm:text-sm py-2 px-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2 truncate">
-            <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-[#DDA83A] animate-pulse"></span>
             <span className="font-medium">Arándanos frescos listos para pedidos</span>
-            <span className="hidden sm:inline text-emerald-200">· Cosecha del día en Guasca, Cundinamarca</span>
+            <span className="hidden sm:inline text-[#DFCEE6]">· Cosecha del día en Guasca, Cundinamarca</span>
           </div>
           <div className="flex items-center gap-4 text-xs shrink-0">
-            <span className="hidden md:inline text-emerald-200">🌱 Cuidamos tu alimento, a quien lo cultiva y nuestro planeta</span>
+            <span className="hidden md:inline text-[#DFCEE6]">🌱 Cuidamos tu alimento, a quien lo cultiva y nuestro planeta</span>
             <a
               href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20hacer%20un%20pedido%20de%20ar%C3%A1ndanos%20frescos"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white flex items-center gap-1 font-semibold text-emerald-300 hover:underline"
+              className="hover:text-white flex items-center gap-1 font-semibold text-[#DDA83A] hover:underline"
             >
               <Phone className="w-3 h-3" />
               <span>WhatsApp: +57 317 893 1026</span>
@@ -70,8 +70,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-emerald-100 py-3'
-            : 'bg-white border-b border-stone-100 py-4'
+            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-[#EADBEE] py-3'
+            : 'bg-white border-b border-[#EADBEE]/60 py-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
@@ -81,7 +81,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 text-left group shrink-0"
             id="nav-logo-btn"
           >
-            <div className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-white p-1 border border-stone-200/90 shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
+            <div className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-white p-1 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
               <img
                 src="/logo.jpg"
                 alt="Fresh Pick - Logotipo de arándanos frescos de alta montaña y agricultura responsable"
@@ -91,54 +91,54 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-xl sm:text-2xl font-black tracking-tight text-[#1e1634] font-display">
+                <span className="text-xl sm:text-2xl font-black tracking-tight text-[#2F183C] font-display">
                   Fresh Pick
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-200/60">
+                <span className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
                   Arándanos
                 </span>
               </div>
-              <p className="text-[10px] text-stone-500 font-medium tracking-wide">
+              <p className="text-[10px] text-[#7B4382] font-semibold tracking-wide">
                 Arándanos de Alta Montaña
               </p>
             </div>
           </button>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-6 2xl:gap-7 text-sm font-medium text-stone-700 shrink-0">
+          <nav className="hidden xl:flex items-center gap-6 2xl:gap-7 text-sm font-semibold text-[#2F183C] shrink-0">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="hover:text-emerald-800 transition-colors cursor-pointer"
+              className="hover:text-[#7B4382] transition-colors cursor-pointer"
             >
               Inicio
             </button>
             <button
               onClick={() => scrollToSection('variedades')}
-              className="hover:text-emerald-800 transition-colors cursor-pointer"
+              className="hover:text-[#7B4382] transition-colors cursor-pointer"
             >
               Nuestros Arándanos
             </button>
             <button
               onClick={() => scrollToSection('planes-mensuales')}
-              className="hover:text-emerald-800 transition-colors cursor-pointer"
+              className="hover:text-[#7B4382] transition-colors cursor-pointer"
             >
               Planes Mensuales
             </button>
             <button
               onClick={() => scrollToSection('sostenibilidad')}
-              className="hover:text-emerald-800 transition-colors cursor-pointer"
+              className="hover:text-[#7B4382] transition-colors cursor-pointer"
             >
               Sostenibilidad
             </button>
             <button
               onClick={() => scrollToSection('recetas-tips')}
-              className="hover:text-emerald-800 transition-colors cursor-pointer"
+              className="hover:text-[#7B4382] transition-colors cursor-pointer"
             >
               Recetas
             </button>
             <button
               onClick={() => scrollToSection('faq')}
-              className="hover:text-emerald-800 transition-colors cursor-pointer"
+              className="hover:text-[#7B4382] transition-colors cursor-pointer"
             >
               Preguntas
             </button>
@@ -149,9 +149,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="header-cta-custom-order"
               onClick={onNavigateToCustomOrder}
-              className="hidden sm:flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white bg-[#1B4D3E] hover:bg-[#143D32] active:scale-95 transition-all px-4 py-2.5 rounded-xl shadow-xs cursor-pointer whitespace-nowrap"
+              className="hidden sm:flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white bg-[#2F183C] hover:bg-[#432356] active:scale-95 transition-all px-4 py-2.5 rounded-xl shadow-xs cursor-pointer whitespace-nowrap"
             >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-200" />
+              <Sparkles className="w-3.5 h-3.5 text-[#DDA83A]" />
               <span>Armar Pedido</span>
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -159,12 +159,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="header-cart-btn"
               onClick={onOpenCart}
-              className="relative p-2.5 rounded-lg text-stone-700 hover:text-emerald-800 hover:bg-emerald-50 transition-colors"
+              className="relative p-2.5 rounded-lg text-[#2F183C] hover:text-[#7B4382] hover:bg-[#F5ECF9] transition-colors"
               aria-label="Ver carrito"
             >
               <ShoppingBag className="w-5 h-5" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#1B4D3E] text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">
+                <span className="absolute -top-1 -right-1 bg-[#2F183C] text-[#DDA83A] text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">
                   {cartItemCount}
                 </span>
               )}
@@ -173,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               id="mobile-menu-toggle-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 rounded-lg text-stone-700 hover:bg-stone-100"
+              className="xl:hidden p-2 rounded-lg text-[#2F183C] hover:bg-[#F5ECF9]"
               aria-label="Abrir menú de navegación"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -182,68 +182,68 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {mobileMenuOpen && (
-          <div className="xl:hidden border-t border-stone-200 bg-white px-4 pt-3 pb-6 space-y-3 mt-3 animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl">
+          <div className="xl:hidden border-t border-[#EADBEE] bg-white px-4 pt-3 pb-6 space-y-3 mt-3 animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl">
             <button
               onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-stone-800 font-medium hover:bg-emerald-50 hover:text-emerald-800"
+              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
             >
               Inicio
             </button>
             <button
               onClick={() => scrollToSection('variedades')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-stone-800 font-medium hover:bg-emerald-50 hover:text-emerald-800"
+              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
             >
               Nuestros Arándanos
             </button>
             <button
               onClick={() => { setMobileMenuOpen(false); onNavigateToCustomOrder(); }}
-              className="flex items-center justify-between w-full text-left py-3 px-3 rounded-lg bg-emerald-100/70 text-emerald-900 font-bold"
+              className="flex items-center justify-between w-full text-left py-3 px-3 rounded-lg bg-[#F5ECF9] text-[#2F183C] font-bold"
             >
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-emerald-700" />
+                <Sparkles className="w-4 h-4 text-[#DDA83A]" />
                 <span>Armar Pedido de Arándanos</span>
               </div>
-              <span className="bg-[#1B4D3E] text-white text-[10px] uppercase px-2 py-0.5 rounded-full">Exclusivo</span>
+              <span className="bg-[#2F183C] text-[#DDA83A] text-[10px] uppercase px-2 py-0.5 rounded-full font-bold">Exclusivo</span>
             </button>
             <button
               onClick={() => scrollToSection('planes-mensuales')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-stone-800 font-medium hover:bg-emerald-50 hover:text-emerald-800"
+              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
             >
               Planes Mensuales
             </button>
             <button
               onClick={() => scrollToSection('sostenibilidad')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-stone-800 font-medium hover:bg-emerald-50 hover:text-emerald-800"
+              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
             >
               Sostenibilidad & Finca
             </button>
             <button
               onClick={() => scrollToSection('recetas-tips')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-stone-800 font-medium hover:bg-emerald-50 hover:text-emerald-800"
+              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
             >
               Recetas Saludables
             </button>
             <button
               onClick={() => scrollToSection('faq')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-stone-800 font-medium hover:bg-emerald-50 hover:text-emerald-800"
+              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
             >
               Preguntas Frecuentes
             </button>
             <button
               onClick={() => scrollToSection('contacto')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-stone-800 font-medium hover:bg-emerald-50 hover:text-emerald-800"
+              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
             >
               Contacto & Finca
             </button>
 
-            <div className="pt-2 border-t border-stone-100 flex flex-col gap-2">
+            <div className="pt-2 border-t border-[#EADBEE] flex flex-col gap-2">
               <a
                 href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20hacer%20un%20pedido%20de%20ar%C3%A1ndanos%20frescos"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center py-2.5 rounded-lg bg-[#1B4D3E] text-white font-semibold flex items-center justify-center gap-2"
+                className="w-full text-center py-2.5 rounded-lg bg-[#2F183C] text-white font-bold flex items-center justify-center gap-2"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 text-[#DDA83A]" />
                 <span>Hablar por WhatsApp</span>
               </a>
             </div>

@@ -1,31 +1,287 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   LayoutDashboard, Package, Users, ShoppingBag, ArrowLeft, Leaf,
-  TrendingUp, Clock, CheckCircle2, AlertCircle, Box
+  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2
 } from 'lucide-react';
-import { FRUITS_DATA } from '../data/mockData';
+import {
+  subscribeProducts, addProduct, updateProduct, deleteProduct,
+  subscribeAllOrders, updateOrderStatus, ProductDoc,
+} from '../lib/firestore';
+import { FirestoreOrder, OrderStatus } from '../types';
 
-const MOCK_ADMIN_ORDERS = [
-  { id: 'FP-10482', customer: 'María G.', phone: '317***1026', total: 42000, status: 'preparando', date: 'Hoy 09:12' },
-  { id: 'FP-10481', customer: 'Carlos R.', phone: '310***4412', total: 15000, status: 'nuevo', date: 'Hoy 08:45' },
-  { id: 'FP-10470', customer: 'Ana P.', phone: '300***9981', total: 68000, status: 'despachado', date: 'Ayer' },
-  { id: 'FP-10455', customer: 'Luis M.', phone: '320***1122', total: 28000, status: 'entregado', date: '08 sep' },
-];
+const statusOptions: OrderStatus[] = ['pendiente', 'confirmado', 'cosechando', 'en_camino', 'entregado', 'cancelado'];
 
 const statusStyle: Record<string, string> = {
-  nuevo: 'bg-sky-100 text-sky-800',
-  preparando: 'bg-amber-100 text-amber-800',
-  despachado: 'bg-violet-100 text-violet-800',
+  pendiente: 'bg-sky-100 text-sky-800',
+  confirmado: 'bg-amber-100 text-amber-800',
+  cosechando: 'bg-amber-100 text-amber-800',
+  en_camino: 'bg-violet-100 text-violet-800',
   entregado: 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]',
+  cancelado: 'bg-red-100 text-red-800',
 };
+
+function isToday(iso: string) {
+  if (!iso) return false;
+  const d = new Date(iso);
+  const now = new Date();
+  return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() && d.getDate() === now.getDate();
+}
+
+function formatTime(iso: string) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isToday(iso)) return `Hoy ${d.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })}`;
+  return d.toLocaleDateString('es-CO', { day: '2-digit', month: 'short' });
+}
+
+const emptyProduct: Omit<ProductDoc, 'id'> = {
+  name: '',
+  scientificName: 'Vaccinium corymbosum',
+  variety: 'Alta Montaña · Cosecha Manual',
+  category: 'frescos',
+  tagline: '',
+  description: '',
+  pricePerGram: 0,
+  defaultGramUnit: 250,
+  standardPrice: 0,
+  presentation: '',
+  imageUrl: '/assets/blueberries.jpg',
+  brix: '13.0° – 15.0° Brix',
+  altitude: 'Más de 2.800 m.s.n.m.',
+  benefits: [],
+  shelfLife: '14 - 18 días en refrigeración',
+  inStock: true,
+  popular: false,
+};
+
+function ProductFormModal({
+  initial,
+  onClose,
+  onSave,
+}: {
+  initial: ProductDoc | null;
+  onClose: () => void;
+  onSave: (data: Omit<ProductDoc, 'id'>) => Promise<void>;
+}) {
+  const [form, setForm] = useState<Omit<ProductDoc, 'id'>>(initial ? { ...initial } : { ...emptyProduct });
+  const [benefitsText, setBenefitsText] = useState((initial?.benefits || []).join(', '));
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSave = async () => {
+    if (!form.name.trim() || !form.presentation.trim() || form.standardPrice <= 0) {
+      setError('Nombre, presentación y precio son obligatorios.');
+      return;
+    }
+    setSaving(true);
+    setError('');
+    try {
+      await onSave({
+        ...form,
+        pricePerGram: form.defaultGramUnit > 0 ? Math.round(form.standardPrice / form.defaultGramUnit) : 0,
+        benefits: benefitsText.split(',').map(b => b.trim()).filter(Boolean),
+      });
+      onClose();
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se pudo guardar el producto.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
+      <div
+        className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 space-y-4"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-black text-[#2F183C]">{initial ? 'Editar producto' : 'Nuevo producto'}</h2>
+          <button onClick={onClose} className="p-1 rounded-lg hover:bg-stone-100"><X className="w-5 h-5" /></button>
+        </div>
+
+        {error && (
+          <p className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-3 py-2">{error}</p>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label className="block text-sm sm:col-span-2">
+            <span className="text-xs font-semibold text-stone-500">Nombre</span>
+            <input
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              value={form.name}
+              onChange={e => setForm({ ...form, name: e.target.value })}
+            />
+          </label>
+          <label className="block text-sm">
+            <span className="text-xs font-semibold text-stone-500">Presentación</span>
+            <input
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              placeholder="Estuche 250g"
+              value={form.presentation}
+              onChange={e => setForm({ ...form, presentation: e.target.value })}
+            />
+          </label>
+          <label className="block text-sm">
+            <span className="text-xs font-semibold text-stone-500">Categoría</span>
+            <select
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              value={form.category}
+              onChange={e => setForm({ ...form, category: e.target.value as ProductDoc['category'] })}
+            >
+              <option value="frescos">Frescos</option>
+              <option value="jumbo">Jumbo</option>
+              <option value="familiar">Familiar</option>
+              <option value="congelados">Congelados</option>
+            </select>
+          </label>
+          <label className="block text-sm">
+            <span className="text-xs font-semibold text-stone-500">Precio (COP)</span>
+            <input
+              type="number"
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              value={form.standardPrice || ''}
+              onChange={e => setForm({ ...form, standardPrice: Number(e.target.value) })}
+            />
+          </label>
+          <label className="block text-sm">
+            <span className="text-xs font-semibold text-stone-500">Gramaje (g)</span>
+            <input
+              type="number"
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              value={form.defaultGramUnit || ''}
+              onChange={e => setForm({ ...form, defaultGramUnit: Number(e.target.value) })}
+            />
+          </label>
+          <label className="block text-sm sm:col-span-2">
+            <span className="text-xs font-semibold text-stone-500">Tagline (frase corta)</span>
+            <input
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              value={form.tagline}
+              onChange={e => setForm({ ...form, tagline: e.target.value })}
+            />
+          </label>
+          <label className="block text-sm sm:col-span-2">
+            <span className="text-xs font-semibold text-stone-500">Descripción</span>
+            <textarea
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              rows={3}
+              value={form.description}
+              onChange={e => setForm({ ...form, description: e.target.value })}
+            />
+          </label>
+          <label className="block text-sm sm:col-span-2">
+            <span className="text-xs font-semibold text-stone-500">Beneficios (separados por coma)</span>
+            <input
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              value={benefitsText}
+              onChange={e => setBenefitsText(e.target.value)}
+            />
+          </label>
+          <label className="block text-sm sm:col-span-2">
+            <span className="text-xs font-semibold text-stone-500">URL de imagen</span>
+            <input
+              className="mt-1 w-full border border-stone-300 rounded-xl px-3 py-2"
+              value={form.imageUrl}
+              onChange={e => setForm({ ...form, imageUrl: e.target.value })}
+            />
+          </label>
+          <label className="flex items-center gap-2 text-sm sm:col-span-2">
+            <input
+              type="checkbox"
+              checked={form.inStock}
+              onChange={e => setForm({ ...form, inStock: e.target.checked })}
+            />
+            <span className="font-semibold text-stone-700">En stock</span>
+          </label>
+        </div>
+
+        <div className="flex justify-end gap-2 pt-2">
+          <button onClick={onClose} className="px-4 py-2 rounded-xl text-sm font-semibold text-stone-600 hover:bg-stone-100">
+            Cancelar
+          </button>
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="px-5 py-2 rounded-xl bg-[#2F183C] text-white text-sm font-bold flex items-center gap-2 disabled:opacity-60"
+          >
+            {saving && <Loader2 className="w-4 h-4 animate-spin" />}
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function AdminPanel() {
   const [tab, setTab] = useState<'resumen' | 'pedidos' | 'productos' | 'clientes'>('resumen');
+  const [products, setProducts] = useState<ProductDoc[]>([]);
+  const [orders, setOrders] = useState<FirestoreOrder[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [loadingOrders, setLoadingOrders] = useState(true);
+  const [error, setError] = useState('');
+  const [editingProduct, setEditingProduct] = useState<ProductDoc | null>(null);
+  const [showNewProduct, setShowNewProduct] = useState(false);
+
+  useEffect(() => {
+    const unsubProducts = subscribeProducts(
+      items => { setProducts(items); setLoadingProducts(false); },
+      err => { setError('No se pudieron cargar los productos: ' + err.message); setLoadingProducts(false); }
+    );
+    const unsubOrders = subscribeAllOrders(
+      items => { setOrders(items); setLoadingOrders(false); },
+      err => { setError('No se pudieron cargar los pedidos: ' + err.message); setLoadingOrders(false); }
+    );
+    return () => { unsubProducts(); unsubOrders(); };
+  }, []);
+
+  const customers = useMemo(() => {
+    const map = new Map<string, { name: string; phone: string; city: string; orders: number; total: number }>();
+    orders.forEach(o => {
+      const key = o.customerPhone || o.customerEmail || o.customerName;
+      if (!key) return;
+      const existing = map.get(key) || { name: o.customerName, phone: o.customerPhone, city: o.shippingCity, orders: 0, total: 0 };
+      existing.orders += 1;
+      existing.total += o.total || 0;
+      map.set(key, existing);
+    });
+    return Array.from(map.values()).sort((a, b) => b.total - a.total);
+  }, [orders]);
+
+  const todayOrders = orders.filter(o => isToday(o.createdAt));
+  const pendingOrders = orders.filter(o => o.status === 'pendiente' || o.status === 'confirmado' || o.status === 'cosechando');
+  const todayRevenue = todayOrders.reduce((sum, o) => sum + (o.total || 0), 0);
+
+  const handleSaveProduct = async (data: Omit<ProductDoc, 'id'>) => {
+    if (editingProduct) {
+      await updateProduct(editingProduct.id, data);
+    } else {
+      await addProduct(data);
+    }
+  };
+
+  const handleDeleteProduct = async (id: string, name: string) => {
+    if (!window.confirm(`¿Eliminar "${name}" del catálogo?`)) return;
+    try {
+      await deleteProduct(id);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se pudo eliminar el producto.');
+    }
+  };
+
+  const handleStatusChange = async (orderId: string, status: OrderStatus) => {
+    try {
+      await updateOrderStatus(orderId, status);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se pudo actualizar el estado del pedido.');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-stone-100/92 backdrop-blur-[2px] text-stone-900 font-sans">
       <div className="bg-[#2F183C] text-[#DDA83A] text-xs sm:text-sm font-semibold text-center py-2 px-4 border-b border-[#432356]">
-        Panel admin · Vista previa sin autenticación · Login de roles próximamente
+        Panel admin · Modo pruebas sin login · Conectado a Firestore en vivo
       </div>
 
       <header className="bg-[#1E0E27] text-white sticky top-0 z-30 border-b border-[#432356]">
@@ -51,6 +307,14 @@ export default function AdminPanel() {
           </a>
         </div>
       </header>
+
+      {error && (
+        <div className="max-w-7xl mx-auto px-4 pt-4">
+          <p className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-4 py-2.5 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0" /> {error}
+          </p>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
         <aside className="lg:col-span-2 space-y-1">
@@ -81,10 +345,10 @@ export default function AdminPanel() {
               <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Resumen del día</h1>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { label: 'Pedidos hoy', value: '12', icon: ShoppingBag, tone: 'text-sky-700 bg-sky-50' },
-                  { label: 'Por despachar', value: '5', icon: Clock, tone: 'text-amber-700 bg-amber-50' },
-                  { label: 'Ingresos hoy', value: '$486k', icon: TrendingUp, tone: 'text-[#2F183C] bg-[#F5ECF9] border border-[#DFCEE6]' },
-                  { label: 'Clientes activos', value: '84', icon: Users, tone: 'text-violet-700 bg-violet-50' },
+                  { label: 'Pedidos hoy', value: String(todayOrders.length), icon: ShoppingBag, tone: 'text-sky-700 bg-sky-50' },
+                  { label: 'Por despachar', value: String(pendingOrders.length), icon: Clock, tone: 'text-amber-700 bg-amber-50' },
+                  { label: 'Ingresos hoy', value: `$${todayRevenue.toLocaleString('es-CO')}`, icon: TrendingUp, tone: 'text-[#2F183C] bg-[#F5ECF9] border border-[#DFCEE6]' },
+                  { label: 'Clientes', value: String(customers.length), icon: Users, tone: 'text-violet-700 bg-violet-50' },
                 ].map(card => (
                   <div key={card.label} className="bg-white rounded-2xl border border-[#EADBEE] p-4 shadow-xs">
                     <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-3 ${card.tone}`}>
@@ -97,32 +361,38 @@ export default function AdminPanel() {
               </div>
               <div className="bg-white rounded-2xl border border-[#EADBEE] p-5 shadow-xs">
                 <h2 className="font-bold mb-3 text-[#2F183C] font-display">Pedidos recientes</h2>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="text-left text-xs text-stone-500 border-b border-stone-100">
-                        <th className="pb-2 font-semibold">Orden</th>
-                        <th className="pb-2 font-semibold">Cliente</th>
-                        <th className="pb-2 font-semibold">Total</th>
-                        <th className="pb-2 font-semibold">Estado</th>
-                        <th className="pb-2 font-semibold">Hora</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {MOCK_ADMIN_ORDERS.slice(0, 3).map(o => (
-                        <tr key={o.id} className="border-b border-stone-50">
-                          <td className="py-2.5 font-semibold text-[#2F183C]">{o.id}</td>
-                          <td className="py-2.5">{o.customer}</td>
-                          <td className="py-2.5 font-bold text-[#2F183C]">${o.total.toLocaleString('es-CO')}</td>
-                          <td className="py-2.5">
-                            <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${statusStyle[o.status]}`}>{o.status}</span>
-                          </td>
-                          <td className="py-2.5 text-stone-500">{o.date}</td>
+                {loadingOrders ? (
+                  <p className="text-sm text-stone-400 flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Cargando...</p>
+                ) : orders.length === 0 ? (
+                  <p className="text-sm text-stone-400">Todavía no hay pedidos.</p>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="text-left text-xs text-stone-500 border-b border-stone-100">
+                          <th className="pb-2 font-semibold">Orden</th>
+                          <th className="pb-2 font-semibold">Cliente</th>
+                          <th className="pb-2 font-semibold">Total</th>
+                          <th className="pb-2 font-semibold">Estado</th>
+                          <th className="pb-2 font-semibold">Hora</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                      </thead>
+                      <tbody>
+                        {orders.slice(0, 5).map(o => (
+                          <tr key={o.id} className="border-b border-stone-50">
+                            <td className="py-2.5 font-semibold text-[#2F183C]">{o.orderNumber}</td>
+                            <td className="py-2.5">{o.customerName}</td>
+                            <td className="py-2.5 font-bold text-[#2F183C]">${(o.total || 0).toLocaleString('es-CO')}</td>
+                            <td className="py-2.5">
+                              <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${statusStyle[o.status]}`}>{o.status}</span>
+                            </td>
+                            <td className="py-2.5 text-stone-500">{formatTime(o.createdAt)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </>
           )}
@@ -144,75 +414,129 @@ export default function AdminPanel() {
                       </tr>
                     </thead>
                     <tbody>
-                      {MOCK_ADMIN_ORDERS.map(o => (
+                      {orders.map(o => (
                         <tr key={o.id} className="border-t border-stone-100 hover:bg-[#F5ECF9]/30">
-                          <td className="px-4 py-3 font-semibold text-[#2F183C]">{o.id}</td>
-                          <td className="px-4 py-3">{o.customer}</td>
-                          <td className="px-4 py-3 text-stone-500">{o.phone}</td>
-                          <td className="px-4 py-3 font-bold text-[#2F183C]">${o.total.toLocaleString('es-CO')}</td>
+                          <td className="px-4 py-3 font-semibold text-[#2F183C]">{o.orderNumber}</td>
+                          <td className="px-4 py-3">{o.customerName}</td>
+                          <td className="px-4 py-3 text-stone-500">{o.customerPhone}</td>
+                          <td className="px-4 py-3 font-bold text-[#2F183C]">${(o.total || 0).toLocaleString('es-CO')}</td>
                           <td className="px-4 py-3">
-                            <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${statusStyle[o.status]}`}>{o.status}</span>
+                            <select
+                              value={o.status}
+                              onChange={e => handleStatusChange(o.id, e.target.value as OrderStatus)}
+                              className={`text-[10px] font-bold uppercase px-2 py-1 rounded-full border-0 ${statusStyle[o.status]}`}
+                            >
+                              {statusOptions.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
                           </td>
-                          <td className="px-4 py-3 text-stone-500">{o.date}</td>
+                          <td className="px-4 py-3 text-stone-500">{formatTime(o.createdAt)}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
+                {!loadingOrders && orders.length === 0 && (
+                  <p className="text-sm text-stone-400 p-6 text-center">Todavía no hay pedidos registrados.</p>
+                )}
               </div>
               <p className="text-xs text-stone-400 flex items-center gap-1">
                 <AlertCircle className="w-3.5 h-3.5" />
-                Datos de demostración. Con login se conectarán a Firebase/Firestore.
+                Conectado a Firestore en tiempo real. Cambia el estado directamente en la lista.
               </p>
             </div>
           )}
 
           {tab === 'productos' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Productos</h1>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {FRUITS_DATA.map(f => (
-                  <div key={f.id} className="bg-white rounded-2xl border border-[#EADBEE] p-4 flex gap-4 shadow-xs">
-                    <img src={f.imageUrl} alt="" className="w-16 h-16 rounded-xl object-cover border border-[#EADBEE]" />
-                    <div className="min-w-0 flex-1">
-                      <p className="font-bold text-sm truncate text-[#2F183C]">{f.name}</p>
-                      <p className="text-xs text-stone-500">{f.presentation}</p>
-                      <div className="mt-2 flex items-center justify-between">
-                        <span className="text-sm font-black text-[#2F183C]">${f.standardPrice.toLocaleString('es-CO')}</span>
-                        <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${f.inStock ? 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' : 'bg-red-100 text-red-800'}`}>
-                          {f.inStock ? 'Stock' : 'Agotado'}
-                        </span>
+              <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Productos</h1>
+                <button
+                  onClick={() => setShowNewProduct(true)}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#2F183C] text-white text-sm font-bold"
+                >
+                  <Plus className="w-4 h-4" /> Nuevo producto
+                </button>
+              </div>
+              {loadingProducts ? (
+                <p className="text-sm text-stone-400 flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Cargando...</p>
+              ) : products.length === 0 ? (
+                <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 text-center text-sm text-stone-500">
+                  No hay productos en Firestore todavía. Corre <code className="bg-stone-100 px-1.5 py-0.5 rounded">npx tsx scripts/seedProducts.ts</code> para migrar el catálogo actual, o crea uno nuevo.
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {products.map(f => (
+                    <div key={f.id} className="bg-white rounded-2xl border border-[#EADBEE] p-4 flex gap-4 shadow-xs">
+                      <img src={f.imageUrl} alt="" className="w-16 h-16 rounded-xl object-cover border border-[#EADBEE]" />
+                      <div className="min-w-0 flex-1">
+                        <p className="font-bold text-sm truncate text-[#2F183C]">{f.name}</p>
+                        <p className="text-xs text-stone-500">{f.presentation}</p>
+                        <div className="mt-2 flex items-center justify-between">
+                          <span className="text-sm font-black text-[#2F183C]">${f.standardPrice.toLocaleString('es-CO')}</span>
+                          <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${f.inStock ? 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' : 'bg-red-100 text-red-800'}`}>
+                            {f.inStock ? 'Stock' : 'Agotado'}
+                          </span>
+                        </div>
+                        <div className="mt-2 flex items-center gap-2">
+                          <button
+                            onClick={() => setEditingProduct(f)}
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#7B4382] hover:underline"
+                          >
+                            <Pencil className="w-3 h-3" /> Editar
+                          </button>
+                          <button
+                            onClick={() => handleDeleteProduct(f.id, f.name)}
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-red-600 hover:underline"
+                          >
+                            <Trash2 className="w-3 h-3" /> Eliminar
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
           {tab === 'clientes' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight">Clientes</h1>
-              <div className="bg-white rounded-2xl border border-stone-200 p-5 space-y-3">
-                {[
-                  { name: 'María G.', orders: 8, city: 'Bogotá', plan: 'Familiar' },
-                  { name: 'Carlos R.', orders: 3, city: 'Chía', plan: '—' },
-                  { name: 'Ana P.', orders: 12, city: 'Bogotá', plan: 'Premium' },
-                  { name: 'Luis M.', orders: 2, city: 'Cajicá', plan: '—' },
-                ].map(c => (
-                  <div key={c.name} className="flex items-center justify-between py-2 border-b border-stone-50 last:border-0">
-                    <div>
-                      <p className="font-semibold text-sm">{c.name}</p>
-                      <p className="text-xs text-stone-500">{c.city} · {c.orders} pedidos</p>
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Clientes</h1>
+              {customers.length === 0 ? (
+                <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 text-center text-sm text-stone-500">
+                  Todavía no hay clientes. Aparecerán aquí en cuanto se registre el primer pedido.
+                </div>
+              ) : (
+                <div className="bg-white rounded-2xl border border-[#EADBEE] p-5 space-y-3">
+                  {customers.map(c => (
+                    <div key={c.phone + c.name} className="flex items-center justify-between py-2 border-b border-stone-50 last:border-0">
+                      <div>
+                        <p className="font-semibold text-sm text-[#2F183C]">{c.name}</p>
+                        <p className="text-xs text-stone-500">{c.city} · {c.phone} · {c.orders} pedido{c.orders !== 1 ? 's' : ''}</p>
+                      </div>
+                      <span className="text-xs font-bold text-[#2F183C] bg-[#F5ECF9] border border-[#DFCEE6] px-2 py-1 rounded-lg">
+                        ${c.total.toLocaleString('es-CO')}
+                      </span>
                     </div>
-                    <span className="text-xs font-medium text-stone-600 bg-stone-100 px-2 py-1 rounded-lg">{c.plan}</span>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
+              <p className="text-xs text-stone-400 flex items-center gap-1">
+                <AlertCircle className="w-3.5 h-3.5" />
+                Lista generada a partir de los pedidos registrados (sin login todavía no hay cuentas propias).
+              </p>
             </div>
           )}
         </main>
       </div>
+
+      {(editingProduct || showNewProduct) && (
+        <ProductFormModal
+          initial={editingProduct}
+          onClose={() => { setEditingProduct(null); setShowNewProduct(false); }}
+          onSave={handleSaveProduct}
+        />
+      )}
     </div>
   );
 }

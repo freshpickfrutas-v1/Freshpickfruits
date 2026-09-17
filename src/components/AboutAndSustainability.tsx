@@ -14,7 +14,7 @@ export const AboutAndSustainability: React.FC = () => {
           <div className="lg:col-span-6 relative">
             <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3] bg-stone-100 border-4 border-white">
               <img
-                src="/assets/blueberries.jpg"
+                src="/assets/finca/finca-arandanos-invernadero-3.jpg"
                 alt="Cultivo de arándanos Fresh Pick a más de 2.800 msnm en la Vereda Santa Bárbara, Guasca, Cundinamarca, con agricultura responsable y polinización natural"
                 className="w-full h-full object-cover"
               />
@@ -94,6 +94,44 @@ export const AboutAndSustainability: React.FC = () => {
 
           </div>
 
+        </div>
+
+        {/* Farm Gallery Strip */}
+        <div className="mb-20">
+          <div className="text-center max-w-2xl mx-auto mb-8">
+            <h3 className="text-2xl font-bold font-display text-[#2F183C]">
+              Directo desde nuestros invernaderos
+            </h3>
+            <p className="text-xs sm:text-sm text-stone-600 mt-1">
+              Así se ve la cosecha real en la Vereda Santa Bárbara, día a día.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/5] border-4 border-white">
+              <img
+                src="/assets/finca/finca-arandanos-mano-2.jpg"
+                alt="Arándanos maduros recién cosechados a mano en la finca Fresh Pick"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/5] border-4 border-white">
+              <img
+                src="/assets/finca/finca-arandanos-invernadero-1.jpg"
+                alt="Racimos de arándanos madurando bajo invernadero en Fresh Pick"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/5] border-4 border-white">
+              <img
+                src="/assets/finca/finca-arandanos-invernadero-2.jpg"
+                alt="Cultivo de arándanos en distintas etapas de maduración en los invernaderos de Fresh Pick"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                loading="lazy"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Certifications and Pillars Bar */}

@@ -1,0 +1,63 @@
+# Fresh Pick - www.freshpickfruits.com
+# Reglas generales: permitir todo el contenido público, bloquear paneles privados.
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /panel
+
+# --- Bots de IA / motores generativos (GEO) ---
+# Se permiten explícitamente para que ChatGPT, Copilot, Gemini, Perplexity, etc.
+# puedan rastrear e indexar el catálogo y recomendarlo en respuestas.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+Sitemap: https://www.freshpickfruits.com/sitemap.xml

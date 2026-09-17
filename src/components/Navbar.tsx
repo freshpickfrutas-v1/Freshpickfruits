@@ -70,18 +70,18 @@ export const Navbar: React.FC<NavbarProps> = ({
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-[#EADBEE] py-3'
-            : 'bg-white border-b border-[#EADBEE]/60 py-4'
+            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-[#EADBEE] py-2'
+            : 'bg-white border-b border-[#EADBEE]/60 py-2.5 sm:py-3'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           {/* Brand Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-3 text-left group shrink-0"
+            className="flex items-center gap-3 sm:gap-3.5 text-left group shrink-0"
             id="nav-logo-btn"
           >
-            <div className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl bg-white p-1 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
+            <div className="h-14 sm:h-16 md:h-18 w-24 sm:w-28 md:w-32 rounded-xl bg-white p-1 sm:p-1.5 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
               <img
                 src="/logo.jpg"
                 alt="Fresh Pick - Logotipo de arándanos frescos de alta montaña y agricultura responsable"
@@ -90,15 +90,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <span className="text-xl sm:text-2xl font-black tracking-tight text-[#2F183C] font-display">
                   Fresh Pick
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
+                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
                   Arándanos
                 </span>
               </div>
-              <p className="text-[10px] text-[#7B4382] font-semibold tracking-wide">
+              <p className="text-[11px] sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5">
                 Arándanos de Alta Montaña
               </p>
             </div>

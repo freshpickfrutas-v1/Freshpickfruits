@@ -8,9 +8,9 @@ export const Footer: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-[#432356]">
           
-          <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="h-12 w-12 rounded-xl bg-white p-1 border border-[#7B4382] shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+          <div className="lg:col-span-5 space-y-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
+              <div className="h-16 sm:h-20 w-28 sm:w-36 rounded-xl bg-white p-2 border-2 border-[#7B4382] shadow-xl flex items-center justify-center shrink-0 overflow-hidden">
                 <img
                   src="/logo.jpg"
                   alt="Fresh Pick - Logo de arándanos de alta montaña y agricultura limpia"
@@ -19,16 +19,16 @@ export const Footer: React.FC = () => {
                 />
               </div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-2xl font-black tracking-tight text-white font-display">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl sm:text-3xl font-black tracking-tight text-white font-display">
                     Fresh Pick
                   </span>
-                  <span className="text-xs font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-[#432356] text-[#DDA83A] border border-[#7B4382]">
+                  <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#432356] text-[#DDA83A] border border-[#7B4382]">
                     Arándanos
                   </span>
                 </div>
-                <p className="text-[11px] text-[#DFCEE6]">
-                  Arándanos de Alta Montaña
+                <p className="text-xs sm:text-sm text-[#DFCEE6] mt-1 font-medium">
+                  Arándanos de Alta Montaña · Guasca, Cundinamarca
                 </p>
               </div>
             </div>

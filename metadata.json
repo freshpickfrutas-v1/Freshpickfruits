@@ -1,6 +1,6 @@
 {
-  "name": "Fresh Pick Frutas",
-  "description": "Frutas frescas premium, arándanos de altura y agricultura responsable. Pedidos personalizados en línea directo del campo a tu hogar.",
+  "name": "Fresh Pick - Arándanos de Alta Montaña",
+  "description": "Arándanos frescos premium de alta montaña cultivados con agricultura limpia y polinización natural. Pedidos de arándanos personalizados directo del campo a tu hogar.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -1,29 +1,111 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --fp-forest: #1B4D3E;
+    --fp-forest-deep: #143D32;
+    --fp-green: #2E7D5B;
+    --fp-green-soft: #E8F0E9;
+    --fp-cream: #F7F5F0;
+    --fp-cream-dark: #EFEBE3;
+    --fp-berry: #3B2A5C;
+    --fp-blue: #2563EB;
+    --fp-ink: #1A1A1A;
+  }
+
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--fp-cream);
+    color: var(--fp-ink);
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, .font-display {
     font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
   }
+
+  ::selection {
+    background-color: #1B4D3E;
+    color: white;
+  }
 }
 
+/* Scrollbar premium */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #EFEBE3;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #bfdbfe;
+  background: #2E7D5B;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2563eb;
+  background: #1B4D3E;
+}
+
+/* Utilidades de marca */
+.fp-gradient-hero {
+  background: linear-gradient(180deg, #F7F5F0 0%, #E8F0E9 45%, #F7F5F0 100%);
+}
+
+.fp-btn-primary {
+  background-color: #1B4D3E;
+  color: white;
+  font-weight: 700;
+  border-radius: 0.875rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(27, 77, 62, 0.25);
+}
+
+.fp-btn-primary:hover {
+  background-color: #143D32;
+  box-shadow: 0 6px 20px rgba(27, 77, 62, 0.35);
+  transform: translateY(-1px);
+}
+
+.fp-btn-secondary {
+  background-color: white;
+  color: #1A1A1A;
+  font-weight: 600;
+  border: 1px solid #D6D3D1;
+  border-radius: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.fp-btn-secondary:hover {
+  border-color: #2E7D5B;
+  color: #1B4D3E;
+  background-color: #F7F5F0;
+}
+
+.fp-card {
+  background: white;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 24px rgba(27, 77, 62, 0.06);
+  transition: all 0.25s ease;
+}
+
+.fp-card:hover {
+  box-shadow: 0 12px 32px rgba(27, 77, 62, 0.12);
+  transform: translateY(-2px);
+}
+
+.fp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #E8F0E9;
+  color: #1B4D3E;
+  border: 1px solid rgba(46, 125, 91, 0.2);
 }

@@ -1,0 +1,118 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Perfil de usuario registrado o administrador de Fresh Pick",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Correo electrónico del usuario"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Nombre completo o de visualización"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "customer"],
+          "description": "Rol de acceso del usuario"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Número telefónico o celular para despachos"
+        },
+        "address": {
+          "type": "string",
+          "description": "Dirección de entrega predeterminada"
+        },
+        "city": {
+          "type": "string",
+          "description": "Ciudad o municipio de entrega"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Fecha y hora de creación de la cuenta"
+        }
+      },
+      "required": ["email", "role"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Pedido de arándanos y productos de alta montaña",
+      "type": "object",
+      "properties": {
+        "orderNumber": {
+          "type": "string",
+          "description": "Identificador legible del pedido (ej. FP-2026-1042)"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Identificador de usuario si realizó login, o 'invitado'"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Nombre de la persona que recibe"
+        },
+        "customerEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "Correo electrónico del cliente"
+        },
+        "customerPhone": {
+          "type": "string",
+          "description": "Teléfono de contacto para entrega y WhatsApp"
+        },
+        "shippingAddress": {
+          "type": "string",
+          "description": "Dirección completa de despacho"
+        },
+        "shippingCity": {
+          "type": "string",
+          "description": "Ciudad o municipio de despacho"
+        },
+        "deliveryDate": {
+          "type": "string",
+          "description": "Fecha estimada o solicitada de entrega"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Indicaciones adicionales de entrega"
+        },
+        "items": {
+          "type": "array",
+          "description": "Lista de presentaciones y complementos solicitados"
+        },
+        "total": {
+          "type": "number",
+          "description": "Valor total del pedido en pesos colombianos"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "Método de pago seleccionado (nequi, daviplata, contraentrega, transferencia)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pendiente", "confirmado", "cosechando", "en_camino", "entregado", "cancelado"],
+          "description": "Estado actual del pedido"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Fecha y hora de creación del pedido en formato ISO"
+        }
+      },
+      "required": ["customerName", "customerPhone", "shippingAddress", "total", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Información de perfil y rol de usuarios"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Colección de pedidos para clientes y administradores"
+    }
+  }
+}

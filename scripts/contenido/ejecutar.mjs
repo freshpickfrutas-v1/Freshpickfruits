@@ -195,9 +195,12 @@ async function main() {
   const noticias = args.solo === 'recetas' ? [] : await hacerNoticias(estado);
 
   // --todo-a-revision (safe manual test): everything goes to a Pull Request, nothing straight to main.
+  // --rama=<nombre> (preview test): everything is committed to that branch so its Vercel preview shows it.
   const todoARevision = Boolean(args['todo-a-revision']);
-  const automaticas = todoARevision ? [] : [...recetas, ...noticias.filter(n => n.pieza.modo === 'automatico')];
-  const enRevision = todoARevision ? [...recetas, ...noticias] : noticias.filter(n => n.pieza.modo === 'revision');
+  const rama = typeof args.rama === 'string' ? args.rama : 'main';
+  const todoALaRama = rama !== 'main';
+  const automaticas = todoARevision ? [] : todoALaRama ? [...recetas, ...noticias] : [...recetas, ...noticias.filter(n => n.pieza.modo === 'automatico')];
+  const enRevision = todoALaRama ? [] : todoARevision ? [...recetas, ...noticias] : noticias.filter(n => n.pieza.modo === 'revision');
 
   // Recipes sent for review stay "pendiente" in the queue; sincronizarCola marks them once merged.
   for (const r of automaticas) if (r.item) Object.assign(r.item, { estado: 'publicado', fechaPublicacion: hoy.fecha });
@@ -218,8 +221,11 @@ async function main() {
     escribirJson(PATHS.estado, estado);
     const rutas = [...automaticas.flatMap(r => r.archivos.map(a => a.ruta)), 'cola-recetas.json', 'automatizacion/estado.json'];
     const titulos = automaticas.map(r => r.pieza.title).join(' · ') || 'actualización de estado';
-    commitYPush(rutas, `contenido ${hoy.fecha}: ${titulos}`);
-    for (const r of automaticas) anotar('ok', `Publicado: ${r.item ? '/recetas/' : '/noticias/'}${r.pieza.slug}`);
+    commitYPush(rutas, `contenido ${hoy.fecha}: ${titulos}`, rama);
+    for (const r of automaticas) {
+      const destino = todoALaRama ? `guardado en la rama ${rama}` : 'Publicado';
+      anotar('ok', `${destino}: ${r.item ? '/recetas/' : '/noticias/'}${r.pieza.slug} (${r.pieza.modo})`);
+    }
 
     // 2) Review pieces: one branch + Pull Request each (never touch main until approved).
     for (const r of enRevision) {

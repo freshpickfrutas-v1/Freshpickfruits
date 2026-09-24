@@ -40,19 +40,19 @@ async function github(ruta, { method = 'GET', body } = {}) {
   return data;
 }
 
-/** Commits the given paths on the current branch (main) and pushes, rebasing once if main moved. */
-export function commitYPush(rutas, mensaje) {
+/** Commits the given paths and pushes to `rama` (main by default), rebasing once if it moved. */
+export function commitYPush(rutas, mensaje, rama = 'main') {
   git('add', '--', ...rutas);
-  if (!git('status', '--porcelain', '--', ...rutas)) {
-    log('   (nada que publicar en main)');
+  if (!git('status', '--porcelain', '--', ...rutas) && !git('diff', '--cached', '--name-only')) {
+    log(`   (nada que publicar en ${rama})`);
     return false;
   }
   git('commit', '-m', mensaje);
   try {
-    git('push', 'origin', 'HEAD:main');
+    git('push', 'origin', `HEAD:${rama}`);
   } catch {
-    git('pull', '--rebase', 'origin', 'main');
-    git('push', 'origin', 'HEAD:main');
+    git('pull', '--rebase', 'origin', rama);
+    git('push', 'origin', `HEAD:${rama}`);
   }
   return true;
 }

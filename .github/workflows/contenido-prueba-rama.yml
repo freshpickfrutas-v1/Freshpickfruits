@@ -1,0 +1,49 @@
+name: Prueba de contenido en la rama (vista previa)
+
+# Generates a batch of recipes and news and commits them to THIS branch (never to main),
+# so the branch's Vercel preview shows them before merging. Triggered by editing
+# automatizacion/ejecutar-prueba.txt on the feature branch.
+on:
+  push:
+    branches: [feature/contenido-automatico]
+    paths: [automatizacion/ejecutar-prueba.txt]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: contenido-prueba-rama
+  cancel-in-progress: false
+
+jobs:
+  prueba:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Configurar autor de los commits
+        run: |
+          git config user.name "Fresh Pick Contenido"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Generar primera tanda en la rama
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY2 }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WORKERS_AI }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RECETAS=$(grep -oP '^recetas=\K[0-9]+' automatizacion/ejecutar-prueba.txt || echo 5)
+          NOTICIAS=$(grep -oP '^noticias=\K[0-9]+' automatizacion/ejecutar-prueba.txt || echo 5)
+          node scripts/contenido/ejecutar.mjs --rama=${{ github.ref_name }} --recetas=$RECETAS --noticias=$NOTICIAS

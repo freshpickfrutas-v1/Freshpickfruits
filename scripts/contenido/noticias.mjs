@@ -112,7 +112,8 @@ export async function crearNoticia(c, { fecha, recetas }) {
     schema: ESQUEMA_ARTICULO,
     temperatura: 0.5,
     sistema: `Eres periodista de "Noticias de Arándanos" de Fresh Pick, en español de Colombia, con tono claro, cercano y riguroso.
-Contexto de la marca (úsalo solo en la conclusión y solo si encaja de forma natural): ${CONTEXTO_MARCA}
+Contexto de la marca: ${CONTEXTO_MARCA}
+Úsalo solo en la conclusión, como máximo 1 o 2 frases y solo si encaja de forma natural con la noticia. No repitas todos los datos de la marca y NO incluyas teléfono, WhatsApp, horarios de entrega ni llamados a comprar: el botón de compra ya aparece debajo del artículo.
 Reglas de oro:
 - Usa ÚNICAMENTE información presente en el TEXTO DE LA FUENTE. Si un dato no está en la fuente, no lo afirmes. No inventes cifras, nombres, fechas ni citas.
 - Nada de afirmaciones médicas absolutas: no digas que los arándanos curan, previenen o tratan enfermedades. Usa "se asoció con", "los investigadores observaron", "sugiere".

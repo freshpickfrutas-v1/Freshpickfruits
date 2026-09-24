@@ -1,0 +1,71 @@
+name: Contenido diario (recetas y noticias)
+
+on:
+  schedule:
+    # Todos los días a las 9:00 a.m. hora de Colombia (UTC-5 → 14:00 UTC).
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+    inputs:
+      solo:
+        description: 'Qué generar'
+        type: choice
+        options: [todo, recetas, noticias]
+        default: todo
+      recetas:
+        description: 'Forzar cantidad de recetas (vacío = automático)'
+        required: false
+      noticias:
+        description: 'Forzar cantidad de noticias (vacío = automático)'
+        required: false
+      todo_a_revision:
+        description: 'Prueba segura: todo llega como Pull Request para aprobar (nada se publica directo)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: contenido-diario
+  cancel-in-progress: false
+
+jobs:
+  contenido:
+    # The daily schedule only runs once the repository variable CONTENIDO_ACTIVO is "si"
+    # (Settings → Secrets and variables → Actions → Variables). Manual runs always work.
+    if: github.event_name == 'workflow_dispatch' || vars.CONTENIDO_ACTIVO == 'si'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Configurar autor de los commits
+        run: |
+          git config user.name "Fresh Pick Contenido"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Generar y publicar
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ARGS=""
+          if [ "${{ inputs.solo }}" = "recetas" ] || [ "${{ inputs.solo }}" = "noticias" ]; then ARGS="$ARGS --solo=${{ inputs.solo }}"; fi
+          if [ -n "${{ inputs.recetas }}" ]; then ARGS="$ARGS --recetas=${{ inputs.recetas }}"; fi
+          if [ -n "${{ inputs.noticias }}" ]; then ARGS="$ARGS --noticias=${{ inputs.noticias }}"; fi
+          if [ "${{ inputs.todo_a_revision }}" = "true" ]; then ARGS="$ARGS --todo-a-revision"; fi
+          node scripts/contenido/ejecutar.mjs $ARGS

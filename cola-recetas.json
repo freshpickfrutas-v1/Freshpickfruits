@@ -1,0 +1,730 @@
+[
+  {
+    "orden": 1,
+    "slug": "smoothie-arandanos-platano-proteico",
+    "titulo": "Smoothie de Arándanos y Plátano Proteico",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 2,
+    "slug": "avena-nocturna-con-arandanos",
+    "titulo": "Avena Nocturna con Arándanos (Overnight Oats)",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 3,
+    "slug": "mousse-de-arandanos-saludable",
+    "titulo": "Mousse Saludable de Arándanos y Yogur",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 4,
+    "slug": "energy-balls-de-arandanos",
+    "titulo": "Energy Balls de Arándanos y Avena",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 5,
+    "slug": "te-helado-de-arandanos",
+    "titulo": "Té Helado de Arándanos",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 6,
+    "slug": "ensalada-de-quinua-arandanos-y-aguacate",
+    "titulo": "Ensalada de Quinua, Arándanos y Aguacate",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 7,
+    "slug": "compota-de-arandanos-casera",
+    "titulo": "Compota de Arándanos Casera",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 8,
+    "slug": "smoothie-verde-de-espinaca-y-arandanos",
+    "titulo": "Smoothie Verde de Espinaca y Arándanos",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 9,
+    "slug": "arepas-dulces-con-arandanos-y-queso",
+    "titulo": "Arepas de Maíz Dulce con Arándanos y Queso Campesino",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 10,
+    "slug": "merengon-de-arandanos",
+    "titulo": "Merengón de Arándanos (Versión Ligera)",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 11,
+    "slug": "barritas-de-granola-y-arandanos",
+    "titulo": "Barritas de Granola y Arándanos",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 12,
+    "slug": "waffles-integrales-de-arandanos",
+    "titulo": "Waffles Integrales de Arándanos",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 13,
+    "slug": "cheesecake-de-arandanos-sin-horno",
+    "titulo": "Cheesecake de Arándanos sin Horno",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 14,
+    "slug": "agua-saborizada-de-arandanos-y-pepino",
+    "titulo": "Agua Saborizada de Arándanos y Pepino",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 15,
+    "slug": "batido-de-arandanos-y-kumis",
+    "titulo": "Batido de Arándanos con Kumis",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 16,
+    "slug": "ensalada-de-pollo-arandanos-y-nueces",
+    "titulo": "Ensalada de Pollo, Arándanos y Nueces",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 17,
+    "slug": "tostadas-francesas-con-compota-de-arandanos",
+    "titulo": "Tostadas Francesas con Compota de Arándanos",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 18,
+    "slug": "crumble-de-arandanos-y-avena",
+    "titulo": "Crumble de Arándanos y Avena",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 19,
+    "slug": "salsa-de-arandanos-para-carnes",
+    "titulo": "Salsa de Arándanos para Carnes",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 20,
+    "slug": "smoothie-bowl-de-arandanos",
+    "titulo": "Smoothie Bowl de Arándanos con Granola Casera",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 21,
+    "slug": "galletas-de-avena-y-arandanos",
+    "titulo": "Galletas de Avena y Arándanos",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 22,
+    "slug": "infusion-caliente-de-arandanos-y-canela",
+    "titulo": "Infusión Caliente de Arándanos y Canela",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 23,
+    "slug": "pechuga-de-pollo-con-salsa-de-arandanos",
+    "titulo": "Pechuga de Pollo con Salsa de Arándanos",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 24,
+    "slug": "sirope-de-arandanos-para-panqueques",
+    "titulo": "Sirope de Arándanos para Panqueques",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 25,
+    "slug": "batido-de-arandanos-avena-y-canela",
+    "titulo": "Batido de Arándanos, Avena y Canela",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 26,
+    "slug": "pudin-de-chia-con-arandanos",
+    "titulo": "Pudín de Chía con Arándanos",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 27,
+    "slug": "paletas-heladas-de-arandanos-y-yogur",
+    "titulo": "Paletas Heladas de Arándanos y Yogur",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 28,
+    "slug": "scones-de-arandanos-y-vainilla",
+    "titulo": "Scones de Arándanos y Vainilla",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 29,
+    "slug": "avena-caliente-con-arandanos-y-panela",
+    "titulo": "Avena Caliente con Arándanos y Panela",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 30,
+    "slug": "gelatina-natural-de-arandanos",
+    "titulo": "Gelatina Natural de Arándanos",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 31,
+    "slug": "soda-italiana-de-arandanos",
+    "titulo": "Soda Italiana de Arándanos",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 32,
+    "slug": "smoothie-de-arandanos-y-mantequilla-de-mani",
+    "titulo": "Smoothie de Arándanos y Mantequilla de Maní",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 33,
+    "slug": "salmon-con-glaseado-de-arandanos",
+    "titulo": "Salmón con Glaseado de Arándanos y Balsámico",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 34,
+    "slug": "crepes-de-arandanos-y-queso-crema",
+    "titulo": "Crepes de Arándanos con Queso Crema",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 35,
+    "slug": "brownies-de-cacao-y-arandanos",
+    "titulo": "Brownies de Cacao y Arándanos",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 36,
+    "slug": "vinagreta-de-arandanos",
+    "titulo": "Vinagreta de Arándanos",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 37,
+    "slug": "smoothie-de-arandanos-con-leche-de-almendras",
+    "titulo": "Smoothie de Arándanos con Leche de Almendras (Sin Lácteos)",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 38,
+    "slug": "bocaditos-congelados-de-arandanos-y-yogur",
+    "titulo": "Bocaditos Congelados de Arándanos y Yogur",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 39,
+    "slug": "jugo-natural-de-arandanos",
+    "titulo": "Jugo Natural de Arándanos (Sin Azúcar)",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 40,
+    "slug": "ensalada-de-rucula-arandanos-y-queso-de-cabra",
+    "titulo": "Ensalada de Rúcula, Arándanos y Queso de Cabra",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 41,
+    "slug": "como-deshidratar-arandanos-en-el-horno",
+    "titulo": "Cómo Deshidratar Arándanos en el Horno",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 42,
+    "slug": "batido-de-arandanos-y-cacao",
+    "titulo": "Batido de Arándanos y Cacao Amargo",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 43,
+    "slug": "panqueques-de-avena-y-arandanos-sin-harina",
+    "titulo": "Panqueques de Avena y Arándanos sin Harina",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 44,
+    "slug": "arroz-con-leche-y-arandanos",
+    "titulo": "Arroz con Leche con Arándanos",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 45,
+    "slug": "tortas-de-arroz-con-queso-crema-y-arandanos",
+    "titulo": "Tortas de Arroz con Queso Crema y Arándanos",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 46,
+    "slug": "granola-casera-con-arandanos",
+    "titulo": "Granola Casera con Arándanos",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 47,
+    "slug": "cuajada-con-salsa-de-arandanos",
+    "titulo": "Cuajada con Salsa de Arándanos",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 48,
+    "slug": "mocktail-de-arandanos-y-romero",
+    "titulo": "Mocktail de Arándanos y Romero",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 49,
+    "slug": "smoothie-de-arandanos-chia-y-linaza",
+    "titulo": "Smoothie de Arándanos con Chía y Linaza",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 50,
+    "slug": "lomo-de-cerdo-con-reduccion-de-arandanos",
+    "titulo": "Lomo de Cerdo con Reducción de Arándanos",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 51,
+    "slug": "tostadas-de-ricotta-arandanos-y-miel",
+    "titulo": "Tostadas de Ricotta, Arándanos y Miel",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 52,
+    "slug": "helado-de-arandanos-y-yogur-sin-maquina",
+    "titulo": "Helado de Arándanos y Yogur sin Máquina",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 53,
+    "slug": "chutney-de-arandanos-y-cebolla",
+    "titulo": "Chutney de Arándanos y Cebolla",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 54,
+    "slug": "malteada-saludable-de-arandanos",
+    "titulo": "Malteada Saludable de Arándanos con Yogur",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 55,
+    "slug": "arandanos-deshidratados-con-frutos-secos",
+    "titulo": "Mezcla de Frutos Secos con Arándanos Deshidratados en Casa",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 56,
+    "slug": "kefir-de-agua-con-arandanos",
+    "titulo": "Kéfir de Agua con Arándanos",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 57,
+    "slug": "tabule-de-quinua-con-arandanos",
+    "titulo": "Tabulé de Quinua con Arándanos y Hierbabuena",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 58,
+    "slug": "coulis-de-arandanos-para-postres",
+    "titulo": "Coulis de Arándanos para Postres",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 59,
+    "slug": "smoothie-de-arandanos-jengibre-y-miel",
+    "titulo": "Smoothie de Arándanos, Jengibre y Miel",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 60,
+    "slug": "parfait-de-arandanos-kumis-y-avena",
+    "titulo": "Parfait de Arándanos, Kumis y Avena",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 61,
+    "slug": "panna-cotta-de-arandanos",
+    "titulo": "Panna Cotta de Arándanos",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 62,
+    "slug": "pandebonos-con-arandanos",
+    "titulo": "Pandebonos con Arándanos",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 63,
+    "slug": "muffins-de-avena-y-arandanos-sin-azucar-refinada",
+    "titulo": "Muffins de Avena y Arándanos sin Azúcar Refinada",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 64,
+    "slug": "arandanos-cubiertos-de-chocolate-oscuro",
+    "titulo": "Arándanos Cubiertos de Chocolate Oscuro",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 65,
+    "slug": "aromatica-de-arandanos-y-hierbabuena",
+    "titulo": "Aromática de Arándanos y Hierbabuena",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 66,
+    "slug": "batido-post-entreno-de-arandanos",
+    "titulo": "Batido Post-Entreno de Arándanos y Yogur Griego",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 67,
+    "slug": "bruschettas-de-arandanos-y-ricotta",
+    "titulo": "Bruschettas de Arándanos y Ricotta",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 68,
+    "slug": "almojabanas-con-arandanos",
+    "titulo": "Almojábanas con Arándanos",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 69,
+    "slug": "tarta-rustica-de-arandanos",
+    "titulo": "Tarta Rústica (Galette) de Arándanos",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 70,
+    "slug": "arandanos-encurtidos",
+    "titulo": "Arándanos Encurtidos (Pickles Dulces)",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 71,
+    "slug": "smoothie-de-arandanos-para-ninos",
+    "titulo": "Smoothie de Arándanos para Niños (Sin Azúcar Añadida)",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 72,
+    "slug": "wrap-dulce-de-arandanos-y-mani",
+    "titulo": "Wrap Dulce de Arándanos y Mantequilla de Maní",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 73,
+    "slug": "agua-de-panela-fria-con-arandanos",
+    "titulo": "Agua de Panela Fría con Arándanos",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 74,
+    "slug": "ceviche-de-palmitos-con-arandanos",
+    "titulo": "Ceviche de Palmitos con Arándanos",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 75,
+    "slug": "relleno-de-arandanos-para-tortas",
+    "titulo": "Relleno de Arándanos para Tortas",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 76,
+    "slug": "lassi-de-arandanos",
+    "titulo": "Lassi de Arándanos con Cardamomo",
+    "categoria": "smoothies-batidos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 77,
+    "slug": "pan-de-avena-y-arandanos",
+    "titulo": "Pan de Avena y Arándanos",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 78,
+    "slug": "sorbete-de-arandanos-y-hierbabuena",
+    "titulo": "Sorbete de Arándanos y Hierbabuena",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 79,
+    "slug": "mini-pancakes-de-arandanos-para-la-lonchera",
+    "titulo": "Mini Pancakes de Arándanos para la Lonchera",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 80,
+    "slug": "quinua-con-leche-y-arandanos",
+    "titulo": "Quinua con Leche y Arándanos",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 81,
+    "slug": "mug-cake-de-arandanos",
+    "titulo": "Mug Cake de Arándanos en 3 Minutos",
+    "categoria": "postres-saludables",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 82,
+    "slug": "leche-de-avena-casera-con-arandanos",
+    "titulo": "Leche de Avena Casera con Arándanos",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 83,
+    "slug": "ensalada-de-lentejas-con-arandanos",
+    "titulo": "Ensalada de Lentejas con Arándanos",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 84,
+    "slug": "avena-horneada-con-arandanos",
+    "titulo": "Avena Horneada con Arándanos (Baked Oats)",
+    "categoria": "desayunos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 85,
+    "slug": "crema-batida-de-arandanos",
+    "titulo": "Crema Batida de Arándanos",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 86,
+    "slug": "brochetas-de-arandanos-y-queso-campesino",
+    "titulo": "Brochetas de Arándanos y Queso Campesino",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 87,
+    "slug": "granizado-de-arandanos",
+    "titulo": "Granizado de Arándanos",
+    "categoria": "bebidas-refrescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 88,
+    "slug": "bowl-de-arroz-integral-pollo-y-arandanos",
+    "titulo": "Bowl de Arroz Integral, Pollo y Arándanos",
+    "categoria": "ensaladas-platos-frescos",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 89,
+    "slug": "salsa-bbq-de-arandanos",
+    "titulo": "Salsa BBQ de Arándanos",
+    "categoria": "preparaciones-conservas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 90,
+    "slug": "crackers-de-semillas-con-arandanos",
+    "titulo": "Crackers de Semillas con Arándanos",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  },
+  {
+    "orden": 91,
+    "slug": "dip-de-yogur-y-arandanos",
+    "titulo": "Dip de Yogur y Arándanos para Galletas",
+    "categoria": "snacks-meriendas",
+    "modo": "automatico",
+    "estado": "pendiente"
+  }
+]

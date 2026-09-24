@@ -54,11 +54,12 @@ const ESQUEMA_REVISION = {
 
 /**
  * Generates an illustrative image and has Gemini check it.
- * Returns { archivo: { nombre, buffer }, url } or null when every attempt fails (the piece stays a draft).
+ * Returns { archivo: { nombre, buffer }, url }, or { fallo: "motivos" } when every attempt fails (the piece stays a draft).
  */
 export async function crearImagen({ slug, promptImagen, queDebeMostrar }) {
   const prompt = `${promptImagen}. Professional food photography, natural soft daylight, shallow depth of field, fresh blueberries clearly visible, appetizing, realistic, high detail, no text, no letters, no watermark, no logo.`;
 
+  const motivos = [];
   for (let intento = 1; intento <= INTENTOS_IMAGEN; intento++) {
     const seed = Math.floor(Math.random() * 2_000_000_000);
     let buffer;
@@ -67,12 +68,14 @@ export async function crearImagen({ slug, promptImagen, queDebeMostrar }) {
     } catch (err) {
       log(`   ✗ Imagen ${slug}: ${err.message}`);
       if (err.fatal) throw err;
-      if (err.noReintentar) return null;
+      motivos.push(`intento ${intento}: ${err.message}`);
+      if (err.noReintentar) break;
       continue;
     }
     const formato = detectarFormato(buffer);
     if (!formato) {
       log(`   ✗ Imagen ${slug}: formato desconocido`);
+      motivos.push(`intento ${intento}: formato de imagen desconocido`);
       continue;
     }
 
@@ -98,8 +101,9 @@ Responde en español con {"aprobada": true/false, "motivo": "explicación breve"
       return { archivo: { nombre, buffer }, url: `${IMAGE_URL_PREFIX}/${nombre}` };
     }
     log(`   ✗ Imagen ${slug} rechazada (intento ${intento}): ${revision.motivo}`);
+    motivos.push(`intento ${intento}: rechazada: ${revision.motivo}`);
   }
-  return null;
+  return { fallo: motivos.join(' | ') || 'sin detalle' };
 }
 
 /** Downloads a farm photo attached to a GitHub issue. Returns the same shape as crearImagen, or null. */

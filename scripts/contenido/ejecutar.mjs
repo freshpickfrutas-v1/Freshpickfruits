@@ -86,6 +86,11 @@ async function hacerRecetas(cola) {
       registrarFalloReceta(item, r.problemas.join('; '));
     } catch (err) {
       if (err.fatal) throw err; // bad key: stop without touching the queue
+      if (err.temporal) {
+        // Gemini saturated or out of free quota: not the recipe's fault, it stays pending as is.
+        anotar('aviso', `Receta "${item.titulo}" pospuesta: Gemini no está disponible ahora (${err.message.slice(0, 160)})`);
+        break;
+      }
       registrarFalloReceta(item, err.message);
     }
   }

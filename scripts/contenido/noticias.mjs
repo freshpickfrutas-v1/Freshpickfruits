@@ -172,10 +172,11 @@ ${fuenteTexto}
     if (imagen) Object.assign(noticia, { imagenTipo: 'propia', imagenCredit: CREDITO_FOTO_PROPIA });
   }
   if (!imagen) {
-    imagen = await crearImagen({ slug: noticia.slug, promptImagen: datos.imagePrompt, queDebeMostrar: noticia.title });
-    if (imagen) Object.assign(noticia, { imagenTipo: 'generada', imagenCredit: CREDITO_IMAGEN_IA });
+    const generada = await crearImagen({ slug: noticia.slug, promptImagen: datos.imagePrompt, queDebeMostrar: noticia.title });
+    if (generada.fallo) return { ok: false, candidata: c, problemas: [`no se consiguió una imagen aprobada: ${generada.fallo}`] };
+    imagen = generada;
+    Object.assign(noticia, { imagenTipo: 'generada', imagenCredit: CREDITO_IMAGEN_IA });
   }
-  if (!imagen) return { ok: false, candidata: c, problemas: ['no se consiguió una imagen aprobada (queda como borrador)'] };
   noticia.image = imagen.url;
   if (c.origen === 'finca') delete noticia.fuentes;
   slugsReservados.add(noticia.slug);

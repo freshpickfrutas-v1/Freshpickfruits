@@ -30,11 +30,20 @@ function marcarSiEsFatal(err) {
 
 function esModeloInexistente(err) {
   const msg = String(err?.message ?? err);
-  return /\b404\b|not found|is not supported|NOT_FOUND/i.test(msg);
+  return /\b404\b|not found|is not supported|NOT_FOUND|no longer available/i.test(msg);
 }
 
-/** Tries each model in order; each model gets the standard 3 retries. */
-async function conModelos(modelos, nombre, llamada) {
+/** Saturated model or free quota used up: not the content's fault, so another model is tried. */
+function esTemporal(err) {
+  const msg = String(err?.message ?? err);
+  return /\b(429|500|503|504)\b|UNAVAILABLE|RESOURCE_EXHAUSTED|high demand|overloaded|quota/i.test(msg);
+}
+
+/**
+ * Tries each model in order (each with the standard retries). Moves on to the next model when one
+ * doesn't exist for this account or is saturated. A rejected key stops everything (err.fatal).
+ */
+async function conModelos(modelos, nombre, llamada, { claveRechazadaEsFatal = true } = {}) {
   let ultimoError;
   for (const modelo of modelos) {
     if (modelosNoDisponibles.has(modelo)) continue;
@@ -43,20 +52,25 @@ async function conModelos(modelos, nombre, llamada) {
         try {
           return await llamada(modelo);
         } catch (err) {
-          if (marcarSiEsFatal(err).fatal) throw err;
+          if (claveRechazadaEsFatal && marcarSiEsFatal(err).fatal) throw err;
           if (esModeloInexistente(err)) {
             modelosNoDisponibles.add(modelo);
             err.noReintentar = true;
           }
           throw err;
         }
-      });
+      }, { intentos: 2 });
     } catch (err) {
       ultimoError = err;
-      if (err.fatal || !modelosNoDisponibles.has(modelo)) break; // real failure, not a missing model
-      log(`   Modelo ${modelo} no disponible; probando el siguiente.`);
+      if (err.fatal) break;
+      if (modelosNoDisponibles.has(modelo) || esTemporal(err)) {
+        log(`   Modelo ${modelo} no disponible ahora; probando el siguiente.`);
+        continue;
+      }
+      break; // the request itself failed (e.g. invalid JSON twice): other models won't help
     }
   }
+  if (ultimoError && esTemporal(ultimoError)) ultimoError.temporal = true;
   throw ultimoError ?? new Error(`Ningún modelo disponible para ${nombre}`);
 }
 
@@ -121,5 +135,5 @@ export async function buscarConGoogle({ prompt }) {
       fuentes.push({ titulo: c.web.title ?? '', url: await resolverRedireccion(c.web.uri) });
     }
     return { texto: res.text ?? '', fuentes };
-  });
+  }, { claveRechazadaEsFatal: false }); // search may simply not be included in the free plan for a model
 }

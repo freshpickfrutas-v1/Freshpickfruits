@@ -26,10 +26,11 @@ export const DIAS_NOTICIA_ACTUAL = 7;
 export const MAX_INTENTOS_RECETA = 3;
 
 // --- Modelos (se prueban en orden; el primero que responda se usa) ---
-export const MODELOS_TEXTO = (process.env.GEMINI_MODELOS_TEXTO ?? 'gemini-3.8-flash,gemini-3.5-flash,gemini-2.5-flash')
+// If a model is saturated (503) or over its free quota (429), the next one is tried.
+export const MODELOS_TEXTO = (process.env.GEMINI_MODELOS_TEXTO ?? 'gemini-3.5-flash,gemini-3.6-flash,gemini-3.8-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite')
   .split(',').map(s => s.trim()).filter(Boolean);
-/** En el plan gratuito, la búsqueda de Google solo está incluida en la familia 2.5 Flash. */
-export const MODELOS_BUSQUEDA = (process.env.GEMINI_MODELOS_BUSQUEDA ?? 'gemini-2.5-flash,gemini-2.5-flash-lite')
+/** Backup search. Gemini 2.5 is closed to new accounts; the 3.x models are tried in order. */
+export const MODELOS_BUSQUEDA = (process.env.GEMINI_MODELOS_BUSQUEDA ?? 'gemini-2.5-flash,gemini-3.5-flash-lite,gemini-3.5-flash')
   .split(',').map(s => s.trim()).filter(Boolean);
 export const MODELO_IMAGEN_CF = '@cf/black-forest-labs/flux-1-schnell';
 

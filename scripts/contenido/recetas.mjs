@@ -89,7 +89,7 @@ No debe parecerse a estas recetas ya publicadas: ${existentes.join('; ')}.`
     promptImagen: datos.imagePrompt,
     queDebeMostrar: `${item.titulo} (receta con arándanos)`
   });
-  if (!imagen) return { ok: false, problemas: ['no se consiguió una imagen aprobada (queda como borrador)'] };
+  if (imagen.fallo) return { ok: false, problemas: [`no se consiguió una imagen aprobada: ${imagen.fallo}`] };
   receta.image = imagen.url;
 
   const problemas = validarReceta(receta, { tituloAprobado: item.titulo });

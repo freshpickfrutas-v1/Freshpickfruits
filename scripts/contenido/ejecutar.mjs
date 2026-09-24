@@ -260,6 +260,11 @@ function escribirResumen() {
   const iconos = { ok: '✅', info: 'ℹ️', aviso: '⚠️', error: '❌' };
   const md = [`## Contenido Fresh Pick · ${hoy.fecha}`, '', ...resumen.map(r => `- ${iconos[r.tipo]} ${r.texto}`)].join('\n');
   if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, md + '\n');
+  // Also kept as a file so the result can be read without signing in to GitHub's logs.
+  if (process.env.GUARDAR_RESULTADO) {
+    fs.mkdirSync(path.dirname(process.env.GUARDAR_RESULTADO), { recursive: true });
+    fs.writeFileSync(process.env.GUARDAR_RESULTADO, md + '\n', 'utf8');
+  }
   console.log('\n' + md);
 }
 

@@ -48,7 +48,7 @@ async function desdeRss(fuente) {
 
 async function desdePubmed() {
   const base = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
-  const comun = 'tool=freshpick-contenido&email=freshpickfrutas@gmail.com';
+  const comun = 'tool=freshpick-contenido';
   const busqueda = await descargar(
     `${base}/esearch.fcgi?db=pubmed&term=${encodeURIComponent(PUBMED_QUERY)}&reldate=${DIAS_NOTICIA_ACTUAL}&datetype=edat&retmode=json&retmax=15&${comun}`,
     { tipo: 'json' }

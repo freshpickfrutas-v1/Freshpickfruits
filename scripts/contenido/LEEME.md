@@ -33,7 +33,7 @@ La ejecución diaria automática solo corre si existe la variable del repositori
 
 | Secret | De dónde sale |
 |---|---|
-| `GEMINI_API_KEY2` | Google AI Studio → Get API key (gratis) |
+| `ARANDANOS_ARTICULOS` (o `GEMINI_API_KEY2`) | Google AI Studio → Get API key (gratis) |
 | `ACCOUNT_ID` | Account ID de Cloudflare (Workers AI, gratis) |
 | `WORKERS_AI` | Token de Cloudflare: My Profile → API Tokens → plantilla "Workers AI" |
 

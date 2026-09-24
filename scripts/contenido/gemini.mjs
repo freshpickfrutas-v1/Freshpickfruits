@@ -23,7 +23,7 @@ function marcarSiEsFatal(err) {
   if (/\b(401|403)\b|PERMISSION_DENIED|API key not valid|API_KEY_INVALID|denied access|UNAUTHENTICATED/i.test(msg)) {
     err.fatal = true;
     err.noReintentar = true;
-    err.message = `Gemini rechazó la clave (GEMINI_API_KEY2): ${msg}`;
+    err.message = `Gemini rechazó la clave (secret ARANDANOS_ARTICULOS o GEMINI_API_KEY2): ${msg}`;
   }
   return err;
 }

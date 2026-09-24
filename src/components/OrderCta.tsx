@@ -12,7 +12,7 @@ interface OrderCtaProps {
 
 const DEFAULT_MESSAGE = 'Hola Fresh Pick, quiero hacer un pedido de arándanos frescos';
 
-/** Purchase call-to-action shown on recipes and blog pages. */
+/** Purchase call-to-action shown on recipes and news pages. */
 export const OrderCta: React.FC<OrderCtaProps> = ({
   title = 'Prepáralo con arándanos Fresh Pick',
   text = 'Arándanos premium de alta montaña, cosechados a mano en Guasca y entregados en tu casa los martes y miércoles.',

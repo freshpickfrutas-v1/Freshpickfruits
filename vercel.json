@@ -1,4 +1,8 @@
 {
+  "redirects": [
+    { "source": "/blog", "destination": "/noticias", "permanent": true },
+    { "source": "/blog/:path*", "destination": "/noticias/:path*", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/panel", "destination": "/index.html" },
     { "source": "/panel/(.*)", "destination": "/index.html" },
@@ -6,7 +10,7 @@
     { "source": "/admin/(.*)", "destination": "/index.html" },
     { "source": "/recetas", "destination": "/index.html" },
     { "source": "/recetas/(.*)", "destination": "/index.html" },
-    { "source": "/blog", "destination": "/index.html" },
-    { "source": "/blog/(.*)", "destination": "/index.html" }
+    { "source": "/noticias", "destination": "/index.html" },
+    { "source": "/noticias/(.*)", "destination": "/index.html" }
   ]
 }

@@ -1,0 +1,62 @@
+{
+  "slug": "ponque-de-limon-y-arandanos",
+  "title": "Ponqué de Limón y Arándanos Súper Húmedo",
+  "excerpt": "Un ponqué muy húmedo gracias al yogur griego y al aceite de oliva, con arándanos frescos y glaseado de limón.",
+  "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80",
+  "imageAlt": "Ponqué húmedo de limón y arándanos frescos glaseado, recién horneado",
+  "category": "postres-saludables",
+  "prepMinutes": 20,
+  "cookMinutes": 55,
+  "difficulty": "Intermedio",
+  "servings": 10,
+  "ingredients": [
+    {
+      "text": "2 tazas de harina de trigo (reserva 2 cucharadas para los arándanos)"
+    },
+    {
+      "text": "3/4 taza (150 g) de azúcar"
+    },
+    {
+      "text": "1 taza de yogur griego"
+    },
+    {
+      "text": "2/3 taza de aceite de oliva"
+    },
+    {
+      "text": "2 huevos"
+    },
+    {
+      "text": "2 cucharaditas de polvo de hornear"
+    },
+    {
+      "text": "1 pizca de sal"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "Ralladura de 2 limones"
+    },
+    {
+      "text": "Glaseado: 1 taza de azúcar pulverizada + 2–3 cucharadas de jugo de limón"
+    }
+  ],
+  "steps": [
+    "Bate el yogur, el aceite y los huevos. Suma el azúcar y la ralladura (solo la parte verde, para evitar amargor).",
+    "Cierne la harina con el polvo de hornear y la sal. Cubre los arándanos con las 2 cucharadas de harina reservadas.",
+    "Une las mezclas con espátula, sin batir de más para no desarrollar el gluten. Agrega los arándanos.",
+    "Hornea en molde de 20 x 10 cm a 180 °C durante 55 minutos.",
+    "Para el glaseado, mezcla la azúcar pulverizada con el limón hasta obtener una textura lisa y densa. Viértelo solo cuando el ponqué esté completamente frío."
+  ],
+  "tips": [
+    "Si el ponqué se dora demasiado rápido, cúbrelo con papel aluminio a partir del minuto 35.",
+    "Queda aún más húmedo al día siguiente: envuélvelo en papel film una vez frío."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "stock",
+  "imagenCredit": "Foto: Unsplash",
+  "orden": 6
+}

@@ -1,0 +1,46 @@
+{
+  "slug": "bowl-de-yogur-con-arandanos-y-granola",
+  "title": "Bowl de Yogur con Arándanos, Granola y Miel",
+  "excerpt": "El desayuno más rápido y completo: capas de yogur, granola crocante y arándanos frescos recién lavados.",
+  "imageAlt": "Bowl de yogur natural con arándanos frescos, granola crocante y un hilo de miel",
+  "category": "desayunos",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 1,
+  "ingredients": [
+    {
+      "text": "3/4 taza (100 g) de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza (240 g) de yogur natural o griego"
+    },
+    {
+      "text": "1/3 taza de granola"
+    },
+    {
+      "text": "1 cucharada de semillas de chía o linaza"
+    },
+    {
+      "text": "1 cucharadita de miel"
+    }
+  ],
+  "steps": [
+    "Lava los arándanos justo antes de servir y sécalos suavemente con papel de cocina.",
+    "Sirve el yogur en un bowl y alísalo con el dorso de una cuchara.",
+    "Reparte la granola a un lado y los arándanos al otro.",
+    "Espolvorea las semillas y termina con el hilo de miel."
+  ],
+  "tips": [
+    "Lava los arándanos solo antes de comerlos: la pruina (capa blanquecina natural) los protege y se conservan mejor sin lavar en la nevera.",
+    "Para llevar a la oficina, arma el bowl en un frasco y guarda la granola aparte para que no se ablande."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "orden": 3
+}

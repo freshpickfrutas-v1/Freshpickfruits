@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clock, Users, ChefHat, Lightbulb, Utensils, ListOrdered, Timer } from 'lucide-react';
 import { SiteShell } from '../components/SiteShell';
-import { ContentImage } from '../components/ContentImage';
+import { ContentImage, ImageCredit } from '../components/ContentImage';
 import { BlueberryIcon } from '../components/BlueberryIcon';
 import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
@@ -73,9 +73,12 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
                 </dl>
               </div>
 
-              <div className="rounded-2xl overflow-hidden shadow-2xl shadow-[#2F183C]/20 border-4 border-white aspect-[4/3]">
-                <ContentImage src={recipe.image} alt={recipe.imageAlt} label={category.name} emoji={category.emoji} eager />
-              </div>
+              <figure>
+                <div className="rounded-2xl overflow-hidden shadow-2xl shadow-[#2F183C]/20 border-4 border-white aspect-[4/3]">
+                  <ContentImage src={recipe.image} alt={recipe.imageAlt} label={category.name} emoji={category.emoji} eager />
+                </div>
+                {recipe.image && recipe.imagenCredit && <ImageCredit text={recipe.imagenCredit} />}
+              </figure>
             </div>
           </div>
         </header>

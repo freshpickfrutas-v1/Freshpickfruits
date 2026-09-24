@@ -54,7 +54,7 @@ export const RecipesAndTips: React.FC = () => {
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
           <a
-            href="/blog"
+            href="/noticias"
             className="inline-flex items-center justify-center gap-2 px-6 py-3.5 fp-btn-secondary text-sm"
           >
             <Newspaper className="w-4 h-4" />

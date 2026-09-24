@@ -1,0 +1,67 @@
+{
+  "slug": "arandanos-y-salud-digestiva",
+  "title": "Arándanos y Salud Digestiva: Cómo la Fibra Contribuye a tu Bienestar",
+  "metaDescription": "Aprende cómo la fibra de los arándanos contribuye al tránsito intestinal normal y la saciedad, y cómo incluirlos en tu rutina para cuidar tu digestión.",
+  "excerpt": "La fibra es una de las grandes aliadas de la digestión, y los arándanos son una forma deliciosa de sumarla a tu día.",
+  "category": "salud-digestiva-bienestar",
+  "date": "2026-09-15",
+  "readMinutes": 5,
+  "author": "Equipo Fresh Pick",
+  "imageAlt": "Bowl de desayuno con yogur, avena y arándanos frescos para una digestión saludable",
+  "relatedRecipes": [
+    "bowl-de-yogur-con-arandanos-y-granola",
+    "smoothie-de-arandanos-y-avena"
+  ],
+  "blocks": [
+    {
+      "type": "p",
+      "text": "Una buena digestión empieza por lo que ponemos en el plato. La fibra dietaria, el agua y los alimentos poco procesados son la base, y los arándanos aportan los tres."
+    },
+    {
+      "type": "h2",
+      "text": "Qué hace la fibra en tu cuerpo"
+    },
+    {
+      "type": "p",
+      "text": "La fibra es la parte de los vegetales que nuestro cuerpo no digiere por completo. Contribuye al tránsito intestinal normal, da sensación de saciedad y sirve de alimento a las bacterias beneficiosas del intestino."
+    },
+    {
+      "type": "h2",
+      "text": "Cuánta fibra aportan los arándanos"
+    },
+    {
+      "type": "p",
+      "text": "Una taza de arándanos frescos (unos 150 g) aporta alrededor de 3,6 g de fibra. Las recomendaciones generales para adultos rondan los 25–30 g al día, y la mayoría de las personas no alcanza esa cifra."
+    },
+    {
+      "type": "h2",
+      "text": "Combinaciones que suman"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Arándanos + avena: dos fuentes de fibra en un mismo desayuno.",
+        "Arándanos + yogur natural o kéfir: fibra junto a alimentos fermentados.",
+        "Arándanos + chía o linaza: una cucharada de semillas aporta todavía más fibra."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Consejos para aumentar la fibra sin molestias"
+    },
+    {
+      "type": "ol",
+      "items": [
+        "Aumenta la fibra de forma gradual, a lo largo de varias semanas.",
+        "Toma suficiente agua durante el día.",
+        "Reparte las frutas y verduras en varias comidas en lugar de concentrarlas en una sola."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Si tienes una condición digestiva diagnosticada, consulta con tu médico o nutricionista antes de hacer cambios importantes en tu alimentación."
+    }
+  ],
+  "estado": "publicado",
+  "modo": "revision"
+}

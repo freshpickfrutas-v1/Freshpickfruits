@@ -1,0 +1,49 @@
+{
+  "slug": "yogur-helado-crocante-de-arandanos",
+  "title": "Yogur Helado Crocante de Arándanos",
+  "excerpt": "Una lámina de yogur congelado con arándanos y almendras que se parte en trozos: postre fresco, fácil y sin horno.",
+  "imageAlt": "Trozos de yogur helado con arándanos frescos y almendras sobre papel de horno",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 0,
+  "restMinutes": 180,
+  "difficulty": "Fácil",
+  "servings": 6,
+  "featured": true,
+  "ingredients": [
+    {
+      "text": "1 taza (150 g) de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 tazas (480 g) de yogur griego natural"
+    },
+    {
+      "text": "2 cucharadas de miel o sirope de agave"
+    },
+    {
+      "text": "1/2 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1/4 taza de almendras fileteadas o nueces picadas"
+    }
+  ],
+  "steps": [
+    "Forra una bandeja pequeña con papel de horno.",
+    "Mezcla el yogur con la miel y la vainilla.",
+    "Extiende la mezcla sobre el papel en una capa de aproximadamente 1 cm.",
+    "Reparte los arándanos y las almendras por encima, presionándolos ligeramente.",
+    "Congela mínimo 3 horas y parte en trozos irregulares justo antes de servir."
+  ],
+  "tips": [
+    "Aplasta la mitad de los arándanos con un tenedor antes de ponerlos: crean vetas moradas muy vistosas.",
+    "Consérvalo en el congelador en un recipiente hermético, separando las capas con papel."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "orden": 5
+}

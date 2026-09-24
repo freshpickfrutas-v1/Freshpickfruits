@@ -19,14 +19,14 @@ export default function BlogPage() {
   const [filter, setFilter] = useState<Filter>(readFilterFromUrl);
 
   usePageMeta({
-    title: 'Noticias de Arándanos: Salud, Nutrición y Cultivo | Fresh Pick',
-    description: 'Artículos sobre los beneficios de los arándanos, nutrición, salud digestiva, estilo de vida saludable y el cultivo de arándanos de alta montaña en Guasca, Colombia.',
-    path: '/blog'
+    title: 'Noticias de Arándanos | Fresh Pick',
+    description: 'Noticias de arándanos al día: nuevos estudios de salud y nutrición, cosechas, mercado y exportación, y el cultivo de arándanos de alta montaña en Guasca, Colombia.',
+    path: '/noticias'
   });
 
   const selectFilter = (next: Filter) => {
     setFilter(next);
-    window.history.replaceState({}, '', next === 'todos' ? '/blog' : `/blog?categoria=${next}`);
+    window.history.replaceState({}, '', next === 'todos' ? '/noticias' : `/noticias?categoria=${next}`);
   };
 
   const all = sortedArticles();

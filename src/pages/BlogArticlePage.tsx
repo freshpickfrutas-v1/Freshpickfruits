@@ -1,7 +1,7 @@
 import React from 'react';
-import { Clock, CalendarDays } from 'lucide-react';
+import { Clock, CalendarDays, BookMarked } from 'lucide-react';
 import { SiteShell } from '../components/SiteShell';
-import { ContentImage } from '../components/ContentImage';
+import { ContentImage, ImageCredit } from '../components/ContentImage';
 import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RecipeCard } from '../components/RecipeCard';
@@ -9,7 +9,7 @@ import { ArticleCard } from '../components/ArticleCard';
 import { NotFoundContent } from './NotFoundContent';
 import { formatArticleDate, getArticleBySlug, getBlogCategory, sortedArticles } from '../data/blog';
 import { getRecipeBySlug } from '../data/recipes';
-import { BlogBlock, Recipe } from '../types';
+import { BlogBlock, ContentSource, Recipe } from '../types';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 
 export default function BlogArticlePage({ slug }: { slug: string }) {
@@ -18,7 +18,7 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
   usePageMeta({
     title: article ? `${article.title} | Noticias de Arándanos Fresh Pick` : 'Artículo no encontrado | Fresh Pick',
     description: article?.metaDescription ?? 'Este artículo no existe o fue movido. Explora las noticias de arándanos de Fresh Pick.',
-    path: `/blog/${slug}`,
+    path: `/noticias/${slug}`,
     image: article?.image,
     type: 'article'
   });
@@ -29,7 +29,7 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
         <NotFoundContent
           title="No encontramos este artículo"
           text="Puede que haya cambiado de nombre. Explora todas las noticias de arándanos."
-          href="/blog"
+          href="/noticias"
           linkLabel="Ver noticias de arándanos"
         />
       </SiteShell>
@@ -50,13 +50,13 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
             <Breadcrumbs
               items={[
                 { label: 'Inicio', href: '/' },
-                { label: 'Noticias de Arándanos', href: '/blog' },
-                { label: category.name, href: `/blog?categoria=${category.id}` },
+                { label: 'Noticias de Arándanos', href: '/noticias' },
+                { label: category.name, href: `/noticias?categoria=${category.id}` },
                 { label: article.title }
               ]}
             />
             <a
-              href={`/blog?categoria=${category.id}`}
+              href={`/noticias?categoria=${category.id}`}
               className="mt-6 inline-block text-xs font-bold uppercase tracking-wider text-[#7B4382] hover:text-[#2F183C]"
             >
               {category.name}
@@ -81,13 +81,18 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
 
         <div className="bg-[#F7F5F0]/90">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-            <div className="rounded-2xl overflow-hidden shadow-xl shadow-[#2F183C]/15 border-4 border-white aspect-[16/9]">
-              <ContentImage src={article.image} alt={article.imageAlt} label={category.name} eager />
-            </div>
+            <figure>
+              <div className="rounded-2xl overflow-hidden shadow-xl shadow-[#2F183C]/15 border-4 border-white aspect-[16/9]">
+                <ContentImage src={article.image} alt={article.imageAlt} label={category.name} eager />
+              </div>
+              {article.image && article.imagenCredit && <ImageCredit text={article.imagenCredit} />}
+            </figure>
 
             <div className="mt-10 bg-white rounded-2xl border border-[#EADBEE] p-5 sm:p-10 shadow-sm">
               <div className="max-w-2xl mx-auto">
                 {article.blocks.map((block, i) => <Block key={i} block={block} />)}
+
+                {article.fuentes && article.fuentes.length > 0 && <Sources sources={article.fuentes} />}
 
                 <p className="mt-10 pt-5 border-t border-[#EADBEE] text-xs text-stone-500 leading-relaxed">
                   Este contenido es informativo y no reemplaza la consulta con un profesional de la salud.
@@ -140,12 +145,43 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
             name: 'Fresh Pick',
             logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.jpg` }
           },
-          mainEntityOfPage: `${SITE_URL}/blog/${article.slug}`
+          mainEntityOfPage: `${SITE_URL}/noticias/${article.slug}`
         }}
       />
     </SiteShell>
   );
 }
+
+const Sources: React.FC<{ sources: ContentSource[] }> = ({ sources }) => (
+  <section className="mt-10 pt-6 border-t border-[#EADBEE]" aria-labelledby="fuentes-titulo">
+    <h2 id="fuentes-titulo" className="flex items-center gap-2 text-lg font-bold font-display">
+      <BookMarked className="w-5 h-5 text-[#7B4382]" />
+      Fuentes
+    </h2>
+    <ol className="mt-3 space-y-2.5 text-sm text-stone-700">
+      {sources.map((s, i) => (
+        <li key={i} className="flex gap-2.5 leading-relaxed">
+          <span className="shrink-0 font-bold text-[#7B4382]">{i + 1}.</span>
+          <span className="min-w-0">
+            <a
+              href={s.url}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="font-semibold text-[#2F183C] hover:text-[#7B4382] underline decoration-[#DFCEE6] underline-offset-2 break-words"
+            >
+              {s.titulo}
+            </a>
+            <span className="text-stone-500">
+              {' '}· {s.medio}
+              {s.fecha && <> · <time dateTime={s.fecha}>{formatArticleDate(s.fecha)}</time></>}
+              {s.idioma === 'en' && ' · (en inglés)'}
+            </span>
+          </span>
+        </li>
+      ))}
+    </ol>
+  </section>
+);
 
 const Block: React.FC<{ block: BlogBlock }> = ({ block }) => {
   switch (block.type) {

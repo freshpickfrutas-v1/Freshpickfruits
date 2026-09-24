@@ -1,0 +1,82 @@
+{
+  "slug": "arandanos-de-alta-montana-por-que-saben-diferente",
+  "title": "Arándanos de Alta Montaña: Por Qué Cultivar a 2.800 m.s.n.m. se Nota en el Sabor",
+  "metaDescription": "Conoce cómo cultivamos arándanos en Guasca, Cundinamarca, a más de 2.800 m.s.n.m.: polinización natural, cosecha manual y un dulzor natural de 13° a 15° Brix.",
+  "excerpt": "Radiación solar de montaña, noches frías, agua de manantial y polinización con abejas: así nacen los arándanos Fresh Pick.",
+  "category": "cultivo-origen",
+  "date": "2026-09-05",
+  "readMinutes": 6,
+  "author": "Equipo Fresh Pick",
+  "image": "/assets/finca/finca-arandanos-invernadero-3.jpg",
+  "imageAlt": "Cultivo de arándanos Fresh Pick en la Vereda Santa Bárbara, Guasca, a más de 2.800 m.s.n.m.",
+  "featured": true,
+  "relatedRecipes": [
+    "panqueques-de-arandanos-limon-y-amapola"
+  ],
+  "blocks": [
+    {
+      "type": "p",
+      "text": "En la Vereda Santa Bárbara, en Guasca (Cundinamarca), a más de 2.800 metros sobre el nivel del mar, cultivamos nuestros arándanos. La altura no es un detalle: influye en el sabor, la firmeza y el color de cada fruto."
+    },
+    {
+      "type": "h2",
+      "text": "El efecto altura"
+    },
+    {
+      "type": "p",
+      "text": "En la alta montaña andina, los días tienen una radiación solar intensa y las noches son frías. Esa diferencia de temperatura hace que la planta madure sus frutos más despacio, lo que favorece la concentración de azúcares naturales y produce bayas más firmes y crocantes."
+    },
+    {
+      "type": "h2",
+      "text": "Dulzor natural de 13° a 15° Brix"
+    },
+    {
+      "type": "p",
+      "text": "Los grados Brix miden el contenido de azúcares solubles de una fruta. Nuestros arándanos alcanzan típicamente entre 13° y 15° Brix, un dulzor natural que se equilibra con su acidez característica."
+    },
+    {
+      "type": "h2",
+      "text": "Polinización 100% natural"
+    },
+    {
+      "type": "p",
+      "text": "En la finca tenemos 7 colmenas de abejas que polinizan el cultivo. La polinización natural favorece frutos bien formados y es parte de nuestro compromiso con la biodiversidad."
+    },
+    {
+      "type": "h2",
+      "text": "Agua de manantial y tierra negra"
+    },
+    {
+      "type": "p",
+      "text": "Regamos con agua de manantial y agua lluvia, y cultivamos sobre tierra negra de hasta 2 metros de profundidad, rica en materia orgánica."
+    },
+    {
+      "type": "h2",
+      "text": "Cosecha manual en el punto exacto"
+    },
+    {
+      "type": "p",
+      "text": "Cada arándano se recoge a mano, seleccionando solo los que están en su punto óptimo de madurez. Así protegemos la pruina, esa capa blanquecina natural que cubre el fruto y lo mantiene fresco por más tiempo."
+    },
+    {
+      "type": "h2",
+      "text": "Certificaciones que respaldan nuestro trabajo"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "GLOBALG.A.P.: buenas prácticas agrícolas e inocuidad alimentaria.",
+        "GRASP: bienestar social de los trabajadores.",
+        "ICA: certificación en Buenas Prácticas Agrícolas en Colombia."
+      ]
+    },
+    {
+      "type": "quote",
+      "text": "Cuidamos tu alimento, cuidamos a quien lo cultiva y cuidamos nuestro planeta."
+    }
+  ],
+  "estado": "publicado",
+  "modo": "revision",
+  "imagenTipo": "propia",
+  "imagenCredit": "Foto: Fresh Pick"
+}

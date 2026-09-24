@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Fresh Pick - sitemap.xml
-
-  URLs indexables: la home (secciones por ancla), /recetas, /blog y una
-  URL propia por cada receta y artículo. Al agregar una receta en
-  src/data/recipes.ts o un artículo en src/data/blog.ts, agregar aquí su
-  <url>. Los <lastmod> hay que actualizarlos a mano cuando cambie el
-  contenido de forma relevante para SEO.
+  ARCHIVO GENERADO por scripts/generar-sitemap.mjs antes de cada build.
+  No editar a mano: se sobrescribe con las recetas y noticias publicadas.
 -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -18,47 +14,17 @@
   <url>
     <loc>https://www.freshpickfruits.com/recetas</loc>
     <lastmod>2026-09-24</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/blog</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.freshpickfruits.com/noticias</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.freshpickfruits.com/recetas/smoothie-de-arandanos-y-avena</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.freshpickfruits.com/recetas/panqueques-de-arandanos-limon-y-amapola</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/bowl-de-yogur-con-arandanos-y-granola</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.freshpickfruits.com/recetas/muffins-de-arandanos-esponjosos</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.freshpickfruits.com/recetas/yogur-helado-crocante-de-arandanos</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.freshpickfruits.com/recetas/ponque-de-limon-y-arandanos</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -70,43 +36,73 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/recetas/refresco-de-arandanos-con-hierbabuena</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://www.freshpickfruits.com/recetas/mermelada-de-arandanos-con-chia</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/blog/beneficios-de-los-arandanos-frescos</loc>
+    <loc>https://www.freshpickfruits.com/recetas/muffins-de-arandanos-esponjosos</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/panqueques-de-arandanos-limon-y-amapola</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/ponque-de-limon-y-arandanos</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/refresco-de-arandanos-con-hierbabuena</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/smoothie-de-arandanos-y-avena</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/yogur-helado-crocante-de-arandanos</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/beneficios-de-los-arandanos-frescos</loc>
     <lastmod>2026-09-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/blog/tabla-nutricional-de-los-arandanos</loc>
+    <loc>https://www.freshpickfruits.com/noticias/tabla-nutricional-de-los-arandanos</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/blog/arandanos-y-salud-digestiva</loc>
+    <loc>https://www.freshpickfruits.com/noticias/arandanos-y-salud-digestiva</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/blog/formas-faciles-de-incluir-arandanos-en-tu-rutina</loc>
+    <loc>https://www.freshpickfruits.com/noticias/formas-faciles-de-incluir-arandanos-en-tu-rutina</loc>
     <lastmod>2026-09-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/blog/arandanos-de-alta-montana-por-que-saben-diferente</loc>
+    <loc>https://www.freshpickfruits.com/noticias/arandanos-de-alta-montana-por-que-saben-diferente</loc>
     <lastmod>2026-09-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

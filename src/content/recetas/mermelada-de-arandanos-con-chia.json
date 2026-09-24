@@ -1,0 +1,45 @@
+{
+  "slug": "mermelada-de-arandanos-con-chia",
+  "title": "Mermelada de Arándanos con Chía (Sin Pectina)",
+  "excerpt": "Una mermelada casera espesada con semillas de chía, con mucho menos azúcar que la tradicional y todo el sabor del arándano.",
+  "imageAlt": "Frasco de vidrio con mermelada casera de arándanos y chía junto a arándanos frescos",
+  "category": "preparaciones-conservas",
+  "prepMinutes": 5,
+  "cookMinutes": 10,
+  "restMinutes": 10,
+  "difficulty": "Fácil",
+  "servings": 8,
+  "ingredients": [
+    {
+      "text": "2 tazas (300 g) de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 cucharadas de miel o azúcar"
+    },
+    {
+      "text": "1 cucharada de jugo de limón"
+    },
+    {
+      "text": "2 cucharadas de semillas de chía"
+    },
+    {
+      "text": "2 cucharadas de agua"
+    }
+  ],
+  "steps": [
+    "Pon los arándanos y el agua en una olla pequeña a fuego medio.",
+    "Cocina 5–7 minutos, aplastando los arándanos con un tenedor a medida que revientan.",
+    "Retira del fuego y agrega la miel, el limón y la chía.",
+    "Deja reposar 10 minutos para que la chía espese la mezcla.",
+    "Pasa a un frasco limpio y refrigera. Espesará un poco más al enfriarse."
+  ],
+  "tips": [
+    "Dura hasta 7 días en la nevera en frasco hermético, o hasta 3 meses congelada en porciones.",
+    "Úsala sobre tostadas, yogur, avena o como relleno de panqueques."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "orden": 9
+}

@@ -1,0 +1,129 @@
+{
+  "slug": "tabla-nutricional-de-los-arandanos",
+  "title": "Tabla Nutricional de los Arándanos: Calorías, Vitaminas y Minerales por 100 g",
+  "metaDescription": "Tabla nutricional completa de los arándanos frescos por 100 g: calorías, carbohidratos, fibra, azúcares, vitamina C, vitamina K, manganeso y más.",
+  "excerpt": "Todo lo que contiene una porción de arándanos frescos, explicado de forma clara y con datos de referencia internacionales.",
+  "category": "nutricion-ciencia",
+  "date": "2026-09-18",
+  "readMinutes": 5,
+  "author": "Equipo Fresh Pick",
+  "imageAlt": "Arándanos frescos de alta montaña junto a una tabla con información nutricional",
+  "relatedRecipes": [
+    "mermelada-de-arandanos-con-chia"
+  ],
+  "blocks": [
+    {
+      "type": "p",
+      "text": "Si cuentas calorías, sigues un plan de alimentación o simplemente quieres saber qué estás comiendo, esta es la información nutricional de los arándanos frescos, con valores de referencia de la base de datos del Departamento de Agricultura de Estados Unidos (USDA FoodData Central)."
+    },
+    {
+      "type": "h2",
+      "text": "Información nutricional por 100 g de arándanos frescos"
+    },
+    {
+      "type": "table",
+      "caption": "Valores aproximados para arándanos crudos. % VD calculado sobre una dieta de 2.000 kcal.",
+      "headers": [
+        "Nutriente",
+        "Cantidad",
+        "% Valor Diario"
+      ],
+      "rows": [
+        [
+          "Energía",
+          "57 kcal",
+          "3%"
+        ],
+        [
+          "Agua",
+          "84 g",
+          "—"
+        ],
+        [
+          "Carbohidratos",
+          "14,5 g",
+          "5%"
+        ],
+        [
+          "Fibra dietaria",
+          "2,4 g",
+          "9%"
+        ],
+        [
+          "Azúcares naturales",
+          "10 g",
+          "—"
+        ],
+        [
+          "Proteína",
+          "0,7 g",
+          "1%"
+        ],
+        [
+          "Grasa total",
+          "0,3 g",
+          "0%"
+        ],
+        [
+          "Vitamina C",
+          "9,7 mg",
+          "11%"
+        ],
+        [
+          "Vitamina K",
+          "19,3 µg",
+          "16%"
+        ],
+        [
+          "Manganeso",
+          "0,34 mg",
+          "15%"
+        ],
+        [
+          "Potasio",
+          "77 mg",
+          "2%"
+        ]
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Cómo leer esta tabla"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Los azúcares de los arándanos son naturales de la fruta, no azúcares añadidos.",
+        "Una taza (unos 150 g) aporta aproximadamente 1,5 veces los valores de la tabla.",
+        "Los valores pueden variar según la variedad, el grado de madurez y las condiciones de cultivo."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "¿Frescos o congelados?"
+    },
+    {
+      "type": "p",
+      "text": "Los arándanos congelados sin azúcar añadido conservan un perfil nutricional muy similar al de los frescos. Congelar tus arándanos Fresh Pick es una excelente manera de tenerlos siempre disponibles para batidos y preparaciones."
+    },
+    {
+      "type": "h2",
+      "text": "¿Y los deshidratados?"
+    },
+    {
+      "type": "p",
+      "text": "Al perder el agua, los nutrientes y los azúcares se concentran, y muchas versiones comerciales llevan azúcar añadido. Por eso, en porciones iguales, los deshidratados tienen muchas más calorías que los frescos."
+    }
+  ],
+  "fuentes": [
+    {
+      "titulo": "Blueberries, raw (FDC ID 171711) — FoodData Central",
+      "url": "https://fdc.nal.usda.gov/",
+      "medio": "USDA FoodData Central",
+      "fecha": "2019-04-01",
+      "idioma": "en"
+    }
+  ],
+  "estado": "publicado",
+  "modo": "revision"
+}

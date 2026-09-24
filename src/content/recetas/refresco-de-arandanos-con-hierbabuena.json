@@ -1,0 +1,46 @@
+{
+  "slug": "refresco-de-arandanos-con-hierbabuena",
+  "title": "Refresco de Arándanos con Hierbabuena",
+  "excerpt": "Una bebida burbujeante, natural y poco dulce, perfecta para días calurosos o para recibir visitas.",
+  "imageAlt": "Vasos de refresco de arándanos con hojas de hierbabuena, hielo y agua con gas",
+  "category": "bebidas-refrescos",
+  "prepMinutes": 10,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 taza (150 g) de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "10 hojas de hierbabuena, y algunas más para decorar"
+    },
+    {
+      "text": "2 cucharadas de miel o panela rallada"
+    },
+    {
+      "text": "Jugo de 1/2 limón"
+    },
+    {
+      "text": "1 litro de agua con gas bien fría"
+    },
+    {
+      "text": "Hielo al gusto"
+    }
+  ],
+  "steps": [
+    "En una jarra, machaca los arándanos con la hierbabuena y la miel hasta que suelten su jugo.",
+    "Agrega el jugo de limón y mezcla.",
+    "Llena la jarra con hielo y completa con el agua con gas.",
+    "Revuelve suavemente y sirve con arándanos enteros y hojas de hierbabuena."
+  ],
+  "tips": [
+    "Para una versión sin gas, usa agua fría y deja reposar la jarra 30 minutos en la nevera para que se intensifique el sabor.",
+    "Congela arándanos dentro de cubos de hielo: decoran y enfrían sin aguar la bebida."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "orden": 8
+}

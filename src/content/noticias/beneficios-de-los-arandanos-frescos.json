@@ -1,0 +1,88 @@
+{
+  "slug": "beneficios-de-los-arandanos-frescos",
+  "title": "Beneficios de los Arándanos Frescos: Qué Aportan a tu Alimentación Diaria",
+  "metaDescription": "Descubre los beneficios de los arándanos frescos: fibra, vitamina C, vitamina K, manganeso y antocianinas en una fruta baja en calorías. Guía completa Fresh Pick.",
+  "excerpt": "Pocas frutas reúnen tanto en tan poco: fibra, vitaminas, minerales y antioxidantes naturales en una porción baja en calorías. Te contamos qué aporta realmente una taza de arándanos.",
+  "category": "beneficios-arandanos",
+  "date": "2026-09-22",
+  "readMinutes": 6,
+  "author": "Equipo Fresh Pick",
+  "image": "/assets/finca/finca-arandanos-mano-2.jpg",
+  "imageAlt": "Mano sosteniendo arándanos frescos recién cosechados en la finca Fresh Pick en Guasca",
+  "featured": true,
+  "relatedRecipes": [
+    "smoothie-de-arandanos-y-avena",
+    "bowl-de-yogur-con-arandanos-y-granola"
+  ],
+  "blocks": [
+    {
+      "type": "p",
+      "text": "Los arándanos son una de las frutas más valoradas en la alimentación saludable, y no es casualidad: en una porción pequeña y con pocas calorías reúnen fibra, vitaminas, minerales y compuestos antioxidantes naturales. En esta guía te explicamos qué aportan realmente y cómo aprovecharlos al máximo."
+    },
+    {
+      "type": "h2",
+      "text": "Una fruta baja en calorías y rica en nutrientes"
+    },
+    {
+      "type": "p",
+      "text": "Cada 100 g de arándanos frescos aportan alrededor de 57 kcal, lo que los convierte en una opción ideal para quienes buscan comer rico sin excederse. Además, contienen aproximadamente un 84% de agua, por lo que también contribuyen a la hidratación."
+    },
+    {
+      "type": "h2",
+      "text": "Fuente de vitamina C, vitamina K y manganeso"
+    },
+    {
+      "type": "p",
+      "text": "Una porción de 100 g cubre cerca del 11% del valor diario de vitamina C, alrededor del 16% de vitamina K y aproximadamente el 15% de manganeso. La vitamina C participa en el funcionamiento normal del sistema inmune; la vitamina K, en la coagulación normal de la sangre; y el manganeso, en el metabolismo energético."
+    },
+    {
+      "type": "h2",
+      "text": "Antocianinas: el secreto de su color azul"
+    },
+    {
+      "type": "p",
+      "text": "El color azul-morado intenso de los arándanos proviene de las antocianinas, un grupo de pigmentos naturales con actividad antioxidante. La investigación científica sobre las antocianinas y la salud es muy activa y los resultados son prometedores, aunque todavía se está estudiando en qué medida se traducen en beneficios concretos para las personas."
+    },
+    {
+      "type": "quote",
+      "text": "La mejor forma de aprovechar los arándanos es sencilla: comerlos con frecuencia, dentro de una alimentación variada y equilibrada."
+    },
+    {
+      "type": "h2",
+      "text": "Fibra para una digestión más cómoda"
+    },
+    {
+      "type": "p",
+      "text": "Con cerca de 2,4 g de fibra por cada 100 g, los arándanos suman a la ingesta diaria de fibra, que ayuda al tránsito intestinal normal y aporta sensación de saciedad."
+    },
+    {
+      "type": "h2",
+      "text": "¿Cuántos arándanos comer al día?"
+    },
+    {
+      "type": "p",
+      "text": "No existe una cantidad mágica, pero una taza (unos 150 g) es una porción práctica que puedes incluir en el desayuno, como merienda o en un batido. Lo importante es la constancia y combinarlos con otras frutas, verduras y alimentos integrales."
+    },
+    {
+      "type": "h2",
+      "text": "Frescura y origen sí importan"
+    },
+    {
+      "type": "p",
+      "text": "Un arándano cosechado en su punto de madurez, sin ceras artificiales y con su pruina natural intacta conserva mejor su sabor, su firmeza y su textura. Por eso en Fresh Pick cosechamos a mano en Guasca, a más de 2.800 m.s.n.m., y entregamos directamente a tu casa."
+    }
+  ],
+  "fuentes": [
+    {
+      "titulo": "Blueberries, raw (FDC ID 171711) — FoodData Central",
+      "url": "https://fdc.nal.usda.gov/",
+      "medio": "USDA FoodData Central",
+      "fecha": "2019-04-01",
+      "idioma": "en"
+    }
+  ],
+  "estado": "publicado",
+  "modo": "revision",
+  "imagenTipo": "propia",
+  "imagenCredit": "Foto: Fresh Pick"
+}

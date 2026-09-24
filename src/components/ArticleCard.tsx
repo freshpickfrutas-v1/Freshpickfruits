@@ -9,7 +9,7 @@ export const ArticleCard: React.FC<{ article: BlogArticle; large?: boolean }> = 
 
   return (
     <a
-      href={`/blog/${article.slug}`}
+      href={`/noticias/${article.slug}`}
       className={`bg-white rounded-2xl border border-[#EADBEE] shadow-sm overflow-hidden hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-col group ${large ? 'md:flex-row' : ''}`}
     >
       <div className={`relative overflow-hidden bg-stone-100 aspect-[16/9] ${large ? 'md:aspect-auto md:w-1/2 md:min-h-[18rem]' : ''}`}>

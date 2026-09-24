@@ -17,16 +17,30 @@ function renderRoute(pathname: string) {
   const recipeMatch = pathname.match(/^\/recetas\/([^/]+)$/);
   if (recipeMatch) return <RecipeDetailPage slug={decodeURIComponent(recipeMatch[1])} />;
 
-  if (pathname === '/blog') return <BlogPage />;
-  const articleMatch = pathname.match(/^\/blog\/([^/]+)$/);
+  if (pathname === '/noticias') return <BlogPage />;
+  const articleMatch = pathname.match(/^\/noticias\/([^/]+)$/);
   if (articleMatch) return <BlogArticlePage slug={decodeURIComponent(articleMatch[1])} />;
 
   return <PublicHome />;
 }
 
+/** Old /blog URLs moved to /noticias. Vercel redirects them server-side; this covers dev and any cached client. */
+function legacyBlogRedirect(location: { pathname: string; search: string; hash: string }) {
+  if (location.pathname !== '/blog' && !location.pathname.startsWith('/blog/')) return null;
+  return location.pathname.replace(/^\/blog/, '/noticias') + location.search + location.hash;
+}
+
 export default function App() {
   const location = useAppLocation();
   useInternalLinkInterception();
+
+  const redirectTo = legacyBlogRedirect(location);
+  useEffect(() => {
+    if (redirectTo) {
+      window.history.replaceState({}, '', redirectTo);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  }, [redirectTo]);
 
   // After each navigation: jump to the #section if there is one, otherwise start at the top.
   useEffect(() => {
@@ -45,7 +59,7 @@ export default function App() {
   return (
     <CartProvider>
       <React.Fragment key={location.pathname + location.search}>
-        {renderRoute(location.pathname)}
+        {redirectTo ? null : renderRoute(location.pathname)}
       </React.Fragment>
     </CartProvider>
   );

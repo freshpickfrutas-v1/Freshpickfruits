@@ -41,3 +41,8 @@ export const ContentImage: React.FC<ContentImageProps> = ({ src, alt, label, emo
     </div>
   );
 };
+
+/** Caption under a photo (e.g. "Foto: Fresh Pick" or "Imagen ilustrativa generada con IA"). Use inside a <figure>. */
+export const ImageCredit: React.FC<{ text: string }> = ({ text }) => (
+  <figcaption className="mt-2 text-[11px] text-stone-500 text-right">{text}</figcaption>
+);

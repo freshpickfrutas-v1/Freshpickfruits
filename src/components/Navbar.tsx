@@ -117,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a href="/#planes-mensuales" className={navLinkClass(false)}>Planes Mensuales</a>
             <a href="/#sostenibilidad" className={navLinkClass(false)}>Sostenibilidad</a>
             <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas</a>
-            <a href="/blog" className={navLinkClass(isActive('/blog'))} aria-current={isActive('/blog') ? 'page' : undefined}>Noticias de Arándanos</a>
+            <a href="/noticias" className={navLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>Noticias de Arándanos</a>
             <a href="/#faq" className={navLinkClass(false)}>Preguntas</a>
           </nav>
 
@@ -173,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="bg-[#2F183C] text-[#DDA83A] text-[10px] uppercase px-2 py-0.5 rounded-full font-bold">Exclusivo</span>
             </button>
             <a href="/recetas" onClick={closeMenu} className={mobileLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas con Arándanos</a>
-            <a href="/blog" onClick={closeMenu} className={mobileLinkClass(isActive('/blog'))} aria-current={isActive('/blog') ? 'page' : undefined}>Noticias de Arándanos</a>
+            <a href="/noticias" onClick={closeMenu} className={mobileLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>Noticias de Arándanos</a>
             <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>Planes Mensuales</a>
             <a href="/#sostenibilidad" onClick={closeMenu} className={mobileLinkClass(false)}>Sostenibilidad & Finca</a>
             <a href="/#faq" onClick={closeMenu} className={mobileLinkClass(false)}>Preguntas Frecuentes</a>

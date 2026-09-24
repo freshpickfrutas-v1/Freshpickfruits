@@ -84,6 +84,30 @@ export interface SubscriptionPlan {
   idealFor: string;
 }
 
+/** Publishing workflow fields shared by recipes and articles (written by the content automation). */
+export type ContentStatus = 'publicado' | 'borrador';
+export type ContentMode = 'automatico' | 'revision';
+export type ImageKind = 'propia' | 'stock' | 'generada';
+
+export interface ContentSource {
+  titulo: string;
+  url: string;
+  /** Publisher, e.g. "PubMed", "ScienceDaily", "USDA". */
+  medio: string;
+  /** ISO date of the source, if known. */
+  fecha?: string;
+  /** Language of the source; "en" is labeled "(en inglés)". */
+  idioma?: 'es' | 'en';
+}
+
+interface ContentWorkflow {
+  estado?: ContentStatus;
+  modo?: ContentMode;
+  imagenTipo?: ImageKind;
+  /** Caption shown under the image, e.g. "Imagen ilustrativa generada con IA". */
+  imagenCredit?: string;
+}
+
 export type RecipeCategoryId =
   | 'smoothies-batidos'
   | 'desayunos'
@@ -109,7 +133,7 @@ export interface RecipeIngredient {
 
 export type RecipeDifficulty = 'Fácil' | 'Intermedio' | 'Avanzado';
 
-export interface Recipe {
+export interface Recipe extends ContentWorkflow {
   /** URL slug: /recetas/<slug> */
   slug: string;
   title: string;
@@ -130,6 +154,10 @@ export interface Recipe {
   steps: string[];
   tips: string[];
   featured?: boolean;
+  /** Tie-breaker for recipes published the same day (lower first). */
+  orden?: number;
+  /** ISO publication date; newest recipes are listed first. */
+  date?: string;
 }
 
 export type BlogCategoryId =
@@ -155,8 +183,8 @@ export type BlogBlock =
   | { type: 'quote'; text: string }
   | { type: 'table'; headers: string[]; rows: string[][]; caption?: string };
 
-export interface BlogArticle {
-  /** URL slug: /blog/<slug> */
+export interface BlogArticle extends ContentWorkflow {
+  /** URL slug: /noticias/<slug> */
   slug: string;
   title: string;
   /** Used for <meta name="description"> (ideally 140–160 characters). */
@@ -170,6 +198,8 @@ export interface BlogArticle {
   image?: string;
   imageAlt: string;
   blocks: BlogBlock[];
+  /** Sources shown at the end of the article (required for health claims and news). */
+  fuentes?: ContentSource[];
   /** Slugs of recipes to suggest at the end of the article. */
   relatedRecipes?: string[];
   featured?: boolean;

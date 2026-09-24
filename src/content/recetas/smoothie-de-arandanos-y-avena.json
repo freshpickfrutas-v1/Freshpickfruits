@@ -1,0 +1,51 @@
+{
+  "slug": "smoothie-de-arandanos-y-avena",
+  "title": "Smoothie de Arándanos, Avena y Yogur Griego",
+  "excerpt": "Un batido cremoso y saciador, listo en 5 minutos, con el color intenso y el sabor de los arándanos de alta montaña.",
+  "imageAlt": "Smoothie morado de arándanos frescos con avena y yogur griego servido en vaso de vidrio",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "featured": true,
+  "ingredients": [
+    {
+      "text": "1 taza (150 g) de arándanos Fresh Pick, frescos o congelados",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza (240 g) de yogur griego natural"
+    },
+    {
+      "text": "3 cucharadas de avena en hojuelas"
+    },
+    {
+      "text": "1 taza (240 ml) de leche o bebida vegetal"
+    },
+    {
+      "text": "1 cucharada de miel (opcional)"
+    },
+    {
+      "text": "4 cubos de hielo (omitir si usas arándanos congelados)"
+    }
+  ],
+  "steps": [
+    "Pon en la licuadora la leche y el yogur primero; así las cuchillas giran con facilidad.",
+    "Agrega la avena, los arándanos, la miel y el hielo.",
+    "Licúa a velocidad alta durante 45–60 segundos, hasta que no queden trozos de avena.",
+    "Prueba y ajusta: más leche si lo quieres más líquido, más miel si lo prefieres más dulce.",
+    "Sirve de inmediato y decora con algunos arándanos enteros."
+  ],
+  "tips": [
+    "Congela tus arándanos Fresh Pick en una bandeja y luego pásalos a una bolsa: el smoothie queda más espeso y frío sin aguarlo con hielo.",
+    "Si remojas la avena 10 minutos en la leche antes de licuar, la textura queda más sedosa."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "orden": 1
+}

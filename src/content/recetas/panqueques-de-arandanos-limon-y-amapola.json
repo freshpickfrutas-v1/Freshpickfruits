@@ -1,0 +1,65 @@
+{
+  "slug": "panqueques-de-arandanos-limon-y-amapola",
+  "title": "Panqueques de Arándanos con Limón y Amapola",
+  "excerpt": "Panqueques esponjosos con el crujiente de la semilla de amapola, ralladura de limón y arándanos enteros que se caramelizan en la sartén.",
+  "image": "https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=1200&q=80",
+  "imageAlt": "Panqueques esponjosos con arándanos frescos, ralladura de limón y semillas de amapola, recién hechos en sartén",
+  "category": "desayunos",
+  "prepMinutes": 10,
+  "cookMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "featured": true,
+  "ingredients": [
+    {
+      "text": "270 g de harina de trigo (sin polvos)"
+    },
+    {
+      "text": "2 cucharaditas de polvo de hornear"
+    },
+    {
+      "text": "100 g de azúcar"
+    },
+    {
+      "text": "1 cucharadita de sal"
+    },
+    {
+      "text": "Ralladura de 1 limón"
+    },
+    {
+      "text": "1 huevo"
+    },
+    {
+      "text": "300 ml de leche"
+    },
+    {
+      "text": "1/2 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "10 g de mantequilla sin sal, derretida"
+    },
+    {
+      "text": "100 g de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 cucharaditas de semillas de amapola"
+    }
+  ],
+  "steps": [
+    "Combina harina, sal, azúcar, polvo de hornear y ralladura. Forma un hoyo en el centro (método volcán).",
+    "Vierte la leche, el huevo y la vainilla en el centro y mezcla desde adentro hacia afuera para evitar grumos.",
+    "Añade la mantequilla derretida en forma de hilo mientras mezclas. Incorpora los arándanos y la amapola con espátula.",
+    "Cocina en sartén antiadherente a fuego medio-bajo. Voltea solo cuando aparezcan burbujas en la superficie."
+  ],
+  "tips": [
+    "Si usas arándanos congelados, no los descongeles: agrégalos directamente a la masa para que no la tiñan.",
+    "Pon algunos arándanos extra sobre cada panqueque justo después de verter la masa en la sartén; así quedan repartidos de forma pareja."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "stock",
+  "imagenCredit": "Foto: Unsplash",
+  "orden": 2
+}

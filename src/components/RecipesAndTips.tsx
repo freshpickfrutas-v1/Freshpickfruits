@@ -58,7 +58,7 @@ export const RecipesAndTips: React.FC = () => {
             className="inline-flex items-center justify-center gap-2 px-6 py-3.5 fp-btn-secondary text-sm"
           >
             <Newspaper className="w-4 h-4" />
-            <span>Leer el blog de salud y nutrición</span>
+            <span>Ver noticias de arándanos</span>
           </a>
         </div>
 

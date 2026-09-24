@@ -19,7 +19,7 @@ export default function BlogPage() {
   const [filter, setFilter] = useState<Filter>(readFilterFromUrl);
 
   usePageMeta({
-    title: 'Blog de Arándanos: Salud, Nutrición y Cultivo | Fresh Pick',
+    title: 'Noticias de Arándanos: Salud, Nutrición y Cultivo | Fresh Pick',
     description: 'Artículos sobre los beneficios de los arándanos, nutrición, salud digestiva, estilo de vida saludable y el cultivo de arándanos de alta montaña en Guasca, Colombia.',
     path: '/blog'
   });
@@ -39,12 +39,12 @@ export default function BlogPage() {
     <SiteShell>
       <section className="fp-gradient-hero border-b border-stone-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10 sm:pt-10 sm:pb-14">
-          <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Blog' }]} />
+          <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: 'Noticias de Arándanos' }]} />
 
           <div className="max-w-3xl mt-6">
             <div className="fp-pill text-xs shadow-sm">
               <Newspaper className="w-3.5 h-3.5 text-[#7B4382]" />
-              <span>Blog Fresh Pick</span>
+              <span>Noticias de Arándanos</span>
             </div>
             <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display leading-tight">
               Salud, nutrición y todo sobre los arándanos
@@ -93,7 +93,7 @@ export default function BlogPage() {
           )}
 
           <div className="mt-12 sm:mt-16">
-            <OrderCta whatsappMessage="Hola Fresh Pick, leí su blog y quiero pedir arándanos frescos" />
+            <OrderCta whatsappMessage="Hola Fresh Pick, leí sus noticias de arándanos y quiero pedir arándanos frescos" />
           </div>
         </div>
       </section>

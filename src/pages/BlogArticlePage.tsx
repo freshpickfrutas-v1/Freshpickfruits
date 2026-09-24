@@ -16,8 +16,8 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
   const article = getArticleBySlug(slug);
 
   usePageMeta({
-    title: article ? `${article.title} | Blog Fresh Pick` : 'Artículo no encontrado | Fresh Pick',
-    description: article?.metaDescription ?? 'Este artículo no existe o fue movido. Explora el blog de Fresh Pick.',
+    title: article ? `${article.title} | Noticias de Arándanos Fresh Pick` : 'Artículo no encontrado | Fresh Pick',
+    description: article?.metaDescription ?? 'Este artículo no existe o fue movido. Explora las noticias de arándanos de Fresh Pick.',
     path: `/blog/${slug}`,
     image: article?.image,
     type: 'article'
@@ -28,9 +28,9 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
       <SiteShell>
         <NotFoundContent
           title="No encontramos este artículo"
-          text="Puede que haya cambiado de nombre. Explora todos los artículos del blog."
+          text="Puede que haya cambiado de nombre. Explora todas las noticias de arándanos."
           href="/blog"
-          linkLabel="Ir al blog"
+          linkLabel="Ver noticias de arándanos"
         />
       </SiteShell>
     );
@@ -50,7 +50,7 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
             <Breadcrumbs
               items={[
                 { label: 'Inicio', href: '/' },
-                { label: 'Blog', href: '/blog' },
+                { label: 'Noticias de Arándanos', href: '/blog' },
                 { label: category.name, href: `/blog?categoria=${category.id}` },
                 { label: article.title }
               ]}

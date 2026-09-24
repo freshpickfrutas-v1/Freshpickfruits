@@ -99,7 +99,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="text-xl sm:text-2xl font-black tracking-tight text-[#2F183C] font-display">
                   Fresh Pick
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
+                {/* Hidden on desktop so the full menu fits next to the logo */}
+                <span className="xl:hidden text-[11px] sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
                   Arándanos
                 </span>
               </div>
@@ -110,13 +111,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
 
           {/* Desktop Navigation Links */}
-          {/* "Inicio" lives on the logo here; seven links is the most that fits at 1280px. */}
-          <nav className="hidden xl:flex items-center gap-4 2xl:gap-7 text-sm font-semibold text-[#2F183C] shrink-0" aria-label="Menú principal">
+          {/* "Inicio" lives on the logo here so the menu fits at 1280px. */}
+          <nav className="hidden xl:flex items-center gap-3 2xl:gap-4 text-[13px] font-semibold text-[#2F183C] shrink-0" aria-label="Menú principal">
             <a href="/#variedades" className={navLinkClass(false)}>Nuestros Arándanos</a>
             <a href="/#planes-mensuales" className={navLinkClass(false)}>Planes Mensuales</a>
             <a href="/#sostenibilidad" className={navLinkClass(false)}>Sostenibilidad</a>
             <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas</a>
-            <a href="/blog" className={navLinkClass(isActive('/blog'))} aria-current={isActive('/blog') ? 'page' : undefined}>Blog</a>
+            <a href="/blog" className={navLinkClass(isActive('/blog'))} aria-current={isActive('/blog') ? 'page' : undefined}>Noticias de Arándanos</a>
             <a href="/#faq" className={navLinkClass(false)}>Preguntas</a>
           </nav>
 
@@ -172,7 +173,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="bg-[#2F183C] text-[#DDA83A] text-[10px] uppercase px-2 py-0.5 rounded-full font-bold">Exclusivo</span>
             </button>
             <a href="/recetas" onClick={closeMenu} className={mobileLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas con Arándanos</a>
-            <a href="/blog" onClick={closeMenu} className={mobileLinkClass(isActive('/blog'))} aria-current={isActive('/blog') ? 'page' : undefined}>Blog: Salud y Nutrición</a>
+            <a href="/blog" onClick={closeMenu} className={mobileLinkClass(isActive('/blog'))} aria-current={isActive('/blog') ? 'page' : undefined}>Noticias de Arándanos</a>
             <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>Planes Mensuales</a>
             <a href="/#sostenibilidad" onClick={closeMenu} className={mobileLinkClass(false)}>Sostenibilidad & Finca</a>
             <a href="/#faq" onClick={closeMenu} className={mobileLinkClass(false)}>Preguntas Frecuentes</a>

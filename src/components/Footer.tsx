@@ -89,7 +89,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="/blog" className="hover:text-[#DDA83A] transition-colors">
-                  Blog: Salud y Nutrición
+                  Noticias de Arándanos
                 </a>
               </li>
             </ul>

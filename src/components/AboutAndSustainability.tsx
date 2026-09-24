@@ -8,47 +8,32 @@ export const AboutAndSustainability: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Origin & Philosophy Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-start mb-20">
 
           {/* Left Visual Collage */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3] bg-stone-100 border-4 border-white">
+          <div className="lg:col-span-6 flex flex-col gap-4">
+            <div className="rounded-3xl overflow-hidden shadow-xl aspect-[4/3] bg-stone-100 border-4 border-white">
               <img
                 src="/assets/finca/finca-arandanos-invernadero-3.jpg"
                 alt="Cultivo de arándanos Fresh Pick a más de 2.800 msnm en la Vereda Santa Bárbara, Guasca, Cundinamarca, con agricultura responsable y polinización natural"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1E0E27]/80 via-transparent to-transparent" />
-
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-xs uppercase font-bold tracking-wider text-[#DDA83A]">
-                  Nuestra Finca Andina
-                </span>
-                <h3 className="text-xl font-bold font-display">
-                  Vereda Santa Bárbara · Guasca, Cundinamarca
-                </h3>
-                <p className="text-xs text-stone-200">
-                  A más de 2.800 m.s.n.m., con agua de manantial y tierra negra de 2 m de profundidad
-                </p>
-              </div>
             </div>
 
-            {/* Small Overlay Card */}
-            <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-[#2F183C] text-white p-4 sm:p-5 rounded-2xl shadow-xl max-w-xs border border-[#7B4382]/60 hidden sm:block">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#432356] flex items-center justify-center text-[#DDA83A]">
-                  <Recycle className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-xs font-bold">Agua 100% de Manantial</div>
-                  <div className="text-[11px] text-[#DFCEE6]">Y agua lluvia para todo el cultivo</div>
-                </div>
+            <div className="flex items-start gap-3 bg-[#2F183C] text-white p-4 sm:p-5 rounded-2xl shadow-lg border border-[#7B4382]/60">
+              <div className="w-11 h-11 rounded-xl bg-[#432356] flex items-center justify-center text-[#DDA83A] shrink-0">
+                <Recycle className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-xs font-bold uppercase tracking-[0.12em] text-[#DDA83A]">Nuestra Finca Andina</div>
+                <div className="text-sm font-semibold mt-1">Agua 100% de manantial</div>
+                <div className="text-[11px] text-[#DFCEE6] mt-1">Y agua lluvia para todo el cultivo, con tierra negra de más de 2 metros de profundidad.</div>
               </div>
             </div>
           </div>
 
           {/* Right Text Content */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-6 lg:pt-2">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider">
               <Mountain className="w-3.5 h-3.5 text-[#7B4382]" />
               <span>Nuestra Finca & Compromiso</span>
@@ -94,6 +79,20 @@ export const AboutAndSustainability: React.FC = () => {
 
           </div>
 
+        </div>
+
+        <div className="mb-20 rounded-3xl border border-[#EADBEE] bg-[#FAF7F0] p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#7B4382]">Ubicación</span>
+              <h3 className="text-xl sm:text-2xl font-bold font-display text-[#2F183C] mt-1">
+                Vereda Santa Bárbara · Guasca, Cundinamarca
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm text-stone-600 max-w-xl">
+              A más de 2.800 m.s.n.m., con clima de montaña, agua de manantial y una cosecha cuidadosa para mantener su sabor, firmeza y calidad premium.
+            </p>
+          </div>
         </div>
 
         {/* Farm Gallery Strip */}

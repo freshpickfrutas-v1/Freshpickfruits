@@ -126,26 +126,30 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
                 </div>
               </div>
 
-              {/* Floating Feature Box 1 */}
-              <div className="absolute -bottom-6 -left-4 sm:-left-8 bg-white p-3.5 sm:p-4 rounded-xl shadow-xl border border-[#EADBEE] flex items-center gap-3.5 max-w-xs">
-                <div className="w-11 h-11 rounded-lg bg-[#F5ECF9] border border-[#DFCEE6] flex items-center justify-center text-2xl">
-                  🫐
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-[#2F183C]">Estuche de Arándanos 125g</div>
-                  <div className="text-[11px] text-stone-500">Pruina natural protectora intacta</div>
-                  <div className="text-xs font-bold text-[#7B4382] mt-0.5">
-                    $8.000 COP <span className="font-normal text-stone-500 text-[10px]">/ 125g</span>
+              {/* Product & Delivery Box */}
+              <div className="mt-4 bg-white rounded-xl shadow-md border border-[#EADBEE] p-3.5 sm:p-4 flex flex-col sm:flex-row lg:flex-col xl:flex-row sm:items-center lg:items-stretch xl:items-center gap-3.5 sm:gap-4 lg:gap-3.5 xl:gap-4">
+                <div className="flex items-center gap-3.5 sm:flex-1">
+                  <div className="w-11 h-11 rounded-lg bg-[#F5ECF9] border border-[#DFCEE6] flex items-center justify-center text-2xl shrink-0">
+                    🫐
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-[#2F183C]">Estuche de Arándanos 125g</div>
+                    <div className="text-[11px] text-stone-500">Pruina natural protectora intacta</div>
+                    <div className="text-xs font-bold text-[#7B4382] mt-0.5">
+                      $8.000 COP <span className="font-normal text-stone-500 text-[10px]">/ 125g</span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Floating Feature Box 2 */}
-              <div className="hidden sm:flex absolute -top-5 -right-4 bg-[#2F183C] text-white p-3.5 rounded-xl shadow-xl border border-[#7B4382]/40 items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#DDA83A] animate-ping" />
-                <div className="text-xs">
-                  <p className="font-bold">Entregas Martes y Miércoles</p>
-                  <p className="text-[#DFCEE6] text-[11px]">Horario 8:00 a.m. – 3:00 p.m.</p>
+                <div className="flex items-center gap-3 pt-3.5 border-t sm:pt-0 sm:pl-4 sm:border-t-0 sm:border-l lg:pt-3.5 lg:pl-0 lg:border-t lg:border-l-0 xl:pt-0 xl:pl-4 xl:border-t-0 xl:border-l border-[#EADBEE] sm:flex-1">
+                  <span className="relative flex w-2.5 h-2.5 shrink-0">
+                    <span className="absolute inline-flex w-full h-full rounded-full bg-[#DDA83A] opacity-75 animate-ping" />
+                    <span className="relative inline-flex w-2.5 h-2.5 rounded-full bg-[#C59328]" />
+                  </span>
+                  <div className="text-xs">
+                    <p className="font-bold text-[#2F183C]">Entregas Martes y Miércoles</p>
+                    <p className="text-stone-500 text-[11px]">Horario 8:00 a.m. – 3:00 p.m.</p>
+                  </div>
                 </div>
               </div>
 

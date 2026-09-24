@@ -11,30 +11,30 @@ export const AboutAndSustainability: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
 
           {/* Left Visual Collage */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3] bg-stone-100 border-4 border-white">
+          <div className="lg:col-span-6">
+            <div className="rounded-3xl overflow-hidden shadow-xl aspect-[4/3] bg-stone-100 border-4 border-white">
               <img
                 src="/assets/finca/finca-arandanos-invernadero-3.jpg"
                 alt="Cultivo de arándanos Fresh Pick a más de 2.800 msnm en la Vereda Santa Bárbara, Guasca, Cundinamarca, con agricultura responsable y polinización natural"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1E0E27]/80 via-transparent to-transparent" />
-
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <span className="text-xs uppercase font-bold tracking-wider text-[#DDA83A]">
-                  Nuestra Finca Andina
-                </span>
-                <h3 className="text-xl font-bold font-display">
-                  Vereda Santa Bárbara · Guasca, Cundinamarca
-                </h3>
-                <p className="text-xs text-stone-200">
-                  A más de 2.800 m.s.n.m., con agua de manantial y tierra negra de 2 m de profundidad
-                </p>
-              </div>
             </div>
 
-            {/* Small Overlay Card */}
-            <div className="absolute -bottom-6 -right-4 sm:-right-6 bg-[#2F183C] text-white p-4 sm:p-5 rounded-2xl shadow-xl max-w-xs border border-[#7B4382]/60 hidden sm:block">
+            {/* Caption below image */}
+            <div className="mt-5 px-1">
+              <span className="text-xs uppercase font-bold tracking-wider text-[#C59328]">
+                Nuestra Finca Andina
+              </span>
+              <h3 className="text-xl font-bold font-display text-[#2F183C]">
+                Vereda Santa Bárbara · Guasca, Cundinamarca
+              </h3>
+              <p className="text-xs text-stone-600">
+                A más de 2.800 m.s.n.m., con agua de manantial y tierra negra de 2 m de profundidad
+              </p>
+            </div>
+
+            {/* Water Card */}
+            <div className="mt-4 bg-[#2F183C] text-white p-4 sm:p-5 rounded-2xl shadow-md border border-[#7B4382]/60">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#432356] flex items-center justify-center text-[#DDA83A]">
                   <Recycle className="w-5 h-5" />

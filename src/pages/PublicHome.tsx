@@ -72,7 +72,7 @@ export default function PublicHome() {
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <div className="min-h-screen flex flex-col bg-transparent text-stone-900 font-sans selection:bg-[#2F183C] selection:text-[#DDA83A]">
+    <div className="min-h-screen flex flex-col bg-transparent lg:w-[calc(100%-5rem)] lg:max-w-[1440px] lg:mx-auto lg:shadow-2xl lg:shadow-[#2F183C]/30 text-stone-900 font-sans selection:bg-[#2F183C] selection:text-[#DDA83A]">
       <StructuredData />
       <Navbar
         cartItemCount={totalCartCount}

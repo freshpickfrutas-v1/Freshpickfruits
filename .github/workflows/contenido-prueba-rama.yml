@@ -20,17 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
 
-      - run: npm ci
+      # package-lock.json is out of date (Vercel installs with bun.lock), so install without it.
+      - run: npm install --no-package-lock --no-audit --no-fund
 
       - name: Configurar autor de los commits
         run: |

@@ -2,4 +2,4 @@ Editar este archivo en la rama feature/contenido-automatico lanza una tanda de p
 (.github/workflows/contenido-prueba-rama.yml) que se guarda en la misma rama.
 recetas=5
 noticias=5
-solicitud=2026-09-24 primera tanda
+solicitud=2026-09-24 primera tanda (reintento tras arreglar la instalación)

@@ -6,10 +6,8 @@ export const AboutAndSustainability: React.FC = () => {
   return (
     <section id="sostenibilidad" className="py-16 sm:py-24 bg-white/85 backdrop-blur-[2px] border-b border-stone-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<!---->
         {/* Origin & Philosophy Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-20">
-<!---->
           {/* Left: image + info cards (NO overlays on image) */}
           <div className="lg:col-span-6 flex flex-col gap-5">
             {/* Clean image - full visibility, no overlays */}

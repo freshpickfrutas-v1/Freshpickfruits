@@ -1,6 +1,6 @@
 import React from 'react';
 import { CERTIFICATIONS_LIST } from '../data/mockData';
-import { Award, Recycle, Sun, Mountain, Users, MapPin } from 'lucide-react';
+import { Award, Recycle, Sun, Mountain, Users } from 'lucide-react';
 
 export const AboutAndSustainability: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ export const AboutAndSustainability: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Origin & Philosophy Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-20">
-          {/* Left: image + info cards (NO overlays on image) */}
+          {/* Left: image + unified info bar */}
           <div className="lg:col-span-6 flex flex-col gap-5">
             {/* Clean image - full visibility, no overlays */}
             <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/3] bg-stone-100 border-4 border-white">
@@ -23,37 +23,22 @@ export const AboutAndSustainability: React.FC = () => {
 
 
 
-            {/* Info cards - moved OUT of the image, sitting below it */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Location card */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#F5ECF9] border border-[#DFCEE6]">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-9 h-9 rounded-lg bg-white border border-[#DFCEE6] flex items-center justify-center text-[#7B4382] shrink-0">
-                    <MapPin className="w-4 h-4" />
-                  </div>
-                  <span className="text-[11px] uppercase font-bold tracking-wider text-[#7B4382]">
-                    Nuestra Finca Andina
-                  </span>
+            {/* Single unified info bar - moved OUT of the image */}
+            <div className="rounded-2xl p-5 sm:p-6 bg-[#2F183C] text-white shadow-lg border border-[#7B4382]/60">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#432356] flex items-center justify-center text-[#DDA83A] shrink-0">
+                  <Recycle className="w-6 h-6" />
                 </div>
-                <h3 className="text-base sm:text-lg font-bold font-display text-[#2F183C] leading-tight">
-                  Vereda Santa Bárbara · Guasca
-                </h3>
-                <p className="text-xs text-stone-600 mt-1.5 leading-relaxed">
-                  Cundinamarca, Colombia · 2.800 m.s.n.m. con agua de manantial y tierra negra de 2 m de profundidad.
-                </p>
-              </div>
-
-              {/* Water card */}
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#2F183C] text-white shadow-lg border border-[#7B4382]/60">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#432356] flex items-center justify-center text-[#DDA83A] shrink-0">
-                    <Recycle className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold leading-tight">Agua 100% de Manantial</div>
-                    <div className="text-[11px] text-[#DFCEE6] leading-tight mt-0.5">
-                      Y agua lluvia para todo el cultivo </div>
-                  </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-[11px] sm:text-xs uppercase font-bold tracking-wider text-[#DDA83A]">
+                    Nuestra Finca Andina
+                  </h3>
+                  <p className="text-base sm:text-lg font-bold font-display text-white leading-tight mt-1">
+                    Agua 100% de manantial
+                  </p>
+                  <p className="text-xs sm:text-sm text-[#DFCEE6] mt-2 leading-relaxed">
+                    Y agua lluvia para todo el cultivo, con tierra negra de más de 2 metros de profundidad.
+                  </p>
                 </div>
               </div>
             </div>

@@ -1,0 +1,62 @@
+{
+  "slug": "avena-nocturna-con-arandanos",
+  "title": "Avena Nocturna con Arándanos (Overnight Oats)",
+  "excerpt": "Prepara un desayuno práctico, cremoso y lleno de sabor con esta avena nocturna. El toque perfecto lo dan nuestros arándanos frescos de alta montaña.",
+  "imageAlt": "Un frasco de vidrio con avena nocturna cremosa, decorado con abundantes arándanos Fresh Pick frescos y una pizca de canela en la parte superior.",
+  "category": "desayunos",
+  "extraCategories": [
+    "postres-saludables",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 0,
+  "restMinutes": 480,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de avena en hojuelas enteras"
+    },
+    {
+      "text": "1 taza de leche (entera o de almendras)"
+    },
+    {
+      "text": "1/2 taza de yogur griego natural"
+    },
+    {
+      "text": "1 cucharada de semillas de chía"
+    },
+    {
+      "text": "1 cucharada de miel de abejas pura"
+    },
+    {
+      "text": "1/2 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1 pizca de canela en polvo"
+    }
+  ],
+  "steps": [
+    "En un frasco de vidrio o tazón mediano, mezcla la avena en hojuelas, las semillas de chía y la pizca de canela en polvo.",
+    "Agrega la leche, el yogur griego, la miel de abejas y la esencia de vainilla. Revuelve muy bien con una cuchara hasta que todos los ingredientes queden completamente integrados.",
+    "Incorpora suavemente la mitad de los arándanos Fresh Pick, cuidando de no romperlos para mantener su hermosa pruina natural intacta.",
+    "Tapa el frasco herméticamente y llévalo a la nevera durante toda la noche (o un mínimo de 8 horas) para que la avena se hidrate y adquiera su textura cremosa característica.",
+    "Al día siguiente, retira de la nevera y mezcla suavemente. Si notas la avena demasiado espesa, puedes añadir un chorrito adicional de leche fría al gusto.",
+    "Decora la superficie con la otra mitad de los arándanos Fresh Pick frescos, cultivados con amor en la alta montaña de Guasca, y disfruta de un desayuno fresco y delicioso."
+  ],
+  "tips": [
+    "Para disfrutar al máximo el crujido y el dulzor natural de 13° a 15° Brix de nuestros arándanos, agrégalos frescos justo antes de consumir la avena.",
+    "Puedes preparar hasta tres frascos el domingo y guardarlos en la nevera; se conservan en perfecto estado hasta por 4 días para solucionar tus mañanas de la semana.",
+    "Recuerda programar tu pedido con anticipación por WhatsApp al +57 317 893 1026. Entregamos tus arándanos frescos en la puerta de tu casa los martes y miércoles."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/avena-nocturna-con-arandanos.jpg"
+}

@@ -1,4 +1,61 @@
 {
-  "fuentesUsadas": [],
-  "historial": []
+  "fuentesUsadas": [
+    "https://pubmed.ncbi.nlm.nih.gov/42757640/",
+    "https://pubmed.ncbi.nlm.nih.gov/42781482/",
+    "https://blueberriesconsulting.com/subproductos-de-berries-de-la-fibra-y-los-polifenoles-a-nuevos-productos/",
+    "https://pubmed.ncbi.nlm.nih.gov/42774772/",
+    "https://www.portalfruticola.com/noticias/2026/09/22/arandano-ecuador-china/",
+    "https://blueberriesconsulting.com/arandano-en-sinaloa-de-la-expansion-acelerada-a-una-nueva-oportunidad/",
+    "https://blueberriesconsulting.com/reguladores-en-arandanos-firmeza-y-calidad-segun-el-momento-de-aplicacion/"
+  ],
+  "historial": [
+    {
+      "fecha": "2026-09-24",
+      "tipo": "receta",
+      "slug": "smoothie-arandanos-platano-proteico",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-24",
+      "tipo": "receta",
+      "slug": "avena-nocturna-con-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-24",
+      "tipo": "receta",
+      "slug": "mousse-de-arandanos-saludable",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-24",
+      "tipo": "receta",
+      "slug": "energy-balls-de-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-24",
+      "tipo": "receta",
+      "slug": "te-helado-de-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-24",
+      "tipo": "noticia",
+      "slug": "ecuador-avanza-hacia-la-exportacion-de-arandanos-frescos-a-china",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-24",
+      "tipo": "noticia",
+      "slug": "arandanos-en-sinaloa-de-la-expansion-acelerada-al-aprendizaje-agricola",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-24",
+      "tipo": "noticia",
+      "slug": "reguladores-de-crecimiento-en-arandanos-claves-para-la-firmeza-y-calidad",
+      "modo": "automatico"
+    }
+  ]
 }

@@ -1,0 +1,59 @@
+{
+  "slug": "energy-balls-de-arandanos",
+  "title": "Energy Balls de Arándanos y Avena",
+  "excerpt": "Un snack práctico y delicioso, ideal para recargar tu día. Estas energy balls combinan la textura de la avena con la explosión jugosa de nuestros arándanos frescos de Guasca.",
+  "imageAlt": "Tres energy balls de avena y arándanos enteros sobre una tabla de madera rústica, con arándanos frescos esparcidos alrededor.",
+  "category": "snacks-meriendas",
+  "extraCategories": [
+    "desayunos",
+    "postres-saludables"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 0,
+  "restMinutes": 30,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 y 1/2 tazas de avena en hojuelas"
+    },
+    {
+      "text": "1/2 taza de mantequilla de almendras o de maní sin azúcar"
+    },
+    {
+      "text": "3 cucharadas de miel de abejas pura"
+    },
+    {
+      "text": "1 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1 pizca de sal"
+    },
+    {
+      "text": "2 cucharadas de semillas de chía"
+    }
+  ],
+  "steps": [
+    "En un tazón grande, mezcla la avena en hojuelas, las semillas de chía y la pizca de sal.",
+    "Incorpora la mantequilla de almendras, la miel de abejas y la esencia de vainilla. Revuelve muy bien con una espátula hasta obtener una masa pastosa y homogénea.",
+    "Agrega con suavidad los arándanos Fresh Pick. Hazlo con cuidado para no romperlos, permitiendo que se distribuyan de manera uniforme en la mezcla.",
+    "Toma porciones de la mezcla con una cuchara y, usando tus manos, dales forma de bolitas del tamaño de una nuez. Si notas la masa muy suelta, humedece apenas tus manos.",
+    "Coloca las bolitas en un plato o bandeja cubierta con papel para hornear o parafinado.",
+    "Lleva la bandeja a la nevera por 30 minutos para que las bolitas tomen consistencia firme antes de disfrutar."
+  ],
+  "tips": [
+    "Para esta receta, la firmeza de nuestros arándanos de alta montaña cultivados en Guasca es perfecta, ya que resisten el moldeado manual sin deshacerse y aportan una explosión de sabor en cada bocado.",
+    "Guarda las energy balls en un recipiente hermético dentro de la nevera; se conservarán frescas y deliciosas hasta por 5 días.",
+    "Si la mezcla se siente muy seca para armar las bolitas, añade una cucharadita de agua o un poco más de miel; si está muy húmeda, agrega una cucharada extra de avena molida."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/energy-balls-de-arandanos.jpg"
+}

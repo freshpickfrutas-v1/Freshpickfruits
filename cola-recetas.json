@@ -5,7 +5,8 @@
     "titulo": "Smoothie de Arándanos y Plátano Proteico",
     "categoria": "smoothies-batidos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-24"
   },
   {
     "orden": 2,
@@ -13,7 +14,8 @@
     "titulo": "Avena Nocturna con Arándanos (Overnight Oats)",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-24"
   },
   {
     "orden": 3,
@@ -21,7 +23,8 @@
     "titulo": "Mousse Saludable de Arándanos y Yogur",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-24"
   },
   {
     "orden": 4,
@@ -29,7 +32,8 @@
     "titulo": "Energy Balls de Arándanos y Avena",
     "categoria": "snacks-meriendas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-24"
   },
   {
     "orden": 5,
@@ -37,7 +41,8 @@
     "titulo": "Té Helado de Arándanos",
     "categoria": "bebidas-refrescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-24"
   },
   {
     "orden": 6,

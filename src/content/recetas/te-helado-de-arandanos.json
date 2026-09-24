@@ -1,0 +1,57 @@
+{
+  "slug": "te-helado-de-arandanos",
+  "title": "Té Helado de Arándanos",
+  "excerpt": "Refresca tus tardes con un exquisito té helado casero infusionado con el dulzor natural de los arándanos Fresh Pick y un toque cítrico irresistible.",
+  "imageAlt": "Vaso alto con té helado de arándanos, cubos de hielo, arándanos enteros flotando y una ramita de menta fresca.",
+  "category": "bebidas-refrescos",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 10,
+  "restMinutes": 60,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 y 1/2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "4 bolsas de té negro o té verde"
+    },
+    {
+      "text": "4 tazas de agua"
+    },
+    {
+      "text": "3 cucharadas de miel de abejas o panela rallada"
+    },
+    {
+      "text": "1 cucharada de jugo de limón"
+    },
+    {
+      "text": "Hielo al gusto"
+    },
+    {
+      "text": "Hojas de menta fresca para decorar (opcional)"
+    }
+  ],
+  "steps": [
+    "Calentar 2 tazas de agua hasta que rompa a hervir. Retirar del fuego, agregar las bolsas de té e infusionar durante 5 minutos. Retirar las bolsas de té sin exprimirlas.",
+    "En una olla pequeña, combinar los arándanos Fresh Pick junto con 1/2 taza de agua y la miel. Cocinar a fuego medio durante 7 minutos, macerando suavemente la fruta con un tenedor para liberar todo su jugo.",
+    "Vertir el concentrado de arándanos sobre la infusión de té pasando la mezcla por un colador para una bebida cristalina, o incorporarlo directo si prefieres sentir la pulpa natural.",
+    "Añadir el jugo de limón y las 1 y 1/2 tazas de agua fría restantes. Mezclar bien.",
+    "Dejar enfriar a temperatura ambiente y luego refrigerar durante al menos 1 hora para intensificar los sabores.",
+    "Servir en vasos altos llenos de hielo, decorando con arándanos enteros y hojitas de menta al gusto."
+  ],
+  "tips": [
+    "Aprovecha el dulzor natural de 13° a 15° Brix de nuestros arándanos Fresh Pick de alta montaña cultivados en Guasca; verás que requieren muy poca miel adicional para lograr el balance perfecto.",
+    "Para mantener la pruina intacta y la máxima frescura de tus arándanos en casa, guárdalos en la nevera sin lavar y pásalos por agua únicamente justo antes de preparar tu receta."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/te-helado-de-arandanos.jpg"
+}

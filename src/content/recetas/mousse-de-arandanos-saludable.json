@@ -1,0 +1,51 @@
+{
+  "slug": "mousse-de-arandanos-saludable",
+  "title": "Mousse Saludable de Arándanos y Yogur",
+  "excerpt": "Prepara un delicioso mousse de arándanos y yogur con una textura suave y cremosa, perfecto para consentir a tu familia en cualquier momento.",
+  "imageAlt": "Vasito de cristal con mousse de arándanos de color morado suave, decorado con arándanos frescos enteros encima.",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 0,
+  "restMinutes": 60,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza y media de yogur griego natural sin azúcar"
+    },
+    {
+      "text": "3 cucharadas de miel de abejas"
+    },
+    {
+      "text": "2 cucharaditas de gelatina sin sabor en polvo"
+    },
+    {
+      "text": "4 cucharadas de agua"
+    }
+  ],
+  "steps": [
+    "Hidrata la gelatina sin sabor en las cuatro cucharadas de agua durante cinco minutos y llévala al microondas por diez segundos hasta que esté completamente líquida.",
+    "Lava muy bien tus arándanos de alta montaña cultivados en Guasca y colócalos en la licuadora junto con la miel y el yogur griego.",
+    "Licúa a velocidad media hasta obtener una mezcla homogénea y de un color morado brillante.",
+    "Agrega la gelatina disuelta en forma de hilo mientras licúas a baja velocidad para que se integre perfectamente con la mezcla de arándanos.",
+    "Divide el mousse en cuatro recipientes individuales o vasitos de vidrio.",
+    "Lleva los recipientes a la nevera por al menos sesenta minutos para que tomen la consistencia firme y cremosa ideal."
+  ],
+  "tips": [
+    "Puedes reservar unos cuantos arándanos enteros sin lavar en la nevera para agregarlos como decoración crujiente justo antes de servir.",
+    "Para conservar mejor la textura y frescura de tus arándanos, guárdalos en su empaque original en la parte más fría de la nevera sin lavarlos hasta el momento en que los vayas a consumir."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/mousse-de-arandanos-saludable.jpg"
+}

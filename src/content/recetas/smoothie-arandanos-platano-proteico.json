@@ -1,0 +1,55 @@
+{
+  "slug": "smoothie-arandanos-platano-proteico",
+  "title": "Smoothie de Arándanos y Plátano Proteico",
+  "excerpt": "Un batido cremoso y lleno de energía para tus mañanas o después de entrenar. Combina el dulzor natural de nuestros arándanos de Guasca con el toque proteico que necesitas para el día.",
+  "imageAlt": "Vaso de vidrio con un smoothie cremoso de color morado intenso, decorado con arándanos frescos enteros en el tope y una rodaja de banano.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 1,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 banano maduro, pelado y congelado en rodajas"
+    },
+    {
+      "text": "1 medida (scoop) de tu proteína en polvo favorita (sabor vainilla o limpia)"
+    },
+    {
+      "text": "1 taza de leche de almendras o tu leche de preferencia"
+    },
+    {
+      "text": "1 cucharadita de semillas de chía"
+    },
+    {
+      "text": "1/2 cucharadita de extracto de vainilla"
+    }
+  ],
+  "steps": [
+    "Vierte la leche de tu preferencia en el vaso de la licuadora para facilitar el proceso de mezclado.",
+    "Agrega las rodajas de banano congelado, que le darán una textura increíblemente cremosa y fría al batido sin necesidad de usar hielo.",
+    "Incorpora la medida de proteína en polvo, las semillas de chía y el extracto de vainilla.",
+    "Suma los arándanos Fresh Pick, cultivados en la alta montaña de Guasca a más de 2.800 metros de altura, que le darán ese color morado vibrante y un dulzor balanceado.",
+    "Licúa a alta velocidad por 1 o 2 minutos, hasta que todos los ingredientes se integren por completo y obtengas una consistencia suave y sedosa.",
+    "Sirve inmediatamente en un vaso alto y decora la superficie con unos cuantos arándanos frescos enteros para disfrutar de su textura firme al morder."
+  ],
+  "tips": [
+    "Para una textura aún más espesa, ideal para comer con cuchara como un bowl, reduce la cantidad de leche a media taza y añade tus toppings favoritos por encima.",
+    "No retires la capita blanquecina (pruina) de tus arándanos Fresh Pick; es su sello de frescura y protección natural, ya que se cosechan a mano y no contienen ceras artificiales.",
+    "Puedes dejar listos en el congelador recipientes individuales con las porciones de banano y arándanos para ahorrar tiempo en tus mañanas ocupadas."
+  ],
+  "date": "2026-09-24",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/smoothie-arandanos-platano-proteico.jpg"
+}

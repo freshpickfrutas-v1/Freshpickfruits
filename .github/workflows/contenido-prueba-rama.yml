@@ -39,9 +39,9 @@ jobs:
 
       - name: Generar primera tanda en la rama
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY2 }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.WORKERS_AI }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY2 || secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.ACCOUNT_ID || secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WORKERS_AI || secrets.CLOUDFLARE_API_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GUARDAR_RESULTADO: automatizacion/ultimo-resultado.md
         run: |

@@ -191,7 +191,7 @@ async function main() {
   log(`=== Contenido Fresh Pick · ${hoy.fecha} (día ${hoy.diaSemana} de la semana) ${PRUEBA ? '· MODO PRUEBA' : ''} ===`);
   const faltantes = clavesFaltantes();
   if (faltantes.length) {
-    anotar('error', `Faltan claves: ${faltantes.join(', ')}. Revisa los secrets GEMINI_API_KEY2, ACCOUNT_ID y WORKERS_AI en GitHub → Settings → Secrets and variables → Actions. No se generó nada.`);
+    anotar('error', `Faltan claves: ${faltantes.join(', ')}. Revisa los secrets de Gemini (GEMINI_API_KEY2 o GEMINI_API_KEY) y de Cloudflare (ACCOUNT_ID y WORKERS_AI) en GitHub → Settings → Secrets and variables → Actions. No se generó nada.`);
     escribirResumen();
     process.exitCode = 1;
     return;

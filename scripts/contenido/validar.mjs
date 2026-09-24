@@ -8,6 +8,10 @@ import {
 import { buscarPalabras, contarPalabras, urlResponde } from './util.mjs';
 
 const DIFICULTADES = ['Fácil', 'Intermedio', 'Avanzado'];
+const SINONIMOS_FRUTA = [
+  ['plátano', 'banano', 'banana'], ['fresa', 'fresas'], ['mora', 'moras'], ['uva', 'uvas'],
+  ['cereza', 'cerezas'], ['frambuesa', 'frambuesas'], ['durazno', 'melocotón']
+];
 const TIPOS_BLOQUE = ['p', 'h2', 'h3', 'ul', 'ol', 'quote', 'table'];
 
 /** Slugs taken by published files or by pieces created earlier in this same run. */
@@ -50,7 +54,8 @@ export function validarReceta(r, { tituloAprobado = '' } = {}) {
   const medicas = buscarPalabras(todoElTexto, PALABRAS_MEDICAS_PROHIBIDAS);
   if (medicas.length) p.push(`afirmaciones médicas no permitidas: ${medicas.join(', ')}`);
 
-  const frutasPermitidas = buscarPalabras(tituloAprobado, OTRAS_FRUTAS);
+  // A fruit named in the approved title is allowed under any of its names (plátano = banano = banana).
+  const frutasPermitidas = buscarPalabras(tituloAprobado, OTRAS_FRUTAS).flatMap(f => SINONIMOS_FRUTA.find(g => g.includes(f)) ?? [f]);
   const otrasFrutas = buscarPalabras(ingredientes.map(i => i.text).join('\n'), OTRAS_FRUTAS)
     .filter(f => !frutasPermitidas.includes(f));
   if (otrasFrutas.length) p.push(`usa otras frutas como ingrediente: ${otrasFrutas.join(', ')}`);

@@ -13,7 +13,7 @@ function detectarFormato(buf) {
   return null;
 }
 
-async function generarConCloudflare(prompt, seed) {
+async function generarConCloudflare(prompt) {
   const cuenta = process.env.CLOUDFLARE_ACCOUNT_ID;
   const token = process.env.CLOUDFLARE_API_TOKEN;
   if (!cuenta || !token) {
@@ -25,7 +25,8 @@ async function generarConCloudflare(prompt, seed) {
     const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${cuenta}/ai/run/${MODELO_IMAGEN_CF}`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, steps: 8, seed }),
+      // FLUX.1 [schnell] on Workers AI accepts only prompt and steps (max 8); each call is already a new image.
+      body: JSON.stringify({ prompt, steps: 8 }),
       signal: AbortSignal.timeout(120_000)
     });
     const data = await res.json().catch(() => ({}));
@@ -61,10 +62,9 @@ export async function crearImagen({ slug, promptImagen, queDebeMostrar }) {
 
   const motivos = [];
   for (let intento = 1; intento <= INTENTOS_IMAGEN; intento++) {
-    const seed = Math.floor(Math.random() * 2_000_000_000);
     let buffer;
     try {
-      buffer = await generarConCloudflare(prompt, seed);
+      buffer = await generarConCloudflare(prompt);
     } catch (err) {
       log(`   ✗ Imagen ${slug}: ${err.message}`);
       if (err.fatal) throw err;

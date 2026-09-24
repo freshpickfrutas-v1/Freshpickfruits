@@ -107,6 +107,7 @@ export function quitarHtml(html) {
     .replace(/&quot;/g, '"')
     .replace(/&#8217;|&#039;|&apos;/g, "'")
     .replace(/&#8220;|&#8221;/g, '"')
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
     .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
     .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/[ \t]+/g, ' ')

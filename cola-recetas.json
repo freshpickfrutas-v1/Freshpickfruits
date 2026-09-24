@@ -5,9 +5,7 @@
     "titulo": "Smoothie de Arándanos y Plátano Proteico",
     "categoria": "smoothies-batidos",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 1,
-    "ultimoError": "usa otras frutas como ingrediente: banano"
+    "estado": "pendiente"
   },
   {
     "orden": 2,
@@ -15,9 +13,7 @@
     "titulo": "Avena Nocturna con Arándanos (Overnight Oats)",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 1,
-    "ultimoError": "no se consiguió una imagen aprobada: intento 1: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (be687f69-79db-4958-b8e6-7b1abd63c993) | intento 2: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (635a3709-b0f6-4e8b-9388-b77baa4f4b03) | intento 3: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (bff98cdd-aaa4-464e-805b-765cd480a9f4)"
+    "estado": "pendiente"
   },
   {
     "orden": 3,
@@ -25,9 +21,7 @@
     "titulo": "Mousse Saludable de Arándanos y Yogur",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 1,
-    "ultimoError": "no se consiguió una imagen aprobada: intento 1: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (6cd9ffe8-f014-4ec4-abe4-2ef4174f77ae) | intento 2: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (9fc431ad-9330-4f7e-aeb0-6926c1191f0e) | intento 3: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (f24be437-7a36-4509-8613-fb9eed10f5c2)"
+    "estado": "pendiente"
   },
   {
     "orden": 4,
@@ -35,9 +29,7 @@
     "titulo": "Energy Balls de Arándanos y Avena",
     "categoria": "snacks-meriendas",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 1,
-    "ultimoError": "no se consiguió una imagen aprobada: intento 1: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (f410c09e-ea8c-4a76-bd91-48219f479f32) | intento 2: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (234a4762-202f-4adb-b87b-ba51739ab42a) | intento 3: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (42a0e01d-3d01-4eec-9dae-a3ced3164981)"
+    "estado": "pendiente"
   },
   {
     "orden": 5,
@@ -45,9 +37,7 @@
     "titulo": "Té Helado de Arándanos",
     "categoria": "bebidas-refrescos",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 1,
-    "ultimoError": "no se consiguió una imagen aprobada: intento 1: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (cad622fc-bce9-4e7d-bf6f-b2b103b90e1d) | intento 2: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (2e10bdef-c569-4f17-a021-9ad483fde9cd) | intento 3: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (ee165bda-b0b2-40e2-9f8f-52c21ae4ae3d)"
+    "estado": "pendiente"
   },
   {
     "orden": 6,
@@ -55,9 +45,7 @@
     "titulo": "Ensalada de Quinua, Arándanos y Aguacate",
     "categoria": "ensaladas-platos-frescos",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 1,
-    "ultimoError": "no se consiguió una imagen aprobada: intento 1: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (01edcb1e-1e8d-4756-97c8-8aeec210ab66) | intento 2: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (dcd04cab-3ab0-4d57-bb33-0f0e021cb842) | intento 3: Cloudflare no devolvió imagen: AiError: Bad input: Error: Additional or unevaluated properties '/seed' at '/' not allowed (f9c7f260-078d-4723-9519-55e8d87a58b8)"
+    "estado": "pendiente"
   },
   {
     "orden": 7,

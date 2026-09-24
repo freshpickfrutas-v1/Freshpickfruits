@@ -1,3 +1,3 @@
 ## Contenido Fresh Pick · 2026-09-24
 
-- ❌ Faltan claves: GEMINI_API_KEY. Revisa los secrets GEMINI_API_KEY2, ACCOUNT_ID y WORKERS_AI en GitHub → Settings → Secrets and variables → Actions. No se generó nada.
+- ❌ Gemini rechazó la clave (GEMINI_API_KEY2): {"error":{"code":403,"message":"Your project has been denied access. Please contact support.","status":"PERMISSION_DENIED"}}. No se generó ni guardó nada; revisa la clave y vuelve a ejecutar.

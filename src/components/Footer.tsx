@@ -63,23 +63,33 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#variedades" className="hover:text-[#DDA83A] transition-colors">
+                <a href="/#variedades" className="hover:text-[#DDA83A] transition-colors">
                   Estuche 125g
                 </a>
               </li>
               <li>
-                <a href="#variedades" className="hover:text-[#DDA83A] transition-colors">
+                <a href="/#variedades" className="hover:text-[#DDA83A] transition-colors">
                   Estuche 250g
                 </a>
               </li>
               <li>
-                <a href="#variedades" className="hover:text-[#DDA83A] transition-colors">
+                <a href="/#variedades" className="hover:text-[#DDA83A] transition-colors">
                   Estuche 500g
                 </a>
               </li>
               <li>
-                <a href="#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
+                <a href="/#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
                   Planes Mensuales
+                </a>
+              </li>
+              <li>
+                <a href="/recetas" className="hover:text-[#DDA83A] transition-colors">
+                  Recetas con Arándanos
+                </a>
+              </li>
+              <li>
+                <a href="/blog" className="hover:text-[#DDA83A] transition-colors">
+                  Blog: Salud y Nutrición
                 </a>
               </li>
             </ul>
@@ -91,12 +101,12 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="#pedidos-personalizados" className="text-[#DDA83A] font-semibold hover:underline">
+                <a href="/#pedidos-personalizados" className="text-[#DDA83A] font-semibold hover:underline">
                   ★ Armar Pedido Personalizado en Línea
                 </a>
               </li>
               <li>
-                <a href="#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
+                <a href="/#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
                   Planes Mensuales Familiares
                 </a>
               </li>
@@ -111,12 +121,12 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#sostenibilidad" className="hover:text-[#DDA83A] transition-colors">
+                <a href="/#sostenibilidad" className="hover:text-[#DDA83A] transition-colors">
                   Nuestra Biofábrica & Polinización
                 </a>
               </li>
               <li>
-                <a href="#faq" className="hover:text-[#DDA83A] transition-colors">
+                <a href="/#faq" className="hover:text-[#DDA83A] transition-colors">
                   Preguntas Frecuentes y Envíos
                 </a>
               </li>

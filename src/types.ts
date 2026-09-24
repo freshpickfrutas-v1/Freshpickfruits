@@ -84,16 +84,95 @@ export interface SubscriptionPlan {
   idealFor: string;
 }
 
-export interface RecipeItem {
-  id: string;
-  title: string;
-  prepTime: string;
-  difficulty: string;
-  image: string;
-  imageAlt?: string;
+export type RecipeCategoryId =
+  | 'smoothies-batidos'
+  | 'desayunos'
+  | 'postres-saludables'
+  | 'snacks-meriendas'
+  | 'ensaladas-platos-frescos'
+  | 'bebidas-refrescos'
+  | 'preparaciones-conservas'
+  | 'recetas-rapidas';
+
+export interface RecipeCategory {
+  id: RecipeCategoryId;
+  name: string;
   description: string;
-  ingredients: string[];
-  instructions: string[];
+  emoji: string;
+}
+
+export interface RecipeIngredient {
+  text: string;
+  /** Highlights the ingredient as Fresh Pick blueberries. */
+  freshPick?: boolean;
+}
+
+export type RecipeDifficulty = 'Fácil' | 'Intermedio' | 'Avanzado';
+
+export interface Recipe {
+  /** URL slug: /recetas/<slug> */
+  slug: string;
+  title: string;
+  excerpt: string;
+  /** Leave empty to show the branded placeholder until a real photo exists. */
+  image?: string;
+  imageAlt: string;
+  /** Primary category. "recetas-rapidas" is assigned automatically when total time is 15 min or less. */
+  category: Exclude<RecipeCategoryId, 'recetas-rapidas'>;
+  extraCategories?: Exclude<RecipeCategoryId, 'recetas-rapidas'>[];
+  prepMinutes: number;
+  cookMinutes: number;
+  /** Waiting time (fridge, freezer, resting). Counts toward total time. */
+  restMinutes?: number;
+  difficulty: RecipeDifficulty;
+  servings: number;
+  ingredients: RecipeIngredient[];
+  steps: string[];
+  tips: string[];
+  featured?: boolean;
+}
+
+export type BlogCategoryId =
+  | 'beneficios-arandanos'
+  | 'nutricion-ciencia'
+  | 'salud-digestiva-bienestar'
+  | 'estilo-vida-saludable'
+  | 'cultivo-origen';
+
+export interface BlogCategory {
+  id: BlogCategoryId;
+  name: string;
+  description: string;
+}
+
+/** Content blocks for long-form articles; keeps headings semantic (h2/h3) for SEO. */
+export type BlogBlock =
+  | { type: 'p'; text: string }
+  | { type: 'h2'; text: string }
+  | { type: 'h3'; text: string }
+  | { type: 'ul'; items: string[] }
+  | { type: 'ol'; items: string[] }
+  | { type: 'quote'; text: string }
+  | { type: 'table'; headers: string[]; rows: string[][]; caption?: string };
+
+export interface BlogArticle {
+  /** URL slug: /blog/<slug> */
+  slug: string;
+  title: string;
+  /** Used for <meta name="description"> (ideally 140–160 characters). */
+  metaDescription: string;
+  excerpt: string;
+  category: BlogCategoryId;
+  /** ISO date, e.g. "2026-09-20". */
+  date: string;
+  readMinutes: number;
+  author: string;
+  image?: string;
+  imageAlt: string;
+  blocks: BlogBlock[];
+  /** Slugs of recipes to suggest at the end of the article. */
+  relatedRecipes?: string[];
+  featured?: boolean;
 }
 
 export interface TestimonialItem {

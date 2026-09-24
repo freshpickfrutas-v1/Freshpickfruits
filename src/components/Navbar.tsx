@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, Leaf } from 'lucide-react';
+import { scrollToId, useAppLocation } from '../lib/router';
 
 interface NavbarProps {
   cartItemCount: number;
@@ -27,18 +28,21 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const navOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+  const { pathname } = useAppLocation();
+  const isActive = (path: string) => pathname === path || pathname.startsWith(`${path}/`);
+
+  const navLinkClass = (active: boolean) =>
+    `transition-colors cursor-pointer ${active ? 'text-[#7B4382] underline underline-offset-8 decoration-2 decoration-[#DDA83A]' : 'hover:text-[#7B4382]'}`;
+
+  const mobileLinkClass = (active: boolean) =>
+    `block w-full text-left py-2.5 px-3 rounded-lg font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382] ${active ? 'bg-[#F5ECF9] text-[#7B4382]' : 'text-[#2F183C]'}`;
+
+  const closeMenu = () => setMobileMenuOpen(false);
+
+  // The footer (#contacto) is on every page, so scroll to it in place instead of going home.
+  const goToContact = () => {
+    closeMenu();
+    scrollToId('contacto');
   };
 
   return (
@@ -76,10 +80,11 @@ export const Navbar: React.FC<NavbarProps> = ({
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           {/* Brand Logo */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          <a
+            href="/"
             className="flex items-center gap-3 sm:gap-3.5 text-left group shrink-0"
             id="nav-logo-btn"
+            aria-label="Fresh Pick - Ir al inicio"
           >
             <div className="h-14 sm:h-16 md:h-18 w-24 sm:w-28 md:w-32 rounded-xl bg-white p-1 sm:p-1.5 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
               <img
@@ -102,46 +107,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Arándanos de Alta Montaña
               </p>
             </div>
-          </button>
+          </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-6 2xl:gap-7 text-sm font-semibold text-[#2F183C] shrink-0">
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="hover:text-[#7B4382] transition-colors cursor-pointer"
-            >
-              Inicio
-            </button>
-            <button
-              onClick={() => scrollToSection('variedades')}
-              className="hover:text-[#7B4382] transition-colors cursor-pointer"
-            >
-              Nuestros Arándanos
-            </button>
-            <button
-              onClick={() => scrollToSection('planes-mensuales')}
-              className="hover:text-[#7B4382] transition-colors cursor-pointer"
-            >
-              Planes Mensuales
-            </button>
-            <button
-              onClick={() => scrollToSection('sostenibilidad')}
-              className="hover:text-[#7B4382] transition-colors cursor-pointer"
-            >
-              Sostenibilidad
-            </button>
-            <button
-              onClick={() => scrollToSection('recetas-tips')}
-              className="hover:text-[#7B4382] transition-colors cursor-pointer"
-            >
-              Recetas
-            </button>
-            <button
-              onClick={() => scrollToSection('faq')}
-              className="hover:text-[#7B4382] transition-colors cursor-pointer"
-            >
-              Preguntas
-            </button>
+          {/* "Inicio" lives on the logo here; seven links is the most that fits at 1280px. */}
+          <nav className="hidden xl:flex items-center gap-4 2xl:gap-7 text-sm font-semibold text-[#2F183C] shrink-0" aria-label="Menú principal">
+            <a href="/#variedades" className={navLinkClass(false)}>Nuestros Arándanos</a>
+            <a href="/#planes-mensuales" className={navLinkClass(false)}>Planes Mensuales</a>
+            <a href="/#sostenibilidad" className={navLinkClass(false)}>Sostenibilidad</a>
+            <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas</a>
+            <a href="/blog" className={navLinkClass(isActive('/blog'))} aria-current={isActive('/blog') ? 'page' : undefined}>Blog</a>
+            <a href="/#faq" className={navLinkClass(false)}>Preguntas</a>
           </nav>
 
           {/* Action CTAs & Cart */}
@@ -183,18 +159,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {mobileMenuOpen && (
           <div className="xl:hidden border-t border-[#EADBEE] bg-white px-4 pt-3 pb-6 space-y-3 mt-3 animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl">
-            <button
-              onClick={() => { setMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
-            >
-              Inicio
-            </button>
-            <button
-              onClick={() => scrollToSection('variedades')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
-            >
-              Nuestros Arándanos
-            </button>
+            <a href="/" onClick={closeMenu} className={mobileLinkClass(false)}>Inicio</a>
+            <a href="/#variedades" onClick={closeMenu} className={mobileLinkClass(false)}>Nuestros Arándanos</a>
             <button
               onClick={() => { setMobileMenuOpen(false); onNavigateToCustomOrder(); }}
               className="flex items-center justify-between w-full text-left py-3 px-3 rounded-lg bg-[#F5ECF9] text-[#2F183C] font-bold"
@@ -205,36 +171,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
               <span className="bg-[#2F183C] text-[#DDA83A] text-[10px] uppercase px-2 py-0.5 rounded-full font-bold">Exclusivo</span>
             </button>
-            <button
-              onClick={() => scrollToSection('planes-mensuales')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
-            >
-              Planes Mensuales
-            </button>
-            <button
-              onClick={() => scrollToSection('sostenibilidad')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
-            >
-              Sostenibilidad & Finca
-            </button>
-            <button
-              onClick={() => scrollToSection('recetas-tips')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
-            >
-              Recetas Saludables
-            </button>
-            <button
-              onClick={() => scrollToSection('faq')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
-            >
-              Preguntas Frecuentes
-            </button>
-            <button
-              onClick={() => scrollToSection('contacto')}
-              className="block w-full text-left py-2.5 px-3 rounded-lg text-[#2F183C] font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382]"
-            >
-              Contacto & Finca
-            </button>
+            <a href="/recetas" onClick={closeMenu} className={mobileLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas con Arándanos</a>
+            <a href="/blog" onClick={closeMenu} className={mobileLinkClass(isActive('/blog'))} aria-current={isActive('/blog') ? 'page' : undefined}>Blog: Salud y Nutrición</a>
+            <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>Planes Mensuales</a>
+            <a href="/#sostenibilidad" onClick={closeMenu} className={mobileLinkClass(false)}>Sostenibilidad & Finca</a>
+            <a href="/#faq" onClick={closeMenu} className={mobileLinkClass(false)}>Preguntas Frecuentes</a>
+            <button onClick={goToContact} className={mobileLinkClass(false)}>Contacto & Finca</button>
 
             <div className="pt-2 border-t border-[#EADBEE] flex flex-col gap-2">
               <a

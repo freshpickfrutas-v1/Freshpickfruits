@@ -1,139 +1,66 @@
-import React, { useState } from 'react';
-import { RECIPES_DATA } from '../data/mockData';
-import { RecipeItem } from '../types';
-import { Utensils, Clock, ChevronRight, X, Sparkles, BookOpen } from 'lucide-react';
+import React from 'react';
+import { BookOpen, ArrowRight, Newspaper } from 'lucide-react';
+import { RECIPES, RECIPE_CATEGORIES } from '../data/recipes';
+import { RecipeCard } from './RecipeCard';
 
+/** Home page teaser: featured recipes with links to the full Recetas and Blog pages. */
 export const RecipesAndTips: React.FC = () => {
-  const [selectedRecipe, setSelectedRecipe] = useState<RecipeItem | null>(null);
+  const featured = RECIPES.filter(r => r.featured).slice(0, 3);
 
   return (
     <section id="recetas-tips" className="py-16 sm:py-24 bg-[#F7F5F0]/80 backdrop-blur-[2px] border-b border-stone-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">
             <BookOpen className="w-3.5 h-3.5 text-[#7B4382]" />
             <span>Recetas con Arándanos de Alta Montaña</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2F183C] tracking-tight font-display">
-            Repostería Profesional con Arándanos Fresh Pick
+            Recetas fáciles con arándanos Fresh Pick
           </h2>
           <p className="mt-3 text-base sm:text-lg text-stone-700">
-            Tres recetas de precisión técnica para sacar el máximo partido a tus arándanos premium: muffins esponjosos, panqueques con amapola y un ponqué húmedo de limón.
+            Smoothies, desayunos, postres saludables, ensaladas y más: ideas para disfrutar tus arándanos todos los días.
           </p>
         </div>
 
-        {/* Recipes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {RECIPES_DATA.map((recipe) => (
-            <div
-              key={recipe.id}
-              className="bg-white rounded-2xl border border-[#EADBEE] shadow-sm overflow-hidden hover:shadow-lg transition-all flex flex-col group"
+        {/* Category shortcuts */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {RECIPE_CATEGORIES.map(c => (
+            <a
+              key={c.id}
+              href={`/recetas?categoria=${c.id}`}
+              className="px-3 py-1.5 rounded-full bg-white border border-[#DFCEE6] text-xs font-semibold text-[#2F183C] hover:border-[#7B4382] hover:text-[#7B4382] transition-colors"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
-                <img
-                  src={recipe.image}
-                  alt={recipe.imageAlt || `Receta saludable con arándanos frescos de alta montaña: ${recipe.title}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 bg-[#2F183C]/85 backdrop-blur-xs text-[#DDA83A] text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-[#DDA83A]/30">
-                  <Clock className="w-3 h-3 text-[#DDA83A]" />
-                  <span>{recipe.prepTime}</span>
-                </div>
-              </div>
-
-              <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                <div>
-                  <span className="text-[11px] font-bold text-[#7B4382] uppercase tracking-wider">
-                    {recipe.difficulty}
-                  </span>
-                  <h3 className="text-lg font-bold text-[#2F183C] font-display mt-0.5">
-                    {recipe.title}
-                  </h3>
-                  <p className="text-xs text-stone-600 mt-2 leading-relaxed">
-                    {recipe.description}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-[#EADBEE] flex items-center justify-between">
-                  <span className="text-xs text-stone-500">
-                    {recipe.ingredients.length} ingredientes
-                  </span>
-                  <button
-                    onClick={() => setSelectedRecipe(recipe)}
-                    className="text-xs font-bold text-[#7B4382] hover:text-[#2F183C] flex items-center gap-1 cursor-pointer"
-                  >
-                    <span>Ver Receta</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
+              {c.emoji} {c.name}
+            </a>
           ))}
         </div>
 
-        {/* Recipe Modal */}
-        {selectedRecipe && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl border border-[#EADBEE] max-h-[90vh] flex flex-col">
-              
-              <div className="relative aspect-[16/8] bg-[#1E0E27]">
-                <img
-                  src={selectedRecipe.image}
-                  alt={selectedRecipe.imageAlt || `Preparación de ${selectedRecipe.title} con arándanos frescos de alta montaña y agricultura limpia`}
-                  className="w-full h-full object-cover"
-                />
-                <button
-                  onClick={() => setSelectedRecipe(null)}
-                  className="absolute top-3 right-3 p-2 rounded-full bg-black/50 text-white hover:bg-black/70"
-                  aria-label="Cerrar receta"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-                <div className="absolute bottom-3 left-4 right-4 text-white">
-                  <span className="text-xs text-[#DDA83A] font-bold">{selectedRecipe.prepTime} · Dificultad {selectedRecipe.difficulty}</span>
-                  <h3 className="text-xl font-bold font-display">{selectedRecipe.title}</h3>
-                </div>
-              </div>
+        {/* Featured recipes */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {featured.map(recipe => (
+            <RecipeCard key={recipe.slug} recipe={recipe} />
+          ))}
+        </div>
 
-              <div className="p-6 overflow-y-auto space-y-5 text-stone-700 text-xs sm:text-sm">
-                <div>
-                  <h4 className="font-bold text-[#2F183C] text-xs uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                    <Utensils className="w-4 h-4 text-[#7B4382]" />
-                    <span>Ingredientes</span>
-                  </h4>
-                  <ul className="space-y-1.5 list-disc list-inside text-stone-600">
-                    {selectedRecipe.ingredients.map((ing, i) => (
-                      <li key={i}>{ing}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="font-bold text-[#2F183C] text-xs uppercase tracking-wider mb-2">
-                    Paso a paso:
-                  </h4>
-                  <ol className="space-y-2 list-decimal list-inside text-stone-600 leading-relaxed">
-                    {selectedRecipe.instructions.map((step, i) => (
-                      <li key={i}>{step}</li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-
-              <div className="p-4 bg-[#FAF7F0] border-t border-[#EADBEE] text-right">
-                <button
-                  onClick={() => setSelectedRecipe(null)}
-                  className="px-4 py-2 rounded-xl bg-[#2F183C] text-white text-xs font-bold hover:bg-[#432356]"
-                >
-                  Entendido
-                </button>
-              </div>
-
-            </div>
-          </div>
-        )}
+        <div className="mt-10 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+          <a
+            href="/recetas"
+            className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 fp-btn-primary text-sm"
+          >
+            <span>Ver todas las recetas</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
+          <a
+            href="/blog"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3.5 fp-btn-secondary text-sm"
+          >
+            <Newspaper className="w-4 h-4" />
+            <span>Leer el blog de salud y nutrición</span>
+          </a>
+        </div>
 
       </div>
     </section>

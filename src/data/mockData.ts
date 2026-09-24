@@ -1,4 +1,4 @@
-import { FruitItem, PackagingOption, AddOnItem, SubscriptionPlan, RecipeItem, TestimonialItem, FaqItem } from '../types';
+import { FruitItem, PackagingOption, AddOnItem, SubscriptionPlan, TestimonialItem, FaqItem } from '../types';
 
 export const FRUITS_DATA: FruitItem[] = [
   {
@@ -228,92 +228,6 @@ export const CERTIFICATIONS_LIST = [
     title: 'ICA BPA',
     code: 'Buenas Prácticas Agrícolas',
     description: 'Certificación del ICA en Buenas Prácticas Agrícolas: producción limpia, inocua y libre de contaminantes.'
-  }
-];
-
-export const RECIPES_DATA: RecipeItem[] = [
-  {
-    id: 'muffins-arandanos',
-    title: 'Muffins de Arándanos Suaves y Esponjosos',
-    prepTime: '35 min',
-    difficulty: 'Intermedio',
-    image: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&w=800&q=80',
-    imageAlt: 'Muffins de arándanos frescos de alta montaña horneados, esponjosos y dorados, elaborados con receta profesional',
-    description: 'Muffins clásicos de arándanos con miga esponjosa, logrados mediante un batido inicial riguroso y horneado de choque que garantiza volumen y textura profesional.',
-    ingredients: [
-      '250 g de harina de trigo',
-      '2 cucharaditas (10 g) de levadura química (polvos de hornear)',
-      '150 g de azúcar',
-      '60 g de mantequilla blanda',
-      '250 ml de leche',
-      '2 huevos',
-      'Ralladura de limón al gusto',
-      '150 g de arándanos frescos'
-    ],
-    instructions: [
-      'Areado: bate los huevos con el azúcar durante un mínimo de 3 minutos hasta obtener una mezcla notablemente esponjosa.',
-      'Integra la mantequilla, la leche y la ralladura de limón.',
-      'Mezcla la harina con la levadura e intégrala suavemente.',
-      'Enharina ligeramente los arándanos para evitar que decanten al fondo del molde.',
-      'Reposa la masa en refrigeración por 30 minutos.',
-      'Precalienta el horno a 210°C. Llena los moldes a 2/3 y hornea los primeros 5 minutos a 210°C; luego reduce a 180°C por 15-20 minutos más (total 20-25 min).'
-    ]
-  },
-  {
-    id: 'panqueques-arandanos',
-    title: 'Panqueques de Arándanos con Limón y Amapola',
-    prepTime: '25 min',
-    difficulty: 'Fácil',
-    image: 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=800&q=80',
-    imageAlt: 'Panqueques esponjosos con arándanos frescos, ralladura de limón y semillas de amapola, recién hechos en sartén',
-    description: 'Panqueques equilibrados que destacan por el crujiente de la semilla de amapola y la frescura cítrica del limón, con arándanos enteros caramelizados en la superficie.',
-    ingredients: [
-      '270 g de harina (sin polvos)',
-      '2 cucharaditas de polvos de hornear',
-      '100 g de azúcar',
-      '1 cucharadita de sal',
-      'Ralladura de 1 limón',
-      '1 huevo',
-      '300 ml de leche',
-      '1/2 cucharadita de esencia de vainilla',
-      '10 g de mantequilla sin sal (derretida)',
-      '100 g de arándanos frescos o congelados escurridos',
-      '2 cucharaditas de semillas de amapola'
-    ],
-    instructions: [
-      'Combina harina, sal, azúcar, polvos y ralladura. Forma un hoyo central (método de volcán).',
-      'Vierte leche, huevo y vainilla en el centro. Mezcla gradualmente desde el interior para evitar grumos.',
-      'Añade la mantequilla derretida en forma de hilo mientras bates. Incorpora los arándanos y las semillas de amapola con espátula.',
-      'Cocina en sartén antiadherente a fuego medio-bajo. Voltea únicamente cuando aparezcan burbujas en la superficie.'
-    ]
-  },
-  {
-    id: 'ponque-limon-arandanos',
-    title: 'Ponqué de Limón y Arándanos Súper Húmedo',
-    prepTime: '1 h 15 min',
-    difficulty: 'Intermedio',
-    image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80',
-    imageAlt: 'Ponqué húmedo de limón y arándanos frescos glaseado, recién horneado con textura esponjosa',
-    description: 'Budín de textura súper húmeda gracias a la combinación de yogur griego y aceite de oliva, con arándanos frescos y un glaseado de limón aplicado solo cuando el ponqué está frío.',
-    ingredients: [
-      '2 tazas de harina de trigo (reservar 2 cucharadas para la fruta)',
-      '3/4 taza (150 g) de azúcar',
-      '1 taza de yogur griego',
-      '2/3 taza de aceite de oliva',
-      '2 huevos',
-      '2 cucharaditas de polvo de hornear',
-      '1 pizca de sal',
-      '1 taza de arándanos frescos',
-      'Ralladura de 2 limones',
-      'Glaseado: 1 taza de azúcar pulverizada + 2-3 cucharadas de limón'
-    ],
-    instructions: [
-      'Bate yogur, aceite y huevos. Suma el azúcar y la ralladura (solo la parte verde para evitar amargor).',
-      'Cierne harina, polvo y sal. Extrae las 2 cucharadas de harina reservadas y cubre con ellas los arándanos (evita el exceso de secos en la masa final).',
-      'Mezcla con espátula. Prohibido batir en exceso para no activar el gluten y comprometer la esponjosidad.',
-      'Hornea en molde de 20x10 cm a 180°C por 55 minutos.',
-      'Glaseado: mezcla azúcar pulverizada con limón y bate vigorosamente hasta obtener textura lisa y densa. Vierte solo cuando el ponqué esté totalmente frío sobre rejilla.'
-    ]
   }
 ];
 

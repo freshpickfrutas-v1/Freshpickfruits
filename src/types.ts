@@ -158,6 +158,8 @@ export interface Recipe extends ContentWorkflow {
   orden?: number;
   /** ISO publication date; newest recipes are listed first. */
   date?: string;
+  /** Exact publication time (set by the automation) to order recipes published the same day. */
+  publicadoEn?: string;
 }
 
 export type BlogCategoryId =
@@ -193,6 +195,8 @@ export interface BlogArticle extends ContentWorkflow {
   category: BlogCategoryId;
   /** ISO date, e.g. "2026-09-20". */
   date: string;
+  /** Exact publication time (set by the automation) to order news published the same day. */
+  publicadoEn?: string;
   readMinutes: number;
   author: string;
   image?: string;

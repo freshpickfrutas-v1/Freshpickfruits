@@ -145,6 +145,7 @@ ${fuenteTexto}
     excerpt: datos.excerpt,
     category: c.categoria,
     date: fecha,
+    publicadoEn: new Date().toISOString(),
     readMinutes: Math.max(2, Math.round(contarPalabras(bloques.map(b => b.text ?? b.items.join(' ')).join(' ')) / 200)),
     author: AUTHOR,
     imageAlt: datos.imageAlt,

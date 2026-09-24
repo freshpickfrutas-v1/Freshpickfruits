@@ -44,7 +44,7 @@ export function getArticleBySlug(slug: string) {
 
 /** Articles sorted newest first. */
 export function sortedArticles() {
-  return [...BLOG_ARTICLES].sort((a, b) => b.date.localeCompare(a.date));
+  return [...BLOG_ARTICLES].sort((a, b) => b.date.localeCompare(a.date) || (b.publicadoEn ?? '').localeCompare(a.publicadoEn ?? ''));
 }
 
 export function formatArticleDate(iso: string) {

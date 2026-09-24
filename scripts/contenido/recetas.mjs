@@ -40,6 +40,7 @@ Reglas obligatorias:
 - El arándano es SIEMPRE la fruta principal. No uses otras frutas, salvo la que aparezca en el título de la receta; limón o lima solo en pequeñas cantidades como condimento.
 - Exactamente un ingrediente con freshPick=true, y su texto debe decir "arándanos Fresh Pick".
 - Menciona de forma natural (en un paso o en un tip, no en todos) que son arándanos de alta montaña cultivados en Guasca.
+- NO incluyas teléfono, WhatsApp, horarios de entrega ni llamados a comprar: el botón de compra ya aparece en la página.
 - Cero afirmaciones médicas o de salud: nada de "cura", "previene", "desintoxica", "adelgaza", "quema grasa" ni similares.
 - Tiempos realistas y en minutos enteros. Receta que realmente funcione.`;
 
@@ -72,6 +73,7 @@ No debe parecerse a estas recetas ya publicadas: ${existentes.join('; ')}.`
     steps: datos.steps,
     tips: datos.tips,
     date: fecha,
+    publicadoEn: new Date().toISOString(),
     estado: 'publicado',
     modo: item.modo ?? 'automatico',
     imagenTipo: 'generada',

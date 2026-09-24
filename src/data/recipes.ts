@@ -59,7 +59,10 @@ const recipeFiles = import.meta.glob<Recipe>('../content/recetas/*.json', { eage
 /** Published recipes, newest first (drafts are never shown). */
 export const RECIPES: Recipe[] = Object.values(recipeFiles)
   .filter(r => r.estado !== 'borrador')
-  .sort((a, b) => (b.date ?? '').localeCompare(a.date ?? '') || (a.orden ?? 999) - (b.orden ?? 999));
+  .sort((a, b) =>
+    (b.date ?? '').localeCompare(a.date ?? '') ||
+    (b.publicadoEn ?? '').localeCompare(a.publicadoEn ?? '') ||
+    (a.orden ?? 999) - (b.orden ?? 999));
 
 /** Total time including rest; a recipe is "rápida" when this is 15 minutes or less. */
 export function recipeTotalMinutes(recipe: Recipe) {

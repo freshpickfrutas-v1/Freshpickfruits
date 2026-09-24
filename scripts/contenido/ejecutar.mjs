@@ -27,6 +27,8 @@ const PRUEBA = Boolean(args.prueba);
 const hoy = hoyColombia();
 const lunes = lunesDeLaSemana(hoy.fecha, hoy.diaSemana);
 const resumen = [];
+/** Pieces this run was supposed to produce; if >0 and nothing comes out, the run is marked as failed. */
+let piezasEsperadas = 0;
 const anotar = (tipo, texto) => {
   resumen.push({ tipo, texto });
   log(texto);
@@ -50,6 +52,7 @@ async function hacerRecetas(cola) {
     anotar('info', `Recetas: la de hoy (${hoy.fecha}) ya estaba publicada.`);
     return [];
   }
+  piezasEsperadas += faltan;
   const hechas = [];
   let enRevision = new Set();
   if (!PRUEBA) {
@@ -82,6 +85,7 @@ async function hacerRecetas(cola) {
       }
       registrarFalloReceta(item, r.problemas.join('; '));
     } catch (err) {
+      if (err.fatal) throw err; // bad key: stop without touching the queue
       registrarFalloReceta(item, err.message);
     }
   }
@@ -121,6 +125,7 @@ async function hacerNoticias(estado) {
     : Math.max(0, Math.min(MAX_NOTICIAS_POR_DIA, esperadasHastaHoy - semana.total, NOTICIAS_POR_SEMANA - semana.total));
   anotar('info', `Noticias esta semana (desde ${lunes}): ${semana.publicadas} publicadas + ${semana.enRevision} en revisión. Hoy toca: ${objetivo}.`);
   if (!objetivo) return [];
+  piezasEsperadas += objetivo;
 
   const usadas = new Set(estado.fuentesUsadas);
   const recetas = leerCarpetaJson(PATHS.recetas).filter(r => r.estado !== 'borrador');
@@ -131,6 +136,7 @@ async function hacerNoticias(estado) {
     try {
       elegidas = await elegirNoticias(candidatas, objetivo);
     } catch (err) {
+      if (err.fatal) throw err;
       anotar('aviso', `No se pudieron elegir noticias: ${err.message}`);
       return;
     }
@@ -147,6 +153,7 @@ async function hacerNoticias(estado) {
           await comentarIssue(c.issue, `No pude convertir esta nota en noticia: ${r.problemas.join('; ')}. Puedes editarla y abrir un issue nuevo con la etiqueta \`noticia-finca\`.`, { cerrar: true }).catch(() => {});
         }
       } catch (err) {
+        if (err.fatal) throw err;
         anotar('aviso', `Noticia con error ("${c.titulo}"): ${err.message}`);
       }
     }
@@ -162,6 +169,7 @@ async function hacerNoticias(estado) {
       const extra = await candidatasPorBusqueda(usadas);
       if (extra.length) await intentar(extra);
     } catch (err) {
+      if (err.fatal) throw err;
       anotar('aviso', `Búsqueda de respaldo no disponible: ${err.message}`);
     }
   }
@@ -241,6 +249,9 @@ async function main() {
     }
   }
 
+  if (piezasEsperadas > 0 && recetas.length + noticias.length === 0) {
+    anotar('error', `Tocaba generar ${piezasEsperadas} piezas y no salió ninguna. Revisa los avisos de arriba.`);
+  }
   escribirResumen();
   if (resumen.some(r => r.tipo === 'error')) process.exitCode = 1;
 }
@@ -253,7 +264,8 @@ function escribirResumen() {
 }
 
 main().catch(err => {
-  anotar('error', `Fallo general: ${err.stack ?? err.message}`);
+  // Nothing was saved: the queue and state files are only written after all generation succeeds.
+  anotar('error', err.fatal ? `${err.message}. No se generó ni guardó nada; revisa la clave y vuelve a ejecutar.` : `Fallo general: ${err.stack ?? err.message}`);
   escribirResumen();
   process.exit(1);
 });

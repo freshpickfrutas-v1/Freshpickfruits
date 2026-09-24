@@ -17,6 +17,17 @@ function ai() {
 /** Models that answered "not found" are skipped for the rest of the run. */
 const modelosNoDisponibles = new Set();
 
+/** Bad, revoked or blocked keys: retrying or trying other pieces is pointless, so the whole run stops. */
+function marcarSiEsFatal(err) {
+  const msg = String(err?.message ?? err);
+  if (/\b(401|403)\b|PERMISSION_DENIED|API key not valid|API_KEY_INVALID|denied access|UNAUTHENTICATED/i.test(msg)) {
+    err.fatal = true;
+    err.noReintentar = true;
+    err.message = `Gemini rechazó la clave (GEMINI_API_KEY2): ${msg}`;
+  }
+  return err;
+}
+
 function esModeloInexistente(err) {
   const msg = String(err?.message ?? err);
   return /\b404\b|not found|is not supported|NOT_FOUND/i.test(msg);
@@ -32,6 +43,7 @@ async function conModelos(modelos, nombre, llamada) {
         try {
           return await llamada(modelo);
         } catch (err) {
+          if (marcarSiEsFatal(err).fatal) throw err;
           if (esModeloInexistente(err)) {
             modelosNoDisponibles.add(modelo);
             err.noReintentar = true;
@@ -41,7 +53,7 @@ async function conModelos(modelos, nombre, llamada) {
       });
     } catch (err) {
       ultimoError = err;
-      if (!modelosNoDisponibles.has(modelo)) break; // real failure, not a missing model
+      if (err.fatal || !modelosNoDisponibles.has(modelo)) break; // real failure, not a missing model
       log(`   Modelo ${modelo} no disponible; probando el siguiente.`);
     }
   }

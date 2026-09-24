@@ -32,7 +32,11 @@ async function generarConCloudflare(prompt, seed) {
     if (!res.ok || !data?.result?.image) {
       const detalle = data?.errors?.map(e => e.message).join('; ') || `HTTP ${res.status}`;
       const err = new Error(`Cloudflare no devolvió imagen: ${detalle}`);
-      if (res.status === 401 || res.status === 403) err.noReintentar = true;
+      if (res.status === 401 || res.status === 403) {
+        err.message = `Cloudflare rechazó la cuenta o el token (ACCOUNT_ID / WORKERS_AI): ${detalle}`;
+        err.noReintentar = true;
+        err.fatal = true;
+      }
       throw err;
     }
     return Buffer.from(data.result.image, 'base64');
@@ -62,6 +66,7 @@ export async function crearImagen({ slug, promptImagen, queDebeMostrar }) {
       buffer = await generarConCloudflare(prompt, seed);
     } catch (err) {
       log(`   ✗ Imagen ${slug}: ${err.message}`);
+      if (err.fatal) throw err;
       if (err.noReintentar) return null;
       continue;
     }
@@ -82,7 +87,10 @@ Apruébala SOLO si se cumplen TODAS estas condiciones:
 3. Parece una fotografía real y apetitosa: sin deformaciones, sin manos o dedos extraños, sin objetos derretidos o imposibles.
 4. No contiene texto, letras, logos ni marcas de agua.
 Responde en español con {"aprobada": true/false, "motivo": "explicación breve"}.`
-    }).catch(err => ({ aprobada: false, motivo: `No se pudo revisar: ${err.message}` }));
+    }).catch(err => {
+      if (err.fatal) throw err;
+      return { aprobada: false, motivo: `No se pudo revisar: ${err.message}` };
+    });
 
     if (revision.aprobada) {
       log(`   ✓ Imagen ${slug} aprobada (intento ${intento})`);

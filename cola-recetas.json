@@ -5,7 +5,9 @@
     "titulo": "Smoothie de Arándanos y Plátano Proteico",
     "categoria": "smoothies-batidos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "{\"error\":{\"code\":403,\"message\":\"Your project has been denied access. Please contact support.\",\"status\":\"PERMISSION_DENIED\"}}"
   },
   {
     "orden": 2,
@@ -13,7 +15,9 @@
     "titulo": "Avena Nocturna con Arándanos (Overnight Oats)",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "{\"error\":{\"code\":403,\"message\":\"Your project has been denied access. Please contact support.\",\"status\":\"PERMISSION_DENIED\"}}"
   },
   {
     "orden": 3,
@@ -21,7 +25,9 @@
     "titulo": "Mousse Saludable de Arándanos y Yogur",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "{\"error\":{\"code\":403,\"message\":\"Your project has been denied access. Please contact support.\",\"status\":\"PERMISSION_DENIED\"}}"
   },
   {
     "orden": 4,
@@ -29,7 +35,9 @@
     "titulo": "Energy Balls de Arándanos y Avena",
     "categoria": "snacks-meriendas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "{\"error\":{\"code\":403,\"message\":\"Your project has been denied access. Please contact support.\",\"status\":\"PERMISSION_DENIED\"}}"
   },
   {
     "orden": 5,
@@ -37,7 +45,9 @@
     "titulo": "Té Helado de Arándanos",
     "categoria": "bebidas-refrescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "{\"error\":{\"code\":403,\"message\":\"Your project has been denied access. Please contact support.\",\"status\":\"PERMISSION_DENIED\"}}"
   },
   {
     "orden": 6,
@@ -45,7 +55,9 @@
     "titulo": "Ensalada de Quinua, Arándanos y Aguacate",
     "categoria": "ensaladas-platos-frescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "{\"error\":{\"code\":403,\"message\":\"Your project has been denied access. Please contact support.\",\"status\":\"PERMISSION_DENIED\"}}"
   },
   {
     "orden": 7,

@@ -31,6 +31,8 @@ jobs:
 
       # package-lock.json is out of date (Vercel installs with bun.lock), so install without it.
       - run: npm install --no-package-lock --no-audit --no-fund
+      # sharp compresses the images; installed only here so the site build (Vercel) is untouched.
+      - run: npm install --no-save --no-package-lock --no-audit --no-fund sharp
 
       - name: Configurar autor de los commits
         run: |

@@ -5,6 +5,28 @@ import { conReintentos, descargar, log } from './util.mjs';
 import { revisarImagenConGemini } from './gemini.mjs';
 
 const INTENTOS_IMAGEN = 3;
+const ANCHO_MAXIMO = 1200;
+const CALIDAD_JPEG = 78;
+
+/**
+ * Compresses to a JPEG of at most 1200 px wide (~150 KB instead of ~550 KB) so pages load fast on phones.
+ * sharp is installed only where the automation runs; without it the original image is kept.
+ */
+export async function optimizarImagen(buffer) {
+  let sharp;
+  try {
+    sharp = (await import('sharp')).default;
+  } catch {
+    log('   (sharp no está instalado: la imagen se guarda sin comprimir)');
+    return { buffer, ext: detectarFormato(buffer)?.ext ?? 'jpg' };
+  }
+  const salida = await sharp(buffer)
+    .rotate() // respect phone photo orientation
+    .resize({ width: ANCHO_MAXIMO, withoutEnlargement: true })
+    .jpeg({ quality: CALIDAD_JPEG, mozjpeg: true })
+    .toBuffer();
+  return { buffer: salida, ext: 'jpg' };
+}
 
 function detectarFormato(buf) {
   if (buf[0] === 0xff && buf[1] === 0xd8) return { ext: 'jpg', mime: 'image/jpeg' };
@@ -96,9 +118,10 @@ Responde en español con {"aprobada": true/false, "motivo": "explicación breve"
     });
 
     if (revision.aprobada) {
-      log(`   ✓ Imagen ${slug} aprobada (intento ${intento})`);
-      const nombre = `${slug}.${formato.ext}`;
-      return { archivo: { nombre, buffer }, url: `${IMAGE_URL_PREFIX}/${nombre}` };
+      const final = await optimizarImagen(buffer);
+      log(`   ✓ Imagen ${slug} aprobada (intento ${intento}), ${Math.round(buffer.length / 1024)} KB → ${Math.round(final.buffer.length / 1024)} KB`);
+      const nombre = `${slug}.${final.ext}`;
+      return { archivo: { nombre, buffer: final.buffer }, url: `${IMAGE_URL_PREFIX}/${nombre}` };
     }
     log(`   ✗ Imagen ${slug} rechazada (intento ${intento}): ${revision.motivo}`);
     motivos.push(`intento ${intento}: rechazada: ${revision.motivo}`);
@@ -109,11 +132,11 @@ Responde en español con {"aprobada": true/false, "motivo": "explicación breve"
 /** Downloads a farm photo attached to a GitHub issue. Returns the same shape as crearImagen, or null. */
 export async function descargarFotoPropia({ slug, url }) {
   try {
-    const buffer = await descargar(url, { tipo: 'buffer', timeout: 60_000 });
-    const formato = detectarFormato(buffer);
-    if (!formato) return null;
-    const nombre = `${slug}.${formato.ext}`;
-    return { archivo: { nombre, buffer }, url: `${IMAGE_URL_PREFIX}/${nombre}` };
+    const original = await descargar(url, { tipo: 'buffer', timeout: 60_000 });
+    if (!detectarFormato(original)) return null;
+    const final = await optimizarImagen(original);
+    const nombre = `${slug}.${final.ext}`;
+    return { archivo: { nombre, buffer: final.buffer }, url: `${IMAGE_URL_PREFIX}/${nombre}` };
   } catch (err) {
     log(`   ✗ No se pudo descargar la foto de la finca: ${err.message}`);
     return null;

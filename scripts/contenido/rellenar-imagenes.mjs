@@ -50,7 +50,8 @@ for (const p of pendientes) {
 
 const resumen = lineas.join('\n') + '\n';
 console.log('\n' + resumen);
-if (!PRUEBA) {
+// Only commit when something changed (the daily retry is usually a no-op).
+if (!PRUEBA && (rutas.length || lineas.some(l => l.startsWith('- ❌')))) {
   fs.writeFileSync(RESULTADO, resumen, 'utf8');
   commitYPush([...rutas, 'automatizacion/resultado-imagenes.md'], `imágenes para contenido que no tenía: ${rutas.filter(r => r.endsWith('.json')).length} piezas`);
 }

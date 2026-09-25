@@ -71,3 +71,14 @@ jobs:
           if [ -n "${{ inputs.noticias }}" ]; then ARGS="$ARGS --noticias=${{ inputs.noticias }}"; fi
           if [ "${{ inputs.todo_a_revision }}" = "true" ]; then ARGS="$ARGS --todo-a-revision"; fi
           node scripts/contenido/ejecutar.mjs $ARGS
+
+      # Retries images that are still missing (e.g. when the free image quota ran out the day before).
+      # Pieces that already have an image are skipped, so this is a no-op most days.
+      - name: Reintentar imágenes faltantes
+        if: always()
+        continue-on-error: true
+        env:
+          GEMINI_API_KEY: ${{ secrets.ARANDANOS_ARTICULOS || secrets.GEMINI_API_KEY2 || secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.ACCOUNT_ID || secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WORKERS_AI || secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/contenido/rellenar-imagenes.mjs

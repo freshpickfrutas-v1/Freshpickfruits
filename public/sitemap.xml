@@ -19,12 +19,24 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-09-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.freshpickfruits.com/recetas/avena-nocturna-con-arandanos</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.freshpickfruits.com/recetas/bowl-de-yogur-con-arandanos-y-granola</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/energy-balls-de-arandanos</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -37,6 +49,12 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/mermelada-de-arandanos-con-chia</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/mousse-de-arandanos-saludable</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -66,13 +84,43 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.freshpickfruits.com/recetas/smoothie-arandanos-platano-proteico</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.freshpickfruits.com/recetas/smoothie-de-arandanos-y-avena</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.freshpickfruits.com/recetas/te-helado-de-arandanos</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.freshpickfruits.com/recetas/yogur-helado-crocante-de-arandanos</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/arandanos-en-sinaloa-de-la-expansion-acelerada-al-aprendizaje-agricola</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/ecuador-avanza-hacia-la-exportacion-de-arandanos-frescos-a-china</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/reguladores-de-crecimiento-en-arandanos-claves-para-la-firmeza-y-calidad</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

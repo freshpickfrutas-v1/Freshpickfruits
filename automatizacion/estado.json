@@ -6,7 +6,9 @@
     "https://pubmed.ncbi.nlm.nih.gov/42774772/",
     "https://www.portalfruticola.com/noticias/2026/09/22/arandano-ecuador-china/",
     "https://blueberriesconsulting.com/arandano-en-sinaloa-de-la-expansion-acelerada-a-una-nueva-oportunidad/",
-    "https://blueberriesconsulting.com/reguladores-en-arandanos-firmeza-y-calidad-segun-el-momento-de-aplicacion/"
+    "https://blueberriesconsulting.com/reguladores-en-arandanos-firmeza-y-calidad-segun-el-momento-de-aplicacion/",
+    "https://github.com/freshpickfrutas-v1/Freshpickfruits/issues/3",
+    "https://pubmed.ncbi.nlm.nih.gov/42772950/"
   ],
   "historial": [
     {
@@ -56,6 +58,24 @@
       "tipo": "noticia",
       "slug": "reguladores-de-crecimiento-en-arandanos-claves-para-la-firmeza-y-calidad",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-25",
+      "tipo": "receta",
+      "slug": "ensalada-de-quinua-arandanos-y-aguacate",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-25",
+      "tipo": "noticia",
+      "slug": "preparacion-para-la-mejor-cosecha-de-arandanos-en-guasca",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-09-25",
+      "tipo": "noticia",
+      "slug": "el-secreto-de-la-cera-en-los-arandanos-un-estudio-sobre-la-beta-amirina",
+      "modo": "revision"
     }
   ]
 }

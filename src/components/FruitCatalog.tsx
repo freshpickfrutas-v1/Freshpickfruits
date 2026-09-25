@@ -52,49 +52,39 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                 key={fruit.id}
                 className="bg-white rounded-2xl border border-[#EADBEE] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1"
               >
-                {/* Fruit Image Container */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-stone-100">
+                {/* Package photo: the label must stay fully visible, so nothing is laid over it. */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                   <img
                     src={fruit.imageUrl}
                     alt={fruit.imageAlt || `${fruit.name} (${fruit.presentation}) - Arándanos frescos de alta montaña cultivados con agricultura responsable y limpia`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1E0E27]/70 via-transparent to-transparent opacity-85" />
-
-                  {/* Top Badges */}
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
-                    {fruit.popular && (
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#7B4382] text-white text-[11px] font-bold shadow-xs flex items-center gap-1 border border-white/20">
-                        <Sparkles className="w-3 h-3 text-[#DDA83A]" />
-                        <span>Más pedido</span>
-                      </span>
-                    )}
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#2F183C]/85 backdrop-blur-xs text-[#DDA83A] text-[11px] font-bold border border-[#DDA83A]/30">
-                      {fruit.brix}
-                    </span>
-                  </div>
-
-                  <div className="absolute top-3 right-3">
-                    <span className="px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-xs text-[#2F183C] text-[10px] font-bold tracking-tight">
-                      {fruit.altitude}
-                    </span>
-                  </div>
-
-                  {/* Title on Image */}
-                  <div className="absolute bottom-3 left-3 right-3 text-white">
-                    <p className="text-[11px] uppercase tracking-wider text-[#DDA83A] font-bold">
-                      {fruit.variety}
-                    </p>
-                    <h3 className="text-xl font-bold font-display leading-tight drop-shadow-xs">
-                      {fruit.name}
-                    </h3>
-                  </div>
                 </div>
 
                 {/* Content Body */}
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                   <div>
+                    <div className="flex items-center gap-1 flex-wrap mb-3">
+                      {fruit.popular && (
+                        <span className="px-2 py-0.5 rounded-full bg-[#7B4382] text-white text-[10px] font-bold flex items-center gap-1 whitespace-nowrap">
+                          <Sparkles className="w-3 h-3 text-[#DDA83A]" />
+                          <span>Más pedido</span>
+                        </span>
+                      )}
+                      <span className="px-2 py-0.5 rounded-full bg-[#2F183C] text-[#DDA83A] text-[10px] font-bold whitespace-nowrap">
+                        {fruit.brix}
+                      </span>
+                      <span className="px-2 py-0.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-[10px] font-bold whitespace-nowrap">
+                        {fruit.altitude}
+                      </span>
+                    </div>
+                    <p className="text-[11px] uppercase tracking-wider text-[#C59328] font-bold">
+                      {fruit.variety}
+                    </p>
+                    <h3 className="text-xl font-bold font-display leading-tight text-[#2F183C] mb-1">
+                      {fruit.name}
+                    </h3>
                     <p className="text-xs text-[#7B4382] italic mb-2 font-medium">
                       {fruit.scientificName}
                     </p>

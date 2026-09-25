@@ -13,8 +13,8 @@ export const FRUITS_DATA: FruitItem[] = [
     defaultGramUnit: 125,
     standardPrice: 8000,
     presentation: 'Estuche 125g',
-    imageUrl: '/assets/blueberries.jpg',
-    imageAlt: 'Arándanos premium de alta montaña Fresh Pick en estuche de 125g, cultivados con polinización 100% natural y cero residualidad química',
+    imageUrl: '/assets/productos/estuche-arandanos-125g.jpg',
+    imageAlt: 'Estuche Fresh Pick de 125g con etiqueta Premium Blueberries sobre arándanos frescos de alta montaña, cultivados con polinización 100% natural y cero residualidad química',
     brix: '13.0° – 15.0° Brix',
     altitude: 'Más de 2.800 m.s.n.m.',
     benefits: [
@@ -39,8 +39,8 @@ export const FRUITS_DATA: FruitItem[] = [
     defaultGramUnit: 250,
     standardPrice: 15000,
     presentation: 'Estuche 250g',
-    imageUrl: '/assets/blueberries.jpg',
-    imageAlt: 'Arándanos premium de alta montaña Fresh Pick en estuche de 250g, cosechados a mano a más de 2.800 msnm con pruina natural intacta',
+    imageUrl: '/assets/productos/estuche-arandanos-250g.jpg',
+    imageAlt: 'Estuche Fresh Pick de 250g con etiqueta Premium Blueberries sobre arándanos frescos, cosechados a mano a más de 2.800 msnm con pruina natural intacta',
     brix: '13.0° – 15.0° Brix',
     altitude: 'Más de 2.800 m.s.n.m.',
     benefits: [
@@ -65,8 +65,8 @@ export const FRUITS_DATA: FruitItem[] = [
     defaultGramUnit: 500,
     standardPrice: 30000,
     presentation: 'Estuche 500g',
-    imageUrl: '/assets/blueberries.jpg',
-    imageAlt: 'Arándanos premium de alta montaña Fresh Pick en estuche familiar de 500g, cosechados a mano con agricultura limpia',
+    imageUrl: '/assets/productos/estuche-arandanos-500g.jpg',
+    imageAlt: 'Estuche familiar Fresh Pick de 500g con etiqueta Premium Blueberries sobre arándanos frescos, cosechados a mano con agricultura limpia',
     brix: '13.0° – 15.0° Brix',
     altitude: 'Más de 2.800 m.s.n.m.',
     benefits: [

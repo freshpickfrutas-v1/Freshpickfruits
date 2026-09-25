@@ -64,7 +64,7 @@ export function validarReceta(r, { tituloAprobado = '' } = {}) {
 }
 
 /** Validates a news article (text, sources and image). */
-export async function validarNoticia(n, { idiomaFuente = 'es', comprobarEnlaces = true } = {}) {
+export async function validarNoticia(n, { idiomaFuente = 'es', comprobarEnlaces = true, largo: rango } = {}) {
   const p = [];
   if (!/^[a-z0-9-]+$/.test(n.slug ?? '')) p.push('slug inválido');
   else if (slugOcupado(n.slug)) p.push(`el slug "${n.slug}" ya existe`);
@@ -81,7 +81,7 @@ export async function validarNoticia(n, { idiomaFuente = 'es', comprobarEnlaces 
   if (bloques.filter(b => b.type === 'h2').length < 2) p.push('menos de 2 subtítulos');
   const cuerpo = bloques.map(b => b.text ?? (b.items ?? []).join(' ')).join('\n');
   const palabras = contarPalabras(cuerpo);
-  const [min, max] = idiomaFuente === 'en' ? [500, 1200] : [350, 1100];
+  const [min, max] = rango ?? (idiomaFuente === 'en' ? [500, 1200] : [350, 1100]);
   if (palabras < min || palabras > max) p.push(`largo del artículo (${palabras} palabras) fuera de ${min}–${max}`);
 
   // Farming news legitimately says "tratamiento postcosecha" or "previene hongos", so news only block

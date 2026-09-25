@@ -154,6 +154,7 @@ export async function reunirCandidatas(usadas) {
 
 /** Full text for a candidate: feed content if it had it, otherwise the page itself. */
 export async function textoCompleto(c) {
+  if (c.origen === 'finca') return c.texto; // the team's own note: never fetch the GitHub page
   if (c.texto && c.texto.length > 400) return c.texto.slice(0, 15_000);
   try {
     const html = await descargar(c.url);

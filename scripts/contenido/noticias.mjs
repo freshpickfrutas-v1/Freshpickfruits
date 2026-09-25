@@ -85,7 +85,7 @@ const ESQUEMA_ARTICULO = {
 
 function instruccionesDeFormato(c) {
   if (c.origen === 'finca') {
-    return `Es una noticia de la propia finca Fresh Pick escrita por el equipo. Redáctala como nota breve (350-600 palabras) en primera persona del plural ("en Fresh Pick…"), con 2-3 subtítulos. No agregues ningún hecho, cifra, fecha o nombre que no esté en el texto del equipo.`;
+    return `Es una noticia de la propia finca Fresh Pick escrita por el equipo (a veces es solo un par de frases). Redáctala como nota breve de 150 a 300 palabras, en primera persona del plural ("en Fresh Pick…"), con 2 subtítulos (h2). Puedes apoyarte en los datos reales del contexto de la marca (Guasca, altura, polinización natural, cosecha manual) para dar contexto, pero no agregues ningún otro hecho, cifra, fecha, nombre ni promesa que no esté en el texto del equipo o en ese contexto.`;
   }
   if (c.idioma === 'en') {
     return `La fuente está en INGLÉS. Escribe un ENSAYO PROPIO EN ESPAÑOL de 650 a 900 palabras (no una traducción), con esta estructura y un subtítulo (h2) por parte:
@@ -102,7 +102,8 @@ function instruccionesDeFormato(c) {
 export async function crearNoticia(c, { fecha, recetas }) {
   log(`📰 Noticia: ${c.titulo} (${c.medio})`);
   const fuenteTexto = await textoCompleto(c);
-  if (contarPalabras(fuenteTexto) < 60) return { ok: false, candidata: c, problemas: ['la fuente no tiene texto suficiente para escribir sin inventar'] };
+  const minimoFuente = c.origen === 'finca' ? 8 : 60;
+  if (contarPalabras(fuenteTexto) < minimoFuente) return { ok: false, candidata: c, problemas: ['la fuente no tiene texto suficiente para escribir sin inventar'] };
 
   const modo = c.origen === 'finca' ? 'revision' : MODO_POR_CATEGORIA_NOTICIA[c.categoria];
   const listaRecetas = recetas.map(r => `${r.slug} (${r.title})`).join('; ');
@@ -113,7 +114,7 @@ export async function crearNoticia(c, { fecha, recetas }) {
     temperatura: 0.5,
     sistema: `Eres periodista de "Noticias de Arándanos" de Fresh Pick, en español de Colombia, con tono claro, cercano y riguroso.
 Contexto de la marca: ${CONTEXTO_MARCA}
-Úsalo solo en la conclusión, como máximo 1 o 2 frases y solo si encaja de forma natural con la noticia. No repitas todos los datos de la marca y NO incluyas teléfono, WhatsApp, horarios de entrega ni llamados a comprar: el botón de compra ya aparece debajo del artículo.
+Úsalo solo en la conclusión, como máximo 1 o 2 frases y solo si encaja de forma natural con la noticia (en las notas de la propia finca puedes usarlo a lo largo del texto). No repitas todos los datos de la marca y NO incluyas teléfono, WhatsApp, horarios de entrega ni llamados a comprar: el botón de compra ya aparece debajo del artículo.
 Reglas de oro:
 - Usa ÚNICAMENTE información presente en el TEXTO DE LA FUENTE. Si un dato no está en la fuente, no lo afirmes. No inventes cifras, nombres, fechas ni citas.
 - Nada de afirmaciones médicas absolutas: no digas que los arándanos curan, previenen o tratan enfermedades. Usa "se asoció con", "los investigadores observaron", "sugiere".
@@ -165,7 +166,7 @@ ${fuenteTexto}
 
   // Farm news: the team is the source; the issue link isn't a public source for readers.
   const comprobarFuentes = c.origen !== 'finca';
-  const previa = await validarNoticia({ ...noticia, image: 'pendiente', fuentes: comprobarFuentes ? noticia.fuentes : [{ url: '' }] }, { idiomaFuente: c.idioma, comprobarEnlaces: comprobarFuentes });
+  const previa = await validarNoticia({ ...noticia, image: 'pendiente', fuentes: comprobarFuentes ? noticia.fuentes : [{ url: '' }] }, { idiomaFuente: c.idioma, comprobarEnlaces: comprobarFuentes, largo: c.origen === 'finca' ? [120, 450] : undefined });
   if (previa.length) return { ok: false, candidata: c, problemas: previa };
 
   let imagen = null;

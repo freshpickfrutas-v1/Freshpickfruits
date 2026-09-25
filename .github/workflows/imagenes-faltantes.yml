@@ -1,0 +1,47 @@
+name: Imágenes faltantes
+
+# Generates images for recipes or news listed in automatizacion/rellenar-imagenes.json
+# (runs when that file changes on main, or manually from the Actions tab).
+on:
+  push:
+    branches: [main]
+    paths: [automatizacion/rellenar-imagenes.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Same group as the daily run so the two never write to main at the same time.
+concurrency:
+  group: contenido-diario
+  cancel-in-progress: false
+
+jobs:
+  imagenes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      # package-lock.json is out of date (Vercel installs with bun.lock), so install without it.
+      - run: npm install --no-package-lock --no-audit --no-fund
+      - run: npm install --no-save --no-package-lock --no-audit --no-fund sharp
+
+      - name: Configurar autor de los commits
+        run: |
+          git config user.name "Fresh Pick Contenido"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Generar imágenes faltantes
+        env:
+          GEMINI_API_KEY: ${{ secrets.ARANDANOS_ARTICULOS || secrets.GEMINI_API_KEY2 || secrets.GEMINI_API_KEY }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.ACCOUNT_ID || secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.WORKERS_AI || secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/contenido/rellenar-imagenes.mjs

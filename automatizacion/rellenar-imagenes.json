@@ -1,0 +1,23 @@
+[
+  {
+    "tipo": "noticias",
+    "slug": "tabla-nutricional-de-los-arandanos",
+    "prompt": "Overhead flat lay of fresh blueberries in a white ceramic bowl on a light wooden table, a small handful of blueberries on a stainless steel kitchen scale, a glass of water, clean healthy nutrition concept",
+    "alt": "Arándanos frescos en un bowl blanco y sobre una báscula de cocina, ilustrando la información nutricional por porción",
+    "queDebeMostrar": "información nutricional de los arándanos: arándanos frescos en un bowl y una báscula de cocina"
+  },
+  {
+    "tipo": "noticias",
+    "slug": "arandanos-y-salud-digestiva",
+    "prompt": "Breakfast bowl with plain yogurt, rolled oats, chia seeds and fresh blueberries on top, a glass of water beside it, bright morning light on a kitchen table, healthy digestion concept",
+    "alt": "Bowl de desayuno con yogur, avena, semillas de chía y arándanos frescos junto a un vaso de agua",
+    "queDebeMostrar": "salud digestiva: bowl de yogur con avena, chía y arándanos frescos"
+  },
+  {
+    "tipo": "noticias",
+    "slug": "formas-faciles-de-incluir-arandanos-en-tu-rutina",
+    "prompt": "Top view of a kitchen table with several simple blueberry dishes: a purple blueberry smoothie in a glass, a yogurt bowl with blueberries, a spinach salad with blueberries and a small bowl of fresh blueberries, natural daylight",
+    "alt": "Varias preparaciones sencillas con arándanos frescos: smoothie, bowl de yogur, ensalada de espinaca y un bowl de arándanos",
+    "queDebeMostrar": "formas de incluir arándanos en el día: smoothie, bowl de yogur, ensalada y arándanos frescos"
+  }
+]

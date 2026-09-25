@@ -2,7 +2,7 @@
   "slug": "bowl-de-yogur-con-arandanos-y-granola",
   "title": "Bowl de Yogur con Arándanos, Granola y Miel",
   "excerpt": "El desayuno más rápido y completo: capas de yogur, granola crocante y arándanos frescos recién lavados.",
-  "imageAlt": "Bowl de yogur natural con arándanos frescos, granola crocante y un hilo de miel",
+  "imageAlt": "Bowl de yogur natural con granola crocante, arándanos frescos, semillas de chía y un hilo de miel",
   "category": "desayunos",
   "extraCategories": [
     "snacks-meriendas"
@@ -42,5 +42,8 @@
   "date": "2026-09-24",
   "estado": "publicado",
   "modo": "automatico",
-  "orden": 3
+  "orden": 3,
+  "image": "/img/generadas/bowl-de-yogur-con-arandanos-y-granola.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

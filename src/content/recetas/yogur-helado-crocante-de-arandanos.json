@@ -2,7 +2,7 @@
   "slug": "yogur-helado-crocante-de-arandanos",
   "title": "Yogur Helado Crocante de Arándanos",
   "excerpt": "Una lámina de yogur congelado con arándanos y almendras que se parte en trozos: postre fresco, fácil y sin horno.",
-  "imageAlt": "Trozos de yogur helado con arándanos frescos y almendras sobre papel de horno",
+  "imageAlt": "Trozos de yogur helado con arándanos frescos y almendras fileteadas sobre papel de horno",
   "category": "postres-saludables",
   "extraCategories": [
     "snacks-meriendas"
@@ -45,5 +45,8 @@
   "date": "2026-09-24",
   "estado": "publicado",
   "modo": "automatico",
-  "orden": 5
+  "orden": 5,
+  "image": "/img/generadas/yogur-helado-crocante-de-arandanos.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

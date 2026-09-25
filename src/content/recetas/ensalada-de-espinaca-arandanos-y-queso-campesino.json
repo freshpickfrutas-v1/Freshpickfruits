@@ -2,7 +2,7 @@
   "slug": "ensalada-de-espinaca-arandanos-y-queso-campesino",
   "title": "Ensalada de Espinaca, Arándanos y Queso Campesino",
   "excerpt": "Una ensalada fresca y colorida con el contraste dulce-ácido del arándano, queso campesino y nueces tostadas.",
-  "imageAlt": "Ensalada de espinaca fresca con arándanos, queso campesino y nueces tostadas",
+  "imageAlt": "Ensalada de espinaca baby con arándanos frescos, cubos de queso campesino, nueces tostadas y cebolla morada",
   "category": "ensaladas-platos-frescos",
   "prepMinutes": 10,
   "cookMinutes": 3,
@@ -43,5 +43,8 @@
   "date": "2026-09-24",
   "estado": "publicado",
   "modo": "automatico",
-  "orden": 7
+  "orden": 7,
+  "image": "/img/generadas/ensalada-de-espinaca-arandanos-y-queso-campesino.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

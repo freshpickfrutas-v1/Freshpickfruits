@@ -2,7 +2,7 @@
   "slug": "smoothie-de-arandanos-y-avena",
   "title": "Smoothie de Arándanos, Avena y Yogur Griego",
   "excerpt": "Un batido cremoso y saciador, listo en 5 minutos, con el color intenso y el sabor de los arándanos de alta montaña.",
-  "imageAlt": "Smoothie morado de arándanos frescos con avena y yogur griego servido en vaso de vidrio",
+  "imageAlt": "Vaso de smoothie morado de arándanos con yogur griego y avena, decorado con arándanos frescos y hojuelas de avena",
   "category": "smoothies-batidos",
   "extraCategories": [
     "desayunos"
@@ -47,5 +47,8 @@
   "date": "2026-09-24",
   "estado": "publicado",
   "modo": "automatico",
-  "orden": 1
+  "orden": 1,
+  "image": "/img/generadas/smoothie-de-arandanos-y-avena.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

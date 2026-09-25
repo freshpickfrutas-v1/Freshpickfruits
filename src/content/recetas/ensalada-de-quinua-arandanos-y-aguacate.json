@@ -1,0 +1,58 @@
+{
+  "slug": "ensalada-de-quinua-arandanos-y-aguacate",
+  "title": "Ensalada de Quinua, Arándanos y Aguacate",
+  "excerpt": "Disfruta de una ensalada fresca y colorida, combinando quinua, aguacate cremoso y arándanos para un toque agridulce perfecto.",
+  "imageAlt": "Ensalada fresca de quinua con aguacate y arándanos en un tazón de cerámica.",
+  "category": "ensaladas-platos-frescos",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 15,
+  "restMinutes": 10,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 taza de quinua cocida"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 aguacate maduro en cubos"
+    },
+    {
+      "text": "2 tazas de espinaca fresca"
+    },
+    {
+      "text": "2 cucharadas de jugo de limón"
+    },
+    {
+      "text": "3 cucharadas de aceite de oliva virgen extra"
+    },
+    {
+      "text": "Sal y pimienta al gusto"
+    }
+  ],
+  "steps": [
+    "Lava muy bien la quinua bajo el agua fría y cocínala en dos tazas de agua hirviendo con una pizca de sal durante unos 15 minutos hasta que esté suave.",
+    "Retira la quinua del fuego, déjala reposar tapada por 10 minutos y luego suéltala con un tenedor en un recipiente hondo.",
+    "Agrega la espinaca fresca finamente picada y mezcla suavemente con la quinua tibia.",
+    "Incorpora con mucho cuidado los cubos de aguacate y los arándanos de alta montaña cultivados en Guasca, ideales para aportar un dulzor natural y equilibrado a la preparación.",
+    "Prepara el aderezo mezclando en un recipiente pequeño el jugo de limón, el aceite de oliva, la sal y la pimienta.",
+    "Vierte el aderezo sobre la ensalada justo antes de servir y mezcla con movimientos suaves para no maltratar los ingredientes."
+  ],
+  "tips": [
+    "Para conservar mejor la pruina natural y la firmeza de tus arándanos, guárdalos en la nevera sin lavar y en su empaque original hasta el momento de usarlos.",
+    "Si prefieres un toque crujiente, puedes añadir un puñado de almendras tostadas o nueces picadas por encima al momento de servir."
+  ],
+  "date": "2026-09-25",
+  "publicadoEn": "2026-09-25T15:48:25.236Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/ensalada-de-quinua-arandanos-y-aguacate.jpg"
+}

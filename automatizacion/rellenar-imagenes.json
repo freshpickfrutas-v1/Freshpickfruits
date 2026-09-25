@@ -1,23 +1,44 @@
 [
   {
-    "tipo": "noticias",
-    "slug": "tabla-nutricional-de-los-arandanos",
-    "prompt": "Overhead flat lay of fresh blueberries in a white ceramic bowl on a light wooden table, a small handful of blueberries on a stainless steel kitchen scale, a glass of water, clean healthy nutrition concept",
-    "alt": "Arándanos frescos en un bowl blanco y sobre una báscula de cocina, ilustrando la información nutricional por porción",
-    "queDebeMostrar": "información nutricional de los arándanos: arándanos frescos en un bowl y una báscula de cocina"
+    "tipo": "recetas",
+    "slug": "smoothie-de-arandanos-y-avena",
+    "prompt": "A glass of creamy purple blueberry smoothie made with yogurt and oats, topped with a few fresh blueberries and a sprinkle of rolled oats, small bowl of oats and fresh blueberries beside it on a light wooden kitchen table",
+    "alt": "Vaso de smoothie morado de arándanos con yogur griego y avena, decorado con arándanos frescos y hojuelas de avena",
+    "queDebeMostrar": "smoothie de arándanos con avena y yogur servido en vaso"
   },
   {
-    "tipo": "noticias",
-    "slug": "arandanos-y-salud-digestiva",
-    "prompt": "Breakfast bowl with plain yogurt, rolled oats, chia seeds and fresh blueberries on top, a glass of water beside it, bright morning light on a kitchen table, healthy digestion concept",
-    "alt": "Bowl de desayuno con yogur, avena, semillas de chía y arándanos frescos junto a un vaso de agua",
-    "queDebeMostrar": "salud digestiva: bowl de yogur con avena, chía y arándanos frescos"
+    "tipo": "recetas",
+    "slug": "bowl-de-yogur-con-arandanos-y-granola",
+    "prompt": "A ceramic bowl of plain yogurt topped with crunchy golden granola on one side and fresh blueberries on the other, sprinkled with chia seeds and a drizzle of honey, top view on a light table",
+    "alt": "Bowl de yogur natural con granola crocante, arándanos frescos, semillas de chía y un hilo de miel",
+    "queDebeMostrar": "bowl de yogur con arándanos frescos, granola y miel"
   },
   {
-    "tipo": "noticias",
-    "slug": "formas-faciles-de-incluir-arandanos-en-tu-rutina",
-    "prompt": "Top view of a kitchen table with several simple blueberry dishes: a purple blueberry smoothie in a glass, a yogurt bowl with blueberries, a spinach salad with blueberries and a small bowl of fresh blueberries, natural daylight",
-    "alt": "Varias preparaciones sencillas con arándanos frescos: smoothie, bowl de yogur, ensalada de espinaca y un bowl de arándanos",
-    "queDebeMostrar": "formas de incluir arándanos en el día: smoothie, bowl de yogur, ensalada y arándanos frescos"
+    "tipo": "recetas",
+    "slug": "yogur-helado-crocante-de-arandanos",
+    "prompt": "Pieces of frozen yogurt bark with fresh blueberries and sliced almonds pressed into it, broken into irregular shards on parchment paper on a tray, cold frosty look",
+    "alt": "Trozos de yogur helado con arándanos frescos y almendras fileteadas sobre papel de horno",
+    "queDebeMostrar": "yogur helado en trozos con arándanos y almendras"
+  },
+  {
+    "tipo": "recetas",
+    "slug": "ensalada-de-espinaca-arandanos-y-queso-campesino",
+    "prompt": "A fresh salad of baby spinach leaves with fresh blueberries, cubes of white fresh farmer cheese, toasted walnuts and thin slices of red onion in a wide white bowl, a small jar of balsamic vinaigrette beside it",
+    "alt": "Ensalada de espinaca baby con arándanos frescos, cubos de queso campesino, nueces tostadas y cebolla morada",
+    "queDebeMostrar": "ensalada de espinaca con arándanos, queso campesino y nueces"
+  },
+  {
+    "tipo": "recetas",
+    "slug": "refresco-de-arandanos-con-hierbabuena",
+    "prompt": "Two tall glasses of sparkling blueberry drink with ice cubes, muddled fresh blueberries and fresh mint leaves, bubbles visible, a glass pitcher behind, bright natural light",
+    "alt": "Vasos de refresco de arándanos con agua con gas, hielo, arándanos machacados y hojas de hierbabuena",
+    "queDebeMostrar": "refresco de arándanos con hierbabuena, hielo y agua con gas"
+  },
+  {
+    "tipo": "recetas",
+    "slug": "mermelada-de-arandanos-con-chia",
+    "prompt": "A small glass jar of homemade dark blueberry jam with visible chia seeds, a spoon resting on the jar, a slice of toast spread with the jam and fresh blueberries on a wooden board",
+    "alt": "Frasco de vidrio con mermelada casera de arándanos y chía, una tostada untada y arándanos frescos",
+    "queDebeMostrar": "mermelada casera de arándanos con chía en frasco de vidrio"
   }
 ]

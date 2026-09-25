@@ -7,7 +7,7 @@
   "date": "2026-09-15",
   "readMinutes": 5,
   "author": "Equipo Fresh Pick",
-  "imageAlt": "Bowl de desayuno con yogur, avena y arándanos frescos para una digestión saludable",
+  "imageAlt": "Bowl de desayuno con yogur, avena, semillas de chía y arándanos frescos junto a un vaso de agua",
   "relatedRecipes": [
     "bowl-de-yogur-con-arandanos-y-granola",
     "smoothie-de-arandanos-y-avena"
@@ -63,5 +63,8 @@
     }
   ],
   "estado": "publicado",
-  "modo": "revision"
+  "modo": "revision",
+  "image": "/img/generadas/arandanos-y-salud-digestiva.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

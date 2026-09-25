@@ -7,7 +7,7 @@
   "date": "2026-09-18",
   "readMinutes": 5,
   "author": "Equipo Fresh Pick",
-  "imageAlt": "Arándanos frescos de alta montaña junto a una tabla con información nutricional",
+  "imageAlt": "Arándanos frescos en un bowl blanco y sobre una báscula de cocina, ilustrando la información nutricional por porción",
   "relatedRecipes": [
     "mermelada-de-arandanos-con-chia"
   ],
@@ -125,5 +125,8 @@
     }
   ],
   "estado": "publicado",
-  "modo": "revision"
+  "modo": "revision",
+  "image": "/img/generadas/tabla-nutricional-de-los-arandanos.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

@@ -7,7 +7,7 @@
   "date": "2026-09-10",
   "readMinutes": 4,
   "author": "Equipo Fresh Pick",
-  "imageAlt": "Arándanos frescos servidos en diferentes preparaciones: desayuno, ensalada y bebida",
+  "imageAlt": "Varias preparaciones sencillas con arándanos frescos: smoothie, bowl de yogur, ensalada de espinaca y un bowl de arándanos",
   "relatedRecipes": [
     "ensalada-de-espinaca-arandanos-y-queso-campesino",
     "refresco-de-arandanos-con-hierbabuena",
@@ -88,5 +88,8 @@
     }
   ],
   "estado": "publicado",
-  "modo": "revision"
+  "modo": "revision",
+  "image": "/img/generadas/formas-faciles-de-incluir-arandanos-en-tu-rutina.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

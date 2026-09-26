@@ -76,6 +76,12 @@
       "tipo": "noticia",
       "slug": "el-secreto-de-la-cera-en-los-arandanos-un-estudio-sobre-la-beta-amirina",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-09-26",
+      "tipo": "receta",
+      "slug": "compota-de-arandanos-casera",
+      "modo": "automatico"
     }
   ]
 }

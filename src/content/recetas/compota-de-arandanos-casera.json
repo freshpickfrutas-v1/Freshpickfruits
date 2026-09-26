@@ -1,0 +1,54 @@
+{
+  "slug": "compota-de-arandanos-casera",
+  "title": "Compota de Arándanos Casera",
+  "excerpt": "Prepara una compota suave y brillante, con el dulzor natural de nuestros arándanos y un toque sutil de limón. Es el acompañamiento perfecto para tus desayunos y postres favoritos.",
+  "imageAlt": "Compota de arándanos de color morado intenso en un frasco rústico de vidrio, con frutos enteros suspendidos en un almíbar brillante y una cuchara de madera al lado.",
+  "category": "preparaciones-conservas",
+  "extraCategories": [
+    "postres-saludables",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 15,
+  "restMinutes": 10,
+  "difficulty": "Fácil",
+  "servings": 6,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 cucharadas de agua de manantial"
+    },
+    {
+      "text": "2 cucharadas de panela rallada o miel de abejas"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón recién exprimido"
+    },
+    {
+      "text": "1/4 de cucharadita de canela en polvo (opcional)"
+    }
+  ],
+  "steps": [
+    "Coloca en una olla pequeña los arándanos Fresh Pick junto con las dos cucharadas de agua, el jugo de limón y la panela rallada.",
+    "Lleva la olla a fuego medio y revuelve suavemente con una cuchara de madera para integrar los ingredientes a medida que la panela se disuelve.",
+    "Cocina durante unos 10 minutos. Verás cómo estos arándanos de alta montaña, cultivados con tanto esmero en Guasca, comienzan a liberar sus jugos naturales y transforman la mezcla en un almíbar de color violeta profundo.",
+    "Con la parte de atrás de la cuchara, presiona suavemente la mitad de los arándanos contra la pared de la olla para liberar su pulpa, dejando la otra mitad entera para lograr una textura rústica deliciosa.",
+    "Añade la canela en polvo si deseas un toque aromático, baja el fuego al mínimo y deja espesar por 3 a 5 minutos más, revolviendo constantemente para que no se pegue.",
+    "Retira del fuego y deja reposar a temperatura ambiente por 10 minutos. Notarás que al enfriarse toma una consistencia mucho más densa y untuosa."
+  ],
+  "tips": [
+    "Para conservar intacto su sabor natural, envasa la compota en un frasco de vidrio esterilizado con tapa hermética y manténla refrigerada. Te durará perfecta hasta por dos semanas.",
+    "Gracias al dulzor natural de nuestros arándanos, que alcanzan de manera natural hasta 15° Brix, no necesitas añadir azúcares refinados para lograr una compota deliciosa.",
+    "Pruébala tibia sobre una tajada de queso campesino asado o úsala para coronar un postre helado; el contraste de temperaturas y sabores es espectacular."
+  ],
+  "date": "2026-09-26",
+  "publicadoEn": "2026-09-26T14:06:44.025Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/compota-de-arandanos-casera.jpg"
+}

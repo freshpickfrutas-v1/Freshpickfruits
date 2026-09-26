@@ -50,7 +50,8 @@
     "titulo": "Ensalada de Quinua, Arándanos y Aguacate",
     "categoria": "ensaladas-platos-frescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-25"
   },
   {
     "orden": 7,
@@ -58,7 +59,8 @@
     "titulo": "Compota de Arándanos Casera",
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-26"
   },
   {
     "orden": 8,

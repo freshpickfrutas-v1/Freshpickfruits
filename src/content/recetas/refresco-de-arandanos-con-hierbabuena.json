@@ -2,7 +2,7 @@
   "slug": "refresco-de-arandanos-con-hierbabuena",
   "title": "Refresco de Arándanos con Hierbabuena",
   "excerpt": "Una bebida burbujeante, natural y poco dulce, perfecta para días calurosos o para recibir visitas.",
-  "imageAlt": "Vasos de refresco de arándanos con hojas de hierbabuena, hielo y agua con gas",
+  "imageAlt": "Vasos de refresco de arándanos con agua con gas, arándanos frescos y ramitas de hierbabuena",
   "category": "bebidas-refrescos",
   "prepMinutes": 10,
   "cookMinutes": 0,
@@ -42,5 +42,8 @@
   "date": "2026-09-24",
   "estado": "publicado",
   "modo": "automatico",
-  "orden": 8
+  "orden": 8,
+  "image": "/img/generadas/refresco-de-arandanos-con-hierbabuena.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

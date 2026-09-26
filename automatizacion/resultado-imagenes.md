@@ -1,8 +1,8 @@
-## Imágenes faltantes · 2026-09-25
+## Imágenes faltantes · 2026-09-26
 
-- ✅ smoothie-de-arandanos-y-avena: /img/generadas/smoothie-de-arandanos-y-avena.jpg
-- ✅ bowl-de-yogur-con-arandanos-y-granola: /img/generadas/bowl-de-yogur-con-arandanos-y-granola.jpg
-- ✅ yogur-helado-crocante-de-arandanos: /img/generadas/yogur-helado-crocante-de-arandanos.jpg
-- ✅ ensalada-de-espinaca-arandanos-y-queso-campesino: /img/generadas/ensalada-de-espinaca-arandanos-y-queso-campesino.jpg
-- ❌ refresco-de-arandanos-con-hierbabuena: intento 1: rechazada: Los cubos de hielo flotando tienen una textura translúcida de color rosa intenso muy poco natural y la consistencia de los bordes parece generada por IA, perdiendo el realismo de una fotografía comercial. | intento 2: rechazada: La imagen muestra elementos típicos de la inteligencia artificial, como hielo con formas extrañas y un frasco de fondo con proporciones y formas poco realistas en los arándanos. | intento 3: rechazada: La imagen presenta anomalías típicas de la generación por IA, como cubitos de hielo con formas extrañas y un aspecto general poco natural que no parece una fotografía real.
-- ❌ mermelada-de-arandanos-con-chia: intento 1: Cloudflare no devolvió imagen: AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Workers Paid plan if you would like to continue usage. (9f6f1cb8-671f-49a9-9260-acb8a153e0f9) | intento 2: Cloudflare no devolvió imagen: AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Workers Paid plan if you would like to continue usage. (6244f0f9-21ab-451f-8035-4209aa3d2b54) | intento 3: Cloudflare no devolvió imagen: AiError: AiError: you have used up your daily free allocation of 10,000 neurons, please upgrade to Cloudflare's Workers Paid plan if you would like to continue usage. (cd1c665f-33e6-4a21-8a36-29c2214d48f3)
+- ℹ️ smoothie-de-arandanos-y-avena: ya tenía imagen
+- ℹ️ bowl-de-yogur-con-arandanos-y-granola: ya tenía imagen
+- ℹ️ yogur-helado-crocante-de-arandanos: ya tenía imagen
+- ℹ️ ensalada-de-espinaca-arandanos-y-queso-campesino: ya tenía imagen
+- ✅ refresco-de-arandanos-con-hierbabuena: /img/generadas/refresco-de-arandanos-con-hierbabuena.jpg
+- ❌ mermelada-de-arandanos-con-chia: intento 1: rechazada: La fruta servida en la cuchara presenta textura de moras en lugar de arándanos y no se perciben las semillas de chía requeridas. | intento 2: rechazada: El frasco presenta marcas y texto grabados en el borde superior, incumpliendo la restriccion de no contener letras o texto. | intento 3: rechazada: No se pudo revisar: fetch failed

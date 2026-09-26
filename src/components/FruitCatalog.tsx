@@ -26,7 +26,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
   };
 
   return (
-    <section id="variedades" className="py-16 sm:py-20 bg-[#F7F5F0]/80 backdrop-blur-[2px] border-b border-stone-200/60">
+    <section id="variedades" className="py-12 sm:py-16 bg-[#F7F5F0]/80 backdrop-blur-[2px] border-b border-stone-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}

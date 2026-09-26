@@ -267,7 +267,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
 
   if (completedOrder) {
     return (
-      <section id="pedidos-personalizados" className="py-16 sm:py-24 bg-stone-50">
+      <section id="pedidos-personalizados" className="py-12 sm:py-16 bg-stone-50">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <div className="bg-white rounded-3xl shadow-xl border border-[#DFCEE6] p-8">
             <CheckCircle2 className="w-12 h-12 text-[#7B4382] mx-auto mb-3" />
@@ -303,7 +303,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   }
 
   return (
-    <section id="pedidos-personalizados" className="py-16 sm:py-24 bg-[#F7F5F0]/80 backdrop-blur-[2px] border-b border-stone-200/60">
+    <section id="pedidos-personalizados" className="py-12 sm:py-16 bg-[#F7F5F0]/80 backdrop-blur-[2px] border-b border-stone-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">

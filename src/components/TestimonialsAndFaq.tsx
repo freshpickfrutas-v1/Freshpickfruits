@@ -10,11 +10,11 @@ export const TestimonialsAndFaq: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-white/85 backdrop-blur-[2px] border-b border-stone-200/80">
+    <section id="faq" className="py-12 sm:py-16 bg-white/85 backdrop-blur-[2px] border-b border-stone-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Testimonials Section */}
-        <div className="mb-20">
+        <div className="mb-14">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">
               <MessageSquareQuote className="w-3.5 h-3.5 text-[#7B4382]" />

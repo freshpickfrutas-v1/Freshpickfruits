@@ -4,11 +4,11 @@ import { Leaf, Award, Recycle, Sun, Mountain, Users, HeartHandshake } from 'luci
 
 export const AboutAndSustainability: React.FC = () => {
   return (
-    <section id="sostenibilidad" className="py-16 sm:py-24 bg-white/85 backdrop-blur-[2px] border-b border-stone-200/80">
+    <section id="sostenibilidad" className="py-12 sm:py-16 bg-white/85 backdrop-blur-[2px] border-b border-stone-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Origin & Philosophy Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-14">
 
           {/* Left Visual Collage */}
           <div className="lg:col-span-6">
@@ -97,7 +97,7 @@ export const AboutAndSustainability: React.FC = () => {
         </div>
 
         {/* Farm Gallery Strip */}
-        <div className="mb-20">
+        <div className="mb-14">
           <div className="text-center max-w-2xl mx-auto mb-8">
             <h3 className="text-2xl font-bold font-display text-[#2F183C]">
               Directo desde nuestros invernaderos

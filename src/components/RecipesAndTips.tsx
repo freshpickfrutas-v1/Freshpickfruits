@@ -8,7 +8,7 @@ export const RecipesAndTips: React.FC = () => {
   const featured = RECIPES.filter(r => r.featured).slice(0, 3);
 
   return (
-    <section id="recetas-tips" className="py-16 sm:py-24 bg-[#F7F5F0]/80 backdrop-blur-[2px] border-b border-stone-200/80">
+    <section id="recetas-tips" className="py-12 sm:py-16 bg-[#F7F5F0]/80 backdrop-blur-[2px] border-b border-stone-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}

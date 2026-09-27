@@ -2,7 +2,7 @@
   "slug": "mermelada-de-arandanos-con-chia",
   "title": "Mermelada de Arándanos con Chía (Sin Pectina)",
   "excerpt": "Una mermelada casera espesada con semillas de chía, con mucho menos azúcar que la tradicional y todo el sabor del arándano.",
-  "imageAlt": "Frasco de vidrio con mermelada casera de arándanos y chía junto a arándanos frescos",
+  "imageAlt": "Frasco de vidrio con mermelada casera de arándanos y chía, una tostada untada y arándanos frescos",
   "category": "preparaciones-conservas",
   "prepMinutes": 5,
   "cookMinutes": 10,
@@ -41,5 +41,8 @@
   "date": "2026-09-24",
   "estado": "publicado",
   "modo": "automatico",
-  "orden": 9
+  "orden": 9,
+  "image": "/img/generadas/mermelada-de-arandanos-con-chia.jpg",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA"
 }

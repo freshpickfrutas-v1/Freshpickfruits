@@ -8,7 +8,8 @@
     "https://blueberriesconsulting.com/arandano-en-sinaloa-de-la-expansion-acelerada-a-una-nueva-oportunidad/",
     "https://blueberriesconsulting.com/reguladores-en-arandanos-firmeza-y-calidad-segun-el-momento-de-aplicacion/",
     "https://github.com/freshpickfrutas-v1/Freshpickfruits/issues/3",
-    "https://pubmed.ncbi.nlm.nih.gov/42772950/"
+    "https://pubmed.ncbi.nlm.nih.gov/42772950/",
+    "https://pubmed.ncbi.nlm.nih.gov/42792131/"
   ],
   "historial": [
     {
@@ -82,6 +83,18 @@
       "tipo": "receta",
       "slug": "compota-de-arandanos-casera",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-27",
+      "tipo": "receta",
+      "slug": "smoothie-verde-de-espinaca-y-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-27",
+      "tipo": "noticia",
+      "slug": "la-ciencia-de-la-maduracion-como-cambian-los-nutrientes-del-arandano",
+      "modo": "revision"
     }
   ]
 }

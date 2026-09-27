@@ -1,0 +1,54 @@
+{
+  "slug": "smoothie-verde-de-espinaca-y-arandanos",
+  "title": "Smoothie Verde de Espinaca y Arándanos",
+  "excerpt": "Un batido verde cremoso y lleno de sabor que combina la frescura de la espinaca con el dulzor natural de nuestros arándanos de alta montaña. Perfecto para renovar tus mañanas.",
+  "imageAlt": "Vaso de cristal con un smoothie verde brillante decorado con arándanos frescos enteros y hojas de espinaca en una mesa de madera.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1.5 tazas de hojas de espinaca fresca bien lavadas"
+    },
+    {
+      "text": "1 taza de agua de coco o leche de almendras"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón"
+    },
+    {
+      "text": "1 cucharada de semillas de chía"
+    },
+    {
+      "text": "1/2 taza de cubos de hielo"
+    }
+  ],
+  "steps": [
+    "Coloca en la licuadora el agua de coco, las hojas de espinaca y la cucharadita de jugo de limón.",
+    "Licúa a velocidad alta durante 30 segundos hasta que la espinaca se deshaga por completo y el líquido quede verde uniforme.",
+    "Añade los arándanos Fresh Pick, cultivados pacientemente en las montañas de Guasca, junto con las semillas de chía y el hielo.",
+    "Procesa todo durante 45 segundos más hasta obtener una mezcla suave, homogénea y cremosa.",
+    "Sirve de inmediato en dos vasos fríos y disfruta al instante."
+  ],
+  "tips": [
+    "Si te gusta la textura estilo frappé, congela previamente los arándanos Fresh Pick unos 30 minutos antes de preparar tu batido.",
+    "Para conservar la frescura y la pruina natural de tus arándanos en casa, guárdalos en el refrigerador dentro de un recipiente con papel absorbente sin lavarlos hasta el momento de usar."
+  ],
+  "date": "2026-09-27",
+  "publicadoEn": "2026-09-27T14:06:45.432Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/smoothie-verde-de-espinaca-y-arandanos.jpg"
+}

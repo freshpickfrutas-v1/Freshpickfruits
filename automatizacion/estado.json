@@ -95,6 +95,12 @@
       "tipo": "noticia",
       "slug": "la-ciencia-de-la-maduracion-como-cambian-los-nutrientes-del-arandano",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-09-28",
+      "tipo": "receta",
+      "slug": "merengon-de-arandanos",
+      "modo": "automatico"
     }
   ]
 }

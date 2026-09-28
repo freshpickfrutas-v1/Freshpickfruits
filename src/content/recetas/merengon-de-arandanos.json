@@ -1,0 +1,62 @@
+{
+  "slug": "merengon-de-arandanos",
+  "title": "Merengón de Arándanos (Versión Ligera)",
+  "excerpt": "Disfruta de este clásico merengón colombiano en una versión más ligera, combinando merengues crujientes, crema suave de yogur y deliciosos arándanos frescos.",
+  "imageAlt": "Merengón ligero de arándanos frescos con capas de merengue horneado y crema suave de yogur griego.",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 20,
+  "cookMinutes": 60,
+  "restMinutes": 30,
+  "difficulty": "Intermedio",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1.5 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 claras de huevo a temperatura ambiente"
+    },
+    {
+      "text": "1/3 taza de endulzante granulado para repostería"
+    },
+    {
+      "text": "1/2 cucharadita de fécula de maíz"
+    },
+    {
+      "text": "1/2 cucharadita de jugo de limón"
+    },
+    {
+      "text": "1 taza de yogur griego natural sin azúcar"
+    },
+    {
+      "text": "2 cucharadas de miel de abejas"
+    },
+    {
+      "text": "1/2 cucharadita de extracto de vainilla"
+    }
+  ],
+  "steps": [
+    "Precalienta el horno a 110 °C (230 °F) y cubre una bandeja de horneado con papel para parafina o siliconado.",
+    "Bate las claras de huevo a punto de nieve. Incorpora el endulzante granulado poco a poco en forma de lluvia sin dejar de batir, hasta obtener un merengue firme y brillante.",
+    "Agrega suavemente la fécula de maíz y el jugo de limón con una espátula usando movimientos envolventes para no perder el aire.",
+    "Forma 4 discos o nidos de merengue sobre la bandeja con ayuda de una cuchara y hornea durante 60 minutos a fuego muy bajo. Apaga el horno y déjalos reposar adentro durante 30 minutos sin abrir la puerta.",
+    "Mezcla en un tazón el yogur griego con la miel y la vainilla hasta integrar bien.",
+    "En una ollita a fuego bajo, cocina media taza de tus arándanos Fresh Pick con una cucharadita de agua por 3 minutos hasta que se suavicen ligeramente. Estos arándanos de alta montaña cultivados en Guasca aportan el dulzor natural ideal.",
+    "Para armar, coloca una base de merengue, añade una capa abundante de crema de yogur, la salsa tibia de fruta y termina con el resto de los arándanos frescos enteros por encima."
+  ],
+  "tips": [
+    "Monta los merengones justo antes de servir para que la humedad de la crema no ablande la capa crujiente del merengue.",
+    "Guarda los arándanos Fresh Pick restantes en la nevera sin lavar y en su empaque original; lávalos con agua fría únicamente justo antes de disfrutarlos."
+  ],
+  "date": "2026-09-28",
+  "publicadoEn": "2026-09-28T14:17:03.124Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/merengon-de-arandanos.jpg"
+}

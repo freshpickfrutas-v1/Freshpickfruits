@@ -77,7 +77,9 @@
     "titulo": "Arepas de Maíz Dulce con Arándanos y Queso Campesino",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "fetch failed"
   },
   {
     "orden": 10,
@@ -85,7 +87,8 @@
     "titulo": "Merengón de Arándanos (Versión Ligera)",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-28"
   },
   {
     "orden": 11,

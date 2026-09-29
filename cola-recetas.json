@@ -77,9 +77,10 @@
     "titulo": "Arepas de Maíz Dulce con Arándanos y Queso Campesino",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente",
+    "estado": "publicado",
     "intentos": 1,
-    "ultimoError": "fetch failed"
+    "ultimoError": "fetch failed",
+    "fechaPublicacion": "2026-09-29"
   },
   {
     "orden": 10,

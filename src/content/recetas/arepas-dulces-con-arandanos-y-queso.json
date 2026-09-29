@@ -1,0 +1,59 @@
+{
+  "slug": "arepas-dulces-con-arandanos-y-queso",
+  "title": "Arepas de Maíz Dulce con Arándanos y Queso Campesino",
+  "excerpt": "Disfruta unas deliciosas arepas de maíz dulce con arándanos frescos y queso campesino, el desayuno perfecto para consentir a tu familia.",
+  "imageAlt": "Arepas doraditas de maíz dulce abiertas con arándanos enteros y queso campesino derretido en un plato.",
+  "category": "desayunos",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 10,
+  "restMinutes": 5,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "2 tazas de masa de maíz para arepas"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de queso campesino rallado"
+    },
+    {
+      "text": "2 cucharadas de mantequilla derretida"
+    },
+    {
+      "text": "2 cucharadas de azúcar"
+    },
+    {
+      "text": "1 pizca de sal"
+    },
+    {
+      "text": "1 taza de leche tibia"
+    }
+  ],
+  "steps": [
+    "En un tazón grande, mezcla la masa de maíz con el azúcar, la sal y la mantequilla derretida.",
+    "Agrega la leche tibia poco a poco mientras amasas con las manos hasta obtener una mezcla suave y homogénea.",
+    "Incorpora el queso campesino rallado y los arándanos de alta montaña cultivados en Guasca, mezclando con suavidad para que la fruta no se rompa demasiado.",
+    "Divide la masa en porciones iguales y forma bolas con las manos, luego aplánalas suavemente para darles forma de arepa.",
+    "Calienta una sartén o plancha a fuego medio con un toque de mantequilla.",
+    "Coloca las arepas y cocina durante 4 a 5 minutos por cada lado, hasta que estén doradas y crujientes por fuera."
+  ],
+  "tips": [
+    "Conserva tus arándanos en la nevera sin lavar y en su empaque original para mantener intacta su pruina natural y frescura por más tiempo.",
+    "Si prefieres un toque más dulce, puedes acompañar las arepas con un hilo de miel al servir.",
+    "Asegúrate de incorporar los arándanos al final del amasado para que mantengan su forma y textura jugosa al morder la arepa."
+  ],
+  "date": "2026-09-29",
+  "publicadoEn": "2026-09-29T14:09:55.605Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/arepas-dulces-con-arandanos-y-queso.jpg"
+}

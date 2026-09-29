@@ -9,7 +9,9 @@
     "https://blueberriesconsulting.com/reguladores-en-arandanos-firmeza-y-calidad-segun-el-momento-de-aplicacion/",
     "https://github.com/freshpickfrutas-v1/Freshpickfruits/issues/3",
     "https://pubmed.ncbi.nlm.nih.gov/42772950/",
-    "https://pubmed.ncbi.nlm.nih.gov/42792131/"
+    "https://pubmed.ncbi.nlm.nih.gov/42792131/",
+    "https://pubmed.ncbi.nlm.nih.gov/42797001/",
+    "https://blueberriesconsulting.com/arandanos-peruanos-asia-exige-una-estrategia-cada-vez-mas-segmentada/"
   ],
   "historial": [
     {
@@ -101,6 +103,24 @@
       "tipo": "receta",
       "slug": "merengon-de-arandanos",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-29",
+      "tipo": "receta",
+      "slug": "arepas-dulces-con-arandanos-y-queso",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-29",
+      "tipo": "noticia",
+      "slug": "la-exportacion-de-arandanos-en-asia-exige-una-estrategia-mas-segmentada",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-29",
+      "tipo": "noticia",
+      "slug": "como-los-compuestos-de-los-arandanos-y-frutos-rojos-influyen-en-la-oxidacion-de",
+      "modo": "revision"
     }
   ]
 }

@@ -11,7 +11,9 @@
     "https://pubmed.ncbi.nlm.nih.gov/42772950/",
     "https://pubmed.ncbi.nlm.nih.gov/42792131/",
     "https://pubmed.ncbi.nlm.nih.gov/42797001/",
-    "https://blueberriesconsulting.com/arandanos-peruanos-asia-exige-una-estrategia-cada-vez-mas-segmentada/"
+    "https://blueberriesconsulting.com/arandanos-peruanos-asia-exige-una-estrategia-cada-vez-mas-segmentada/",
+    "https://pubmed.ncbi.nlm.nih.gov/42790922/",
+    "https://blueberriesconsulting.com/arandanos-peruanos-la-calidad-que-define-su-valor-en-los-mercados-internacionales/"
   ],
   "historial": [
     {
@@ -121,6 +123,18 @@
       "tipo": "noticia",
       "slug": "como-los-compuestos-de-los-arandanos-y-frutos-rojos-influyen-en-la-oxidacion-de",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-09-30",
+      "tipo": "receta",
+      "slug": "barritas-de-granola-y-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-09-30",
+      "tipo": "noticia",
+      "slug": "la-calidad-del-arandano-en-los-mercados-internacionales-mas-alla-del-volumen",
+      "modo": "automatico"
     }
   ]
 }

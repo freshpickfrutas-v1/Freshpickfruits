@@ -97,7 +97,8 @@
     "titulo": "Barritas de Granola y Arándanos",
     "categoria": "snacks-meriendas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-09-30"
   },
   {
     "orden": 12,

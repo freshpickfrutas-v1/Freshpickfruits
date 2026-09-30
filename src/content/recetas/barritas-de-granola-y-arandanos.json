@@ -1,0 +1,56 @@
+{
+  "slug": "barritas-de-granola-y-arandanos",
+  "title": "Barritas de Granola y Arándanos",
+  "excerpt": "Prepara unas deliciosas barritas de granola y arándanos en casa, perfectas para llevar a cualquier lugar y disfrutar de un snack lleno de sabor y textura.",
+  "imageAlt": "Barritas caseras de granola y arándanos cortadas en porciones rectangulares sobre una tabla de madera.",
+  "category": "snacks-meriendas",
+  "extraCategories": [
+    "postres-saludables"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 25,
+  "restMinutes": 60,
+  "difficulty": "Fácil",
+  "servings": 8,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 tazas y media de hojuelas de avena tradicional"
+    },
+    {
+      "text": "Media taza de miel de abejas pura"
+    },
+    {
+      "text": "Un cuarto de taza de aceite de coco derretido"
+    },
+    {
+      "text": "Media taza de almendras picadas"
+    },
+    {
+      "text": "Una pizca de sal"
+    }
+  ],
+  "steps": [
+    "Precalienta el horno a 180 grados centígrados y forra un molde cuadrado con papel encerado.",
+    "En un tazón grande, mezcla la avena tradicional, las almendras picadas y la pizca de sal.",
+    "Añade la miel de abejas y el aceite de coco derretido a la mezcla seca, integrando muy bien con una espátula hasta que todo quede húmedo.",
+    "Incorpora suavemente los arándanos Fresh Pick, que con su origen de alta montaña cultivado en Guasca aportan un toque dulce y jugoso inigualable.",
+    "Pasa la mezcla al molde preparado y presiónala con firmeza usando el reverso de una cuchara para que quede una capa compacta.",
+    "Hornea durante 25 minutos o hasta que los bordes comiencen a dorarse ligeramente.",
+    "Retira del horno y deja enfriar por completo a temperatura ambiente, luego llévalo a la nevera durante 60 minutos antes de cortar en porciones rectangulares."
+  ],
+  "tips": [
+    "Para conservar la textura crocante de las barritas, guárdalas en un recipiente hermético en la nevera separadas por capas de papel encerado.",
+    "Si te sobra algo de arándanos, mantenlos en su empaque original en el refrigerador sin lavarlos hasta el momento de usarlos para que conserven su pruina natural y frescura."
+  ],
+  "date": "2026-09-30",
+  "publicadoEn": "2026-09-30T14:11:23.236Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/barritas-de-granola-y-arandanos.jpg"
+}

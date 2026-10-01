@@ -5,7 +5,7 @@ import { auth, db, googleProvider } from '../lib/firebase';
 import { STAFF_ROLES, UserProfile, UserRole } from '../types';
 
 /** Same address as the bootstrap admin in firestore.rules: it can always sign in as admin and assign other roles. */
-const BOOTSTRAP_ADMIN_EMAIL = 'produccionandean@gmail.com';
+const BOOTSTRAP_ADMIN_EMAIL = 'info@freshpickfruits.com';
 
 interface AuthState {
   user: User | null;

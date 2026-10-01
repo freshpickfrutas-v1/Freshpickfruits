@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as fbSignOut, User } from 'firebase/auth';
+import { onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as fbSignOut, User, AuthProvider as FirebaseProvider } from 'firebase/auth';
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
-import { auth, db, googleProvider } from '../lib/firebase';
+import { auth, db, googleProvider, appleProvider, facebookProvider } from '../lib/firebase';
 import { STAFF_ROLES, UserProfile, UserRole } from '../types';
 import { navigate } from '../lib/router';
 
@@ -15,6 +15,8 @@ interface AuthState {
   isStaff: boolean;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
+  signInWithApple: () => Promise<void>;
+  signInWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -83,21 +85,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
   }, []);
 
-  const signInWithGoogle = async () => {
+  const signInWith = async (provider: FirebaseProvider) => {
     try { sessionStorage.setItem(LOGIN_INTENT_KEY, String(Date.now())); } catch { /* ignore */ }
     try {
-      await signInWithPopup(auth, googleProvider);
+      await signInWithPopup(auth, provider);
     } catch (err) {
       const code = (err as { code?: string }).code;
       // Some phone browsers block popups: fall back to a full-page redirect.
       if (code === 'auth/popup-blocked' || code === 'auth/operation-not-supported-in-this-environment') {
-        await signInWithRedirect(auth, googleProvider);
+        await signInWithRedirect(auth, provider);
         return;
       }
       if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') return;
+      if (code === 'auth/account-exists-with-different-credential') {
+        throw new Error('Ya existe una cuenta con ese correo creada con otro método (por ejemplo Google). Entra con ese método.');
+      }
       throw err;
     }
   };
+  const signInWithGoogle = () => signInWith(googleProvider);
+  const signInWithApple = () => signInWith(appleProvider);
+  const signInWithFacebook = () => signInWith(facebookProvider);
 
   const role = profile?.role ?? null;
   const value: AuthState = {
@@ -107,6 +115,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isStaff: role !== null && (STAFF_ROLES as UserRole[]).includes(role),
     loading,
     signInWithGoogle,
+    signInWithApple,
+    signInWithFacebook,
     signOut: () => { clearIntent(); return fbSignOut(auth); }
   };
 

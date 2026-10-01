@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Leaf, Loader2, LogIn, LogOut, ShieldAlert, AlertCircle } from 'lucide-react';
+import { Leaf, Loader2, LogIn, LogOut, ShieldAlert, AlertCircle, Apple, Facebook } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { ROLE_LABELS } from '../types';
 
@@ -23,7 +23,7 @@ const Card: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 /** Shows the Google sign-in when there is no session, and blocks users without a team role. */
 export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, children }) => {
-  const { user, profile, role, isStaff, loading, signInWithGoogle, signOut } = useAuth();
+  const { user, profile, role, isStaff, loading, signInWithGoogle, signInWithApple, signInWithFacebook, signOut } = useAuth();
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
@@ -37,11 +37,11 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
   }
 
   if (!user) {
-    const handle = async () => {
+    const handle = async (method: () => Promise<void>) => {
       setBusy(true);
       setError('');
       try {
-        await signInWithGoogle();
+        await method();
       } catch (err) {
         setError(err instanceof Error ? err.message : 'No se pudo iniciar sesión.');
       } finally {
@@ -54,14 +54,32 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
         <p className="text-sm text-stone-600 mt-1 mb-5">
           {staffOnly ? 'Acceso exclusivo para el equipo de Fresh Pick.' : 'Entra para ver el estado de tus pedidos y tus datos de entrega.'}
         </p>
-        <button
-          onClick={handle}
-          disabled={busy}
-          className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#2F183C] text-white text-sm font-bold disabled:opacity-60"
-        >
-          {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4 text-[#DDA83A]" />}
-          Continuar con Google
-        </button>
+        <div className="space-y-2.5">
+          <button
+            onClick={() => handle(signInWithGoogle)}
+            disabled={busy}
+            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#2F183C] text-white text-sm font-bold disabled:opacity-60"
+          >
+            {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4 text-[#DDA83A]" />}
+            Continuar con Google
+          </button>
+          <button
+            onClick={() => handle(signInWithApple)}
+            disabled={busy}
+            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-black text-white text-sm font-bold disabled:opacity-60"
+          >
+            <Apple className="w-4 h-4 fill-white" />
+            Continuar con Apple
+          </button>
+          <button
+            onClick={() => handle(signInWithFacebook)}
+            disabled={busy}
+            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#1877F2] text-white text-sm font-bold disabled:opacity-60"
+          >
+            <Facebook className="w-4 h-4 fill-white" />
+            Continuar con Facebook
+          </button>
+        </div>
         {error && (
           <p className="mt-4 text-xs bg-red-50 text-red-700 border border-red-200 rounded-xl px-3 py-2 flex items-start gap-2 text-left">
             <AlertCircle className="w-4 h-4 shrink-0" /> {error}

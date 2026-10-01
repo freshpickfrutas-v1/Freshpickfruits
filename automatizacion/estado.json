@@ -104,12 +104,6 @@
     {
       "fecha": "2026-09-29",
       "tipo": "noticia",
-      "slug": "la-exportacion-de-arandanos-en-asia-exige-una-estrategia-mas-segmentada",
-      "modo": "automatico"
-    },
-    {
-      "fecha": "2026-09-29",
-      "tipo": "noticia",
       "slug": "como-los-compuestos-de-los-arandanos-y-frutos-rojos-influyen-en-la-oxidacion-de",
       "modo": "revision"
     },
@@ -117,12 +111,6 @@
       "fecha": "2026-09-30",
       "tipo": "receta",
       "slug": "barritas-de-granola-y-arandanos",
-      "modo": "automatico"
-    },
-    {
-      "fecha": "2026-09-30",
-      "tipo": "noticia",
-      "slug": "la-calidad-del-arandano-en-los-mercados-internacionales-mas-alla-del-volumen",
       "modo": "automatico"
     },
     {

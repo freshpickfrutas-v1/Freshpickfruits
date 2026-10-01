@@ -1,7 +1,7 @@
 // Reúne noticias candidatas de los últimos días desde fuentes gratuitas:
 // RSS del sector (en español), ScienceDaily, PubMed y noticias de la finca (issues de GitHub).
 import {
-  DIAS_NOTICIA_ACTUAL, DOMINIOS_CONFIABLES, ETIQUETA_NOTICIA_FINCA, FUENTES_RSS, PUBMED_QUERY, SUFIJOS_UNIVERSIDAD
+  DIAS_NOTICIA_ACTUAL, DOMINIOS_CONFIABLES, ETIQUETA_NOTICIA_FINCA, FUENTES_RSS, PUBMED_QUERY, SUFIJOS_UNIVERSIDAD, TEMAS_VETADOS
 } from './config.mjs';
 import { descargar, dominioDe, log, quitarHtml } from './util.mjs';
 import { buscarConGoogle } from './gemini.mjs';
@@ -113,10 +113,11 @@ function dominioConfiable(url) {
 /** Backup (source D): Gemini with Google Search, only when the feeds found nothing usable. */
 export async function candidatasPorBusqueda(usadas) {
   const { texto, fuentes } = await buscarConGoogle({
-    prompt: `Busca noticias publicadas en los últimos ${DIAS_NOTICIA_ACTUAL} días sobre arándanos (blueberries): estudios científicos de salud o nutrición, cosechas, mercado, exportaciones (especialmente Colombia y Latinoamérica), variedades o cultivo.
+    prompt: `Busca noticias publicadas en los últimos ${DIAS_NOTICIA_ACTUAL} días sobre arándanos (blueberries): estudios científicos de salud o nutrición, investigaciones sobre antioxidantes y bienestar, hábitos de vida saludable y recetas o formas de consumirlos.
+No busques ni incluyas nada sobre mercado, exportaciones, precios, competencia entre países o empresas productoras.
 Para cada noticia real que encuentres, resume en 3-5 frases qué dice, con cifras y nombres concretos, e indica el medio y la fecha. No inventes nada.`
   });
-  const validas = fuentes.filter(f => dominioConfiable(f.url) && !usadas.has(f.url));
+  const validas = fuentes.filter(f => dominioConfiable(f.url) && !usadas.has(f.url) && !TEMAS_VETADOS.test(f.titulo ?? ''));
   log(`   Búsqueda con Google: ${fuentes.length} fuentes, ${validas.length} de dominios confiables`);
   return validas.slice(0, 5).map((f, i) => ({
     id: `busqueda:${f.url}`,
@@ -149,7 +150,8 @@ export async function reunirCandidatas(usadas) {
       log(`   ⚠️  ${t.nombre} no respondió: ${err.message}`);
     }
   }
-  return todas.filter(c => !usadas.has(c.url));
+  // Las notas de la finca las escribe el equipo: no se filtran. El resto no puede tratar temas de competencia o mercado.
+  return todas.filter(c => !usadas.has(c.url) && (c.origen === 'finca' || !TEMAS_VETADOS.test(`${c.titulo} ${c.resumen}`)));
 }
 
 /** Full text for a candidate: feed content if it had it, otherwise the page itself. */

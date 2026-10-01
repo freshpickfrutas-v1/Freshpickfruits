@@ -41,7 +41,7 @@ export async function elegirNoticias(candidatas, cuantas) {
     nombre: 'elegir noticias',
     temperatura: 0.2,
     schema: ESQUEMA_SELECCION,
-    sistema: `Eres el editor de "Noticias de Arándanos" de Fresh Pick (Colombia). Eliges qué publicar hoy para lectores colombianos interesados en comer sano y en el mundo del arándano.`,
+    sistema: `Eres el editor de "Noticias de Arándanos" de Fresh Pick (Colombia). Eliges qué publicar hoy para lectores colombianos interesados en comer sano. La línea editorial es vida saludable, recetas e investigación; nunca competencia, mercado ni otros países productores.`,
     prompt: `Candidatas:
 ${lista}
 
@@ -49,9 +49,10 @@ Ya publicadas (no repetir el mismo tema): ${publicadas.join('; ')}
 
 Criterios:
 - Solo noticias cuyo tema central sean los arándanos (no basta una mención de pasada).
-- Prioriza: noticias de la finca Fresh Pick (id "finca:…") siempre primero; luego estudios de salud y nutrición con resultados claros; luego mercado y exportación, sobre todo Colombia y Latinoamérica; luego cultivo y variedades.
-- Descarta notas publicitarias, ofertas de empleo, eventos sin contenido o temas ya publicados.
-- Asigna la categoría: beneficios-arandanos (efectos en salud para el consumidor), nutricion-ciencia (estudios, compuestos, nutrientes), salud-digestiva-bienestar (digestión, microbiota, bienestar), estilo-vida-saludable (hábitos, consumo, consejos), cultivo-origen (cultivo, cosechas, mercado, exportación, industria, la finca).
+- Prioriza, en este orden: noticias de la finca Fresh Pick (id "finca:…") siempre primero; luego artículos investigativos y estudios de salud y nutrición con resultados claros; luego vida saludable (hábitos, bienestar, alimentación); luego temas que permitan relacionar recetas con arándanos.
+- PROHIBIDO elegir (descártalas sin excepción): noticias sobre competitividad, mercado, precios, exportaciones o importaciones; comparaciones entre países productores (Perú, Chile, México, Ecuador, Marruecos, China, etc.); noticias sobre otras empresas, marcas o productores que sean competencia de Fresh Pick; temas de industria o negocio del arándano. Si dudas, descártala.
+- Descarta también notas publicitarias, ofertas de empleo, eventos sin contenido o temas ya publicados.
+- Asigna la categoría: beneficios-arandanos (efectos en salud para el consumidor), nutricion-ciencia (estudios, compuestos, nutrientes), salud-digestiva-bienestar (digestión, microbiota, bienestar), estilo-vida-saludable (hábitos, consumo, consejos, recetas), cultivo-origen (solo la finca y el origen de los arándanos de Fresh Pick; nunca mercado ni industria).
 Devuelve hasta ${cuantas + 2} elegidas, en orden de preferencia.`
   });
   const porId = new Map(candidatas.map(c => [c.id, c]));
@@ -95,7 +96,7 @@ function instruccionesDeFormato(c) {
 4. Qué significa para ti: aplicación práctica, sin exagerar.
 5. Conclusión.`;
   }
-  return `Escribe un artículo PROPIO en español de 400 a 750 palabras (no copies frases de la fuente), con 3-4 subtítulos (h2): la noticia, los datos clave, el contexto (qué significa para Colombia y Latinoamérica cuando aplique) y una conclusión.`;
+  return `Escribe un artículo PROPIO en español de 400 a 750 palabras (no copies frases de la fuente), con 3-4 subtítulos (h2): la noticia, los datos clave, el contexto y una conclusión con enfoque en vida saludable. No compares países ni hables de competencia, mercado o exportaciones.`;
 }
 
 /** Writes, illustrates and validates one news article. Returns { ok, pieza, archivos, problemas, candidata }. */

@@ -53,22 +53,23 @@ export const CATEGORIAS_RECETA = [
   'ensaladas-platos-frescos', 'bebidas-refrescos', 'preparaciones-conservas'
 ];
 
-// --- Fuentes de noticias (verificadas: responden y publican sobre arándanos) ---
+// --- Fuentes de noticias ---
+// Solo fuentes de salud, nutrición e investigación. Se quitaron las revistas del sector comercial
+// (Blueberries Consulting, Portal Frutícola, FreshPlaza): hablan de mercado, exportación y competidores,
+// que Fresh Pick no quiere publicar.
 export const FUENTES_RSS = [
-  { id: 'blueberries-consulting', medio: 'Blueberries Consulting', url: 'https://blueberriesconsulting.com/feed/', idioma: 'es', soloArandano: false, categoriaSugerida: 'cultivo-origen' },
-  { id: 'portal-fruticola', medio: 'Portal Frutícola', url: 'https://www.portalfruticola.com/feed/', idioma: 'es', soloArandano: true, categoriaSugerida: 'cultivo-origen' },
-  { id: 'freshplaza-es', medio: 'FreshPlaza', url: 'https://www.freshplaza.es/rss.xml', idioma: 'es', soloArandano: true, categoriaSugerida: 'cultivo-origen' },
   { id: 'sciencedaily-nutricion', medio: 'ScienceDaily', url: 'https://www.sciencedaily.com/rss/health_medicine/nutrition.xml', idioma: 'en', soloArandano: true, categoriaSugerida: 'nutricion-ciencia' }
 ];
+
+/** Temas vetados: competencia, mercado, exportaciones y otros países. Una candidata que los mencione se descarta antes de elegir. */
+export const TEMAS_VETADOS = /competitiv|competidor|competencia|rival|cuota de mercado|participaci[oó]n de mercado|market share|competitor|competitiveness|exporta|export(s|ed|ing|ation)?\b|importa(ci[oó]n|ciones)|import(s|ed|ing)?\b|aranc|tariff|precio(s)? (del|de los) ar[aá]ndano|mercado (global|internacional|de ar[aá]ndano)|global market|supply chain|cadena de suministro|productores de (per[uú]|chile|m[eé]xico|ecuador|marruecos|espa[nñ]a|argentina|china)|per[uú]|chile|ecuador|marruecos|morocco|china|m[eé]xico|argentina|sud[aá]frica|south africa|agroexport|agroindustria|hect[aá]reas (sembradas|plantadas)|cosecha (r[eé]cord|2\d{3})|campa[nñ]a 20\d\d/i;
 export const PUBMED_QUERY = '(blueberry[tiab] OR blueberries[tiab] OR "vaccinium corymbosum"[tiab] OR "highbush blueberry"[tiab])';
 
 /** Dominios aceptados como fuente cuando la noticia viene de la búsqueda con IA (respaldo). */
 export const DOMINIOS_CONFIABLES = [
   'pubmed.ncbi.nlm.nih.gov', 'ncbi.nlm.nih.gov', 'nih.gov', 'usda.gov', 'fao.org', 'who.int',
   'sciencedaily.com', 'eurekalert.org', 'harvard.edu', 'mayoclinic.org',
-  'blueberriesconsulting.com', 'portalfruticola.com', 'freshplaza.es', 'freshplaza.com',
-  'minagricultura.gov.co', 'ica.gov.co', 'agronet.gov.co', 'procolombia.co', 'dane.gov.co',
-  'agraria.pe', 'redagricola.com', 'nature.com', 'sciencedirect.com', 'mdpi.com'
+  'nature.com', 'sciencedirect.com', 'mdpi.com'
 ];
 /** Además de la lista, se aceptan universidades. */
 export const SUFIJOS_UNIVERSIDAD = ['.edu', '.edu.co', '.ac.uk', '.edu.pe', '.edu.mx', '.edu.ar', '.edu.cl'];

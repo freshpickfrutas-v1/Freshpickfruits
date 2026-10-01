@@ -13,15 +13,51 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/barritas-de-granola-y-arandanos</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/arepas-dulces-con-arandanos-y-queso</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/merengon-de-arandanos</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/smoothie-verde-de-espinaca-y-arandanos</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/compota-de-arandanos-casera</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/ensalada-de-quinua-arandanos-y-aguacate</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/avena-nocturna-con-arandanos</loc>
@@ -108,14 +144,44 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/noticias/arandanos-en-sinaloa-de-la-expansion-acelerada-al-aprendizaje-agricola</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://www.freshpickfruits.com/noticias/arandanos-y-cerebro-que-dice-un-ensayo-clinico-de-24-semanas</loc>
+    <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.freshpickfruits.com/noticias/ecuador-avanza-hacia-la-exportacion-de-arandanos-frescos-a-china</loc>
-    <lastmod>2026-09-24</lastmod>
+    <loc>https://www.freshpickfruits.com/noticias/la-calidad-del-arandano-en-los-mercados-internacionales-mas-alla-del-volumen</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/como-los-compuestos-de-los-arandanos-y-frutos-rojos-influyen-en-la-oxidacion-de</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/la-exportacion-de-arandanos-en-asia-exige-una-estrategia-mas-segmentada</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/la-ciencia-de-la-maduracion-como-cambian-los-nutrientes-del-arandano</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/el-secreto-de-la-cera-en-los-arandanos-un-estudio-sobre-la-beta-amirina</loc>
+    <lastmod>2026-09-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/preparacion-para-la-mejor-cosecha-de-arandanos-en-guasca</loc>
+    <lastmod>2026-09-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

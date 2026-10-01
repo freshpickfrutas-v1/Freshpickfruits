@@ -13,7 +13,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42797001/",
     "https://blueberriesconsulting.com/arandanos-peruanos-asia-exige-una-estrategia-cada-vez-mas-segmentada/",
     "https://pubmed.ncbi.nlm.nih.gov/42790922/",
-    "https://blueberriesconsulting.com/arandanos-peruanos-la-calidad-que-define-su-valor-en-los-mercados-internacionales/"
+    "https://blueberriesconsulting.com/arandanos-peruanos-la-calidad-que-define-su-valor-en-los-mercados-internacionales/",
+    "https://pubmed.ncbi.nlm.nih.gov/42251891/"
   ],
   "historial": [
     {
@@ -44,18 +45,6 @@
       "fecha": "2026-09-24",
       "tipo": "receta",
       "slug": "te-helado-de-arandanos",
-      "modo": "automatico"
-    },
-    {
-      "fecha": "2026-09-24",
-      "tipo": "noticia",
-      "slug": "ecuador-avanza-hacia-la-exportacion-de-arandanos-frescos-a-china",
-      "modo": "automatico"
-    },
-    {
-      "fecha": "2026-09-24",
-      "tipo": "noticia",
-      "slug": "arandanos-en-sinaloa-de-la-expansion-acelerada-al-aprendizaje-agricola",
       "modo": "automatico"
     },
     {
@@ -135,6 +124,12 @@
       "tipo": "noticia",
       "slug": "la-calidad-del-arandano-en-los-mercados-internacionales-mas-alla-del-volumen",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-01",
+      "tipo": "noticia",
+      "slug": "arandanos-y-cerebro-que-dice-un-ensayo-clinico-de-24-semanas",
+      "modo": "revision"
     }
   ]
 }

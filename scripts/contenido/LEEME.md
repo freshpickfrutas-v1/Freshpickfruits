@@ -5,13 +5,14 @@ Todos los días a las 9:00 a.m. (hora de Colombia) GitHub Actions ejecuta `scrip
 - **1 receta** tomada en orden de `cola-recetas.json` → se publica directo en `/recetas`.
 - **Noticias de arándanos** con meta de **7 por semana** (lunes a domingo), máximo 2 por día para recuperar días sin noticia. Lo que falte al cerrar la semana no se arrastra.
   - Salud y ciencia (Beneficios, Nutrición y Ciencia, Salud Digestiva) → llegan como **Pull Request** para aprobar.
-  - Estilo de Vida y Cultivo y Origen (incluye mercado y exportación) → se publican directo.
+  - Estilo de Vida y Cultivo y Origen (solo la finca) → se publican directo.
+  - Línea editorial: vida saludable, recetas y artículos investigativos. **No** se publican noticias de competitividad, mercado, exportaciones, otros países ni competidores (filtro `TEMAS_VETADOS` en `config.mjs` + instrucción al editor IA).
 - Cada pieza lleva una **imagen generada con IA** y revisada por otra IA. Sin imagen aprobada, no se publica.
 - Un **revisor automático** bloquea piezas incompletas, con afirmaciones médicas, con otras frutas en las recetas o con fuentes que no abren.
 
 ## Fuentes de noticias
 
-Blueberries Consulting, Portal Frutícola, FreshPlaza, ScienceDaily (nutrición) y PubMed, de los últimos 7 días. Si no alcanzan, una búsqueda con Google (Gemini) limitada a dominios confiables. Las noticias en inglés se escriben como ensayo propio en español con la fuente original enlazada.
+ScienceDaily (nutrición) y PubMed, de los últimos 7 días (se retiraron las revistas del sector comercial). Si no alcanzan, una búsqueda con Google (Gemini) limitada a dominios científicos confiables. Las noticias en inglés se escriben como ensayo propio en español con la fuente original enlazada.
 
 ## Aprobar una noticia (desde el celular)
 

@@ -24,7 +24,7 @@ export const FloatingWhatsApp: React.FC = () => {
   return (
     <motion.aside
       aria-label="Contacto directo por WhatsApp"
-      className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2 group"
+      className="hidden md:flex fixed bottom-6 right-6 z-40 flex-col items-end gap-2 group"
       initial={{ opacity: 0, scale: 0.5, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{

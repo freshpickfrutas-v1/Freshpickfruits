@@ -254,7 +254,36 @@ export interface UserProfile {
   createdAt: string;
 }
 
-export type OrderStatus = 'pendiente' | 'confirmado' | 'cosechando' | 'en_camino' | 'entregado' | 'cancelado';
+/**
+ * Order flow, in 7 stages. 'pendiente' is stage 1 ("Recibido"): it keeps the id the public checkout
+ * and firestore.rules already use, so the rules do not need to change.
+ */
+export type OrderStatus =
+  | 'pendiente'        // 1. Recibido / por confirmar
+  | 'pago_verificado'  // 2. Pago verificado
+  | 'en_proceso'       // 3. Poscosecha y facturación (en paralelo)
+  | 'empacado'         // 4. Empacado / por despachar
+  | 'en_ruta'          // 5. En ruta
+  | 'entregado'        // 6. Entregado
+  | 'cerrado'          // 7. Factura emitida y cierre
+  | 'cancelado';
+
+export interface BillingData {
+  /** 'persona' = cédula; 'empresa' = factura con NIT. */
+  type: 'persona' | 'empresa';
+  document: string;       // cédula or NIT
+  dv?: string;            // NIT verification digit
+  businessName?: string;  // razón social
+  taxRegime?: string;     // régimen fiscal
+  billingEmail?: string;
+}
+
+export interface OrderHistoryEntry {
+  status: OrderStatus | 'factura' | 'pago';
+  at: string;
+  by: string;
+  note?: string;
+}
 
 export interface FirestoreOrderItem {
   name: string;
@@ -282,4 +311,10 @@ export interface FirestoreOrder {
   paymentMethod: string;
   status: OrderStatus;
   createdAt: string;
+  billing?: BillingData;
+  paymentStatus?: 'pendiente' | 'verificado';
+  invoiceStatus?: 'pendiente' | 'emitida';
+  invoiceNumber?: string;
+  invoiceUrl?: string;
+  history?: OrderHistoryEntry[];
 }

@@ -14,9 +14,10 @@ import {
   serverTimestamp,
   Timestamp,
   getDocs,
+  arrayUnion,
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { FruitItem, FirestoreOrder, FirestoreOrderItem, OrderStatus, UserProfile, UserRole } from '../types';
+import { BillingData, FruitItem, FirestoreOrder, FirestoreOrderItem, OrderHistoryEntry, OrderStatus, UserProfile, UserRole } from '../types';
 
 // ---------- Productos ----------
 
@@ -82,6 +83,7 @@ export interface NewOrderInput {
   total: number;
   paymentMethod: string;
   userId?: string;
+  billing?: BillingData;
 }
 
 function makeOrderNumber() {
@@ -111,6 +113,10 @@ export async function createOrder(input: NewOrderInput) {
     paymentMethod: input.paymentMethod,
     status: 'pendiente' as OrderStatus,
     createdAt: new Date().toISOString(),
+    paymentStatus: 'pendiente' as const,
+    invoiceStatus: 'pendiente' as const,
+    // Firestore rejects undefined, so billing is only written when there is data.
+    ...(input.billing ? { billing: input.billing } : {}),
   };
   const ref = await addDoc(ordersCol, payload);
   return { id: ref.id, orderNumber };
@@ -133,6 +139,51 @@ export function subscribeAllOrders(
 
 export async function updateOrderStatus(id: string, status: OrderStatus) {
   return updateDoc(doc(db, 'orders', id), { status });
+}
+
+export type OrderActionKey =
+  | 'confirmar_pago' | 'iniciar_alistamiento' | 'marcar_empacado' | 'despachar'
+  | 'entregar' | 'cerrar' | 'cancelar' | 'registrar_factura';
+
+const ACTION_RESULT: Record<Exclude<OrderActionKey, 'registrar_factura'>, OrderStatus> = {
+  confirmar_pago: 'pago_verificado',
+  iniciar_alistamiento: 'en_proceso',
+  marcar_empacado: 'empacado',
+  despachar: 'en_ruta',
+  entregar: 'entregado',
+  cerrar: 'cerrado',
+  cancelar: 'cancelado',
+};
+
+/** Applies one step of the order flow and records who did it and when. */
+export async function applyOrderAction(
+  order: FirestoreOrder,
+  action: OrderActionKey,
+  by: string,
+  invoice?: { number: string; url: string }
+) {
+  const at = new Date().toISOString();
+  const ref = doc(db, 'orders', order.id);
+  if (action === 'registrar_factura') {
+    if (!invoice?.number.trim()) throw new Error('Escribe el número de la factura.');
+    const entry: OrderHistoryEntry = { status: 'factura', at, by, note: invoice.number.trim() };
+    return updateDoc(ref, {
+      invoiceStatus: 'emitida',
+      invoiceNumber: invoice.number.trim(),
+      invoiceUrl: invoice.url.trim(),
+      history: arrayUnion(entry),
+    });
+  }
+  if (action === 'cerrar' && order.invoiceStatus !== 'emitida') {
+    throw new Error('No se puede cerrar la venta sin factura electrónica registrada.');
+  }
+  const status = ACTION_RESULT[action];
+  const entry: OrderHistoryEntry = { status, at, by };
+  return updateDoc(ref, {
+    status,
+    history: arrayUnion(entry),
+    ...(action === 'confirmar_pago' ? { paymentStatus: 'verificado', paymentVerifiedAt: at, paymentVerifiedBy: by } : {}),
+  });
 }
 
 /** Orders of the signed-in customer: linked to their account, or placed as a guest with the same verified email. */

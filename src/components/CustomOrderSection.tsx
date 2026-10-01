@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { FruitItem, PackagingOption, AddOnItem, CustomOrder } from '../types';
+import { FruitItem, PackagingOption, AddOnItem, CustomOrder, BillingData } from '../types';
 import { createOrder } from '../lib/firestore';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -65,6 +65,14 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   const { user } = useAuth();
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
+  const [customerEmail, setCustomerEmail] = useState(user?.email ?? '');
+  const [wantsNit, setWantsNit] = useState(false);
+  const [cedula, setCedula] = useState('');
+  const [nit, setNit] = useState('');
+  const [nitDv, setNitDv] = useState('');
+  const [businessName, setBusinessName] = useState('');
+  const [taxRegime, setTaxRegime] = useState('');
+  const [billingEmail, setBillingEmail] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryCity, setDeliveryCity] = useState('Bogotá D.C.');
   const [deliveryDate, setDeliveryDate] = useState(() => {
@@ -151,6 +159,16 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     if (!customerName.trim()) errors.customerName = 'Ingresa tu nombre.';
     if (!customerPhone.trim() || customerPhone.trim().length < 7) errors.customerPhone = 'Ingresa un WhatsApp válido.';
     if (!deliveryAddress.trim()) errors.deliveryAddress = 'Ingresa la dirección de entrega.';
+    if (customerEmail.trim() && !/^\S+@\S+\.\S+$/.test(customerEmail.trim())) errors.customerEmail = 'Revisa el correo.';
+    if (wantsNit) {
+      if (!/^\d{5,12}$/.test(nit.trim())) errors.nit = 'Ingresa el NIT sin puntos ni dígito de verificación.';
+      if (!/^\d$/.test(nitDv.trim())) errors.nitDv = 'Dígito de verificación (1 número).';
+      if (!businessName.trim()) errors.businessName = 'Ingresa la razón social.';
+      if (!taxRegime.trim()) errors.taxRegime = 'Elige el régimen fiscal.';
+      if (!/^\S+@\S+\.\S+$/.test(billingEmail.trim())) errors.billingEmail = 'Ingresa un correo de facturación válido.';
+    } else if (cedula.trim() && !/^\d{5,12}$/.test(cedula.trim())) {
+      errors.cedula = 'La cédula debe tener solo números.';
+    }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -170,13 +188,18 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         return { fruitId, grams: g, units };
       });
 
+    const billing: BillingData | null = wantsNit
+      ? { type: 'empresa', document: nit.trim(), dv: nitDv.trim(), businessName: businessName.trim(), taxRegime: taxRegime.trim(), billingEmail: billingEmail.trim() }
+      : cedula.trim() ? { type: 'persona', document: cedula.trim() } : null;
+
     let orderId = 'FP-' + Math.floor(10000 + Math.random() * 90000);
 
     try {
       const saved = await createOrder({
         customerName,
-        customerEmail: user?.email ?? '',
+        customerEmail: customerEmail.trim() || (user?.email ?? ''),
         userId: user?.uid,
+        billing: billing ?? undefined,
         customerPhone,
         shippingAddress: deliveryAddress,
         shippingCity: deliveryCity,
@@ -474,17 +497,27 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 space-y-3 shadow-sm">
               <h3 className="font-bold text-lg text-[#2F183C] font-display">2. Datos de entrega</h3>
               <input
-                className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                className={`w-full border ${formErrors.customerName ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
                 placeholder="Nombre completo"
                 value={customerName}
-                onChange={e => setCustomerName(e.target.value)}
+                onChange={e => { setCustomerName(e.target.value); setFormErrors(prev => ({ ...prev, customerName: '' })); }}
               />
+              {formErrors.customerName && <p className="text-xs text-red-600">{formErrors.customerName}</p>}
               <input
-                className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                className={`w-full border ${formErrors.customerPhone ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
                 placeholder="WhatsApp (ej. 317 893 1026)"
                 value={customerPhone}
-                onChange={e => setCustomerPhone(e.target.value)}
+                onChange={e => { setCustomerPhone(e.target.value); setFormErrors(prev => ({ ...prev, customerPhone: '' })); }}
               />
+              {formErrors.customerPhone && <p className="text-xs text-red-600">{formErrors.customerPhone}</p>}
+              <input
+                className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                placeholder="Correo (para tu factura y seguimiento)"
+                type="email"
+                value={customerEmail}
+                onChange={e => setCustomerEmail(e.target.value)}
+              />
+              {formErrors.customerEmail && <p className="text-xs text-red-600">{formErrors.customerEmail}</p>}
               <input
                 className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
                 placeholder="Ciudad"
@@ -492,11 +525,82 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 onChange={e => setDeliveryCity(e.target.value)}
               />
               <input
-                className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                className={`w-full border ${formErrors.deliveryAddress ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
                 placeholder="Dirección completa"
                 value={deliveryAddress}
-                onChange={e => setDeliveryAddress(e.target.value)}
+                onChange={e => { setDeliveryAddress(e.target.value); setFormErrors(prev => ({ ...prev, deliveryAddress: '' })); }}
               />
+              {formErrors.deliveryAddress && <p className="text-xs text-red-600">{formErrors.deliveryAddress}</p>}
+              <div className="rounded-xl bg-[#FAF7F0] border border-[#EADBEE] p-3 space-y-2">
+                <label className="flex items-center gap-2 text-sm font-semibold text-[#2F183C] cursor-pointer">
+                  <input type="checkbox" checked={wantsNit} onChange={e => setWantsNit(e.target.checked)} />
+                  Necesito factura a nombre de una empresa (NIT)
+                </label>
+                {!wantsNit ? (
+                  <>
+                  <input
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                    placeholder="Cédula para la factura (opcional)"
+                    inputMode="numeric"
+                    value={cedula}
+                    onChange={e => setCedula(e.target.value)}
+                  />
+                  {formErrors.cedula && <p className="text-xs text-red-600">{formErrors.cedula}</p>}
+                  </>
+                ) : (
+                  <>
+                  <input
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                    placeholder="Razón social"
+                    value={businessName}
+                    onChange={e => setBusinessName(e.target.value)}
+                  />
+                  {formErrors.businessName && <p className="text-xs text-red-600">{formErrors.businessName}</p>}
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="col-span-2">
+                  <input
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                    placeholder="NIT (sin DV)"
+                    inputMode="numeric"
+                    value={nit}
+                    onChange={e => setNit(e.target.value)}
+                  />
+                    </div>
+                    <div>
+                  <input
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                    placeholder="DV"
+                    inputMode="numeric"
+                    maxLength={1}
+                    value={nitDv}
+                    onChange={e => setNitDv(e.target.value)}
+                  />
+                    </div>
+                  </div>
+                  {formErrors.nit && <p className="text-xs text-red-600">{formErrors.nit}</p>}
+                  {formErrors.nitDv && <p className="text-xs text-red-600">{formErrors.nitDv}</p>}
+                  <select
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm bg-white focus:border-[#7B4382] outline-none"
+                    value={taxRegime}
+                    onChange={e => setTaxRegime(e.target.value)}
+                  >
+                    <option value="">Régimen fiscal</option>
+                    <option value="Responsable de IVA">Responsable de IVA</option>
+                    <option value="No responsable de IVA">No responsable de IVA</option>
+                    <option value="Régimen simple de tributación">Régimen simple de tributación</option>
+                  </select>
+                  {formErrors.taxRegime && <p className="text-xs text-red-600">{formErrors.taxRegime}</p>}
+                  <input
+                    className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                    placeholder="Correo de facturación"
+                    type="email"
+                    value={billingEmail}
+                    onChange={e => setBillingEmail(e.target.value)}
+                  />
+                  {formErrors.billingEmail && <p className="text-xs text-red-600">{formErrors.billingEmail}</p>}
+                  </>
+                )}
+              </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-[#7B4382]" />
                 <input
@@ -610,6 +714,16 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <span className="text-2xl font-black text-[#2F183C]">${grandTotal.toLocaleString('es-CO')} COP</span>
                 </div>
               </div>
+
+              {Object.values(formErrors).some(Boolean) && (
+                <div role="alert" className="p-3 rounded-xl bg-red-50 border border-red-300 text-red-800 text-xs space-y-1">
+                  <p className="font-bold flex items-center gap-1.5"><AlertCircle className="w-4 h-4 shrink-0" /> Falta completar para guardar tu pedido:</p>
+                  <ul className="list-disc pl-6 space-y-0.5">
+                    {Object.values(formErrors).filter(Boolean).map((m, i) => <li key={i}>{m}</li>)}
+                  </ul>
+                  <p className="text-red-700/80">Los datos de entrega están en el paso 2, a la izquierda.</p>
+                </div>
+              )}
 
               {hasPackingError && (
                 <div className="p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2">

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, Leaf, BookOpen } from 'lucide-react';
 import { scrollToId, useAppLocation } from '../lib/router';
+import { useAuth } from '../context/AuthContext';
+import { AccountMenu } from './AccountMenu';
 
 interface NavbarProps {
   cartItemCount: number;
@@ -15,6 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isStaff, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -135,6 +138,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ChevronRight className="w-4 h-4" />
             </button>
 
+            <AccountMenu />
+
             <button
               id="header-cart-btn"
               onClick={onOpenCart}
@@ -163,6 +168,22 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {mobileMenuOpen && (
           <div className="xl:hidden border-t border-[#EADBEE] bg-white px-4 sm:px-6 pt-4 pb-6 mt-3 max-h-[calc(100vh-11.5rem)] md:max-h-[calc(100vh-7.5rem)] overflow-y-auto animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl">
+            {user ? (
+              <div className="mb-4 rounded-xl border border-[#EADBEE] bg-[#FAF7F0] p-3 space-y-1">
+                <p className="text-xs text-stone-500 truncate">{user.email}</p>
+                <a href="/panel" onClick={closeMenu} className={mobileLinkClass(false)}>Mi cuenta y pedidos</a>
+                {isStaff && <a href="/admin" onClick={closeMenu} className={mobileLinkClass(false)}>Panel del equipo</a>}
+                <button onClick={() => { closeMenu(); signOut(); }} className={mobileLinkClass(false)}>Cerrar sesión</button>
+              </div>
+            ) : (
+              <a
+                href="/panel"
+                onClick={closeMenu}
+                className="mb-3 flex items-center justify-center gap-2 w-full py-3 rounded-xl border-2 border-[#2F183C] text-[#2F183C] font-bold"
+              >
+                Ingresar o crear cuenta
+              </a>
+            )}
             <button
               onClick={() => { setMobileMenuOpen(false); onNavigateToCustomOrder(); }}
               className="flex items-center justify-between w-full text-left py-3 px-3 rounded-xl bg-[#2F183C] text-white font-bold mb-4 sm:hidden"

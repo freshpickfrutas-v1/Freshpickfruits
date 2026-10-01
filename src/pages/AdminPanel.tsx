@@ -5,22 +5,13 @@ import {
 } from 'lucide-react';
 import {
   subscribeProducts, addProduct, updateProduct, deleteProduct,
-  subscribeAllOrders, updateOrderStatus, subscribeUsers, setUserRole, ProductDoc,
+  subscribeAllOrders, subscribeUsers, setUserRole, ProductDoc,
 } from '../lib/firestore';
 import { FirestoreOrder, OrderStatus, ROLE_LABELS, STAFF_ROLES, UserProfile, UserRole } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { AuthGate } from '../components/AuthGate';
-
-const statusOptions: OrderStatus[] = ['pendiente', 'confirmado', 'cosechando', 'en_camino', 'entregado', 'cancelado'];
-
-const statusStyle: Record<string, string> = {
-  pendiente: 'bg-sky-100 text-sky-800',
-  confirmado: 'bg-amber-100 text-amber-800',
-  cosechando: 'bg-amber-100 text-amber-800',
-  en_camino: 'bg-violet-100 text-violet-800',
-  entregado: 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]',
-  cancelado: 'bg-red-100 text-red-800',
-};
+import { OrdersBoard } from '../components/OrdersBoard';
+import { stageOf, normalizeStatus } from '../lib/orderFlow';
 
 function isToday(iso: string) {
   if (!iso) return false;
@@ -330,7 +321,7 @@ function AdminPanelInner() {
   }, [orders]);
 
   const todayOrders = orders.filter(o => isToday(o.createdAt));
-  const pendingOrders = orders.filter(o => o.status === 'pendiente' || o.status === 'confirmado' || o.status === 'cosechando');
+  const pendingOrders = orders.filter(o => !['entregado', 'cerrado', 'cancelado'].includes(normalizeStatus(o.status)));
   const todayRevenue = todayOrders.reduce((sum, o) => sum + (o.total || 0), 0);
 
   const handleSaveProduct = async (data: Omit<ProductDoc, 'id'>) => {
@@ -347,14 +338,6 @@ function AdminPanelInner() {
       await deleteProduct(id);
     } catch (e) {
       setError(e instanceof Error ? e.message : 'No se pudo eliminar el producto.');
-    }
-  };
-
-  const handleStatusChange = async (orderId: string, status: OrderStatus) => {
-    try {
-      await updateOrderStatus(orderId, status);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo actualizar el estado del pedido.');
     }
   };
 
@@ -433,7 +416,7 @@ function AdminPanelInner() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { label: 'Pedidos hoy', value: String(todayOrders.length), icon: ShoppingBag, tone: 'text-sky-700 bg-sky-50' },
-                  { label: 'Por despachar', value: String(pendingOrders.length), icon: Clock, tone: 'text-amber-700 bg-amber-50' },
+                  { label: 'En curso', value: String(pendingOrders.length), icon: Clock, tone: 'text-amber-700 bg-amber-50' },
                   { label: 'Ingresos hoy', value: `$${todayRevenue.toLocaleString('es-CO')}`, icon: TrendingUp, tone: 'text-[#2F183C] bg-[#F5ECF9] border border-[#DFCEE6]' },
                   { label: 'Clientes', value: String(customers.length), icon: Users, tone: 'text-violet-700 bg-violet-50' },
                 ].map(card => (
@@ -471,7 +454,7 @@ function AdminPanelInner() {
                             <td className="py-2.5">{o.customerName}</td>
                             <td className="py-2.5 font-bold text-[#2F183C]">${(o.total || 0).toLocaleString('es-CO')}</td>
                             <td className="py-2.5">
-                              <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${statusStyle[o.status]}`}>{o.status}</span>
+                              <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${stageOf(o).tone}`}>{stageOf(o).short}</span>
                             </td>
                             <td className="py-2.5 text-stone-500">{formatTime(o.createdAt)}</td>
                           </tr>
@@ -485,52 +468,7 @@ function AdminPanelInner() {
           )}
 
           {tab === 'pedidos' && (
-            <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Pedidos</h1>
-              <div className="bg-white rounded-2xl border border-[#EADBEE] overflow-hidden shadow-xs">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead className="bg-[#FAF7F0]">
-                      <tr className="text-left text-xs text-stone-500">
-                        <th className="px-4 py-3 font-semibold">Orden</th>
-                        <th className="px-4 py-3 font-semibold">Cliente</th>
-                        <th className="px-4 py-3 font-semibold">Teléfono</th>
-                        <th className="px-4 py-3 font-semibold">Total</th>
-                        <th className="px-4 py-3 font-semibold">Estado</th>
-                        <th className="px-4 py-3 font-semibold">Fecha</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {orders.map(o => (
-                        <tr key={o.id} className="border-t border-stone-100 hover:bg-[#F5ECF9]/30">
-                          <td className="px-4 py-3 font-semibold text-[#2F183C]">{o.orderNumber}</td>
-                          <td className="px-4 py-3">{o.customerName}</td>
-                          <td className="px-4 py-3 text-stone-500">{o.customerPhone}</td>
-                          <td className="px-4 py-3 font-bold text-[#2F183C]">${(o.total || 0).toLocaleString('es-CO')}</td>
-                          <td className="px-4 py-3">
-                            <select
-                              value={o.status}
-                              onChange={e => handleStatusChange(o.id, e.target.value as OrderStatus)}
-                              className={`text-[10px] font-bold uppercase px-2 py-1 rounded-full border-0 ${statusStyle[o.status]}`}
-                            >
-                              {statusOptions.map(s => <option key={s} value={s}>{s}</option>)}
-                            </select>
-                          </td>
-                          <td className="px-4 py-3 text-stone-500">{formatTime(o.createdAt)}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                {!loadingOrders && orders.length === 0 && (
-                  <p className="text-sm text-stone-400 p-6 text-center">Todavía no hay pedidos registrados.</p>
-                )}
-              </div>
-              <p className="text-xs text-stone-400 flex items-center gap-1">
-                <AlertCircle className="w-3.5 h-3.5" />
-                Conectado a Firestore en tiempo real. Cambia el estado directamente en la lista.
-              </p>
-            </div>
+            <OrdersBoard orders={orders} loading={loadingOrders} role={role} userEmail={user?.email ?? ''} />
           )}
 
           {tab === 'productos' && (

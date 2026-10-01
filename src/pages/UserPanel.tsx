@@ -5,15 +5,18 @@ import {
 } from 'lucide-react';
 import { findMyOrders } from '../lib/firestore';
 import { useAuth } from '../context/AuthContext';
+import { normalizeStatus } from '../lib/orderFlow';
 import { AuthGate } from '../components/AuthGate';
 import { FirestoreOrder } from '../types';
 
 const statusLabel: Record<string, { text: string; color: string }> = {
-  pendiente: { text: 'Pendiente', color: 'bg-sky-100 text-sky-800' },
-  confirmado: { text: 'Confirmado', color: 'bg-amber-100 text-amber-800' },
-  cosechando: { text: 'Cosechando', color: 'bg-amber-100 text-amber-800' },
-  en_camino: { text: 'En camino', color: 'bg-violet-100 text-violet-800' },
+  pendiente: { text: 'Recibido', color: 'bg-sky-100 text-sky-800' },
+  pago_verificado: { text: 'Pago confirmado', color: 'bg-emerald-100 text-emerald-800' },
+  en_proceso: { text: 'Preparando tu pedido', color: 'bg-amber-100 text-amber-800' },
+  empacado: { text: 'Empacado', color: 'bg-amber-100 text-amber-800' },
+  en_ruta: { text: 'En camino', color: 'bg-violet-100 text-violet-800' },
   entregado: { text: 'Entregado', color: 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' },
+  cerrado: { text: 'Entregado', color: 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' },
   cancelado: { text: 'Cancelado', color: 'bg-red-100 text-red-800' },
 };
 
@@ -155,7 +158,7 @@ function UserPanelInner() {
 
               <div className="space-y-3">
                 {orders.map(order => {
-                  const st = statusLabel[order.status] || statusLabel.pendiente;
+                  const st = statusLabel[normalizeStatus(order.status)] || statusLabel.pendiente;
                   return (
                     <div key={order.id} className="bg-white rounded-2xl border border-[#EADBEE] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
                       <div>
@@ -172,7 +175,7 @@ function UserPanelInner() {
                       </div>
                       <div className="text-right">
                         <p className="text-lg font-black text-[#2F183C]">${(order.total || 0).toLocaleString('es-CO')}</p>
-                        {order.status === 'en_camino' && (
+                        {normalizeStatus(order.status) === 'en_ruta' && (
                           <p className="text-[11px] text-amber-700 flex items-center justify-end gap-1 mt-1">
                             <Truck className="w-3 h-3" /> Despacho hoy
                           </p>

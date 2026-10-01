@@ -78,15 +78,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-white border-b border-[#EADBEE]/60 py-2.5 sm:py-3'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand Logo */}
           <a
             href="/"
-            className="flex items-center gap-3 sm:gap-3.5 text-left group shrink-0"
+            className="flex items-center gap-2 sm:gap-3.5 text-left group min-w-0 sm:shrink-0"
             id="nav-logo-btn"
             aria-label="Fresh Pick - Ir al inicio"
           >
-            <div className="h-14 sm:h-16 md:h-18 w-24 sm:w-28 md:w-32 rounded-xl bg-white p-1 sm:p-1.5 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
+            <div className="h-12 sm:h-16 md:h-18 w-16 sm:w-28 md:w-32 shrink-0 rounded-xl bg-white p-1 sm:p-1.5 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
               <img
                 src="/logo.jpg"
                 alt="Fresh Pick - Logotipo de arándanos frescos de alta montaña y agricultura responsable"
@@ -94,17 +94,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div>
+            <div className="min-w-0">
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="text-xl sm:text-2xl font-black tracking-tight text-[#2F183C] font-display">
+                <span className="text-lg sm:text-2xl font-black tracking-tight text-[#2F183C] font-display">
                   Fresh Pick
                 </span>
                 {/* Hidden on desktop so the full menu fits next to the logo */}
-                <span className="xl:hidden text-[11px] sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
+                <span className="hidden sm:inline xl:hidden text-[11px] sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
                   Arándanos
                 </span>
               </div>
-              <p className="text-[11px] sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5">
+              <p className="text-[10px] sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5 leading-tight">
                 Arándanos de Alta Montaña
               </p>
             </div>
@@ -122,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Action CTAs & Cart */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-1 sm:gap-3 shrink-0">
             <button
               id="header-cta-custom-order"
               onClick={onNavigateToCustomOrder}
@@ -152,6 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="xl:hidden p-2 rounded-lg text-[#2F183C] hover:bg-[#F5ECF9]"
               aria-label="Abrir menú de navegación"
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>

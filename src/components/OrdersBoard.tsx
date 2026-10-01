@@ -29,6 +29,22 @@ const InvoiceBadge: React.FC<{ order: FirestoreOrder }> = ({ order }) =>
     ? <Badge tone="bg-emerald-100 text-emerald-800"><FileText className="w-3 h-3" /> {invoiceLabel(order)}</Badge>
     : <Badge tone="bg-stone-100 text-stone-600"><FileText className="w-3 h-3" /> {invoiceLabel(order)}</Badge>;
 
+type Origin = 'cuenta' | 'invitado' | 'manual';
+
+/** Where the order came from: a signed-in customer, a guest on the web, or a manual order taken by the team. */
+const originOf = (o: FirestoreOrder): Origin => (o.paymentMethod === 'manual' ? 'manual' : o.userId ? 'cuenta' : 'invitado');
+
+const ORIGIN_LABEL: Record<Origin, { text: string; tone: string }> = {
+  cuenta: { text: 'Web · con cuenta', tone: 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' },
+  invitado: { text: 'Web · invitado', tone: 'bg-orange-50 text-orange-800 border border-orange-200' },
+  manual: { text: 'Manual (WhatsApp/correo)', tone: 'bg-sky-50 text-sky-800 border border-sky-200' },
+};
+
+const OriginBadge: React.FC<{ order: FirestoreOrder }> = ({ order }) => {
+  const o = ORIGIN_LABEL[originOf(order)];
+  return <Badge tone={o.tone}>{o.text}</Badge>;
+};
+
 // ---------- Order card (Kanban) ----------
 const OrderCard: React.FC<{ order: FirestoreOrder; mine: boolean; onOpen: () => void }> = ({ order, mine, onOpen }) => (
   <button
@@ -45,6 +61,7 @@ const OrderCard: React.FC<{ order: FirestoreOrder; mine: boolean; onOpen: () => 
     <div className="flex flex-wrap gap-1 pt-1">
       <PaymentBadge order={order} />
       <InvoiceBadge order={order} />
+      <OriginBadge order={order} />
     </div>
     {mine && <p className="text-[10px] font-bold text-[#C59328]">● Te toca a ti</p>}
   </button>
@@ -116,7 +133,7 @@ const OrderModal: React.FC<{
                   {order.billing.billingEmail}
                 </p>
               )}
-              <div className="flex flex-wrap gap-1"><PaymentBadge order={order} /><InvoiceBadge order={order} /></div>
+              <div className="flex flex-wrap gap-1"><PaymentBadge order={order} /><InvoiceBadge order={order} /><OriginBadge order={order} /></div>
               {order.invoiceUrl && <a href={order.invoiceUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-[#7B4382] underline">Ver factura</a>}
             </div>
           </section>
@@ -293,12 +310,17 @@ export const OrdersBoard: React.FC<{
 }> = ({ orders, loading, role, userEmail }) => {
   const [view, setView] = useState<'kanban' | 'tabla'>('kanban');
   const [onlyMine, setOnlyMine] = useState(false);
+  const [origin, setOrigin] = useState<'todos' | Origin>('todos');
   const [showCancelled, setShowCancelled] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
   const [showNew, setShowNew] = useState(false);
 
   const open = orders.find(o => o.id === openId) ?? null;
-  const visible = useMemo(() => orders.filter(o => (onlyMine ? isMine(o, role) : true)), [orders, onlyMine, role]);
+  const visible = useMemo(
+    () => orders.filter(o => (onlyMine ? isMine(o, role) : true) && (origin === 'todos' || originOf(o) === origin)),
+    [orders, onlyMine, role, origin]
+  );
+  const countBy = (k: Origin) => orders.filter(o => originOf(o) === k).length;
   const cancelled = visible.filter(o => normalizeStatus(o.status) === 'cancelado');
   const canCreate = role === 'admin' || role === 'asistente';
 
@@ -311,6 +333,17 @@ export const OrdersBoard: React.FC<{
             <button onClick={() => setView('kanban')} className={`px-3 py-2 text-xs font-bold inline-flex items-center gap-1.5 ${view === 'kanban' ? 'bg-[#2F183C] text-white' : 'text-stone-600'}`}><LayoutGrid className="w-4 h-4" /> Tablero</button>
             <button onClick={() => setView('tabla')} className={`px-3 py-2 text-xs font-bold inline-flex items-center gap-1.5 ${view === 'tabla' ? 'bg-[#2F183C] text-white' : 'text-stone-600'}`}><Table2 className="w-4 h-4" /> Tabla</button>
           </div>
+          <select
+            value={origin}
+            onChange={e => setOrigin(e.target.value as 'todos' | Origin)}
+            aria-label="Filtrar por origen del pedido"
+            className="px-3 py-2 rounded-xl text-xs font-bold border border-[#EADBEE] bg-white text-stone-600"
+          >
+            <option value="todos">Todos los orígenes ({orders.length})</option>
+            <option value="cuenta">Web · con cuenta ({countBy('cuenta')})</option>
+            <option value="invitado">Web · invitado ({countBy('invitado')})</option>
+            <option value="manual">Manual ({countBy('manual')})</option>
+          </select>
           <button onClick={() => setOnlyMine(!onlyMine)} className={`px-3 py-2 rounded-xl text-xs font-bold border ${onlyMine ? 'bg-[#DDA83A] text-[#2F183C] border-[#DDA83A]' : 'bg-white text-stone-600 border-[#EADBEE]'}`}>
             Solo lo mío{role ? ` (${ROLE_LABELS[role]})` : ''}
           </button>
@@ -355,7 +388,7 @@ export const OrdersBoard: React.FC<{
           <table className="w-full text-sm min-w-[860px]">
             <thead className="bg-[#FAF7F0] text-xs text-stone-500 text-left">
               <tr>
-                {['N° pedido', 'Cliente / teléfono', 'Productos', 'Estado operativo', 'Responsable actual', 'Estado de pago', 'Factura electrónica'].map(h => <th key={h} className="px-3 py-3 font-semibold">{h}</th>)}
+                {['N° pedido', 'Cliente / teléfono', 'Productos', 'Estado operativo', 'Responsable actual', 'Estado de pago', 'Factura electrónica', 'Origen'].map(h => <th key={h} className="px-3 py-3 font-semibold">{h}</th>)}
               </tr>
             </thead>
             <tbody>
@@ -370,6 +403,7 @@ export const OrdersBoard: React.FC<{
                     <td className="px-3 py-3 text-xs">{st.ownerLabel}</td>
                     <td className="px-3 py-3"><PaymentBadge order={o} /></td>
                     <td className="px-3 py-3"><InvoiceBadge order={o} /></td>
+                    <td className="px-3 py-3"><OriginBadge order={o} /></td>
                   </tr>
                 );
               })}

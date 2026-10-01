@@ -243,6 +243,20 @@ export const ROLE_LABELS: Record<UserRole, string> = {
   customer: 'Cliente'
 };
 
+export interface SavedAddress {
+  id: string;
+  /** "Casa", "Oficina" or a custom name. */
+  label: string;
+  recipientName: string;
+  phone: string;
+  address: string;
+  city: string;
+  notes?: string;
+  timeSlot?: string;
+  isDefault?: boolean;
+  createdAt: string;
+}
+
 export interface UserProfile {
   uid: string;
   email: string;
@@ -251,6 +265,7 @@ export interface UserProfile {
   phone?: string;
   address?: string;
   city?: string;
+  addresses?: SavedAddress[];
   createdAt: string;
 }
 

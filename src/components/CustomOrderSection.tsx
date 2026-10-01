@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { FruitItem, PackagingOption, AddOnItem, CustomOrder, BillingData } from '../types';
+import { FruitItem, PackagingOption, AddOnItem, CustomOrder, BillingData, SavedAddress } from '../types';
 import { createOrder } from '../lib/firestore';
 import { useAuth } from '../context/AuthContext';
+import { saveAddresses, hasAddress, newAddressId, MAX_ADDRESSES } from '../lib/addresses';
 import {
   Sparkles,
   CheckCircle2,
@@ -62,7 +63,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     }
   }, [initialSelectedFruitId, fruits]);
 
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
+  const savedAddresses: SavedAddress[] = profile?.addresses ?? [];
+  const [selectedAddressId, setSelectedAddressId] = useState<string>('');
+  const [saveNewAddress, setSaveNewAddress] = useState(true);
+  const addressPicked = React.useRef(false);
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState(user?.email ?? '');
@@ -80,6 +85,25 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     d.setDate(d.getDate() + 1);
     return d.toISOString().split('T')[0];
   });
+  const applyAddress = (a: SavedAddress) => {
+    setSelectedAddressId(a.id);
+    setCustomerName(a.recipientName);
+    setCustomerPhone(a.phone);
+    setDeliveryCity(a.city);
+    setDeliveryAddress(a.address);
+    setFormErrors(prev => ({ ...prev, customerName: '', customerPhone: '', deliveryAddress: '' }));
+  };
+
+  useEffect(() => {
+    if (user?.email) setCustomerEmail(prev => prev || user.email!);
+    if (addressPicked.current || savedAddresses.length === 0) return;
+    addressPicked.current = true;
+    applyAddress(savedAddresses.find(a => a.isDefault) ?? savedAddresses[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, savedAddresses.length]);
+
+  const isNewAddress = !!user && !!deliveryAddress.trim() && !hasAddress(savedAddresses, deliveryAddress, deliveryCity);
+
   const [completedOrder, setCompletedOrder] = useState<CustomOrder | null>(null);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -223,6 +247,18 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         paymentMethod: 'nequi_daviplata',
       });
       orderId = saved.orderNumber;
+      if (user && saveNewAddress && isNewAddress && savedAddresses.length < MAX_ADDRESSES) {
+        try {
+          await saveAddresses(user.uid, [
+            ...savedAddresses,
+            {
+              id: newAddressId(), label: savedAddresses.length ? 'Otra' : 'Casa', recipientName: customerName.trim(), phone: customerPhone.trim(),
+              address: deliveryAddress.trim(), city: deliveryCity.trim(), notes: '', timeSlot: 'Mañana 8am–1pm',
+              isDefault: savedAddresses.length === 0, createdAt: new Date().toISOString(),
+            },
+          ]);
+        } catch { /* the order is already saved; the address can be added later from Mi cuenta */ }
+      }
     } catch (err) {
       // No bloqueamos el pedido si Firestore falla (ej. reglas no desplegadas todavía);
       // el cliente puede seguir confirmando por WhatsApp con un número local.
@@ -496,6 +532,41 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
 
             <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 space-y-3 shadow-sm">
               <h3 className="font-bold text-lg text-[#2F183C] font-display">2. Datos de entrega</h3>
+              {user && savedAddresses.length > 0 && (
+                <div className="space-y-2" role="radiogroup" aria-label="Dirección de entrega">
+                  <p className="text-xs font-semibold text-stone-500">¿A cuál de tus direcciones lo enviamos?</p>
+                  <div className="grid sm:grid-cols-2 gap-2">
+                    {savedAddresses.map(a => (
+                      <button
+                        key={a.id}
+                        type="button"
+                        role="radio"
+                        aria-checked={selectedAddressId === a.id}
+                        onClick={() => applyAddress(a)}
+                        className={`text-left rounded-xl border p-3 text-sm transition-colors ${selectedAddressId === a.id ? 'border-[#2F183C] bg-[#F5ECF9] ring-1 ring-[#2F183C]' : 'border-[#EADBEE] bg-white hover:bg-[#FAF7F0]'}`}
+                      >
+                        <span className="font-bold text-[#2F183C]">{a.label}{a.isDefault ? ' · principal' : ''}</span>
+                        <span className="block text-stone-700">{a.address}</span>
+                        <span className="block text-xs text-stone-500">{a.city} · {a.recipientName}</span>
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={selectedAddressId === ''}
+                      onClick={() => { setSelectedAddressId(''); setDeliveryAddress(''); }}
+                      className={`text-left rounded-xl border border-dashed p-3 text-sm font-semibold ${selectedAddressId === '' ? 'border-[#2F183C] bg-[#F5ECF9] text-[#2F183C]' : 'border-[#DFCEE6] text-[#7B4382] hover:bg-[#FAF7F0]'}`}
+                    >
+                      + Enviar a otra dirección
+                    </button>
+                  </div>
+                </div>
+              )}
+              {!user && (
+                <p className="text-xs text-stone-500">
+                  ¿Ya tienes cuenta? <a href="/panel" className="font-semibold text-[#7B4382] underline">Ingresa</a> para usar tus direcciones guardadas.
+                </p>
+              )}
               <input
                 className={`w-full border ${formErrors.customerName ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
                 placeholder="Nombre completo"
@@ -531,6 +602,12 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 onChange={e => { setDeliveryAddress(e.target.value); setFormErrors(prev => ({ ...prev, deliveryAddress: '' })); }}
               />
               {formErrors.deliveryAddress && <p className="text-xs text-red-600">{formErrors.deliveryAddress}</p>}
+              {isNewAddress && savedAddresses.length < MAX_ADDRESSES && (
+                <label className="flex items-center gap-2 text-xs font-semibold text-[#2F183C] cursor-pointer">
+                  <input type="checkbox" checked={saveNewAddress} onChange={e => setSaveNewAddress(e.target.checked)} />
+                  Guardar esta dirección en mi cuenta para próximos pedidos
+                </label>
+              )}
               <div className="rounded-xl bg-[#FAF7F0] border border-[#EADBEE] p-3 space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-[#2F183C] cursor-pointer">
                   <input type="checkbox" checked={wantsNit} onChange={e => setWantsNit(e.target.checked)} />

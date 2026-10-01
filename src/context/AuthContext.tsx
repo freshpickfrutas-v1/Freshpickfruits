@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as fbSignOut, User } from 'firebase/auth';
-import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db, googleProvider } from '../lib/firebase';
 import { STAFF_ROLES, UserProfile, UserRole } from '../types';
 
@@ -54,7 +54,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       unsubProfile = onSnapshot(
         ref,
         snap => {
-          setProfile(snap.exists() ? ({ ...(snap.data() as UserProfile), uid: current.uid }) : null);
+          const data = snap.exists() ? (snap.data() as UserProfile) : null;
+          // A bootstrap admin whose profile was created earlier as a customer is promoted (firestore.rules allow it).
+          if (data && data.role !== 'admin' && BOOTSTRAP_ADMIN_EMAILS.includes(current.email ?? '') && current.emailVerified) {
+            updateDoc(ref, { role: 'admin' }).catch(err => console.warn('No se pudo promover al administrador:', err));
+          }
+          setProfile(data ? { ...data, uid: current.uid } : null);
           setLoading(false);
         },
         () => setLoading(false)

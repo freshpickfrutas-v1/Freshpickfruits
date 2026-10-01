@@ -228,7 +228,20 @@ export interface FaqItem {
   category: 'pedidos' | 'calidad' | 'entregas' | 'pagos';
 }
 
-export type UserRole = 'admin' | 'customer';
+export type StaffRole = 'admin' | 'finanzas' | 'poscosecha' | 'contabilidad' | 'asistente' | 'domiciliario';
+export type UserRole = StaffRole | 'customer';
+
+export const STAFF_ROLES: StaffRole[] = ['admin', 'finanzas', 'poscosecha', 'contabilidad', 'asistente', 'domiciliario'];
+
+export const ROLE_LABELS: Record<UserRole, string> = {
+  admin: 'Administrador',
+  finanzas: 'Finanzas / Tesorería',
+  poscosecha: 'Poscosecha',
+  contabilidad: 'Auxiliar contable',
+  asistente: 'Asistente todero',
+  domiciliario: 'Domiciliario',
+  customer: 'Cliente'
+};
 
 export interface UserProfile {
   uid: string;

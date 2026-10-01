@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
   Package, MapPin, CreditCard, Leaf, ArrowLeft, Clock, CheckCircle2,
-  Truck, Phone, User, Search, Loader2, AlertCircle
+  Truck, Phone, User, Loader2, AlertCircle, LogOut
 } from 'lucide-react';
-import { findOrdersByContact } from '../lib/firestore';
+import { findMyOrders } from '../lib/firestore';
+import { useAuth } from '../context/AuthContext';
+import { AuthGate } from '../components/AuthGate';
 import { FirestoreOrder } from '../types';
 
 const statusLabel: Record<string, { text: string; color: string }> = {
@@ -33,34 +35,25 @@ function loadProfileDraft(): ProfileDraft {
   return { name: '', phone: '', address: '', city: 'Bogotá D.C.', timeSlot: 'Mañana 8am–1pm' };
 }
 
-export default function UserPanel() {
+function UserPanelInner() {
+  const { user, signOut } = useAuth();
   const [tab, setTab] = useState<'pedidos' | 'suscripcion' | 'perfil'>('pedidos');
 
-  // Modo pruebas sin login: el cliente se identifica por teléfono o email
-  // para consultar SUS pedidos reales en Firestore.
-  const [lookup, setLookup] = useState('');
-  const [searched, setSearched] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState<FirestoreOrder[]>([]);
   const [error, setError] = useState('');
 
-  const handleSearch = async (e?: React.FormEvent) => {
-    e?.preventDefault();
-    const value = lookup.trim();
-    if (!value) return;
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
     setLoading(true);
     setError('');
-    setSearched(true);
-    try {
-      const isEmail = value.includes('@');
-      const results = await findOrdersByContact(isEmail ? { email: value } : { phone: value });
-      setOrders(results);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'No se pudieron buscar los pedidos.');
-    } finally {
-      setLoading(false);
-    }
-  };
+    findMyOrders({ uid: user.uid, email: user.email })
+      .then(results => { if (!cancelled) setOrders(results); })
+      .catch(err => { if (!cancelled) setError(err instanceof Error ? err.message : 'No se pudieron cargar tus pedidos.'); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, [user]);
 
   const [profile, setProfile] = useState<ProfileDraft>(() => loadProfileDraft());
   const [profileSaved, setProfileSaved] = useState(false);
@@ -76,14 +69,13 @@ export default function UserPanel() {
     try {
       localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
       setProfileSaved(true);
-      if (profile.phone) setLookup(profile.phone);
     } catch {}
   };
 
   return (
     <div className="min-h-screen bg-[#F7F5F0]/90 backdrop-blur-[2px] text-stone-900 font-sans">
       <div className="bg-[#DDA83A] text-[#2F183C] text-xs sm:text-sm font-bold text-center py-2 px-4">
-        Panel de cliente · Modo pruebas sin login · Busca tus pedidos por teléfono o email
+        Panel de cliente · Tus pedidos y datos de entrega
       </div>
 
       <header className="bg-white border-b border-[#EADBEE] sticky top-0 z-30">
@@ -106,7 +98,10 @@ export default function UserPanel() {
           </div>
           <div className="flex items-center gap-2 text-xs text-stone-500">
             <User className="w-4 h-4" />
-            <span className="hidden sm:inline">{profile.name || 'Cliente'}</span>
+            <span className="hidden sm:inline">{profile.name || user?.displayName || 'Cliente'}</span>
+            <button onClick={() => signOut()} className="inline-flex items-center gap-1 ml-2 font-semibold text-[#7B4382] hover:text-[#2F183C]">
+              <LogOut className="w-3.5 h-3.5" /> Salir
+            </button>
           </div>
         </div>
       </header>
@@ -141,22 +136,10 @@ export default function UserPanel() {
             <div className="space-y-4">
               <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Mis pedidos</h1>
 
-              <form onSubmit={handleSearch} className="bg-white rounded-2xl border border-[#EADBEE] p-4 flex flex-col sm:flex-row gap-3 shadow-xs">
-                <input
-                  className="flex-1 border border-stone-300 rounded-xl px-3 py-2 text-sm"
-                  placeholder="Tu WhatsApp o correo usado en el pedido"
-                  value={lookup}
-                  onChange={e => setLookup(e.target.value)}
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#2F183C] text-white text-sm font-bold disabled:opacity-60"
-                >
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
-                  Buscar mis pedidos
-                </button>
-              </form>
+              <p className="text-sm text-stone-500">
+                Pedidos de <span className="font-semibold text-[#2F183C]">{user?.email}</span>
+                {loading && <Loader2 className="inline w-4 h-4 ml-2 animate-spin text-[#7B4382]" />}
+              </p>
 
               {error && (
                 <p className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-4 py-2.5 flex items-center gap-2">
@@ -164,13 +147,9 @@ export default function UserPanel() {
                 </p>
               )}
 
-              {!searched && !error && (
-                <p className="text-sm text-stone-400">Ingresa el mismo teléfono o correo que usaste al hacer tu pedido para ver su estado.</p>
-              )}
-
-              {searched && !loading && orders.length === 0 && !error && (
+              {!loading && orders.length === 0 && !error && (
                 <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 text-center text-sm text-stone-500">
-                  No encontramos pedidos con ese dato. Verifica que sea el mismo teléfono o correo del pedido.
+                  Aún no tienes pedidos con esta cuenta. Si pediste antes como invitado, usa el mismo correo con el que entraste.
                 </div>
               )}
 
@@ -292,7 +271,7 @@ export default function UserPanel() {
                   {profileSaved && <span className="text-xs font-semibold text-[#7B4382]">Guardado en este navegador ✓</span>}
                 </div>
                 <p className="text-xs text-stone-400">
-                  Modo pruebas: tus datos se guardan solo en este navegador hasta que exista login. Con cuenta real se guardarán en Firestore.
+                  Por ahora tus datos se guardan solo en este navegador. En una próxima fase se guardarán en tu cuenta.
                 </p>
               </div>
               <a
@@ -309,5 +288,13 @@ export default function UserPanel() {
         </main>
       </div>
     </div>
+  );
+}
+
+export default function UserPanel() {
+  return (
+    <AuthGate title="Mi cuenta Fresh Pick">
+      <UserPanelInner />
+    </AuthGate>
   );
 }

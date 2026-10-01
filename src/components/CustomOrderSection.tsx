@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { FruitItem, PackagingOption, AddOnItem, CustomOrder } from '../types';
 import { createOrder } from '../lib/firestore';
+import { useAuth } from '../context/AuthContext';
 import {
   Sparkles,
   CheckCircle2,
@@ -61,6 +62,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     }
   }, [initialSelectedFruitId, fruits]);
 
+  const { user } = useAuth();
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
@@ -173,7 +175,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     try {
       const saved = await createOrder({
         customerName,
-        customerEmail: '',
+        customerEmail: user?.email ?? '',
+        userId: user?.uid,
         customerPhone,
         shippingAddress: deliveryAddress,
         shippingCity: deliveryCity,

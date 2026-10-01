@@ -1,58 +1,81 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
+    // ---------- Funciones auxiliares ----------
     function isSignedIn() {
       return request.auth != null;
     }
-    
+
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
-    
-    function isAdmin() {
-      return isSignedIn() && (
-        request.auth.token.email == 'produccionandean@gmail.com' ||
-        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
-         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin')
-      );
+
+    function isVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
     }
-    
-    // User profiles
+
+    // Administrador de arranque: siempre puede entrar como admin y asignar roles a los demás.
+    function isBootstrapAdmin() {
+      return isVerified() && request.auth.token.email == 'produccionandean@gmail.com';
+    }
+
+    function hasProfile() {
+      return isSignedIn() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function myRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return isBootstrapAdmin() || (hasProfile() && myRole() == 'admin');
+    }
+
+    // Cualquier miembro del equipo (admin, finanzas, poscosecha, contabilidad, asistente, domiciliario).
+    function isStaff() {
+      return isAdmin() || (hasProfile() && myRole() in ['finanzas', 'poscosecha', 'contabilidad', 'asistente', 'domiciliario']);
+    }
+
+    // ---------- Perfiles de usuario ----------
     match /users/{userId} {
       allow read: if isOwner(userId) || isAdmin();
-      allow create: if isSignedIn() && request.auth.uid == userId;
-      allow update: if isOwner(userId) || isAdmin();
+
+      // Un usuario nuevo solo puede crearse como cliente (nadie se asigna rol del equipo).
+      allow create: if isOwner(userId) && (request.resource.data.role == 'customer' || isBootstrapAdmin());
+
+      // El dueño edita sus datos pero NO su rol; el admin puede cambiar cualquier perfil.
+      allow update: if isAdmin() || (isOwner(userId) && request.resource.data.role == resource.data.role);
+
       allow delete: if isAdmin();
     }
 
-    // Orders collection
+    // ---------- Pedidos ----------
     match /orders/{orderId} {
-      // Anyone can create an order (guest or registered user)
-      allow create: if true;
+      // Compra como invitado o con sesión: el pedido nace "pendiente" y, si trae userId, debe ser el de quien lo crea.
+      allow create: if request.resource.data.status == 'pendiente'
+        && request.resource.data.total is number
+        && request.resource.data.total >= 0
+        && request.resource.data.customerName is string
+        && request.resource.data.items is list
+        && (request.resource.data.userId == null
+            || (isSignedIn() && request.resource.data.userId == request.auth.uid));
 
-      // MODO PRUEBAS (sin login todavía): lectura y cambio de estado abiertos
-      // para poder probar el panel admin/cliente sin autenticación.
-      // TODO: cuando se agregue login, reemplazar estas dos líneas por:
-      //   allow read: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
-      //   allow update: if isAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid && resource.data.status == 'pendiente');
-      allow read: if true;
-      allow update: if true;
+      // El equipo ve todos; el cliente solo los suyos (por cuenta o por correo verificado).
+      allow read: if isStaff()
+        || (isSignedIn() && resource.data.userId == request.auth.uid)
+        || (isVerified() && resource.data.customerEmail == request.auth.token.email);
 
-      // Only admin can delete orders
+      // Fase 2 afinará qué rol puede mover cada estado.
+      allow update: if isStaff();
+
       allow delete: if isAdmin();
     }
 
-    // Products collection (catálogo administrable desde el panel admin)
+    // ---------- Catálogo ----------
     match /products/{productId} {
-      // Lectura pública: el catálogo se muestra en la tienda sin login.
       allow read: if true;
-
-      // MODO PRUEBAS (sin login todavía): escritura abierta para poder
-      // probar el CRUD de productos desde el panel admin sin autenticación.
-      // TODO: cuando se agregue login, reemplazar esta línea por:
-      //   allow write: if isAdmin();
-      allow write: if true;
+      allow write: if isAdmin();
     }
   }
 }

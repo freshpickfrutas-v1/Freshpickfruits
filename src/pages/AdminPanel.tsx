@@ -1,13 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   LayoutDashboard, Package, Users, ShoppingBag, ArrowLeft, Leaf,
-  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2
+  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog
 } from 'lucide-react';
 import {
   subscribeProducts, addProduct, updateProduct, deleteProduct,
-  subscribeAllOrders, updateOrderStatus, ProductDoc,
+  subscribeAllOrders, updateOrderStatus, subscribeUsers, setUserRole, ProductDoc,
 } from '../lib/firestore';
-import { FirestoreOrder, OrderStatus } from '../types';
+import { FirestoreOrder, OrderStatus, ROLE_LABELS, STAFF_ROLES, UserProfile, UserRole } from '../types';
+import { useAuth } from '../context/AuthContext';
+import { AuthGate } from '../components/AuthGate';
 
 const statusOptions: OrderStatus[] = ['pendiente', 'confirmado', 'cosechando', 'en_camino', 'entregado', 'cancelado'];
 
@@ -214,8 +216,86 @@ function ProductFormModal({
   );
 }
 
-export default function AdminPanel() {
-  const [tab, setTab] = useState<'resumen' | 'pedidos' | 'productos' | 'clientes'>('resumen');
+type AdminTab = 'resumen' | 'pedidos' | 'productos' | 'clientes' | 'equipo';
+
+/** Which team roles can open each tab. Phase 2 refines this per workflow step. */
+const TAB_ROLES: Record<AdminTab, UserRole[]> = {
+  resumen: ['admin'],
+  pedidos: ['admin', 'finanzas', 'poscosecha', 'contabilidad', 'asistente', 'domiciliario'],
+  productos: ['admin'],
+  clientes: ['admin', 'contabilidad'],
+  equipo: ['admin'],
+};
+
+function TeamTab({ currentUid }: { currentUid: string }) {
+  const [users, setUsers] = useState<UserProfile[]>([]);
+  const [error, setError] = useState('');
+  const [saving, setSaving] = useState<string | null>(null);
+
+  useEffect(() => subscribeUsers(setUsers, err => setError('No se pudo cargar el equipo: ' + err.message)), []);
+
+  const change = async (u: UserProfile, role: UserRole) => {
+    setSaving(u.uid);
+    setError('');
+    try {
+      await setUserRole(u.uid, role);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo cambiar el rol.');
+    } finally {
+      setSaving(null);
+    }
+  };
+
+  const sorted = [...users].sort((a, b) => Number(STAFF_ROLES.includes(b.role as never)) - Number(STAFF_ROLES.includes(a.role as never)) || a.email.localeCompare(b.email));
+
+  return (
+    <div className="space-y-4">
+      <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Equipo y roles</h1>
+      <p className="text-sm text-stone-600">
+        Quien deba entrar al panel inicia sesión una vez con Google desde <span className="font-semibold">/admin</span>; luego aparece aquí como Cliente y puedes asignarle su rol.
+      </p>
+      {error && (
+        <p className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-4 py-2.5 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 shrink-0" /> {error}
+        </p>
+      )}
+      <div className="bg-white rounded-2xl border border-[#EADBEE] overflow-x-auto shadow-xs">
+        <table className="w-full text-sm">
+          <thead className="bg-[#F5ECF9] text-[#2F183C] text-xs uppercase tracking-wider">
+            <tr><th className="text-left px-4 py-3">Persona</th><th className="text-left px-4 py-3">Correo</th><th className="text-left px-4 py-3">Rol</th></tr>
+          </thead>
+          <tbody>
+            {sorted.map(u => (
+              <tr key={u.uid} className="border-t border-[#EADBEE]">
+                <td className="px-4 py-3 font-semibold text-[#2F183C]">{u.displayName || '—'}</td>
+                <td className="px-4 py-3 text-stone-600">{u.email}</td>
+                <td className="px-4 py-3">
+                  <select
+                    value={u.role}
+                    disabled={saving === u.uid || u.uid === currentUid}
+                    onChange={e => change(u, e.target.value as UserRole)}
+                    className="border border-stone-300 rounded-lg px-2 py-1.5 text-sm bg-white disabled:opacity-60"
+                    title={u.uid === currentUid ? 'No puedes cambiar tu propio rol' : undefined}
+                  >
+                    {([...STAFF_ROLES, 'customer'] as UserRole[]).map(r => <option key={r} value={r}>{ROLE_LABELS[r]}</option>)}
+                  </select>
+                </td>
+              </tr>
+            ))}
+            {sorted.length === 0 && (
+              <tr><td colSpan={3} className="px-4 py-6 text-center text-stone-400">Aún no hay personas registradas.</td></tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function AdminPanelInner() {
+  const { user, role, signOut } = useAuth();
+  const allowedTabs = (Object.keys(TAB_ROLES) as AdminTab[]).filter(t => role && TAB_ROLES[t].includes(role));
+  const [tab, setTab] = useState<AdminTab>(allowedTabs[0] ?? 'pedidos');
   const [products, setProducts] = useState<ProductDoc[]>([]);
   const [orders, setOrders] = useState<FirestoreOrder[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
@@ -281,7 +361,7 @@ export default function AdminPanel() {
   return (
     <div className="min-h-screen bg-stone-100/92 backdrop-blur-[2px] text-stone-900 font-sans">
       <div className="bg-[#2F183C] text-[#DDA83A] text-xs sm:text-sm font-semibold text-center py-2 px-4 border-b border-[#432356]">
-        Panel admin · Modo pruebas sin login · Conectado a Firestore en vivo
+        Panel del equipo · {role ? ROLE_LABELS[role] : ''} · Conectado a Firestore en vivo
       </div>
 
       <header className="bg-[#1E0E27] text-white sticky top-0 z-30 border-b border-[#432356]">
@@ -302,9 +382,13 @@ export default function AdminPanel() {
               </div>
             </div>
           </div>
-          <a href="/panel" className="text-xs text-[#DFCEE6] hover:text-[#DDA83A]">
-            Panel usuario →
-          </a>
+          <div className="flex items-center gap-3 text-xs text-[#DFCEE6]">
+            <span className="hidden sm:inline truncate max-w-[14rem]">{user?.email}</span>
+            <a href="/panel" className="hover:text-[#DDA83A]">Panel usuario →</a>
+            <button onClick={() => signOut()} className="inline-flex items-center gap-1 font-semibold text-[#DDA83A] hover:text-white">
+              <LogOut className="w-3.5 h-3.5" /> Salir
+            </button>
+          </div>
         </div>
       </header>
 
@@ -323,7 +407,8 @@ export default function AdminPanel() {
             { id: 'pedidos' as const, label: 'Pedidos', icon: ShoppingBag },
             { id: 'productos' as const, label: 'Productos', icon: Box },
             { id: 'clientes' as const, label: 'Clientes', icon: Users },
-          ]).map(item => (
+            { id: 'equipo' as const, label: 'Equipo', icon: UserCog },
+          ]).filter(item => allowedTabs.includes(item.id)).map(item => (
             <button
               key={item.id}
               onClick={() => setTab(item.id)}
@@ -340,6 +425,8 @@ export default function AdminPanel() {
         </aside>
 
         <main className="lg:col-span-10 space-y-6">
+          {tab === 'equipo' && user && <TeamTab currentUid={user.uid} />}
+
           {tab === 'resumen' && (
             <>
               <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Resumen del día</h1>
@@ -538,5 +625,13 @@ export default function AdminPanel() {
         />
       )}
     </div>
+  );
+}
+
+export default function AdminPanel() {
+  return (
+    <AuthGate staffOnly title="Panel del equipo Fresh Pick">
+      <AdminPanelInner />
+    </AuthGate>
   );
 }

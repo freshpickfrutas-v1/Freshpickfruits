@@ -1,11 +1,6 @@
 // Capa de datos Firestore para los paneles de admin y cliente.
 //
-// MODO PRUEBAS: estas funciones asumen reglas de Firestore permisivas
-// (ver firestore.rules) porque todavía no hay login. Cuando se agregue
-// autenticación, hay que:
-//   1. Volver a apretar firestore.rules (quitar el bloque "MODO PRUEBAS").
-//   2. Reemplazar los lookups por teléfono/email en el panel de cliente
-//      por el uid real del usuario autenticado.
+// Las reglas de acceso están en firestore.rules (login con Google + roles del equipo).
 import {
   collection,
   doc,
@@ -21,7 +16,7 @@ import {
   getDocs,
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { FruitItem, FirestoreOrder, FirestoreOrderItem, OrderStatus, UserProfile } from '../types';
+import { FruitItem, FirestoreOrder, FirestoreOrderItem, OrderStatus, UserProfile, UserRole } from '../types';
 
 // ---------- Productos ----------
 
@@ -140,23 +135,16 @@ export async function updateOrderStatus(id: string, status: OrderStatus) {
   return updateDoc(doc(db, 'orders', id), { status });
 }
 
-// Modo pruebas (sin login): busca pedidos por teléfono o email exacto.
-export async function findOrdersByContact(contact: { phone?: string; email?: string }) {
-  const results: FirestoreOrder[] = [];
-  if (contact.phone) {
-    const q1 = query(ordersCol, where('customerPhone', '==', contact.phone));
-    const snap1 = await getDocs(q1);
-    snap1.forEach(d => results.push({ ...(d.data() as FirestoreOrder), id: d.id }));
+/** Orders of the signed-in customer: linked to their account, or placed as a guest with the same verified email. */
+export async function findMyOrders(who: { uid: string; email?: string | null }) {
+  const results = new Map<string, FirestoreOrder>();
+  const queries = [query(ordersCol, where('userId', '==', who.uid))];
+  if (who.email) queries.push(query(ordersCol, where('customerEmail', '==', who.email)));
+  for (const q of queries) {
+    const snap = await getDocs(q);
+    snap.forEach(d => results.set(d.id, { ...(d.data() as FirestoreOrder), id: d.id }));
   }
-  if (contact.email) {
-    const q2 = query(ordersCol, where('customerEmail', '==', contact.email));
-    const snap2 = await getDocs(q2);
-    snap2.forEach(d => {
-      if (!results.some(r => r.id === d.id)) results.push({ ...(d.data() as FirestoreOrder), id: d.id });
-    });
-  }
-  results.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
-  return results;
+  return [...results.values()].sort((x, y) => (x.createdAt < y.createdAt ? 1 : -1));
 }
 
 // ---------- Clientes / usuarios ----------
@@ -175,4 +163,9 @@ export function subscribeUsers(
     },
     err => onError?.(err as Error)
   );
+}
+
+/** Admin only (enforced by firestore.rules): changes a person's role. */
+export async function setUserRole(uid: string, role: UserRole) {
+  return updateDoc(doc(db, 'users', uid), { role });
 }

@@ -7,6 +7,7 @@ import RecipeDetailPage from './pages/RecipeDetailPage';
 import BlogPage from './pages/BlogPage';
 import BlogArticlePage from './pages/BlogArticlePage';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import { scrollToId, useAppLocation, useInternalLinkInterception } from './lib/router';
 
 function renderRoute(pathname: string) {
@@ -57,10 +58,12 @@ export default function App() {
   }, [location.pathname, location.search, location.hash]);
 
   return (
-    <CartProvider>
-      <React.Fragment key={location.pathname + location.search}>
-        {redirectTo ? null : renderRoute(location.pathname)}
-      </React.Fragment>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <React.Fragment key={location.pathname + location.search}>
+          {redirectTo ? null : renderRoute(location.pathname)}
+        </React.Fragment>
+      </CartProvider>
+    </AuthProvider>
   );
 }

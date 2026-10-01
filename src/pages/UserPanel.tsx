@@ -8,7 +8,8 @@ import { useAuth } from '../context/AuthContext';
 import { normalizeStatus } from '../lib/orderFlow';
 import { AuthGate } from '../components/AuthGate';
 import { AddressBook } from '../components/AddressBook';
-import { FirestoreOrder } from '../types';
+import { FirestoreOrder, SubscriptionPlan } from '../types';
+import { SUBSCRIPTION_PLANS } from '../data/mockData';
 
 const statusLabel: Record<string, { text: string; color: string }> = {
   pendiente: { text: 'Recibido', color: 'bg-sky-100 text-sky-800' },
@@ -22,7 +23,19 @@ const statusLabel: Record<string, { text: string; color: string }> = {
 };
 
 function UserPanelInner() {
-  const { user, isStaff, signOut } = useAuth();
+  const { user, profile, isStaff, signOut } = useAuth();
+
+  const subscribeLink = (plan: SubscriptionPlan) => {
+    const addr = profile?.addresses?.find(x => x.isDefault) ?? profile?.addresses?.[0];
+    const lines = [
+      `Hola Fresh Pick! Deseo suscribirme al *${plan.title}* (${plan.weight} por $${plan.priceMonth.toLocaleString('es-CO')} COP/mes).`,
+      `Nombre: ${user?.displayName || addr?.recipientName || ''}`,
+      `Correo: ${user?.email ?? ''}`,
+      addr ? `Dirección de entrega: ${addr.address}, ${addr.city}` : '',
+      'Por favor indíquenme cómo activar mi suscripción de arándanos.',
+    ].filter(Boolean);
+    return `https://wa.me/573178931026?text=${encodeURIComponent(lines.join('\n'))}`;
+  };
   const [tab, setTab] = useState<'pedidos' | 'suscripcion' | 'perfil'>('pedidos');
 
   const [loading, setLoading] = useState(true);
@@ -159,26 +172,60 @@ function UserPanelInner() {
           {tab === 'suscripcion' && (
             <div className="space-y-4">
               <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Mi suscripción</h1>
-              <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 shadow-xs">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#7B4382]">Vista previa</span>
-                    <h2 className="text-xl font-bold mt-1 text-[#2F183C] font-display">Planes de suscripción</h2>
-                    <p className="text-sm text-stone-500 mt-1">La gestión de suscripciones recurrentes aún no está conectada a Firestore.</p>
+              <p className="text-sm text-stone-600">
+                Elige un plan y lo activamos contigo por WhatsApp, con tu dirección principal. Entregas los martes y miércoles de 8:00 a.m. a 3:00 p.m. Sin contratos de permanencia.
+              </p>
+
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                {SUBSCRIPTION_PLANS.map(plan => (
+                  <div
+                    key={plan.id}
+                    className={`relative rounded-2xl p-5 flex flex-col justify-between gap-4 ${plan.isPopular ? 'bg-[#2F183C] text-white ring-2 ring-[#DDA83A] shadow-lg' : 'bg-white border border-[#EADBEE] shadow-xs'}`}
+                  >
+                    {plan.isPopular && (
+                      <span className="absolute -top-3 left-5 px-3 py-0.5 rounded-full bg-[#DDA83A] text-[#2F183C] text-[10px] font-black uppercase tracking-wider">El más popular</span>
+                    )}
+                    <div className="space-y-3">
+                      <div>
+                        <span className={`text-[11px] font-bold uppercase tracking-wider ${plan.isPopular ? 'text-[#DDA83A]' : 'text-[#7B4382]'}`}>{plan.idealFor}</span>
+                        <h2 className={`text-lg font-bold font-display mt-0.5 ${plan.isPopular ? '!text-white' : ''}`}>{plan.title}</h2>
+                        <p className={`text-xs mt-1 leading-relaxed ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-600'}`}>{plan.subtitle}</p>
+                      </div>
+                      <div className={`py-2 px-3 rounded-xl text-xs font-semibold ${plan.isPopular ? 'bg-[#432356] text-[#DDA83A] border border-[#7B4382]' : 'bg-[#FAF7F0] text-[#2F183C] border border-[#EADBEE]'}`}>
+                        📦 {plan.weight}
+                        <span className="block font-normal opacity-80">{plan.deliveryFrequency}</span>
+                      </div>
+                      <p className="flex items-baseline gap-1">
+                        <span className="text-2xl font-black font-display">${plan.priceMonth.toLocaleString('es-CO')}</span>
+                        <span className={`text-xs ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-500'}`}>COP / mes</span>
+                      </p>
+                      <ul className="space-y-1.5">
+                        {plan.features.map(f => (
+                          <li key={f} className={`flex items-start gap-2 text-xs ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-700'}`}>
+                            <CheckCircle2 className={`w-4 h-4 shrink-0 ${plan.isPopular ? 'text-[#DDA83A]' : 'text-[#7B4382]'}`} /> {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <a
+                      href={subscribeLink(plan)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold ${plan.isPopular ? 'bg-[#DDA83A] text-[#2F183C]' : 'bg-[#2F183C] text-white'}`}
+                    >
+                      <Phone className="w-4 h-4" /> Quiero este plan
+                    </a>
                   </div>
-                  <CheckCircle2 className="w-8 h-8 text-[#7B4382]" />
-                </div>
-                <p className="mt-4 text-xs text-stone-400">Escríbenos por WhatsApp para activar un plan mientras habilitamos la gestión automática.</p>
-                <a
-                  href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20info%20de%20suscripciones"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#7B4382] hover:underline"
-                >
-                  <Phone className="w-4 h-4 text-[#DDA83A]" />
-                  Preguntar por WhatsApp
-                </a>
+                ))}
               </div>
+
+              <p className="text-xs text-stone-500">
+                ¿Tienes dudas o ya tienes un plan activo?{' '}
+                <a href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20info%20de%20suscripciones" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#7B4382] hover:underline">
+                  Escríbenos por WhatsApp
+                </a>
+                . La gestión automática (pausar, cambiar o cancelar desde aquí) llegará pronto.
+              </p>
             </div>
           )}
 

@@ -77,7 +77,8 @@ export const AddressField: React.FC<AddressFieldProps> = ({ value, onChange, pla
           onChange={e => type(e.target.value)}
           onFocus={() => options.length && setOpen(true)}
           aria-invalid={invalid}
-          autoComplete="street-address"
+          name="street-address"
+          autoComplete="address-line1"
         />
         {busy && <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 animate-spin text-stone-400" />}
       </div>

@@ -84,7 +84,7 @@ export const BillingProfile: React.FC = () => {
       <div className="grid sm:grid-cols-2 gap-3">
         {empresa && (
           <label className="block text-sm sm:col-span-2"><span className="text-xs font-semibold text-stone-500">Razón social</span>
-            <input className={input} value={businessName} onChange={e => setBusinessName(e.target.value)} /></label>
+            <input className={input} name="organization" autoComplete="organization" value={businessName} onChange={e => setBusinessName(e.target.value)} /></label>
         )}
         <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">{empresa ? 'NIT (sin DV)' : 'Cédula'}</span>
           <input className={input} inputMode="numeric" value={document} onChange={e => setDocument(e.target.value)} /></label>
@@ -100,7 +100,7 @@ export const BillingProfile: React.FC = () => {
             </select></label>
         )}
         <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">Correo para la factura</span>
-          <input className={input} type="email" value={billingEmail} onChange={e => setBillingEmail(e.target.value)} /></label>
+          <input className={input} type="email" name="email" autoComplete="email" value={billingEmail} onChange={e => setBillingEmail(e.target.value)} /></label>
       </div>
 
       <div className="space-y-1">

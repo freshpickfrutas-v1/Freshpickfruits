@@ -183,13 +183,13 @@ export const AddressBook: React.FC = () => {
 
           <div className="grid sm:grid-cols-2 gap-3">
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">Apto, torre, casa, oficina…</span>
-              <input className={input} placeholder="Torre 2, Apto 502" value={form.complement} onChange={e => setForm({ ...form, complement: e.target.value })} /></label>
+              <input className={input} name="address-line2" autoComplete="address-line2" placeholder="Torre 2, Apto 502" value={form.complement} onChange={e => setForm({ ...form, complement: e.target.value })} /></label>
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">Barrio</span>
-              <input className={input} value={form.neighborhood} onChange={e => setForm({ ...form, neighborhood: e.target.value })} /></label>
+              <input className={input} name="neighborhood" autoComplete="address-level3" value={form.neighborhood} onChange={e => setForm({ ...form, neighborhood: e.target.value })} /></label>
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">Quién recibe</span>
-              <input className={input} value={form.recipientName} onChange={e => setForm({ ...form, recipientName: e.target.value })} /></label>
+              <input className={input} name="name" autoComplete="name" value={form.recipientName} onChange={e => setForm({ ...form, recipientName: e.target.value })} /></label>
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">WhatsApp de contacto</span>
-              <input className={input} inputMode="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></label>
+              <input className={input} name="tel" type="tel" inputMode="tel" autoComplete="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></label>
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">Ciudad</span>
               <input className={`${input} bg-stone-100 text-stone-500`} value={BOGOTA} readOnly aria-readonly /></label>
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">Franja preferida</span>

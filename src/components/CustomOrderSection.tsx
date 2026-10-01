@@ -102,6 +102,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
 
   useEffect(() => {
     if (user?.email) setCustomerEmail(prev => prev || user.email!);
+    if (user?.displayName) setCustomerName(prev => prev || user.displayName!);
     if (addressPicked.current || savedAddresses.length === 0) return;
     addressPicked.current = true;
     applyAddress(savedAddresses.find(a => a.isDefault) ?? savedAddresses[0]);
@@ -598,6 +599,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               <input
                 className={`w-full border ${formErrors.customerName ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
                 placeholder="Nombre completo"
+                name="name"
+                autoComplete="name"
                 value={customerName}
                 onChange={e => { setCustomerName(e.target.value); setFormErrors(prev => ({ ...prev, customerName: '' })); }}
               />
@@ -605,6 +608,10 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               <input
                 className={`w-full border ${formErrors.customerPhone ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
                 placeholder="WhatsApp (ej. 317 893 1026)"
+                name="tel"
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
                 value={customerPhone}
                 onChange={e => { setCustomerPhone(e.target.value); setFormErrors(prev => ({ ...prev, customerPhone: '' })); }}
               />
@@ -613,6 +620,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
                 placeholder="Correo (para tu factura y seguimiento)"
                 type="email"
+                name="email"
+                autoComplete="email"
                 value={customerEmail}
                 onChange={e => setCustomerEmail(e.target.value)}
               />
@@ -628,6 +637,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               <input
                 className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
                 placeholder="Apto, torre, casa u oficina (opcional)"
+                name="address-line2"
+                autoComplete="address-line2"
                 value={deliveryComplement}
                 onChange={e => setDeliveryComplement(e.target.value)}
               />
@@ -659,6 +670,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
                     placeholder="Razón social"
+                    name="organization"
+                    autoComplete="organization"
                     value={businessName}
                     onChange={e => setBusinessName(e.target.value)}
                   />
@@ -701,6 +714,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
                     placeholder="Correo de facturación"
                     type="email"
+                    name="billing-email"
+                    autoComplete="email"
                     value={billingEmail}
                     onChange={e => setBillingEmail(e.target.value)}
                   />
@@ -710,6 +725,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 <input
                   className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
                   placeholder="Dirección de facturación (si es distinta a la de entrega)"
+                  name="billing-address"
+                  autoComplete="billing street-address"
                   value={billingAddress}
                   onChange={e => setBillingAddress(e.target.value)}
                 />

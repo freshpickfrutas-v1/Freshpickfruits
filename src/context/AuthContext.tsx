@@ -100,7 +100,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (code === 'auth/account-exists-with-different-credential') {
         throw new Error('Ya existe una cuenta con ese correo creada con otro método (por ejemplo Google). Entra con ese método.');
       }
-      throw err;
+      const friendly: Record<string, string> = {
+        'auth/operation-not-allowed': 'Este método de acceso aún no está activado en Firebase.',
+        'auth/unauthorized-domain': 'Este sitio no está autorizado en Firebase para iniciar sesión.',
+        'auth/network-request-failed': 'No hay conexión. Revisa tu internet e intenta de nuevo.',
+        'auth/web-storage-unsupported': 'Tu navegador bloquea el almacenamiento necesario. Actívalo o prueba otro navegador.',
+        'auth/internal-error': 'Firebase no pudo completar el acceso. Si usas Apple o Facebook, revisa su configuración en Firebase.',
+        'auth/invalid-credential': 'El proveedor rechazó las credenciales. Revisa la configuración del método en Firebase.',
+      };
+      throw new Error(code ? `${friendly[code] ?? 'No se pudo iniciar sesión.'} (${code})` : (err instanceof Error ? err.message : 'No se pudo iniciar sesión.'));
     }
   };
   const signInWithGoogle = () => signInWith(googleProvider);

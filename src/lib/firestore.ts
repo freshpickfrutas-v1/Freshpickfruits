@@ -73,6 +73,10 @@ export interface NewOrderInput {
   customerPhone: string;
   shippingAddress: string;
   shippingCity: string;
+  shippingComplement?: string;
+  shippingLat?: number;
+  shippingLng?: number;
+  shippingMapsUrl?: string;
   deliveryDate?: string;
   deliveryTimeSlot?: string;
   notes?: string;
@@ -115,8 +119,12 @@ export async function createOrder(input: NewOrderInput) {
     createdAt: new Date().toISOString(),
     paymentStatus: 'pendiente' as const,
     invoiceStatus: 'pendiente' as const,
-    // Firestore rejects undefined, so billing is only written when there is data.
+    // Firestore rejects undefined, so optional data is only written when present.
     ...(input.billing ? { billing: input.billing } : {}),
+    ...(input.shippingComplement ? { shippingComplement: input.shippingComplement } : {}),
+    ...(typeof input.shippingLat === 'number' && typeof input.shippingLng === 'number'
+      ? { shippingLat: input.shippingLat, shippingLng: input.shippingLng } : {}),
+    ...(input.shippingMapsUrl ? { shippingMapsUrl: input.shippingMapsUrl } : {}),
   };
   const ref = await addDoc(ordersCol, payload);
   return { id: ref.id, orderNumber };

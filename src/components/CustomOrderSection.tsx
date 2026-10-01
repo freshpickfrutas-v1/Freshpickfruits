@@ -4,6 +4,8 @@ import { FruitItem, PackagingOption, AddOnItem, CustomOrder, BillingData, SavedA
 import { createOrder } from '../lib/firestore';
 import { useAuth } from '../context/AuthContext';
 import { saveAddresses, hasAddress, newAddressId, MAX_ADDRESSES } from '../lib/addresses';
+import { BOGOTA, PlacePick, mapsLink } from '../lib/maps';
+import { AddressField } from './AddressField';
 import {
   Sparkles,
   CheckCircle2,
@@ -79,7 +81,10 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   const [taxRegime, setTaxRegime] = useState('');
   const [billingEmail, setBillingEmail] = useState('');
   const [deliveryAddress, setDeliveryAddress] = useState('');
-  const [deliveryCity, setDeliveryCity] = useState('Bogotá D.C.');
+  const deliveryCity = BOGOTA; // deliveries are only made in Bogotá
+  const [deliveryComplement, setDeliveryComplement] = useState('');
+  const [deliveryPlace, setDeliveryPlace] = useState<PlacePick | null>(null);
+  const [billingAddress, setBillingAddress] = useState('');
   const [deliveryDate, setDeliveryDate] = useState(() => {
     const d = new Date();
     d.setDate(d.getDate() + 1);
@@ -89,8 +94,9 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     setSelectedAddressId(a.id);
     setCustomerName(a.recipientName);
     setCustomerPhone(a.phone);
-    setDeliveryCity(a.city);
     setDeliveryAddress(a.address);
+    setDeliveryComplement(a.complement ?? '');
+    setDeliveryPlace(typeof a.lat === 'number' && typeof a.lng === 'number' ? { address: a.address, lat: a.lat, lng: a.lng, placeId: a.placeId ?? '' } : null);
     setFormErrors(prev => ({ ...prev, customerName: '', customerPhone: '', deliveryAddress: '' }));
   };
 
@@ -101,6 +107,20 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     applyAddress(savedAddresses.find(a => a.isDefault) ?? savedAddresses[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, savedAddresses.length]);
+
+  const billingPrefilled = React.useRef(false);
+  useEffect(() => {
+    const b = profile?.billing;
+    if (!b || billingPrefilled.current) return;
+    billingPrefilled.current = true;
+    if (b.type === 'empresa') {
+      setWantsNit(true); setNit(b.document); setNitDv(b.dv ?? ''); setBusinessName(b.businessName ?? '');
+      setTaxRegime(b.taxRegime ?? ''); setBillingEmail(b.billingEmail ?? '');
+    } else {
+      setCedula(b.document);
+    }
+    if (b.address) setBillingAddress(b.address);
+  }, [profile?.billing]);
 
   const isNewAddress = !!user && !!deliveryAddress.trim() && !hasAddress(savedAddresses, deliveryAddress, deliveryCity);
 
@@ -212,9 +232,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         return { fruitId, grams: g, units };
       });
 
+    const invoiceAddress = billingAddress.trim() || deliveryAddress.trim();
     const billing: BillingData | null = wantsNit
-      ? { type: 'empresa', document: nit.trim(), dv: nitDv.trim(), businessName: businessName.trim(), taxRegime: taxRegime.trim(), billingEmail: billingEmail.trim() }
-      : cedula.trim() ? { type: 'persona', document: cedula.trim() } : null;
+      ? { type: 'empresa', document: nit.trim(), dv: nitDv.trim(), businessName: businessName.trim(), taxRegime: taxRegime.trim(), billingEmail: billingEmail.trim(), address: invoiceAddress }
+      : cedula.trim() ? { type: 'persona', document: cedula.trim(), address: invoiceAddress } : null;
+    const mapsUrl = mapsLink({ lat: deliveryPlace?.lat, lng: deliveryPlace?.lng, placeId: deliveryPlace?.placeId, address: deliveryAddress });
 
     let orderId = 'FP-' + Math.floor(10000 + Math.random() * 90000);
 
@@ -225,8 +247,12 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         userId: user?.uid,
         billing: billing ?? undefined,
         customerPhone,
-        shippingAddress: deliveryAddress,
+        shippingAddress: deliveryAddress.trim(),
         shippingCity: deliveryCity,
+        shippingComplement: deliveryComplement.trim(),
+        shippingLat: deliveryPlace?.lat,
+        shippingLng: deliveryPlace?.lng,
+        shippingMapsUrl: mapsUrl,
         deliveryDate,
         deliveryTimeSlot: 'morning',
         notes: '',
@@ -253,7 +279,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             ...savedAddresses,
             {
               id: newAddressId(), label: savedAddresses.length ? 'Otra' : 'Casa', recipientName: customerName.trim(), phone: customerPhone.trim(),
-              address: deliveryAddress.trim(), city: deliveryCity.trim(), notes: '', timeSlot: 'Mañana 8am–1pm',
+              address: deliveryAddress.trim(), complement: deliveryComplement.trim(), city: BOGOTA, notes: '', timeSlot: 'Mañana 8am–1pm',
+              ...(deliveryPlace ? { lat: deliveryPlace.lat, lng: deliveryPlace.lng, placeId: deliveryPlace.placeId } : {}),
               isDefault: savedAddresses.length === 0, createdAt: new Date().toISOString(),
             },
           ]);
@@ -316,7 +343,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         `*Orden:* ${orderId}%0A` +
         `*Cliente:* ${customerName}%0A` +
         `*Teléfono:* ${customerPhone}%0A` +
-        `*Dirección:* ${deliveryCity}, ${deliveryAddress}%0A` +
+        `*Dirección:* ${deliveryAddress}${deliveryComplement.trim() ? ', ' + deliveryComplement.trim() : ''}, ${deliveryCity}%0A` +
+        `*Mapa:* ${encodeURIComponent(mapsUrl)}%0A` +
         `*Fecha de entrega:* ${deliveryDate}%0A%0A` +
         `*Detalle de Arándanos (${totalGrams}g totales):*%0A${fruitsSummary}%0A%0A` +
         `*Subtotal:* $${subtotal.toLocaleString('es-CO')} COP%0A` +
@@ -589,17 +617,19 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 onChange={e => setCustomerEmail(e.target.value)}
               />
               {formErrors.customerEmail && <p className="text-xs text-red-600">{formErrors.customerEmail}</p>}
-              <input
-                className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                placeholder="Ciudad"
-                value={deliveryCity}
-                onChange={e => setDeliveryCity(e.target.value)}
+              <p className="text-xs text-stone-500 px-1">📍 Ciudad: <span className="font-semibold text-[#2F183C]">{BOGOTA}</span> · solo entregamos en Bogotá</p>
+              <AddressField
+                value={deliveryAddress}
+                onChange={text => { setDeliveryAddress(text); setFormErrors(prev => ({ ...prev, deliveryAddress: '' })); }}
+                place={deliveryPlace}
+                onPlace={setDeliveryPlace}
+                invalid={!!formErrors.deliveryAddress}
               />
               <input
-                className={`w-full border ${formErrors.deliveryAddress ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
-                placeholder="Dirección completa"
-                value={deliveryAddress}
-                onChange={e => { setDeliveryAddress(e.target.value); setFormErrors(prev => ({ ...prev, deliveryAddress: '' })); }}
+                className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                placeholder="Apto, torre, casa u oficina (opcional)"
+                value={deliveryComplement}
+                onChange={e => setDeliveryComplement(e.target.value)}
               />
               {formErrors.deliveryAddress && <p className="text-xs text-red-600">{formErrors.deliveryAddress}</p>}
               {isNewAddress && savedAddresses.length < MAX_ADDRESSES && (
@@ -677,6 +707,12 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   {formErrors.billingEmail && <p className="text-xs text-red-600">{formErrors.billingEmail}</p>}
                   </>
                 )}
+                <input
+                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+                  placeholder="Dirección de facturación (si es distinta a la de entrega)"
+                  value={billingAddress}
+                  onChange={e => setBillingAddress(e.target.value)}
+                />
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-[#7B4382]" />

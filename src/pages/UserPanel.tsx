@@ -8,6 +8,7 @@ import { useAuth } from '../context/AuthContext';
 import { normalizeStatus } from '../lib/orderFlow';
 import { AuthGate } from '../components/AuthGate';
 import { AddressBook } from '../components/AddressBook';
+import { BillingProfile } from '../components/BillingProfile';
 import { FirestoreOrder, SubscriptionDoc, SubscriptionPlan } from '../types';
 import { requestChange, requestSubscription, subscribeMySubscriptions, SUB_STATUS } from '../lib/subscriptions';
 import { SUBSCRIPTION_PLANS } from '../data/mockData';
@@ -304,6 +305,7 @@ function UserPanelInner() {
             <div className="space-y-4">
               <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Datos y entrega</h1>
               <AddressBook />
+              <BillingProfile />
               <a
                 href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20actualizar%20mis%20datos%20de%20entrega"
                 target="_blank"

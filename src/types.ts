@@ -283,7 +283,14 @@ export interface SavedAddress {
   recipientName: string;
   phone: string;
   address: string;
+  /** Apto, torre, casa, oficina… */
+  complement?: string;
+  neighborhood?: string;
   city: string;
+  /** Exact pin confirmed with Google Maps (only when the person picked a suggestion). */
+  lat?: number;
+  lng?: number;
+  placeId?: string;
   notes?: string;
   timeSlot?: string;
   isDefault?: boolean;
@@ -299,6 +306,7 @@ export interface UserProfile {
   address?: string;
   city?: string;
   addresses?: SavedAddress[];
+  billing?: BillingData;
   createdAt: string;
 }
 
@@ -324,6 +332,8 @@ export interface BillingData {
   businessName?: string;  // razón social
   taxRegime?: string;     // régimen fiscal
   billingEmail?: string;
+  /** Billing address (can differ from the delivery one). */
+  address?: string;
 }
 
 export interface OrderHistoryEntry {
@@ -348,6 +358,10 @@ export interface FirestoreOrder {
   customerPhone: string;
   shippingAddress: string;
   shippingCity: string;
+  shippingComplement?: string;
+  shippingLat?: number;
+  shippingLng?: number;
+  shippingMapsUrl?: string;
   deliveryDate?: string;
   deliveryTimeSlot?: string;
   notes?: string;

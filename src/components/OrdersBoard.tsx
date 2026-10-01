@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import {
   LayoutGrid, Table2, X, Plus, Loader2, AlertCircle, FileText, MessageCircle,
-  CheckCircle2, Clock, Phone, MapPin, Trash2, Lock
+  CheckCircle2, Clock, Phone, MapPin, Trash2, Lock, ExternalLink
 } from 'lucide-react';
 import { FirestoreOrder, FirestoreOrderItem, BillingData, ROLE_LABELS, UserRole } from '../types';
 import { applyOrderAction, createOrder, OrderActionKey } from '../lib/firestore';
+import { mapsLink } from '../lib/maps';
 import {
   STAGES, CANCELLED, stageOf, normalizeStatus, actionsFor, canDo, isMine,
   billingLabel, invoiceLabel, messageFor, whatsappLink, FlowAction
@@ -94,12 +95,21 @@ const OrderModal: React.FC<{
               <p className="font-bold text-[#2F183C]">{order.customerName}</p>
               <p className="flex items-center gap-1.5 text-stone-600"><Phone className="w-3.5 h-3.5" /> {order.customerPhone}</p>
               {order.customerEmail && <p className="text-stone-600">{order.customerEmail}</p>}
-              <p className="flex items-start gap-1.5 text-stone-600"><MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" /> {order.shippingAddress}, {order.shippingCity}</p>
+              <p className="flex items-start gap-1.5 text-stone-600"><MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0" /> {order.shippingAddress}{order.shippingComplement ? ` · ${order.shippingComplement}` : ''}, {order.shippingCity}</p>
+              <a
+                href={order.shippingMapsUrl || mapsLink({ lat: order.shippingLat, lng: order.shippingLng, address: order.shippingAddress })}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#7B4382] underline"
+              >
+                Abrir en Google Maps (domiciliario) <ExternalLink className="w-3 h-3" />
+              </a>
               {order.deliveryDate && <p className="text-stone-600">Entrega: {order.deliveryDate}</p>}
             </div>
             <div className="space-y-1.5">
               <p className="text-xs font-bold uppercase tracking-wider text-[#7B4382]">Facturación</p>
               <p className="text-stone-800 font-semibold">{billingLabel(order)}</p>
+              {order.billing?.address && <p className="text-xs text-stone-600">Dirección de facturación: {order.billing.address}</p>}
               {order.billing?.type === 'empresa' && (
                 <p className="text-xs text-stone-600">
                   {order.billing.businessName} · {order.billing.taxRegime || 'Régimen sin indicar'}<br />

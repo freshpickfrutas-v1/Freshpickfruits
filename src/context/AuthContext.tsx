@@ -4,8 +4,8 @@ import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore';
 import { auth, db, googleProvider } from '../lib/firebase';
 import { STAFF_ROLES, UserProfile, UserRole } from '../types';
 
-/** Same address as the bootstrap admin in firestore.rules: it can always sign in as admin and assign other roles. */
-const BOOTSTRAP_ADMIN_EMAIL = 'info@freshpickfruits.com';
+/** Same addresses as the bootstrap admins in firestore.rules: they can always sign in as admin and assign other roles. */
+const BOOTSTRAP_ADMIN_EMAILS = ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
 
 interface AuthState {
   user: User | null;
@@ -39,7 +39,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const existing = await getDoc(ref);
         if (!existing.exists()) {
-          const isBootstrap = current.email === BOOTSTRAP_ADMIN_EMAIL && current.emailVerified;
+          const isBootstrap = BOOTSTRAP_ADMIN_EMAILS.includes(current.email ?? '') && current.emailVerified;
           await setDoc(ref, {
             email: current.email ?? '',
             displayName: current.displayName ?? '',

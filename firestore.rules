@@ -15,9 +15,9 @@ service cloud.firestore {
       return isSignedIn() && request.auth.token.email_verified == true;
     }
 
-    // Administrador de arranque: siempre puede entrar como admin y asignar roles a los demás.
+    // Administradores de arranque: siempre pueden entrar como admin y asignar roles a los demás.
     function isBootstrapAdmin() {
-      return isVerified() && request.auth.token.email == 'info@freshpickfruits.com';
+      return isVerified() && request.auth.token.email in ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
     }
 
     function hasProfile() {

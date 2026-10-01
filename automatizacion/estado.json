@@ -130,6 +130,12 @@
       "tipo": "noticia",
       "slug": "arandanos-y-cerebro-que-dice-un-ensayo-clinico-de-24-semanas",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-01",
+      "tipo": "receta",
+      "slug": "waffles-integrales-de-arandanos",
+      "modo": "automatico"
     }
   ]
 }

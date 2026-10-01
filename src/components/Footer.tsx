@@ -1,7 +1,9 @@
 import React from 'react';
 import { Leaf, Phone, Mail, MapPin, ShieldCheck, Heart, Instagram, Facebook } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export const Footer: React.FC = () => {
+  const { isStaff } = useAuth();
   return (
     <footer id="contacto" className="bg-[#1E0E27] text-stone-300 pt-16 pb-12 border-t border-[#432356]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,11 +117,13 @@ export const Footer: React.FC = () => {
                   Mi cuenta / Panel usuario
                 </a>
               </li>
-              <li>
-                <a href="/admin" className="hover:text-[#DDA83A] transition-colors">
-                  Panel administración
-                </a>
-              </li>
+              {isStaff && (
+                <li>
+                  <a href="/admin" className="hover:text-[#DDA83A] transition-colors">
+                    Panel del equipo
+                  </a>
+                </li>
+              )}
               <li>
                 <a href="/#sostenibilidad" className="hover:text-[#DDA83A] transition-colors">
                   Nuestra Biofábrica & Polinización

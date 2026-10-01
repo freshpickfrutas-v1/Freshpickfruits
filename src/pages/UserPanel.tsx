@@ -22,7 +22,7 @@ const statusLabel: Record<string, { text: string; color: string }> = {
 };
 
 function UserPanelInner() {
-  const { user, signOut } = useAuth();
+  const { user, isStaff, signOut } = useAuth();
   const [tab, setTab] = useState<'pedidos' | 'suscripcion' | 'perfil'>('pedidos');
 
   const [loading, setLoading] = useState(true);
@@ -95,9 +95,11 @@ function UserPanelInner() {
               {item.label}
             </button>
           ))}
-          <a href="/admin" className="block w-full text-center text-[11px] text-stone-400 hover:text-stone-600 pt-4">
-            Ir al panel admin →
-          </a>
+          {isStaff && (
+            <a href="/admin" className="block w-full text-center text-[11px] text-stone-400 hover:text-stone-600 pt-4">
+              Ir al panel admin →
+            </a>
+          )}
         </aside>
 
         <main className="lg:col-span-9 space-y-6">

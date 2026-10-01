@@ -20,6 +20,82 @@ import {
 
 const WA = '573178931026';
 
+interface WhatsAppOrder {
+  orderId: string;
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  complement: string;
+  city: string;
+  mapsUrl: string;
+  deliveryDate: string;
+  lines: string[];
+  totalGrams: number;
+  subtotal: number;
+  deliveryFee: number;
+  total: number;
+  billing: BillingData | null;
+}
+
+const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
+
+/** The complete order as one WhatsApp message: customer, delivery, invoice data, products, totals and payment. */
+function buildWhatsAppText(o: WhatsAppOrder): string {
+  const when = o.deliveryDate
+    ? new Date(o.deliveryDate + 'T12:00:00').toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+    : 'Por coordinar';
+  const b = o.billing;
+  const invoice = !b
+    ? ['Sin datos de factura (el cliente no los ingresó)']
+    : b.type === 'empresa'
+      ? [
+          'Tipo: Empresa (factura con NIT)',
+          `Razón social: ${b.businessName ?? ''}`,
+          `NIT: ${b.document}${b.dv ? '-' + b.dv : ''}`,
+          `Régimen fiscal: ${b.taxRegime ?? ''}`,
+          `Correo de facturación: ${b.billingEmail ?? ''}`,
+          `Dirección de facturación: ${b.address ?? o.address}`,
+        ]
+      : [
+          'Tipo: Persona natural',
+          `Cédula: ${b.document}`,
+          `Dirección de facturación: ${b.address ?? o.address}`,
+          ...(b.billingEmail ? [`Correo de facturación: ${b.billingEmail}`] : []),
+        ];
+  return [
+    '*PEDIDO - FRESH PICK*',
+    `*Orden:* ${o.orderId}`,
+    '',
+    '*CLIENTE*',
+    `Nombre: ${o.name}`,
+    `WhatsApp: ${o.phone}`,
+    `Correo: ${o.email || 'No indicado'}`,
+    '',
+    '*ENTREGA*',
+    `Dirección: ${o.address}${o.complement ? ', ' + o.complement : ''}`,
+    `Ciudad: ${o.city}`,
+    `Ubicación en mapa: ${o.mapsUrl}`,
+    `Fecha de entrega: ${when}`,
+    'Horario: 8:00 a.m. a 3:00 p.m.',
+    '',
+    '*FACTURACIÓN*',
+    ...invoice,
+    '',
+    `*PRODUCTOS (${o.totalGrams}g en total)*`,
+    ...o.lines,
+    '',
+    `Subtotal: ${cop(o.subtotal)}`,
+    `Envío: ${cop(o.deliveryFee)}`,
+    `*TOTAL: ${cop(o.total)}*`,
+    '',
+    '*FORMA DE PAGO*',
+    'Transferencia bancaria o Bre-B @9010401617. Enviaré el comprobante de pago por este chat.',
+    '',
+    'Confirmo mi pedido. ¡Gracias!',
+  ].join('\n');
+}
+
 interface CustomOrderSectionProps {
   fruits: FruitItem[];
   packagingOptions: PackagingOption[];
@@ -126,6 +202,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   const isNewAddress = !!user && !!deliveryAddress.trim() && !hasAddress(savedAddresses, deliveryAddress, deliveryCity);
 
   const [completedOrder, setCompletedOrder] = useState<CustomOrder | null>(null);
+  const [completedMessage, setCompletedMessage] = useState('');
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [saveError, setSaveError] = useState('');
@@ -322,6 +399,31 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       createdAt: new Date().toISOString()
     };
 
+    const waText = buildWhatsAppText({
+      orderId,
+      name: customerName.trim(),
+      phone: customerPhone.trim(),
+      email: customerEmail.trim() || (user?.email ?? ''),
+      address: deliveryAddress.trim(),
+      complement: deliveryComplement.trim(),
+      city: deliveryCity,
+      mapsUrl,
+      deliveryDate,
+      lines: fruitSelections.map(item => {
+        const fruit = fruits.find(f => f.id === item.fruitId);
+        const step = fruit?.defaultGramUnit || 125;
+        const units = Math.round(item.grams / step);
+        const lineCost = units * (fruit?.standardPrice || 0);
+        return `• ${fruit?.name || item.fruitId}: ${units} ${units === 1 ? 'estuche' : 'estuches'} (${item.grams}g) - ${cop(lineCost)}`;
+      }),
+      totalGrams,
+      subtotal,
+      deliveryFee,
+      total: grandTotal,
+      billing,
+    });
+
+    setCompletedMessage(waText);
     setCompletedOrder(newOrder);
     onOrderCompleted?.(newOrder);
     setIsSubmitting(false);
@@ -330,29 +432,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     } catch {}
 
     if (viaWhatsApp) {
-      const fruitsSummary = fruitSelections
-        .map(item => {
-          const fruit = fruits.find(f => f.id === item.fruitId);
-          const step = fruit?.defaultGramUnit || 125;
-          const units = Math.round(item.grams / step);
-          const lineCost = units * (fruit?.standardPrice || 0);
-          return `• ${fruit?.name || item.fruitId}: ${units} ${units === 1 ? 'estuche' : 'estuches'} (${item.grams}g) - $${lineCost.toLocaleString('es-CO')} COP`;
-        })
-        .join('%0A');
-      const msg =
-        `*PEDIDO PERSONALIZADO - FRESH PICK*%0A%0A` +
-        `*Orden:* ${orderId}%0A` +
-        `*Cliente:* ${customerName}%0A` +
-        `*Teléfono:* ${customerPhone}%0A` +
-        `*Dirección:* ${deliveryAddress}${deliveryComplement.trim() ? ', ' + deliveryComplement.trim() : ''}, ${deliveryCity}%0A` +
-        `*Mapa:* ${encodeURIComponent(mapsUrl)}%0A` +
-        `*Fecha de entrega:* ${deliveryDate}%0A%0A` +
-        `*Detalle de Arándanos (${totalGrams}g totales):*%0A${fruitsSummary}%0A%0A` +
-        `*Subtotal:* $${subtotal.toLocaleString('es-CO')} COP%0A` +
-        `*Envío:* $${deliveryFee.toLocaleString('es-CO')} COP%0A` +
-        `*TOTAL:* $${grandTotal.toLocaleString('es-CO')} COP%0A%0A` +
-        `Confirmo pedido. Realizaré pago por transferencia o Bre-B @9010401617. ¡Gracias!`;
-      window.open(`https://wa.me/${WA}?text=${msg}`, '_blank');
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(waText)}`, '_blank');
     }
   };
 
@@ -373,7 +453,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               </p>
             )}
             <a
-              href={`https://wa.me/${WA}?text=Hola%20Fresh%20Pick!%20Confirmo%20pedido%20%23${completedOrder.id}%20a%20nombre%20de%20${encodeURIComponent(completedOrder.customerName)}`}
+              href={`https://wa.me/${WA}?text=${encodeURIComponent(completedMessage)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2F183C] text-white font-bold hover:bg-[#432356] transition-colors"

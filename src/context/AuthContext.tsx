@@ -3,6 +3,7 @@ import { onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as fbS
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db, googleProvider } from '../lib/firebase';
 import { STAFF_ROLES, UserProfile, UserRole } from '../types';
+import { navigate } from '../lib/router';
 
 /** Same addresses as the bootstrap admins in firestore.rules: they can always sign in as admin and assign other roles. */
 const BOOTSTRAP_ADMIN_EMAILS = ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
@@ -18,6 +19,13 @@ interface AuthState {
 }
 
 const AuthContext = createContext<AuthState | null>(null);
+
+// Set when the person presses a sign-in button, so team members are sent to /admin once their role is known.
+const LOGIN_INTENT_KEY = 'fp_login_intent';
+const intentIsFresh = () => {
+  try { return Date.now() - Number(sessionStorage.getItem(LOGIN_INTENT_KEY) ?? 0) < 2 * 60 * 1000; } catch { return false; }
+};
+const clearIntent = () => { try { sessionStorage.removeItem(LOGIN_INTENT_KEY); } catch { /* ignore */ } };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -60,6 +68,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             updateDoc(ref, { role: 'admin' }).catch(err => console.warn('No se pudo promover al administrador:', err));
           }
           setProfile(data ? { ...data, uid: current.uid } : null);
+          if (data && (STAFF_ROLES as UserRole[]).includes(data.role) && intentIsFresh() && window.location.pathname === '/panel') {
+            clearIntent();
+            navigate('/admin');
+          }
           setLoading(false);
         },
         () => setLoading(false)
@@ -72,6 +84,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const signInWithGoogle = async () => {
+    try { sessionStorage.setItem(LOGIN_INTENT_KEY, String(Date.now())); } catch { /* ignore */ }
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (err) {
@@ -94,7 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isStaff: role !== null && (STAFF_ROLES as UserRole[]).includes(role),
     loading,
     signInWithGoogle,
-    signOut: () => fbSignOut(auth)
+    signOut: () => { clearIntent(); return fbSignOut(auth); }
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

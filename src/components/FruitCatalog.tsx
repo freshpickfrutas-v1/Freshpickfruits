@@ -142,13 +142,16 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                       {/* Add to Order Button */}
                       <button
                         onClick={() => handleAdd(fruit)}
-                        className={`px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                        disabled={fruit.inStock === false}
+                        className={`px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
                           isAdded
                             ? 'bg-[#7B4382] text-white'
                             : 'bg-[#2F183C] text-white hover:bg-[#432356] active:scale-95 shadow-xs'
                         }`}
                       >
-                        {isAdded ? (
+                        {fruit.inStock === false ? (
+                          <span>Agotado</span>
+                        ) : isAdded ? (
                           <>
                             <Check className="w-3.5 h-3.5 text-[#DDA83A]" />
                             <span>¡Agregado!</span>

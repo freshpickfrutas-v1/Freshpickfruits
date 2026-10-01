@@ -12,6 +12,8 @@ import { useAuth } from '../context/AuthContext';
 import { AuthGate } from '../components/AuthGate';
 import { OrdersBoard } from '../components/OrdersBoard';
 import { stageOf, normalizeStatus } from '../lib/orderFlow';
+import { importCatalog } from '../lib/catalog';
+import { FRUITS_DATA } from '../data/mockData';
 
 function isToday(iso: string) {
   if (!iso) return false;
@@ -294,6 +296,19 @@ function AdminPanelInner() {
   const [error, setError] = useState('');
   const [editingProduct, setEditingProduct] = useState<ProductDoc | null>(null);
   const [showNewProduct, setShowNewProduct] = useState(false);
+  const [importing, setImporting] = useState(false);
+
+  const handleImport = async () => {
+    setImporting(true);
+    setError('');
+    try {
+      await importCatalog();
+    } catch (err) {
+      setError(err instanceof Error ? 'No se pudo importar el catálogo: ' + err.message : 'No se pudo importar el catálogo.');
+    } finally {
+      setImporting(false);
+    }
+  };
 
   useEffect(() => {
     const unsubProducts = subscribeProducts(
@@ -485,8 +500,19 @@ function AdminPanelInner() {
               {loadingProducts ? (
                 <p className="text-sm text-stone-400 flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Cargando...</p>
               ) : products.length === 0 ? (
-                <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 text-center text-sm text-stone-500">
-                  No hay productos en Firestore todavía. Corre <code className="bg-stone-100 px-1.5 py-0.5 rounded">npx tsx scripts/seedProducts.ts</code> para migrar el catálogo actual, o crea uno nuevo.
+                <div className="bg-white rounded-2xl border border-[#EADBEE] p-8 text-center space-y-3">
+                  <p className="text-sm text-stone-600">
+                    Aquí gestionas los productos que ve el público. Tu tienda hoy muestra {FRUITS_DATA.length} productos del catálogo original; impórtalos para poder editar precios, fotos, textos y disponibilidad.
+                  </p>
+                  <button
+                    onClick={handleImport}
+                    disabled={importing}
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#2F183C] text-white text-sm font-bold disabled:opacity-60"
+                  >
+                    {importing && <Loader2 className="w-4 h-4 animate-spin" />}
+                    Importar los {FRUITS_DATA.length} productos publicados
+                  </button>
+                  <p className="text-xs text-stone-400">La tienda no cambia al importar: se verá igual hasta que edites algún producto.</p>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

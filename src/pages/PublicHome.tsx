@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { FRUITS_DATA, PACKAGING_OPTIONS, ADDONS_DATA, SUBSCRIPTION_PLANS } from '../data/mockData';
+import React, { useMemo, useState } from 'react';
+import { PACKAGING_OPTIONS, ADDONS_DATA, SUBSCRIPTION_PLANS } from '../data/mockData';
 import { SubscriptionPlan } from '../types';
 import { Hero } from '../components/Hero';
 import { FruitCatalog } from '../components/FruitCatalog';
@@ -13,9 +13,13 @@ import { StructuredData } from '../components/StructuredData';
 import { SiteShell } from '../components/SiteShell';
 import { useCart } from '../context/CartContext';
 import { scrollToId } from '../lib/router';
+import { useCatalog } from '../lib/catalog';
 
 export default function PublicHome() {
   const { addToCart } = useCart();
+  const catalog = useCatalog();
+  // The custom order builder only offers products that are in stock.
+  const orderable = useMemo(() => catalog.filter(f => f.inStock !== false), [catalog]);
   const [preselectedFruitForCustom, setPreselectedFruitForCustom] = useState<string | null>(null);
 
   const scrollToCustomOrder = (fruitId?: string) => {
@@ -36,12 +40,12 @@ export default function PublicHome() {
         onExploreFruits={() => scrollToId('variedades')}
       />
       <FruitCatalog
-        fruits={FRUITS_DATA}
+        fruits={catalog}
         onAddToCart={addToCart}
         onCustomizeWithFruit={(fruitId) => scrollToCustomOrder(fruitId)}
       />
       <CustomOrderSection
-        fruits={FRUITS_DATA}
+        fruits={orderable}
         packagingOptions={PACKAGING_OPTIONS}
         addOns={ADDONS_DATA}
         initialSelectedFruitId={preselectedFruitForCustom}

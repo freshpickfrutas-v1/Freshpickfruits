@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, Leaf } from 'lucide-react';
+import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, Leaf, BookOpen } from 'lucide-react';
 import { scrollToId, useAppLocation } from '../lib/router';
 
 interface NavbarProps {
@@ -37,6 +37,8 @@ export const Navbar: React.FC<NavbarProps> = ({
   const mobileLinkClass = (active: boolean) =>
     `block w-full text-left py-2.5 px-3 rounded-lg font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382] ${active ? 'bg-[#F5ECF9] text-[#7B4382]' : 'text-[#2F183C]'}`;
 
+  const groupTitleClass = 'flex items-center gap-1.5 px-3 mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#7B4382]';
+
   const closeMenu = () => setMobileMenuOpen(false);
 
   // The footer (#contacto) is on every page, so scroll to it in place instead of going home.
@@ -49,8 +51,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     <>
       {/* Top Banner Announcement */}
       <div className="bg-[#2F183C] text-[#FAF7F0] text-xs sm:text-sm py-2 px-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2 truncate">
+        <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between">
+          <div className="hidden sm:flex items-center gap-2 truncate">
             <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-[#DDA83A] animate-pulse"></span>
             <span className="font-medium">Arándanos frescos listos para pedidos</span>
             <span className="hidden sm:inline text-[#DFCEE6]">· Cosecha del día en Guasca, Cundinamarca</span>
@@ -160,27 +162,47 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {mobileMenuOpen && (
-          <div className="xl:hidden border-t border-[#EADBEE] bg-white px-4 pt-3 pb-6 space-y-3 mt-3 animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl">
-            <a href="/" onClick={closeMenu} className={mobileLinkClass(false)}>Inicio</a>
-            <a href="/#variedades" onClick={closeMenu} className={mobileLinkClass(false)}>Nuestros Arándanos</a>
+          <div className="xl:hidden border-t border-[#EADBEE] bg-white px-4 sm:px-6 pt-4 pb-6 mt-3 max-h-[calc(100vh-11.5rem)] md:max-h-[calc(100vh-7.5rem)] overflow-y-auto animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl">
             <button
               onClick={() => { setMobileMenuOpen(false); onNavigateToCustomOrder(); }}
-              className="flex items-center justify-between w-full text-left py-3 px-3 rounded-lg bg-[#F5ECF9] text-[#2F183C] font-bold"
+              className="flex items-center justify-between w-full text-left py-3 px-3 rounded-xl bg-[#2F183C] text-white font-bold mb-4 sm:hidden"
             >
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[#DDA83A]" />
                 <span>Armar Pedido de Arándanos</span>
               </div>
-              <span className="bg-[#2F183C] text-[#DDA83A] text-[10px] uppercase px-2 py-0.5 rounded-full font-bold">Exclusivo</span>
+              <ChevronRight className="w-4 h-4 text-[#DDA83A]" />
             </button>
-            <a href="/recetas" onClick={closeMenu} className={mobileLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas con Arándanos</a>
-            <a href="/noticias" onClick={closeMenu} className={mobileLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>Noticias de Arándanos</a>
-            <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>Planes Mensuales</a>
-            <a href="/#sostenibilidad" onClick={closeMenu} className={mobileLinkClass(false)}>Sostenibilidad & Finca</a>
-            <a href="/#faq" onClick={closeMenu} className={mobileLinkClass(false)}>Preguntas Frecuentes</a>
-            <button onClick={goToContact} className={mobileLinkClass(false)}>Contacto & Finca</button>
 
-            <div className="pt-2 border-t border-[#EADBEE] flex flex-col gap-2">
+            {/* Three groups: one column on phones, three side by side on tablets */}
+            <div className="grid gap-5 md:grid-cols-3 md:gap-6">
+              <div>
+                <p className={groupTitleClass}><ShoppingBag className="w-3.5 h-3.5" /> Comprar</p>
+                <div className="space-y-1">
+                  <a href="/#variedades" onClick={closeMenu} className={mobileLinkClass(false)}>Nuestros Arándanos</a>
+                  <a href="/#pedidos-personalizados" onClick={closeMenu} className={mobileLinkClass(false)}>Armar Pedido</a>
+                  <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>Planes Mensuales</a>
+                </div>
+              </div>
+              <div>
+                <p className={groupTitleClass}><BookOpen className="w-3.5 h-3.5" /> Aprender</p>
+                <div className="space-y-1">
+                  <a href="/recetas" onClick={closeMenu} className={mobileLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas con Arándanos</a>
+                  <a href="/noticias" onClick={closeMenu} className={mobileLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>Noticias de Arándanos</a>
+                  <a href="/#faq" onClick={closeMenu} className={mobileLinkClass(false)}>Preguntas Frecuentes</a>
+                </div>
+              </div>
+              <div>
+                <p className={groupTitleClass}><Leaf className="w-3.5 h-3.5" /> Nosotros</p>
+                <div className="space-y-1">
+                  <a href="/" onClick={closeMenu} className={mobileLinkClass(false)}>Inicio</a>
+                  <a href="/#sostenibilidad" onClick={closeMenu} className={mobileLinkClass(false)}>Sostenibilidad & Finca</a>
+                  <button onClick={goToContact} className={mobileLinkClass(false)}>Contacto & Finca</button>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 pt-4 border-t border-[#EADBEE]">
               <a
                 href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20hacer%20un%20pedido%20de%20ar%C3%A1ndanos%20frescos"
                 target="_blank"

@@ -7,6 +7,7 @@ import { CustomOrderSection } from '../components/CustomOrderSection';
 import { SubscriptionPlans } from '../components/SubscriptionPlans';
 import { AboutAndSustainability } from '../components/AboutAndSustainability';
 import { RecipesAndTips } from '../components/RecipesAndTips';
+import { LatestNews } from '../components/LatestNews';
 import { TestimonialsAndFaq } from '../components/TestimonialsAndFaq';
 import { StructuredData } from '../components/StructuredData';
 import { SiteShell } from '../components/SiteShell';
@@ -45,12 +46,13 @@ export default function PublicHome() {
         addOns={ADDONS_DATA}
         initialSelectedFruitId={preselectedFruitForCustom}
       />
+      <RecipesAndTips />
+      <LatestNews />
       <SubscriptionPlans
         plans={SUBSCRIPTION_PLANS}
         onSelectPlan={handleSelectSubscriptionPlan}
       />
       <AboutAndSustainability />
-      <RecipesAndTips />
       <TestimonialsAndFaq />
     </SiteShell>
   );

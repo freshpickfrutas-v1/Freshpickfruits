@@ -8,7 +8,7 @@ export const RecipesAndTips: React.FC = () => {
   const featured = RECIPES.filter(r => r.featured).slice(0, 3);
 
   return (
-    <section id="recetas-tips" className="py-12 sm:py-16 bg-[#F7F5F0]/80 backdrop-blur-[2px] border-b border-stone-200/80">
+    <section id="recetas-tips" className="py-12 sm:py-16 bg-[#FBF1D9]/90 backdrop-blur-[2px] border-b border-[#EBD9A8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -26,12 +26,12 @@ export const RecipesAndTips: React.FC = () => {
         </div>
 
         {/* Category shortcuts */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="flex gap-2 mb-8 overflow-x-auto pb-2 -mx-4 px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:mx-0 sm:px-0 sm:overflow-visible">
           {RECIPE_CATEGORIES.map(c => (
             <a
               key={c.id}
               href={`/recetas?categoria=${c.id}`}
-              className="px-3 py-1.5 rounded-full bg-white border border-[#DFCEE6] text-xs font-semibold text-[#2F183C] hover:border-[#7B4382] hover:text-[#7B4382] transition-colors"
+              className="shrink-0 px-3 py-1.5 rounded-full bg-white border border-[#DFCEE6] text-xs font-semibold text-[#2F183C] hover:border-[#7B4382] hover:text-[#7B4382] transition-colors"
             >
               {c.emoji} {c.name}
             </a>
@@ -39,9 +39,12 @@ export const RecipesAndTips: React.FC = () => {
         </div>
 
         {/* Featured recipes */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Phones: horizontal swipe. Tablets and desktop: three columns. */}
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-px-4 -mx-4 px-4 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:pb-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible">
           {featured.map(recipe => (
-            <RecipeCard key={recipe.slug} recipe={recipe} />
+            <div key={recipe.slug} className="flex snap-start shrink-0 w-[82%] sm:w-[55%] md:w-auto [&>*]:flex-1">
+              <RecipeCard recipe={recipe} />
+            </div>
           ))}
         </div>
 

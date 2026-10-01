@@ -3,6 +3,7 @@ import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { CartDrawer } from './CartDrawer';
 import { FloatingWhatsApp } from './FloatingWhatsApp';
+import { MobileBottomBar } from './MobileBottomBar';
 import { useCart } from '../context/CartContext';
 import { goToHomeSection } from '../lib/router';
 
@@ -18,7 +19,7 @@ export const SiteShell: React.FC<SiteShellProps> = ({ children, onNavigateToCust
   const goToCustomOrder = onNavigateToCustomOrder ?? (() => goToHomeSection('pedidos-personalizados'));
 
   return (
-    <div className="min-h-screen flex flex-col bg-transparent lg:w-[calc(100%-5rem)] lg:max-w-[1440px] lg:mx-auto lg:shadow-2xl lg:shadow-[#2F183C]/30 text-stone-900 font-sans selection:bg-[#2F183C] selection:text-[#DDA83A]">
+    <div className="min-h-screen flex flex-col max-md:pb-16 bg-transparent lg:w-[calc(100%-5rem)] lg:max-w-[1440px] lg:mx-auto lg:shadow-2xl lg:shadow-[#2F183C]/30 text-stone-900 font-sans selection:bg-[#2F183C] selection:text-[#DDA83A]">
       <Navbar
         cartItemCount={cart.totalCount}
         onOpenCart={() => cart.setOpen(true)}
@@ -35,6 +36,7 @@ export const SiteShell: React.FC<SiteShellProps> = ({ children, onNavigateToCust
         onGoToCustomOrder={goToCustomOrder}
       />
       <FloatingWhatsApp />
+      <MobileBottomBar onOrder={goToCustomOrder} />
     </div>
   );
 };

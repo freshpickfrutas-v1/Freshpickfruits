@@ -4,7 +4,7 @@ import { Leaf, Award, Recycle, Sun, Mountain, Users, HeartHandshake } from 'luci
 
 export const AboutAndSustainability: React.FC = () => {
   return (
-    <section id="sostenibilidad" className="py-12 sm:py-16 bg-white/85 backdrop-blur-[2px] border-b border-stone-200/80">
+    <section id="sostenibilidad" className="py-12 sm:py-16 bg-[#EEF4E8]/90 backdrop-blur-[2px] border-b border-[#D5E3C8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Origin & Philosophy Grid */}

@@ -1,18 +1,20 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   LayoutDashboard, Package, Users, ShoppingBag, ArrowLeft, Leaf,
-  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog
+  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog, Repeat
 } from 'lucide-react';
 import {
   subscribeProducts, addProduct, updateProduct, deleteProduct,
   subscribeAllOrders, subscribeUsers, setUserRole, ProductDoc,
 } from '../lib/firestore';
-import { FirestoreOrder, OrderStatus, ROLE_LABELS, STAFF_ROLES, UserProfile, UserRole } from '../types';
+import { FirestoreOrder, OrderStatus, ROLE_LABELS, STAFF_ROLES, SubscriptionDoc, UserProfile, UserRole } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { AuthGate } from '../components/AuthGate';
 import { OrdersBoard } from '../components/OrdersBoard';
 import { stageOf, normalizeStatus } from '../lib/orderFlow';
 import { importCatalog } from '../lib/catalog';
+import { SubscriptionsBoard } from '../components/SubscriptionsBoard';
+import { subscribeAllSubscriptions } from '../lib/subscriptions';
 import { FRUITS_DATA } from '../data/mockData';
 
 function isToday(iso: string) {
@@ -209,16 +211,39 @@ function ProductFormModal({
   );
 }
 
-type AdminTab = 'resumen' | 'pedidos' | 'productos' | 'clientes' | 'equipo';
+type AdminTab = 'resumen' | 'pedidos' | 'suscripciones' | 'productos' | 'clientes' | 'equipo';
 
 /** Which team roles can open each tab. Phase 2 refines this per workflow step. */
 const TAB_ROLES: Record<AdminTab, UserRole[]> = {
   resumen: ['admin'],
   pedidos: ['admin', 'finanzas', 'poscosecha', 'contabilidad', 'asistente', 'domiciliario'],
+  suscripciones: ['admin', 'finanzas', 'asistente', 'contabilidad'],
   productos: ['admin'],
   clientes: ['admin', 'contabilidad'],
   equipo: ['admin'],
 };
+
+function SubscriptionsTab({ role, email }: { role: UserRole | null; email: string }) {
+  const [items, setItems] = useState<SubscriptionDoc[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => subscribeAllSubscriptions(
+    list => { setItems(list); setLoading(false); },
+    err => { setError('No se pudieron cargar las suscripciones: ' + err.message); setLoading(false); }
+  ), []);
+
+  return (
+    <>
+      {error && (
+        <p className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-4 py-2.5 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 shrink-0" /> {error}
+        </p>
+      )}
+      <SubscriptionsBoard items={items} loading={loading} role={role} userEmail={email} />
+    </>
+  );
+}
 
 function TeamTab({ currentUid }: { currentUid: string }) {
   const [users, setUsers] = useState<UserProfile[]>([]);
@@ -403,6 +428,7 @@ function AdminPanelInner() {
           {([
             { id: 'resumen' as const, label: 'Resumen', icon: LayoutDashboard },
             { id: 'pedidos' as const, label: 'Pedidos', icon: ShoppingBag },
+            { id: 'suscripciones' as const, label: 'Suscripciones', icon: Repeat },
             { id: 'productos' as const, label: 'Productos', icon: Box },
             { id: 'clientes' as const, label: 'Clientes', icon: Users },
             { id: 'equipo' as const, label: 'Equipo', icon: UserCog },
@@ -424,6 +450,8 @@ function AdminPanelInner() {
 
         <main className="lg:col-span-10 space-y-6">
           {tab === 'equipo' && user && <TeamTab currentUid={user.uid} />}
+
+          {tab === 'suscripciones' && <SubscriptionsTab role={role} email={user?.email ?? ''} />}
 
           {tab === 'resumen' && (
             <>

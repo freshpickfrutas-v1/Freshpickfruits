@@ -243,6 +243,39 @@ export const ROLE_LABELS: Record<UserRole, string> = {
   customer: 'Cliente'
 };
 
+export type SubscriptionStatus = 'solicitada' | 'activa' | 'pausada' | 'cancelada';
+
+export interface SubscriptionHistoryEntry {
+  action: string;
+  at: string;
+  by: string;
+  note?: string;
+}
+
+export interface SubscriptionDoc {
+  id: string;
+  userId: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  planId: string;
+  planTitle: string;
+  planWeight: string;
+  deliveryFrequency: string;
+  priceMonth: number;
+  shippingAddress: string;
+  shippingCity: string;
+  status: SubscriptionStatus;
+  createdAt: string;
+  startDate?: string;
+  nextDelivery?: string;
+  notes?: string;
+  /** What the customer asked for from their panel; the team applies it. */
+  customerRequest?: 'pausar' | 'cancelar' | '';
+  customerRequestAt?: string;
+  history?: SubscriptionHistoryEntry[];
+}
+
 export interface SavedAddress {
   id: string;
   /** "Casa", "Oficina" or a custom name. */

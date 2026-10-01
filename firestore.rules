@@ -72,6 +72,26 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
 
+    // ---------- Suscripciones ----------
+    match /subscriptions/{subId} {
+      // El cliente solicita un plan a su nombre; nace "solicitada" y el equipo la activa.
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'solicitada'
+        && request.resource.data.planId is string
+        && request.resource.data.priceMonth is number;
+
+      // El equipo ve todas; el cliente solo las suyas.
+      allow read: if isStaff() || (isSignedIn() && resource.data.userId == request.auth.uid);
+
+      // El equipo gestiona; el cliente solo puede pedir pausa o cancelación (esos dos campos).
+      allow update: if isStaff()
+        || (isSignedIn() && resource.data.userId == request.auth.uid
+            && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['customerRequest', 'customerRequestAt']));
+
+      allow delete: if isAdmin();
+    }
+
     // ---------- Catálogo ----------
     match /products/{productId} {
       allow read: if true;

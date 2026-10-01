@@ -8,7 +8,8 @@ import { useAuth } from '../context/AuthContext';
 import { normalizeStatus } from '../lib/orderFlow';
 import { AuthGate } from '../components/AuthGate';
 import { AddressBook } from '../components/AddressBook';
-import { FirestoreOrder, SubscriptionPlan } from '../types';
+import { FirestoreOrder, SubscriptionDoc, SubscriptionPlan } from '../types';
+import { requestChange, requestSubscription, subscribeMySubscriptions, SUB_STATUS } from '../lib/subscriptions';
 import { SUBSCRIPTION_PLANS } from '../data/mockData';
 
 const statusLabel: Record<string, { text: string; color: string }> = {
@@ -24,6 +25,37 @@ const statusLabel: Record<string, { text: string; color: string }> = {
 
 function UserPanelInner() {
   const { user, profile, isStaff, signOut } = useAuth();
+
+  const [mySubs, setMySubs] = useState<SubscriptionDoc[]>([]);
+  const [subError, setSubError] = useState('');
+  const [subBusy, setSubBusy] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!user) return;
+    return subscribeMySubscriptions(user.uid, setMySubs, err => setSubError('No se pudieron cargar tus suscripciones: ' + err.message));
+  }, [user]);
+
+  const currentSub = (planId: string) => mySubs.find(m => m.planId === planId && m.status !== 'cancelada');
+
+  /** Opens WhatsApp right away (so the browser allows it) and records the request for the team. */
+  const choosePlan = async (plan: SubscriptionPlan) => {
+    if (!user) return;
+    window.open(subscribeLink(plan), '_blank', 'noopener,noreferrer');
+    setSubBusy(plan.id); setSubError('');
+    try {
+      const addr = profile?.addresses?.find(x => x.isDefault) ?? profile?.addresses?.[0];
+      await requestSubscription({ uid: user.uid, email: user.email, name: user.displayName ?? '' }, plan, addr);
+    } catch (err) {
+      setSubError(err instanceof Error ? 'No se pudo registrar tu solicitud: ' + err.message : 'No se pudo registrar tu solicitud.');
+    } finally { setSubBusy(null); }
+  };
+
+  const askChange = async (id: string, request: 'pausar' | 'cancelar' | '') => {
+    setSubBusy(id); setSubError('');
+    try { await requestChange(id, request); }
+    catch (err) { setSubError(err instanceof Error ? err.message : 'No se pudo enviar tu solicitud.'); }
+    finally { setSubBusy(null); }
+  };
 
   const subscribeLink = (plan: SubscriptionPlan) => {
     const addr = profile?.addresses?.find(x => x.isDefault) ?? profile?.addresses?.[0];
@@ -173,9 +205,43 @@ function UserPanelInner() {
             <div className="space-y-4">
               <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Mi suscripción</h1>
               <p className="text-sm text-stone-600">
-                Elige un plan y lo activamos contigo por WhatsApp, con tu dirección principal. Entregas los martes y miércoles de 8:00 a.m. a 3:00 p.m. Sin contratos de permanencia.
+                Elige un plan: registramos tu solicitud y abrimos WhatsApp para activarlo contigo, con tu dirección principal. Entregas los martes y miércoles de 8:00 a.m. a 3:00 p.m. Sin contratos de permanencia.
               </p>
 
+              {subError && (
+                <p className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-4 py-2.5 flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" /> {subError}
+                </p>
+              )}
+
+              {mySubs.some(m => m.status !== 'cancelada') && (
+                <div className="space-y-2">
+                  <h2 className="text-sm font-bold uppercase tracking-wider text-[#7B4382]">Tus suscripciones</h2>
+                  {mySubs.filter(m => m.status !== 'cancelada').map(m => (
+                    <div key={m.id} className="bg-white rounded-2xl border border-[#EADBEE] p-4 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                      <div className="space-y-0.5">
+                        <p className="font-bold text-[#2F183C]">{m.planTitle} <span className={`ml-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${SUB_STATUS[m.status].tone}`}>{SUB_STATUS[m.status].label}</span></p>
+                        <p className="text-xs text-stone-500">{m.deliveryFrequency} · ${m.priceMonth.toLocaleString('es-CO')} COP / mes</p>
+                        {m.status === 'solicitada' && <p className="text-xs text-stone-600">Recibimos tu solicitud. Te contactamos por WhatsApp para activarla.</p>}
+                        {m.status === 'activa' && m.nextDelivery && <p className="text-xs text-stone-600">Próxima entrega: {new Date(m.nextDelivery + 'T12:00:00').toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' })}</p>}
+                        {m.customerRequest && <p className="text-xs font-semibold text-amber-700">Solicitaste {m.customerRequest === 'pausar' ? 'pausar' : 'cancelar'} este plan. Lo confirmamos contigo.</p>}
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {m.customerRequest ? (
+                          <button onClick={() => askChange(m.id, '')} disabled={subBusy === m.id} className="text-xs font-bold text-stone-600 underline">Retirar solicitud</button>
+                        ) : (m.status === 'activa' || m.status === 'pausada') && (
+                          <>
+                            {m.status === 'activa' && <button onClick={() => askChange(m.id, 'pausar')} disabled={subBusy === m.id} className="px-3 py-2 rounded-xl border border-amber-300 text-amber-800 text-xs font-bold">Pedir pausa</button>}
+                            <button onClick={() => { if (window.confirm('¿Quieres cancelar este plan?')) askChange(m.id, 'cancelar'); }} disabled={subBusy === m.id} className="px-3 py-2 rounded-xl border border-red-200 text-red-700 text-xs font-bold">Pedir cancelación</button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <h2 className="text-sm font-bold uppercase tracking-wider text-[#7B4382] pt-1">Planes disponibles</h2>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 {SUBSCRIPTION_PLANS.map(plan => (
                   <div
@@ -207,14 +273,19 @@ function UserPanelInner() {
                         ))}
                       </ul>
                     </div>
-                    <a
-                      href={subscribeLink(plan)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold ${plan.isPopular ? 'bg-[#DDA83A] text-[#2F183C]' : 'bg-[#2F183C] text-white'}`}
-                    >
-                      <Phone className="w-4 h-4" /> Quiero este plan
-                    </a>
+                    {currentSub(plan.id) ? (
+                      <p className={`text-center text-sm font-bold py-3 rounded-xl ${plan.isPopular ? 'bg-[#432356] text-[#DDA83A]' : 'bg-[#F5ECF9] text-[#2F183C]'}`}>
+                        {SUB_STATUS[currentSub(plan.id)!.status].label === 'Solicitada' ? 'Solicitud enviada ✓' : 'Ya tienes este plan'}
+                      </p>
+                    ) : (
+                      <button
+                        onClick={() => choosePlan(plan)}
+                        disabled={subBusy === plan.id}
+                        className={`inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold disabled:opacity-60 ${plan.isPopular ? 'bg-[#DDA83A] text-[#2F183C]' : 'bg-[#2F183C] text-white'}`}
+                      >
+                        {subBusy === plan.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Phone className="w-4 h-4" />} Quiero este plan
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
@@ -224,7 +295,7 @@ function UserPanelInner() {
                 <a href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20info%20de%20suscripciones" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#7B4382] hover:underline">
                   Escríbenos por WhatsApp
                 </a>
-                . La gestión automática (pausar, cambiar o cancelar desde aquí) llegará pronto.
+                .
               </p>
             </div>
           )}

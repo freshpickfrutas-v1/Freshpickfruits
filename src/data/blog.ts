@@ -24,7 +24,7 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
   {
     id: 'cultivo-origen',
     name: 'Cultivo y Origen',
-    description: 'Cómo cultivamos en Guasca a más de 2.800 m.s.n.m. y lo que pasa en el mundo del arándano: cosechas, mercado y exportación.'
+    description: 'Cómo cultivamos en Guasca a más de 2.800 m.s.n.m. y el origen de los arándanos Fresh Pick.'
   }
 ];
 

@@ -1,0 +1,64 @@
+{
+  "slug": "cheesecake-de-arandanos-sin-horno",
+  "title": "Cheesecake de Arándanos sin Horno",
+  "excerpt": "Prepara un delicioso cheesecake de arándanos sin horno, con una textura suave, base crujiente y todo el dulzor natural de nuestra fruta favorita.",
+  "imageAlt": "Porción de cheesecake de arándanos sin horno sobre un plato blanco, decorado con arándanos frescos enteros en la parte superior.",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 30,
+  "cookMinutes": 0,
+  "restMinutes": 180,
+  "difficulty": "Fácil",
+  "servings": 8,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "200 gramos de galletas tipo María o integrales"
+    },
+    {
+      "text": "80 gramos de mantequilla derretida"
+    },
+    {
+      "text": "400 gramos de queso crema a temperatura ambiente"
+    },
+    {
+      "text": "200 mililitros de crema de leche fría"
+    },
+    {
+      "text": "100 gramos de azúcar pulverizada"
+    },
+    {
+      "text": "7 gramos de gelatina sin sabor en polvo"
+    },
+    {
+      "text": "4 cucharadas de agua"
+    }
+  ],
+  "steps": [
+    "Tritura las galletas hasta que queden como polvo fino y mézclalas con la mantequilla derretida.",
+    "Compacta esta mezcla en el fondo de un molde desmontable de 20 centímetros y llévalo a la nevera mientras preparas el relleno.",
+    "Hidrata la gelatina sin sabor en las cuatro cucharadas de agua y, tras un minuto, disuélvela en el microondas durante 15 segundos sin dejar que hierva.",
+    "Bate el queso crema junto con el azúcar pulverizada hasta obtener una mezcla suave y cremosa.",
+    "Añade la crema de leche fría y continúa batiendo hasta que tome algo de cuerpo.",
+    "Incorpora la gelatina disuelta en forma de hilo mientras bates suavemente para integrarla por completo.",
+    "Agrega la mitad de los arándanos de alta montaña cultivados en Guasca enteros y revuelve con una espátula con movimientos envolventes.",
+    "Vierte la mezcla sobre la base de galleta, alisa la superficie y decora con el resto de los frutos encima. Refrigera por lo menos durante 3 horas antes de desmoldar."
+  ],
+  "tips": [
+    "Para conservar mejor la pruina natural y la firmeza de la fruta que no uses en la decoración, guárdalos en la nevera sin lavar hasta el momento de consumirlos.",
+    "Puedes pasar el molde por agua tibia unos segundos por fuera para que el cheesecake desmolde con mayor facilidad.",
+    "Saca el postre de la nevera diez minutos antes de servir para disfrutarlo con una textura mucho más cremosa."
+  ],
+  "date": "2026-10-02",
+  "publicadoEn": "2026-10-02T14:09:48.153Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/cheesecake-de-arandanos-sin-horno.jpg"
+}

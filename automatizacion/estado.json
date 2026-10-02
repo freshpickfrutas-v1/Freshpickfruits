@@ -14,7 +14,8 @@
     "https://blueberriesconsulting.com/arandanos-peruanos-asia-exige-una-estrategia-cada-vez-mas-segmentada/",
     "https://pubmed.ncbi.nlm.nih.gov/42790922/",
     "https://blueberriesconsulting.com/arandanos-peruanos-la-calidad-que-define-su-valor-en-los-mercados-internacionales/",
-    "https://pubmed.ncbi.nlm.nih.gov/42251891/"
+    "https://pubmed.ncbi.nlm.nih.gov/42251891/",
+    "https://pubmed.ncbi.nlm.nih.gov/42796485/"
   ],
   "historial": [
     {
@@ -124,6 +125,18 @@
       "tipo": "receta",
       "slug": "waffles-integrales-de-arandanos",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-02",
+      "tipo": "receta",
+      "slug": "cheesecake-de-arandanos-sin-horno",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-02",
+      "tipo": "noticia",
+      "slug": "impacto-del-procesamiento-termico-y-el-almacenamiento-en-los-arandanos",
+      "modo": "revision"
     }
   ]
 }

@@ -115,7 +115,8 @@
     "titulo": "Cheesecake de Arándanos sin Horno",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-02"
   },
   {
     "orden": 14,

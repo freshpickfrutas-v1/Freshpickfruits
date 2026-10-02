@@ -1,0 +1,80 @@
+{
+  "slug": "impacto-del-procesamiento-termico-y-el-almacenamiento-en-los-arandanos",
+  "title": "Impacto del procesamiento térmico y el almacenamiento en los arándanos",
+  "metaDescription": "Analizamos un estudio científico sobre cómo el calor y el almacenamiento afectan la calidad, los compuestos bioactivos y el aroma de los arándanos.",
+  "excerpt": "Un reciente estudio científico examina cómo los tratamientos térmicos y las temperaturas de almacenamiento alteran la calidad y el aroma de los arándanos.",
+  "category": "nutricion-ciencia",
+  "date": "2026-10-02",
+  "publicadoEn": "2026-10-02T14:16:47.049Z",
+  "readMinutes": 3,
+  "author": "Equipo Fresh Pick",
+  "imageAlt": "Vasos con jugo de arándanos fresco y frutos enteros sobre una mesa de madera.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introducción: de qué trata y por qué importa"
+    },
+    {
+      "type": "p",
+      "text": "El jugo de arándanos es sumamente valorado tanto por su distintivo sabor como por sus compuestos bioactivos que promueven la salud. Sin embargo, los procesos térmicos a los que a menudo se somete y el almacenamiento posterior pueden alterar de manera significativa su calidad general y su perfil aromático. Comprender estos cambios es fundamental para la industria y para los consumidores que buscan conservar las mejores propiedades de esta fruta."
+    },
+    {
+      "type": "h2",
+      "text": "Qué dice la fuente: el hallazgo o hecho principal"
+    },
+    {
+      "type": "p",
+      "text": "Un estudio publicado en la revista científica Molecules evaluó los efectos de la pasteurización (PT, a 90 grados centígrados durante 30 segundos) y el procesamiento a temperatura ultra alta (UHT, a 135 grados centígrados durante 6 segundos) en el jugo de arándanos. La investigación analizó las propiedades fisicoquímicas, los compuestos bioactivos, la actividad antioxidante, los perfiles volátiles y las características sensoriales durante un almacenamiento de cuatro semanas a tres temperaturas diferentes: 4, 25 y 35 grados centígrados."
+    },
+    {
+      "type": "p",
+      "text": "Los resultados indicaron que, si bien ambos tratamientos térmicos garantizaron la seguridad microbiana, el proceso UHT causó un mayor deterioro del color, una mayor pérdida de compuestos fenólicos y antocianinas, y la formación de compuestos con sabores indeseados. Por el contrario, la pasteurización logró preservar de mejor manera el color, los componentes bioactivos y el aroma frutal natural. Asimismo, la temperatura de almacenamiento demostró ser el factor determinante en la disminución de la calidad, encontrando que mantenerse a 4 grados centígrados retarda de forma significativa este deterioro."
+    },
+    {
+      "type": "p",
+      "text": "Un aspecto clave del estudio fue el análisis de los enantiómeros del linalool, compuestos aromáticos quirales. Los investigadores observaron que la pasteurización indujo principalmente la isomerización del (R)-linalool hacia la forma (S), mientras que el proceso UHT provocó la degradación directa del (R)-linalool. Esto demuestra la importancia de monitorear la composición enantiomérica para evaluar de manera precisa la calidad del sabor."
+    },
+    {
+      "type": "h2",
+      "text": "Contexto: cómo encaja con lo que ya se sabe sobre los arándanos"
+    },
+    {
+      "type": "p",
+      "text": "Hasta el momento, la mayor parte de las investigaciones científicas se habían enfocado en medir los perfiles volátiles totales de los alimentos derivados de los arándanos. No obstante, el comportamiento específico de los compuestos de aroma quiral, y en particular los enantiómeros del linalool, no se entendía con claridad. Este nuevo trabajo amplía la perspectiva previa al demostrar que no basta con medir la cantidad total de una sustancia, sino que es vital entender cómo cambian sus formas moleculares específicas debido al calor y al paso del tiempo."
+    },
+    {
+      "type": "h2",
+      "text": "Qué significa para ti: aplicación práctica"
+    },
+    {
+      "type": "p",
+      "text": "Para quienes disfrutan de los derivados del arándano en su día a día, este estudio ofrece una guía útil sobre cómo se comportan los alimentos procesados. Los datos sugieren que los métodos de conservación más suaves, combinados con una adecuada refrigeración a cuatro grados centígrados, son herramientas muy efectivas para mantener tanto la estabilidad del sabor como la calidad general del producto. A nivel práctico, refuerza la idea de priorizar productos mínimamente procesados y mantenerlos debidamente refrigerados para aprovechar al máximo sus características organolépticas."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusión"
+    },
+    {
+      "type": "p",
+      "text": "En Noticias de Arándanos celebramos la ciencia que nos permite entender mejor cada fruto, recordando que en nuestra finca en Guasca cultivamos arándanos con prácticas naturales que garantizan un dulzor y una frescura excepcionales desde la alta montaña."
+    }
+  ],
+  "fuentes": [
+    {
+      "titulo": "Impact of Thermal Processing and Storage on the Quality and Chirality of Linalool in Blueberry Juice.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42796485/",
+      "medio": "PubMed · Molecules (Basel, Switzerland)",
+      "idioma": "en"
+    }
+  ],
+  "relatedRecipes": [
+    "refresco-de-arandanos-con-hierbabuena",
+    "te-helado-de-arandanos",
+    "smoothie-de-arandanos-y-avena"
+  ],
+  "estado": "publicado",
+  "modo": "revision",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/impacto-del-procesamiento-termico-y-el-almacenamiento-en-los-arandanos.jpg"
+}

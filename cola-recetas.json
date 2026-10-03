@@ -124,7 +124,8 @@
     "titulo": "Agua Saborizada de Arándanos y Pepino",
     "categoria": "bebidas-refrescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-03"
   },
   {
     "orden": 15,

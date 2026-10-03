@@ -1,0 +1,53 @@
+{
+  "slug": "agua-saborizada-de-arandanos-y-pepino",
+  "title": "Agua Saborizada de Arándanos y Pepino",
+  "excerpt": "Un refresco ligero y elegante que combina la frescura del pepino con el dulzor natural de nuestros arándanos de alta montaña. Ideal para hidratarte con un toque gourmet en cualquier momento del día.",
+  "imageAlt": "Una jarra de vidrio transparente llena de agua cristalina con arándanos flotando, rodajas finas de pepino y hojas de menta fresca sobre una mesa de madera rústica.",
+  "category": "bebidas-refrescos",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 0,
+  "restMinutes": 60,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1/2 pepino cohombro, cortado en rodajas muy delgadas"
+    },
+    {
+      "text": "1 litro de agua fría (con o sin gas)"
+    },
+    {
+      "text": "5 hojas de menta fresca"
+    },
+    {
+      "text": "Hielo al gusto"
+    }
+  ],
+  "steps": [
+    "Lava muy bien las rodajas de pepino y las hojas de menta.",
+    "Toma la mitad de tus arándanos Fresh Pick y presiónalos suavemente con un tenedor en el fondo de un tazón para que liberen sus jugos y su dulzor natural sin deshacerse por completo.",
+    "En una jarra de vidrio grande, coloca los arándanos ligeramente presionados junto con los arándanos que dejaste enteros para decorar.",
+    "Agrega las rodajas de pepino cohombro y las hojas de menta, dándoles un pequeño golpe previo entre tus manos para activar su aroma.",
+    "Vierte el litro de agua fría sobre la mezcla y revuelve delicadamente con una cuchara larga.",
+    "Lleva la jarra a la nevera por lo menos durante una hora para permitir que el agua absorba todos los aromas y adquiera un hermoso tono lila.",
+    "Sirve bien frío en vasos altos con abundante hielo."
+  ],
+  "tips": [
+    "Al usar arándanos Fresh Pick, cultivados en la alta montaña de Guasca a más de 2.800 metros de altura, disfrutas de una fruta tan dulce y jugosa que no necesitarás añadir azúcar ni endulzantes a tu agua.",
+    "No deseches las frutas al terminar el agua. Al final de tu bebida, puedes comerte los arándanos y el pepino; habrán absorbido un toque de menta delicioso y refrescante."
+  ],
+  "date": "2026-10-03",
+  "publicadoEn": "2026-10-03T18:29:11.388Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/agua-saborizada-de-arandanos-y-pepino.jpg"
+}

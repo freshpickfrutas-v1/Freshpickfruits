@@ -133,7 +133,8 @@
     "titulo": "Batido de Arándanos con Kumis",
     "categoria": "smoothies-batidos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-04"
   },
   {
     "orden": 16,

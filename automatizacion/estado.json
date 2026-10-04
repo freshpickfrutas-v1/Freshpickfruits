@@ -16,7 +16,8 @@
     "https://blueberriesconsulting.com/arandanos-peruanos-la-calidad-que-define-su-valor-en-los-mercados-internacionales/",
     "https://pubmed.ncbi.nlm.nih.gov/42251891/",
     "https://pubmed.ncbi.nlm.nih.gov/42796485/",
-    "https://pubmed.ncbi.nlm.nih.gov/42794096/"
+    "https://pubmed.ncbi.nlm.nih.gov/42794096/",
+    "https://pubmed.ncbi.nlm.nih.gov/42825007/"
   ],
   "historial": [
     {
@@ -150,6 +151,12 @@
       "tipo": "noticia",
       "slug": "como-proteger-los-antioxidantes-del-arandano-el-poder-de-la-pectina-de-manzana",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-04",
+      "tipo": "receta",
+      "slug": "batido-de-arandanos-y-kumis",
+      "modo": "automatico"
     }
   ]
 }

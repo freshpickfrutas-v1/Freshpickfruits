@@ -1,0 +1,52 @@
+{
+  "slug": "batido-de-arandanos-y-kumis",
+  "title": "Batido de Arándanos con Kumis",
+  "excerpt": "Disfruta de una bebida súper cremosa y con el toque tradicional de nuestra tierra. Este batido combina la suavidad del kumis con el dulzor natural de los arándanos Fresh Pick.",
+  "imageAlt": "Un vaso de vidrio alto con un batido de color morado vibrante, decorado con arándanos frescos en el tope, sobre una mesa de madera rústica.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 tazas de kumis frío"
+    },
+    {
+      "text": "1 cucharada de miel de abejas"
+    },
+    {
+      "text": "1/4 de cucharadita de canela en polvo"
+    },
+    {
+      "text": "4 cubos de hielo (opcional)"
+    }
+  ],
+  "steps": [
+    "Lava los arándanos Fresh Pick con cuidado. Recuerda no frotarlos con fuerza para conservar su pruina natural, esa capita blanquecina que los protege.",
+    "Lleva los arándanos a la licuadora junto con las dos tazas de kumis bien frío.",
+    "Añade la cucharada de miel de abejas y la pizca de canela en polvo para darle un toque aromático delicioso.",
+    "Licúa a velocidad alta durante 1 o 2 minutos, hasta que la mezcla esté completamente homogénea y adquiera un tono violeta intenso.",
+    "Si prefieres una consistencia más fría y densa, incorpora los cubos de hielo y licúa por 30 segundos más.",
+    "Sirve inmediatamente en vasos fríos y decora con un par de arándanos enteros encima."
+  ],
+  "tips": [
+    "Nuestros arándanos Fresh Pick son cultivados con amor en la alta montaña de Guasca, Cundinamarca; gracias a esto y a su dulzor natural de hasta 15° Brix, notarás que casi no hace falta añadir endulzantes a la receta.",
+    "Para lograr una textura de batido tipo frappé espectacular, congela los arándanos en una bolsa hermética la noche anterior antes de preparar la receta."
+  ],
+  "date": "2026-10-04",
+  "publicadoEn": "2026-10-04T18:45:33.093Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/batido-de-arandanos-y-kumis.jpg"
+}

@@ -142,7 +142,8 @@
     "titulo": "Ensalada de Pollo, Arándanos y Nueces",
     "categoria": "ensaladas-platos-frescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-05"
   },
   {
     "orden": 17,

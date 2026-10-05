@@ -1,0 +1,57 @@
+{
+  "slug": "ensalada-de-pollo-arandanos-y-nueces",
+  "title": "Ensalada de Pollo, Arándanos y Nueces",
+  "excerpt": "Disfruta de una colorida y crujiente ensalada de pollo, arándanos y nueces, perfecta para un almuerzo fresco, ligero y lleno de sabor casero.",
+  "imageAlt": "Ensalada fresca en un tazón hondo con trozos de pollo dorados, nueces y abundantes arándanos enteros.",
+  "category": "ensaladas-platos-frescos",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 pechugas de pollo cocinadas y desmenuzadas o en cubos"
+    },
+    {
+      "text": "4 tazas de lechuga batavia o mixta picada"
+    },
+    {
+      "text": "Media taza de nueces picadas"
+    },
+    {
+      "text": "3 cucharadas de aceite de oliva"
+    },
+    {
+      "text": "1 cucharada de jugo de limón"
+    },
+    {
+      "text": "Una pizca de sal y pimienta al gusto"
+    }
+  ],
+  "steps": [
+    "Lava muy bien la lechuga y desinféctala, luego córtala en trozos medianos y colócala en una ensaladera grande como base.",
+    "Distribuye los cubos o trozos de pollo cocinado sobre la cama de lechuga de forma uniforme.",
+    "Incorpora las nueces picadas para darle un toque crujiente a la preparación.",
+    "Agrega los arándanos Fresh Pick, cultivados en las altas montañas de Guasca, para aportar su característico dulzor natural y color vibrante.",
+    "En un recipiente pequeño, mezcla el aceite de oliva, el jugo de limón, la sal y la pimienta hasta obtener un aderezo homogéneo.",
+    "Vierte el aderezo sobre la ensalada justo antes de servir y revuelve con suavidad para integrar todos los sabores."
+  ],
+  "tips": [
+    "Para conservar la frescura y la pruina natural de los arándanos, guárdalos en la nevera sin lavar y en su empaque original hasta el momento de usarlos.",
+    "Puedes tostar ligeramente las nueces en una sartén a fuego bajo por un par de minutos para intensificar su aroma antes de añadirlas a la ensalada."
+  ],
+  "date": "2026-10-05",
+  "publicadoEn": "2026-10-05T14:11:46.406Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/ensalada-de-pollo-arandanos-y-nueces.jpg"
+}

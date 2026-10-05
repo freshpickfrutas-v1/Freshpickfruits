@@ -157,6 +157,12 @@
       "tipo": "receta",
       "slug": "batido-de-arandanos-y-kumis",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-05",
+      "tipo": "receta",
+      "slug": "ensalada-de-pollo-arandanos-y-nueces",
+      "modo": "automatico"
     }
   ]
 }

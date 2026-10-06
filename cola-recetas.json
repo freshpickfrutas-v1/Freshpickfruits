@@ -151,7 +151,8 @@
     "titulo": "Tostadas Francesas con Compota de Arándanos",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-06"
   },
   {
     "orden": 18,

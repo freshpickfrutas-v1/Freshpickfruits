@@ -1,0 +1,59 @@
+{
+  "slug": "tostadas-francesas-con-compota-de-arandanos",
+  "title": "Tostadas Francesas con Compota de Arándanos",
+  "excerpt": "Disfruta un desayuno especial con estas tostadas francesas doraditas y una compota tibia de arándanos de alta montaña.",
+  "imageAlt": "Tostadas francesas doradas servidas en un plato blanco con una generosa compota tibia de arándanos frescos.",
+  "category": "desayunos",
+  "extraCategories": [
+    "postres-saludables"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza y media de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "4 rebanadas de pan brioche o pan tajado grueso"
+    },
+    {
+      "text": "2 huevos"
+    },
+    {
+      "text": "Media taza de leche"
+    },
+    {
+      "text": "1 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1 cucharadita de canela en polvo"
+    },
+    {
+      "text": "2 cucharadas de azúcar o panela rallada"
+    },
+    {
+      "text": "1 cucharada de mantequilla para cocinar"
+    }
+  ],
+  "steps": [
+    "En un tazón hondo, bate los huevos junto con la leche, la vainilla y la mitad de la canela hasta que todo esté bien integrado.",
+    "Para la compota, coloca los arándanos Fresh Pick en una sartén pequeña a fuego medio con el azúcar y dos cucharadas de agua. Cocina por 5 minutos hasta que la fruta libere sus jugos y se forme una salsa espesa.",
+    "Pasa cada rebanada de pan por la mezcla de huevo, asegurándote de que se humedezcan bien por ambos lados pero sin deshacerse.",
+    "Calienta una sartén amplia con la mantequilla a fuego medio. Pon las rebanadas de pan y dóralas durante 3 minutos por lado y lado hasta que estén crujientes y doraditas.",
+    "Sirve las tostadas francesas calientes recién salidas de la sartén y báñalas generosamente con la compota tibia de arándanos cultivados en Guasca."
+  ],
+  "tips": [
+    "Para conservar mejor tus arándanos en casa, guárdalos en la nevera sin lavar y retira los que notes muy maduros antes de guardarlos.",
+    "Si prefieres un toque más aromático, puedes añadir una pizca de ralladura de limón a la compota mientras se cocina en la sartén."
+  ],
+  "date": "2026-10-06",
+  "publicadoEn": "2026-10-06T14:10:54.565Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/tostadas-francesas-con-compota-de-arandanos.jpg"
+}

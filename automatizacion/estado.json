@@ -17,7 +17,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42251891/",
     "https://pubmed.ncbi.nlm.nih.gov/42796485/",
     "https://pubmed.ncbi.nlm.nih.gov/42794096/",
-    "https://pubmed.ncbi.nlm.nih.gov/42825007/"
+    "https://pubmed.ncbi.nlm.nih.gov/42825007/",
+    "https://pubmed.ncbi.nlm.nih.gov/42833173/"
   ],
   "historial": [
     {
@@ -163,6 +164,18 @@
       "tipo": "receta",
       "slug": "ensalada-de-pollo-arandanos-y-nueces",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-06",
+      "tipo": "receta",
+      "slug": "tostadas-francesas-con-compota-de-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-06",
+      "tipo": "noticia",
+      "slug": "impacto-del-procesamiento-termico-frente-a-la-alta-presion-en-los-arandanos",
+      "modo": "revision"
     }
   ]
 }

@@ -1,0 +1,76 @@
+{
+  "slug": "impacto-del-procesamiento-termico-frente-a-la-alta-presion-en-los-arandanos",
+  "title": "Impacto del procesamiento térmico frente a la alta presión en los arándanos",
+  "metaDescription": "Analizamos un estudio científico sobre cómo el procesamiento térmico y la ultra-alta presión afectan los perfiles de antocianinas en el jugo de arándanos.",
+  "excerpt": "Un estudio científico reciente analizó cómo el procesamiento térmico y la ultra-alta presión afectan las propiedades del jugo de arándanos.",
+  "category": "nutricion-ciencia",
+  "date": "2026-10-06",
+  "publicadoEn": "2026-10-06T14:20:57.561Z",
+  "readMinutes": 3,
+  "author": "Equipo Fresh Pick",
+  "imageAlt": "Jugo de arándanos frescos en un vaso de vidrio junto a arándanos enteros sobre una mesa de madera.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introducción: métodos de procesamiento en el jugo de arándanos"
+    },
+    {
+      "type": "p",
+      "text": "Cuando consumimos arándanos en presentaciones líquidas, el método mediante el cual se procesa el alimento juega un papel fundamental en su composición final. En el ámbito de la ciencia de los alimentos, comprender cómo distintas tecnologías alteran los compuestos naturales de la fruta es un tema de constante investigación. Recientemente, un estudio publicado en la literatura científica abordó esta temática para entender mejor qué sucede a nivel molecular cuando preparamos jugo de arándanos bajo diferentes condiciones técnicas."
+    },
+    {
+      "type": "h2",
+      "text": "Qué dice la fuente sobre el procesamiento térmico y la alta presión"
+    },
+    {
+      "type": "p",
+      "text": "La investigación científica comparó dos métodos principales aplicados al jugo de arándanos: el procesamiento térmico (TP, a 85 °C durante 30 minutos) y el procesamiento por ultra-alta presión (UHP, entre 300 y 600 MPa durante 5 a 15 minutos). Los autores evaluaron los impactos de ambas técnicas en los perfiles de antocianinas y la composición metabólica general del jugo."
+    },
+    {
+      "type": "p",
+      "text": "Los resultados mostraron que el procesamiento térmico produjo contenidos significativamente mayores de antocianinas totales, flavonoides y compuestos fenólicos, además de una mayor actividad antioxidante en comparación con la ultra-alta presión. El análisis metabolómico dirigido indicó que, bajo el procesamiento térmico, tres monómeros de antocianinas y cinco proantocianidinas aumentaron entre un 19% y un 181%, mientras que tres monómeros de tipo cianidina disminuyeron entre un 17% y un 20%. Esto sugiere un proceso simultáneo de liberación y degradación. Por otro lado, la ultra-alta presión generó cambios metabólicos menores y mantuvo las especies de antocianinas prácticamente sin alteraciones, reflejando una interrupción no térmica más suave."
+    },
+    {
+      "type": "h2",
+      "text": "Contexto: el comportamiento de los compuestos del arándano"
+    },
+    {
+      "type": "p",
+      "text": "Estos hallazgos aportan información específica sobre la estabilidad de los compuestos bioactivos presentes en los frutos silvestres y cultivados. Se sabe que las antocianinas son los pigmentos responsables de la coloración característica de los arándanos y que poseen una alta capacidad antioxidante. El estudio demuestra que la aplicación de calor puede facilitar la liberación de estos compuestos desde las estructuras celulares de la fruta, aunque también puede inducir la degradación de ciertos monómeros específicos. En contraste, las tecnologías no térmicas como la ultra-alta presión buscan conservar de forma más fiel el perfil nativo de la materia prima sin recurrir a temperaturas elevadas."
+    },
+    {
+      "type": "h2",
+      "text": "Qué significa para ti en la práctica diaria"
+    },
+    {
+      "type": "p",
+      "text": "Desde una perspectiva práctica, este tipo de investigaciones científicas ofrecen guías útiles para la industria alimentaria al momento de seleccionar tecnologías que maximicen la presencia de compuestos deseables en los jugos comerciales. Para quienes disfrutamos de los arándanos en casa, ya sea en preparaciones frescas o procesadas, comprender que cada método de manipulación altera sutilmente la química del fruto nos recuerda la importancia de valorar tanto las opciones frescas como aquellas elaboradas mediante procesos controlados que cuidan la calidad nutricional de los alimentos."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusión"
+    },
+    {
+      "type": "p",
+      "text": "El estudio demuestra que las técnicas de procesamiento influyen de manera directa en la química del jugo de arándanos. En Noticias de Arándanos seguimos de cerca la ciencia para ofrecerte información rigurosa sobre este maravilloso fruto."
+    }
+  ],
+  "fuentes": [
+    {
+      "titulo": "Targeted metabolomics reveals differential anthocyanin profiles in blueberry juice after thermal versus ultra-high pressure processing.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42833173/",
+      "medio": "PubMed · Food chemistry",
+      "idioma": "en"
+    }
+  ],
+  "relatedRecipes": [
+    "agua-saborizada-de-arandanos-y-pepino",
+    "batido-de-arandanos-y-kumis",
+    "smoothie-de-arandanos-y-avena"
+  ],
+  "estado": "publicado",
+  "modo": "revision",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/impacto-del-procesamiento-termico-frente-a-la-alta-presion-en-los-arandanos.jpg"
+}

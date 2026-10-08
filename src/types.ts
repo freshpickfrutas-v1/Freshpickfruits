@@ -398,6 +398,7 @@ export interface FirestoreOrder {
   /** Scheduled dispatch day (YYYY-MM-DD). */
   dispatchDate?: string;
   dispatchedAt?: string;
+  wompiTransactionId?: string;
   deliveredAt?: string;
   history?: OrderHistoryEntry[];
 }

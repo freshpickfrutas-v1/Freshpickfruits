@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { saveAddresses, hasAddress, newAddressId, MAX_ADDRESSES } from '../lib/addresses';
 import { BOGOTA, PlacePick, mapsLink } from '../lib/maps';
 import { AddressField } from './AddressField';
+import { WompiPayButton } from './WompiPayButton';
 import {
   Sparkles,
   CheckCircle2,
@@ -206,6 +207,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [saveError, setSaveError] = useState('');
+  const [savedOrderDocId, setSavedOrderDocId] = useState('');
 
   const totalGrams = fruits.reduce((sum, f) => sum + (fruitGrams[f.id] || 0), 0);
   const subtotal = Object.entries(fruitGrams).reduce<number>((sum, [fruitId, grams]) => {
@@ -351,6 +353,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         paymentMethod: 'nequi_daviplata',
       });
       orderId = saved.orderNumber;
+      setSavedOrderDocId(saved.id);
       if (user && saveNewAddress && isNewAddress && savedAddresses.length < MAX_ADDRESSES) {
         try {
           await saveAddresses(user.uid, [
@@ -451,6 +454,12 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               <p className="mt-3 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-xl px-3 py-2 text-left flex gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" /> {saveError}
               </p>
+            )}
+            {savedOrderDocId && (
+              <WompiPayButton
+                orderId={savedOrderDocId}
+                customer={{ name: completedOrder.customerName, email: customerEmail.trim() || (user?.email ?? ''), phone: completedOrder.customerPhone }}
+              />
             )}
             <a
               href={`https://wa.me/${WA}?text=${encodeURIComponent(completedMessage)}`}

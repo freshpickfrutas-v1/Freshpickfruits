@@ -195,6 +195,7 @@ const OrderModal: React.FC<{
                   <div className="flex justify-between gap-2"><dt className="text-stone-500">ID de transacción</dt><dd className="font-semibold break-all text-right">{order.payment.transactionId}</dd></div>
                   <div className="flex justify-between gap-2"><dt className="text-stone-500">Valor cobrado</dt><dd className="font-semibold">{money(order.payment.amount)}</dd></div>
                   <div className="flex justify-between gap-2"><dt className="text-stone-500">Aprobado</dt><dd className="font-semibold">{when(order.payment.approvedAt)}</dd></div>
+                  <div className="flex justify-between gap-2"><dt className="text-stone-500">Fecha de entrega</dt><dd className="font-semibold">{shortDay(order.deliveryDate)}</dd></div>
                   {order.payment.amount !== order.total && <p className="text-amber-700 pt-1">El valor cobrado no coincide con el total del pedido ({money(order.total)}).</p>}
                 </dl>
               ) : (
@@ -399,6 +400,30 @@ const NewOrderModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   );
 };
 
+/** Everything a person might paste from Wompi or a bank receipt to find an order. */
+const searchText = (o: FirestoreOrder) =>
+  [o.orderNumber, o.customerName, o.customerEmail, o.customerPhone, o.payment?.reference, o.payment?.transactionId, o.wompiTransactionId]
+    .filter(Boolean).join(' ').toLowerCase();
+
+const csvCell = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+
+/** Paid orders as a CSV to compare against the Wompi / bank report. */
+function exportPaymentsCsv(orders: FirestoreOrder[]) {
+  const head = ['N° pedido', 'Cliente', 'Correo', 'Método', 'Origen del pago', 'Referencia', 'ID de transacción', 'Valor cobrado', 'Total del pedido', 'Aprobado', 'Fecha de entrega', 'Despacho', 'Entregado', 'Factura'];
+  const rows = orders.filter(o => o.payment).map(o => [
+    o.orderNumber, o.customerName, o.customerEmail, paymentMethodLabel(o.payment!.method), o.payment!.source,
+    o.payment!.reference, o.payment!.transactionId, o.payment!.amount, o.total, o.payment!.approvedAt,
+    o.deliveryDate ?? '', o.dispatchDate ?? '', o.deliveredAt ?? '', o.invoiceNumber ?? '',
+  ]);
+  const csv = '﻿' + [head, ...rows].map(r => r.map(csvCell).join(',')).join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `pagos-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 // ---------- Board ----------
 export const OrdersBoard: React.FC<{
   orders: FirestoreOrder[]; loading: boolean; role: UserRole | null; userEmail: string;
@@ -409,11 +434,13 @@ export const OrdersBoard: React.FC<{
   const [showCancelled, setShowCancelled] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
   const [showNew, setShowNew] = useState(false);
+  const [search, setSearch] = useState('');
 
   const open = orders.find(o => o.id === openId) ?? null;
+  const q = search.trim().toLowerCase();
   const visible = useMemo(
-    () => orders.filter(o => (onlyMine ? isMine(o, role) : true) && (origin === 'todos' || originOf(o) === origin)),
-    [orders, onlyMine, role, origin]
+    () => orders.filter(o => (onlyMine ? isMine(o, role) : true) && (origin === 'todos' || originOf(o) === origin) && (!q || searchText(o).includes(q))),
+    [orders, onlyMine, role, origin, q]
   );
   const countBy = (k: Origin) => orders.filter(o => originOf(o) === k).length;
   const cancelled = visible.filter(o => normalizeStatus(o.status) === 'cancelado');
@@ -428,6 +455,17 @@ export const OrdersBoard: React.FC<{
             <button onClick={() => setView('kanban')} className={`px-3 py-2 text-xs font-bold inline-flex items-center gap-1.5 ${view === 'kanban' ? 'bg-[#2F183C] text-white' : 'text-stone-600'}`}><LayoutGrid className="w-4 h-4" /> Tablero</button>
             <button onClick={() => setView('tabla')} className={`px-3 py-2 text-xs font-bold inline-flex items-center gap-1.5 ${view === 'tabla' ? 'bg-[#2F183C] text-white' : 'text-stone-600'}`}><Table2 className="w-4 h-4" /> Tabla</button>
           </div>
+          <input
+            type="search"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Buscar pedido, referencia o ID de Wompi"
+            aria-label="Buscar pedido, referencia o ID de transacción"
+            className="px-3 py-2 rounded-xl text-xs border border-[#EADBEE] bg-white w-64"
+          />
+          <button onClick={() => exportPaymentsCsv(visible)} className="px-3 py-2 rounded-xl text-xs font-bold border border-[#EADBEE] bg-white text-stone-600">
+            Exportar pagos (CSV)
+          </button>
           <select
             value={origin}
             onChange={e => setOrigin(e.target.value as 'todos' | Origin)}

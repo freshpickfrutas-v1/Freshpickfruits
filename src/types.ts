@@ -336,8 +336,24 @@ export interface BillingData {
   address?: string;
 }
 
+/** How the customer paid: kept on every order for reconciliation (gateway or manual capture). */
+export interface PaymentRecord {
+  /** Reference sent to the gateway, or the one the team writes for a manual payment. */
+  reference: string;
+  /** Transaction id from the gateway, or the bank/Nequi receipt number. */
+  transactionId: string;
+  /** 'tarjeta' | 'pse' | 'nequi' | 'daviplata' | 'transferencia' | 'bre_b' (other gateway methods are kept as received). */
+  method: string;
+  /** Amount charged, in COP. */
+  amount: number;
+  /** When the payment was approved (ISO). */
+  approvedAt: string;
+  source: 'wompi' | 'manual';
+  recordedBy: string;
+}
+
 export interface OrderHistoryEntry {
-  status: OrderStatus | 'factura' | 'pago';
+  status: OrderStatus | 'factura' | 'pago' | 'despacho';
   at: string;
   by: string;
   note?: string;
@@ -378,5 +394,10 @@ export interface FirestoreOrder {
   invoiceStatus?: 'pendiente' | 'emitida';
   invoiceNumber?: string;
   invoiceUrl?: string;
+  payment?: PaymentRecord;
+  /** Scheduled dispatch day (YYYY-MM-DD). */
+  dispatchDate?: string;
+  dispatchedAt?: string;
+  deliveredAt?: string;
   history?: OrderHistoryEntry[];
 }

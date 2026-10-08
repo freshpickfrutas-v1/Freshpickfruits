@@ -35,6 +35,38 @@ const LEGACY: Record<string, OrderStatus> = {
   en_camino: 'en_ruta',
 };
 
+/** Ways to pay, as they are stored in payment.method. */
+export const PAYMENT_METHODS: { id: string; label: string }[] = [
+  { id: 'tarjeta', label: 'Tarjeta' },
+  { id: 'pse', label: 'PSE' },
+  { id: 'nequi', label: 'Nequi' },
+  { id: 'daviplata', label: 'Daviplata' },
+  { id: 'transferencia', label: 'Transferencia bancaria' },
+  { id: 'bre_b', label: 'Bre-B' },
+];
+
+export function paymentMethodLabel(id?: string): string {
+  if (!id) return '';
+  return PAYMENT_METHODS.find(m => m.id === id)?.label ?? id.replace(/_/g, ' ').toLowerCase().replace(/^./, c => c.toUpperCase());
+}
+
+const localDay = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+/** Suggested dispatch day: the date the customer asked for if it is still ahead, otherwise the next Tuesday. */
+export function suggestDispatchDate(order: Pick<FirestoreOrder, 'deliveryDate'>): string {
+  const today = localDay(new Date());
+  if (order.deliveryDate && order.deliveryDate >= today) return order.deliveryDate;
+  const d = new Date();
+  d.setDate(d.getDate() + ((9 - d.getDay()) % 7 || 7));
+  return localDay(d);
+}
+
+/** Deliveries are made on Tuesdays and Wednesdays. */
+export function isDeliveryDay(isoDay: string): boolean {
+  const wd = new Date(isoDay + 'T12:00:00').getDay();
+  return wd === 2 || wd === 3;
+}
+
 export function normalizeStatus(status: string): OrderStatus {
   return (LEGACY[status] ?? status) as OrderStatus;
 }
@@ -57,10 +89,19 @@ export interface FlowAction {
 export function actionsFor(order: FirestoreOrder): FlowAction[] {
   const status = normalizeStatus(order.status);
   const invoiced = order.invoiceStatus === 'emitida';
+  const editPayment: FlowAction = { key: 'editar_pago', label: 'Editar datos de pago', roles: ['finanzas'] };
+  const dispatchDate: FlowAction = { key: 'fecha_despacho', label: order.dispatchDate ? 'Cambiar fecha de despacho' : 'Programar despacho', roles: ['asistente', 'poscosecha', 'finanzas'] };
+  const extra: FlowAction[] = [];
+  if (['pago_verificado', 'en_proceso', 'empacado', 'en_ruta', 'entregado', 'cerrado'].includes(status)) extra.push(editPayment);
+  if (['pago_verificado', 'en_proceso', 'empacado'].includes(status)) extra.push(dispatchDate);
+  return [...baseActions(order, status, invoiced), ...extra];
+}
+
+function baseActions(order: FirestoreOrder, status: OrderStatus, invoiced: boolean): FlowAction[] {
   switch (status) {
     case 'pendiente':
       return [
-        { key: 'confirmar_pago', label: 'Confirmar pago', roles: ['finanzas'] },
+        { key: 'confirmar_pago', label: 'Registrar pago y confirmar', roles: ['finanzas'] },
         { key: 'cancelar', label: 'Cancelar pedido', roles: ['finanzas', 'asistente'] },
       ];
     case 'pago_verificado':
@@ -97,7 +138,7 @@ export function canDo(role: UserRole | null, action: FlowAction): boolean {
 /** True when the order is waiting on something this role has to do. */
 export function isMine(order: FirestoreOrder, role: UserRole | null): boolean {
   if (!role) return false;
-  return actionsFor(order).some(a => a.key !== 'cancelar' && canDo(role, a) && !a.blocked && !(a.key === 'registrar_factura' && order.invoiceStatus === 'emitida'));
+  return actionsFor(order).some(a => !['cancelar', 'editar_pago', 'fecha_despacho'].includes(a.key) && canDo(role, a) && !a.blocked && !(a.key === 'registrar_factura' && order.invoiceStatus === 'emitida'));
 }
 
 export function billingLabel(order: FirestoreOrder): string {

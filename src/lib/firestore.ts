@@ -17,7 +17,7 @@ import {
   arrayUnion,
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { BillingData, FruitItem, FirestoreOrder, FirestoreOrderItem, OrderHistoryEntry, OrderStatus, UserProfile, UserRole } from '../types';
+import { BillingData, FruitItem, FirestoreOrder, FirestoreOrderItem, OrderHistoryEntry, OrderStatus, PaymentRecord, UserProfile, UserRole } from '../types';
 
 // ---------- Productos ----------
 
@@ -151,9 +151,9 @@ export async function updateOrderStatus(id: string, status: OrderStatus) {
 
 export type OrderActionKey =
   | 'confirmar_pago' | 'iniciar_alistamiento' | 'marcar_empacado' | 'despachar'
-  | 'entregar' | 'cerrar' | 'cancelar' | 'registrar_factura';
+  | 'entregar' | 'cerrar' | 'cancelar' | 'registrar_factura' | 'editar_pago' | 'fecha_despacho';
 
-const ACTION_RESULT: Record<Exclude<OrderActionKey, 'registrar_factura'>, OrderStatus> = {
+const ACTION_RESULT: Record<Exclude<OrderActionKey, 'registrar_factura' | 'editar_pago' | 'fecha_despacho'>, OrderStatus> = {
   confirmar_pago: 'pago_verificado',
   iniciar_alistamiento: 'en_proceso',
   marcar_empacado: 'empacado',
@@ -163,16 +163,47 @@ const ACTION_RESULT: Record<Exclude<OrderActionKey, 'registrar_factura'>, OrderS
   cancelar: 'cancelado',
 };
 
+export interface OrderActionData {
+  invoice?: { number: string; url: string };
+  payment?: { reference: string; transactionId: string; method: string; amount: number; approvedAt: string };
+  dispatchDate?: string;
+}
+
+const today = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
+/** Checks a manual payment capture and turns it into the record saved on the order. */
+function buildPayment(p: NonNullable<OrderActionData['payment']>, by: string): PaymentRecord {
+  if (!p.method) throw new Error('Elige el método de pago.');
+  if (!p.reference.trim()) throw new Error('Escribe la referencia del pago.');
+  if (!p.transactionId.trim()) throw new Error('Escribe el ID de la transacción o el número del comprobante.');
+  if (!Number.isFinite(p.amount) || p.amount <= 0) throw new Error('El valor cobrado debe ser mayor que cero.');
+  if (!p.approvedAt || Number.isNaN(Date.parse(p.approvedAt))) throw new Error('Indica la fecha de aprobación del pago.');
+  return {
+    reference: p.reference.trim(),
+    transactionId: p.transactionId.trim(),
+    method: p.method,
+    amount: Math.round(p.amount),
+    approvedAt: new Date(p.approvedAt).toISOString(),
+    source: 'manual',
+    recordedBy: by,
+  };
+}
+
 /** Applies one step of the order flow and records who did it and when. */
 export async function applyOrderAction(
   order: FirestoreOrder,
   action: OrderActionKey,
   by: string,
-  invoice?: { number: string; url: string }
+  data: OrderActionData = {}
 ) {
   const at = new Date().toISOString();
   const ref = doc(db, 'orders', order.id);
+
   if (action === 'registrar_factura') {
+    const invoice = data.invoice;
     if (!invoice?.number.trim()) throw new Error('Escribe el número de la factura.');
     const entry: OrderHistoryEntry = { status: 'factura', at, by, note: invoice.number.trim() };
     return updateDoc(ref, {
@@ -182,16 +213,41 @@ export async function applyOrderAction(
       history: arrayUnion(entry),
     });
   }
+
+  if (action === 'editar_pago') {
+    if (!data.payment) throw new Error('Completa los datos del pago.');
+    const payment = buildPayment(data.payment, by);
+    const entry: OrderHistoryEntry = { status: 'pago', at, by, note: `${payment.method} · ${payment.transactionId}` };
+    return updateDoc(ref, { payment: { ...payment, source: order.payment?.source ?? 'manual' }, history: arrayUnion(entry) });
+  }
+
+  if (action === 'fecha_despacho') {
+    if (!data.dispatchDate) throw new Error('Elige la fecha de despacho.');
+    const entry: OrderHistoryEntry = { status: 'despacho', at, by, note: data.dispatchDate };
+    return updateDoc(ref, { dispatchDate: data.dispatchDate, history: arrayUnion(entry) });
+  }
+
   if (action === 'cerrar' && order.invoiceStatus !== 'emitida') {
     throw new Error('No se puede cerrar la venta sin factura electrónica registrada.');
   }
+
   const status = ACTION_RESULT[action];
   const entry: OrderHistoryEntry = { status, at, by };
-  return updateDoc(ref, {
-    status,
-    history: arrayUnion(entry),
-    ...(action === 'confirmar_pago' ? { paymentStatus: 'verificado', paymentVerifiedAt: at, paymentVerifiedBy: by } : {}),
-  });
+  const changes: Record<string, unknown> = { status, history: arrayUnion(entry) };
+
+  if (action === 'confirmar_pago') {
+    if (!data.payment) throw new Error('Registra los datos del pago antes de confirmarlo.');
+    const payment = buildPayment(data.payment, by);
+    Object.assign(changes, { paymentStatus: 'verificado', paymentVerifiedAt: at, paymentVerifiedBy: by, payment });
+    if (data.dispatchDate) changes.dispatchDate = data.dispatchDate;
+  }
+  if (action === 'despachar') {
+    changes.dispatchedAt = at;
+    if (!order.dispatchDate) changes.dispatchDate = today();
+  }
+  if (action === 'entregar') changes.deliveredAt = at;
+
+  return updateDoc(ref, changes);
 }
 
 /** Orders of the signed-in customer: linked to their account, or placed as a guest with the same verified email. */

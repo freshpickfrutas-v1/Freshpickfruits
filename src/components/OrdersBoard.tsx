@@ -1,18 +1,26 @@
 import React, { useMemo, useState } from 'react';
 import {
   LayoutGrid, Table2, X, Plus, Loader2, AlertCircle, FileText, MessageCircle,
-  CheckCircle2, Clock, Phone, MapPin, Trash2, Lock, ExternalLink
+  CheckCircle2, Clock, Phone, MapPin, Trash2, Lock, ExternalLink, CalendarClock, CreditCard
 } from 'lucide-react';
 import { FirestoreOrder, FirestoreOrderItem, BillingData, ROLE_LABELS, UserRole } from '../types';
 import { applyOrderAction, createOrder, OrderActionKey } from '../lib/firestore';
 import { mapsLink } from '../lib/maps';
 import {
   STAGES, CANCELLED, stageOf, normalizeStatus, actionsFor, canDo, isMine,
-  billingLabel, invoiceLabel, messageFor, whatsappLink, FlowAction
+  billingLabel, invoiceLabel, messageFor, whatsappLink, FlowAction,
+  PAYMENT_METHODS, paymentMethodLabel, suggestDispatchDate, isDeliveryDay
 } from '../lib/orderFlow';
 
 const money = (n: number) => `$${(n || 0).toLocaleString('es-CO')}`;
 const when = (iso: string) => (iso ? new Date(iso).toLocaleString('es-CO', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '');
+const shortDay = (iso?: string) => (iso ? new Date(iso.length === 10 ? iso + 'T12:00:00' : iso).toLocaleDateString('es-CO', { weekday: 'short', day: '2-digit', month: 'short' }) : '—');
+/** ISO date-time → value for <input type="datetime-local"> in the viewer's own time zone. */
+const toLocalInput = (iso?: string) => {
+  const d = iso ? new Date(iso) : new Date();
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+};
 const itemsText = (o: FirestoreOrder) => o.items?.map(i => `${i.quantityText} ${i.name}`).join(', ') || 'Pedido personalizado';
 
 const Badge: React.FC<{ tone: string; children: React.ReactNode }> = ({ tone, children }) => (
@@ -21,7 +29,7 @@ const Badge: React.FC<{ tone: string; children: React.ReactNode }> = ({ tone, ch
 
 const PaymentBadge: React.FC<{ order: FirestoreOrder }> = ({ order }) =>
   order.paymentStatus === 'verificado'
-    ? <Badge tone="bg-emerald-100 text-emerald-800"><CheckCircle2 className="w-3 h-3" /> Pago verificado</Badge>
+    ? <Badge tone="bg-emerald-100 text-emerald-800"><CheckCircle2 className="w-3 h-3" /> Pago verificado{order.payment?.method ? ` · ${paymentMethodLabel(order.payment.method)}` : ''}</Badge>
     : <Badge tone="bg-amber-100 text-amber-800"><Clock className="w-3 h-3" /> Pago pendiente</Badge>;
 
 const InvoiceBadge: React.FC<{ order: FirestoreOrder }> = ({ order }) =>
@@ -63,31 +71,56 @@ const OrderCard: React.FC<{ order: FirestoreOrder; mine: boolean; onOpen: () => 
       <InvoiceBadge order={order} />
       <OriginBadge order={order} />
     </div>
+    {order.dispatchDate && (
+      <p className="text-[11px] font-semibold text-[#7B4382] flex items-center gap-1"><CalendarClock className="w-3 h-3" /> Despacho: {shortDay(order.dispatchDate)}</p>
+    )}
     {mine && <p className="text-[10px] font-bold text-[#C59328]">● Te toca a ti</p>}
   </button>
 );
 
 // ---------- Detail modal ----------
 const OrderModal: React.FC<{
-  order: FirestoreOrder; role: UserRole | null; by: string; onClose: () => void;
-}> = ({ order, role, by, onClose }) => {
+  order: FirestoreOrder; orders: FirestoreOrder[]; role: UserRole | null; by: string; onClose: () => void;
+}> = ({ order, orders, role, by, onClose }) => {
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState('');
   const [invNumber, setInvNumber] = useState(order.invoiceNumber ?? '');
   const [invUrl, setInvUrl] = useState(order.invoiceUrl ?? '');
   const [showInvoice, setShowInvoice] = useState(false);
+  const [panel, setPanel] = useState<null | 'pago' | 'despacho'>(null);
+  const [pay, setPay] = useState({
+    reference: order.payment?.reference ?? order.orderNumber,
+    transactionId: order.payment?.transactionId ?? '',
+    method: order.payment?.method ?? '',
+    amount: String(order.payment?.amount ?? order.total ?? ''),
+    approvedAt: toLocalInput(order.payment?.approvedAt),
+  });
+  const [disp, setDisp] = useState(order.dispatchDate ?? suggestDispatchDate(order));
 
   const stage = stageOf(order);
   const actions = actionsFor(order);
   const msg = messageFor(order);
 
+  const duplicate = pay.transactionId.trim()
+    ? orders.find(o => o.id !== order.id && o.payment?.transactionId === pay.transactionId.trim())
+    : undefined;
+  const amountDiffers = Number(pay.amount) > 0 && Number(pay.amount) !== order.total;
+
   const run = async (a: FlowAction) => {
+    if ((a.key === 'confirmar_pago' || a.key === 'editar_pago') && panel !== 'pago') { setPanel('pago'); setError(''); return; }
+    if (a.key === 'fecha_despacho' && panel !== 'despacho') { setPanel('despacho'); setError(''); return; }
     if (a.key === 'registrar_factura' && !showInvoice) { setShowInvoice(true); return; }
     if (a.key === 'cancelar' && !window.confirm('¿Cancelar este pedido?')) return;
+    if (a.key === 'confirmar_pago' && duplicate && !window.confirm(`El ID de transacción ya está en el pedido ${duplicate.orderNumber}. ¿Seguir de todos modos?`)) return;
     setBusy(a.key); setError('');
     try {
-      await applyOrderAction(order, a.key as OrderActionKey, by, { number: invNumber, url: invUrl });
+      await applyOrderAction(order, a.key as OrderActionKey, by, {
+        invoice: { number: invNumber, url: invUrl },
+        payment: { reference: pay.reference, transactionId: pay.transactionId, method: pay.method, amount: Number(pay.amount), approvedAt: pay.approvedAt },
+        dispatchDate: disp || undefined,
+      });
       setShowInvoice(false);
+      setPanel(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'No se pudo guardar el cambio.');
     } finally { setBusy(null); }
@@ -152,6 +185,33 @@ const OrderModal: React.FC<{
             {order.notes && <p className="text-xs text-stone-500 mt-2">Notas: {order.notes}</p>}
           </section>
 
+          <section className="grid sm:grid-cols-2 gap-3">
+            <div className="rounded-xl border border-[#EADBEE] p-3 space-y-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#7B4382] flex items-center gap-1.5"><CreditCard className="w-3.5 h-3.5" /> Pago</p>
+              {order.payment ? (
+                <dl className="text-xs text-stone-700 space-y-0.5">
+                  <div className="flex justify-between gap-2"><dt className="text-stone-500">Método</dt><dd className="font-semibold">{paymentMethodLabel(order.payment.method)}{order.payment.source === 'wompi' ? ' (Wompi)' : ''}</dd></div>
+                  <div className="flex justify-between gap-2"><dt className="text-stone-500">Referencia</dt><dd className="font-semibold break-all text-right">{order.payment.reference}</dd></div>
+                  <div className="flex justify-between gap-2"><dt className="text-stone-500">ID de transacción</dt><dd className="font-semibold break-all text-right">{order.payment.transactionId}</dd></div>
+                  <div className="flex justify-between gap-2"><dt className="text-stone-500">Valor cobrado</dt><dd className="font-semibold">{money(order.payment.amount)}</dd></div>
+                  <div className="flex justify-between gap-2"><dt className="text-stone-500">Aprobado</dt><dd className="font-semibold">{when(order.payment.approvedAt)}</dd></div>
+                  {order.payment.amount !== order.total && <p className="text-amber-700 pt-1">El valor cobrado no coincide con el total del pedido ({money(order.total)}).</p>}
+                </dl>
+              ) : (
+                <p className="text-xs text-stone-500">Aún sin registrar. Se llena al confirmar el pago.</p>
+              )}
+            </div>
+            <div className="rounded-xl border border-[#EADBEE] p-3 space-y-1">
+              <p className="text-xs font-bold uppercase tracking-wider text-[#7B4382] flex items-center gap-1.5"><CalendarClock className="w-3.5 h-3.5" /> Despacho</p>
+              <dl className="text-xs text-stone-700 space-y-0.5">
+                <div className="flex justify-between gap-2"><dt className="text-stone-500">Entrega pedida</dt><dd className="font-semibold">{shortDay(order.deliveryDate)}</dd></div>
+                <div className="flex justify-between gap-2"><dt className="text-stone-500">Despacho programado</dt><dd className="font-semibold">{shortDay(order.dispatchDate)}</dd></div>
+                <div className="flex justify-between gap-2"><dt className="text-stone-500">Salió a ruta</dt><dd className="font-semibold">{order.dispatchedAt ? when(order.dispatchedAt) : '—'}</dd></div>
+                <div className="flex justify-between gap-2"><dt className="text-stone-500">Entregado</dt><dd className="font-semibold">{order.deliveredAt ? when(order.deliveredAt) : '—'}</dd></div>
+              </dl>
+            </div>
+          </section>
+
           {actions.length > 0 && (
             <section className="space-y-2">
               <p className="text-xs font-bold uppercase tracking-wider text-[#7B4382]">Siguiente paso · responsable: {stage.ownerLabel}</p>
@@ -159,6 +219,41 @@ const OrderModal: React.FC<{
                 <div className="grid sm:grid-cols-2 gap-2 bg-[#FAF7F0] border border-[#EADBEE] rounded-xl p-3">
                   <input value={invNumber} onChange={e => setInvNumber(e.target.value)} placeholder="N° de factura (World Office)" className="border border-stone-300 rounded-lg px-3 py-2 text-sm" />
                   <input value={invUrl} onChange={e => setInvUrl(e.target.value)} placeholder="Enlace al PDF (opcional)" className="border border-stone-300 rounded-lg px-3 py-2 text-sm" />
+                </div>
+              )}
+              {panel === 'pago' && canDo(role, { key: '', label: '', roles: ['finanzas'] }) && (
+                <div className="space-y-2 bg-[#FAF7F0] border border-[#EADBEE] rounded-xl p-3">
+                  <p className="text-xs font-bold text-[#2F183C]">Datos del pago</p>
+                  <div className="grid sm:grid-cols-2 gap-2">
+                    <label className="text-xs text-stone-500">Método de pago
+                      <select value={pay.method} onChange={e => setPay({ ...pay, method: e.target.value })} className="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2 text-sm bg-white text-stone-800">
+                        <option value="">Elige uno</option>
+                        {PAYMENT_METHODS.map(m => <option key={m.id} value={m.id}>{m.label}</option>)}
+                      </select>
+                    </label>
+                    <label className="text-xs text-stone-500">Valor cobrado (COP)
+                      <input type="number" min={0} value={pay.amount} onChange={e => setPay({ ...pay, amount: e.target.value })} className="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-800" />
+                    </label>
+                    <label className="text-xs text-stone-500">Referencia
+                      <input value={pay.reference} onChange={e => setPay({ ...pay, reference: e.target.value })} className="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-800" />
+                    </label>
+                    <label className="text-xs text-stone-500">ID de transacción / N° de comprobante
+                      <input value={pay.transactionId} onChange={e => setPay({ ...pay, transactionId: e.target.value })} className="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-800" />
+                    </label>
+                    <label className="text-xs text-stone-500 sm:col-span-2">Fecha y hora de aprobación
+                      <input type="datetime-local" value={pay.approvedAt} onChange={e => setPay({ ...pay, approvedAt: e.target.value })} className="mt-1 w-full border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-800" />
+                    </label>
+                  </div>
+                  {amountDiffers && <p className="text-xs text-amber-700">El valor no coincide con el total del pedido ({money(order.total)}). Verifica el comprobante.</p>}
+                  {duplicate && <p className="text-xs text-red-700">Ese ID de transacción ya está registrado en el pedido {duplicate.orderNumber}.</p>}
+                </div>
+              )}
+              {panel === 'despacho' && (
+                <div className="space-y-1 bg-[#FAF7F0] border border-[#EADBEE] rounded-xl p-3">
+                  <label className="text-xs text-stone-500 block">Fecha de despacho
+                    <input type="date" value={disp} onChange={e => setDisp(e.target.value)} className="mt-1 block border border-stone-300 rounded-lg px-3 py-2 text-sm text-stone-800" />
+                  </label>
+                  {disp && !isDeliveryDay(disp) && <p className="text-xs text-amber-700">Las entregas son los martes y miércoles. Revisa que esta fecha sea la correcta.</p>}
                 </div>
               )}
               <div className="flex flex-wrap gap-2">
@@ -175,7 +270,7 @@ const OrderModal: React.FC<{
                       className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold disabled:opacity-45 disabled:cursor-not-allowed ${danger ? 'bg-white text-red-700 border border-red-200' : 'bg-[#2F183C] text-white'}`}
                     >
                       {busy === a.key ? <Loader2 className="w-4 h-4 animate-spin" /> : (!allowed || a.blocked) ? <Lock className="w-3.5 h-3.5" /> : null}
-                      {showInvoice && a.key === 'registrar_factura' ? 'Guardar factura' : a.label}
+                      {showInvoice && a.key === 'registrar_factura' ? 'Guardar factura' : panel === 'pago' && (a.key === 'confirmar_pago' || a.key === 'editar_pago') ? 'Guardar pago' : panel === 'despacho' && a.key === 'fecha_despacho' ? 'Guardar fecha' : a.label}
                     </button>
                   );
                 })}
@@ -201,7 +296,7 @@ const OrderModal: React.FC<{
               <ol className="space-y-1 text-xs text-stone-600">
                 {[...order.history].reverse().map((h, i) => (
                   <li key={i}>
-                    <span className="text-stone-400">{when(h.at)}</span> · <span className="font-semibold">{h.status === 'factura' ? `Factura ${h.note ?? ''}` : (STAGES.find(s => s.id === h.status)?.short ?? h.status)}</span> · {h.by}
+                    <span className="text-stone-400">{when(h.at)}</span> · <span className="font-semibold">{h.status === 'factura' ? `Factura ${h.note ?? ''}` : h.status === 'pago' ? `Pago registrado (${h.note ?? ''})` : h.status === 'despacho' ? `Despacho programado ${h.note ?? ''}` : (STAGES.find(s => s.id === h.status)?.short ?? h.status)}</span> · {h.by}
                   </li>
                 ))}
               </ol>
@@ -388,7 +483,7 @@ export const OrdersBoard: React.FC<{
           <table className="w-full text-sm min-w-[860px]">
             <thead className="bg-[#FAF7F0] text-xs text-stone-500 text-left">
               <tr>
-                {['N° pedido', 'Cliente / teléfono', 'Productos', 'Estado operativo', 'Responsable actual', 'Estado de pago', 'Factura electrónica', 'Origen'].map(h => <th key={h} className="px-3 py-3 font-semibold">{h}</th>)}
+                {['N° pedido', 'Cliente / teléfono', 'Productos', 'Estado operativo', 'Responsable actual', 'Estado de pago', 'Despacho', 'Factura electrónica', 'Origen'].map(h => <th key={h} className="px-3 py-3 font-semibold">{h}</th>)}
               </tr>
             </thead>
             <tbody>
@@ -402,6 +497,7 @@ export const OrdersBoard: React.FC<{
                     <td className="px-3 py-3"><span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${st.tone}`}>{st.short}</span></td>
                     <td className="px-3 py-3 text-xs">{st.ownerLabel}</td>
                     <td className="px-3 py-3"><PaymentBadge order={o} /></td>
+                    <td className="px-3 py-3 text-xs">{shortDay(o.dispatchDate)}</td>
                     <td className="px-3 py-3"><InvoiceBadge order={o} /></td>
                     <td className="px-3 py-3"><OriginBadge order={o} /></td>
                   </tr>
@@ -429,7 +525,7 @@ export const OrdersBoard: React.FC<{
         <AlertCircle className="w-3.5 h-3.5" /> {CANCELLED.label} aparte. Cada cambio queda en el historial del pedido con quién lo hizo.
       </p>
 
-      {open && <OrderModal key={open.id} order={open} role={role} by={userEmail} onClose={() => setOpenId(null)} />}
+      {open && <OrderModal key={open.id} order={open} orders={orders} role={role} by={userEmail} onClose={() => setOpenId(null)} />}
       {showNew && <NewOrderModal onClose={() => setShowNew(false)} />}
     </div>
   );

@@ -15,6 +15,7 @@ import { escribirJson, hoyColombia, leerCarpetaJson, leerJson, log, lunesDeLaSem
 import { crearReceta } from './recetas.mjs';
 import { candidatasPorBusqueda, reunirCandidatas } from './fuentes-noticias.mjs';
 import { crearNoticia, elegirNoticias } from './noticias.mjs';
+import { crearVideoRelleno } from './videos.mjs';
 import {
   PREFIJO_RAMA_REVISION, comentarIssue, commitYPush, crearPrRevision, escribirArchivos, prsDeRevisionAbiertosDesde
 } from './publicar.mjs';
@@ -29,6 +30,8 @@ const lunes = lunesDeLaSemana(hoy.fecha, hoy.diaSemana);
 const resumen = [];
 /** Pieces this run was supposed to produce; if >0 and nothing comes out, the run is marked as failed. */
 let piezasEsperadas = 0;
+/** Per section: did the run owe a piece today? Used to publish a replacement video when none came out. */
+const esperadas = { recetas: 0, noticias: 0 };
 const anotar = (tipo, texto) => {
   resumen.push({ tipo, texto });
   log(texto);
@@ -53,6 +56,7 @@ async function hacerRecetas(cola) {
     return [];
   }
   piezasEsperadas += faltan;
+  esperadas.recetas = faltan;
   const hechas = [];
   let enRevision = new Set();
   if (!PRUEBA) {
@@ -131,6 +135,7 @@ async function hacerNoticias(estado) {
   anotar('info', `Noticias esta semana (desde ${lunes}): ${semana.publicadas} publicadas + ${semana.enRevision} en revisión. Hoy toca: ${objetivo}.`);
   if (!objetivo) return [];
   piezasEsperadas += objetivo;
+  esperadas.noticias = objetivo;
 
   const usadas = new Set(estado.fuentesUsadas);
   const recetas = leerCarpetaJson(PATHS.recetas).filter(r => r.estado !== 'borrador');
@@ -207,6 +212,21 @@ async function main() {
   const recetas = args.solo === 'noticias' ? [] : await hacerRecetas(cola);
   const noticias = args.solo === 'recetas' ? [] : await hacerNoticias(estado);
 
+  // Days with no recipe or no news: a YouTube video takes its place (a plain --recetas/--noticias override doesn't count).
+  const videos = [];
+  for (const seccion of ['recetas', 'noticias']) {
+    const salio = (seccion === 'recetas' ? recetas : noticias).length;
+    if (!esperadas[seccion] || salio || args.solo === (seccion === 'recetas' ? 'noticias' : 'recetas')) continue;
+    try {
+      const v = await crearVideoRelleno(seccion, { fecha: hoy.fecha });
+      if (v) videos.push(v);
+      else anotar('aviso', `Video de relleno de ${seccion}: no se encontró uno aprobado hoy.`);
+    } catch (err) {
+      if (err.fatal) throw err;
+      anotar('aviso', `Video de relleno de ${seccion} no disponible: ${err.message}`);
+    }
+  }
+
   // --todo-a-revision (safe manual test): everything goes to a Pull Request, nothing straight to main.
   // --rama=<nombre> (preview test): everything is committed to that branch so its Vercel preview shows it.
   const todoARevision = Boolean(args['todo-a-revision']);
@@ -220,11 +240,14 @@ async function main() {
 
   if (PRUEBA) {
     const destino = path.join(PATHS.prueba, hoy.fecha);
-    for (const r of [...automaticas, ...enRevision]) escribirArchivos(r.archivos, destino);
-    anotar('info', `Modo prueba: ${automaticas.length + enRevision.length} piezas guardadas en ${path.relative(ROOT, destino)} (nada publicado).`);
+    for (const r of [...automaticas, ...enRevision, ...videos]) escribirArchivos(r.archivos, destino);
+    anotar('info', `Modo prueba: ${automaticas.length + enRevision.length + videos.length} piezas guardadas en ${path.relative(ROOT, destino)} (nada publicado).`);
   } else {
     // 1) Automatic pieces + queue/state updates go straight to main.
-    for (const r of automaticas) escribirArchivos(r.archivos);
+    // In the safe test (--todo-a-revision) nothing goes straight to main, replacement videos included.
+    const videosAPublicar = todoARevision ? [] : videos;
+    for (const v of videos) if (todoARevision) anotar('info', `Modo revisión: hoy se publicaría el video "${v.pieza.title}" (${v.pieza.seccion}); no se publica.`);
+    for (const r of [...automaticas, ...videosAPublicar]) escribirArchivos(r.archivos);
     for (const r of [...automaticas, ...enRevision]) {
       estado.historial.push({ fecha: hoy.fecha, tipo: r.item ? 'receta' : 'noticia', slug: r.pieza.slug, modo: r.pieza.modo });
     }
@@ -232,9 +255,11 @@ async function main() {
     estado.fuentesUsadas = [...new Set(estado.fuentesUsadas)].slice(-2000);
     escribirJson(PATHS.cola, cola);
     escribirJson(PATHS.estado, estado);
-    const rutas = [...automaticas.flatMap(r => r.archivos.map(a => a.ruta)), 'cola-recetas.json', 'automatizacion/estado.json'];
-    const titulos = automaticas.map(r => r.pieza.title).join(' · ') || 'actualización de estado';
+    for (const v of videosAPublicar) estado.historial.push({ fecha: hoy.fecha, tipo: 'video', slug: v.pieza.id, modo: 'automatico' });
+    const rutas = [...[...automaticas, ...videosAPublicar].flatMap(r => r.archivos.map(a => a.ruta)), 'cola-recetas.json', 'automatizacion/estado.json'];
+    const titulos = [...automaticas, ...videosAPublicar].map(r => r.pieza.title).join(' · ') || 'actualización de estado';
     commitYPush(rutas, `contenido ${hoy.fecha}: ${titulos}`, rama);
+    for (const v of videosAPublicar) anotar('ok', `Video en lugar de ${v.pieza.seccion === 'recetas' ? 'la receta' : 'la noticia'} de hoy: ${v.pieza.title} (${v.pieza.channel})`);
     for (const r of automaticas) {
       const destino = todoALaRama ? `guardado en la rama ${rama}` : 'Publicado';
       anotar('ok', `${destino}: ${r.item ? '/recetas/' : '/noticias/'}${r.pieza.slug} (${r.pieza.modo})`);

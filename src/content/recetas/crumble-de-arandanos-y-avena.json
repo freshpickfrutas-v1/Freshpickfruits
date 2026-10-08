@@ -1,0 +1,65 @@
+{
+  "slug": "crumble-de-arandanos-y-avena",
+  "title": "Crumble de Arándanos y Avena",
+  "excerpt": "Disfruta de un postre calientito y reconfortante con este crumble de arándanos y avena. Una combinación perfecta de fruta jugosa y una cobertura crocante y dorada.",
+  "imageAlt": "Crumble de arándanos y avena recién horneado en un molde cerámico, mostrando los arándanos burbujeantes y la cobertura dorada y crujiente.",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "snacks-meriendas",
+    "desayunos"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 30,
+  "restMinutes": 10,
+  "difficulty": "Fácil",
+  "servings": 6,
+  "ingredients": [
+    {
+      "text": "3 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 cucharada de jugo de limón recién exprimido"
+    },
+    {
+      "text": "4 cucharadas de miel de abejas (divididas)"
+    },
+    {
+      "text": "1 cucharada de fécula de maíz"
+    },
+    {
+      "text": "1 taza de hojuelas de avena entera"
+    },
+    {
+      "text": "1/2 taza de harina de almendras"
+    },
+    {
+      "text": "3 cucharadas de aceite de coco derretido"
+    },
+    {
+      "text": "1 cucharadita de canela en polvo"
+    },
+    {
+      "text": "1 pizca de sal"
+    }
+  ],
+  "steps": [
+    "Precalienta el horno a 180 grados Celsius (350 grados Fahrenheit) y engrasa ligeramente un molde para hornear mediano.",
+    "En un tazón grande, mezcla los arándanos Fresh Pick con el jugo de limón, dos cucharadas de miel de abejas y la fécula de maíz hasta que los arándanos queden bien cubiertos.",
+    "Transfiere la mezcla de arándanos al molde preparado, distribuyéndolos de manera uniforme para formar la base del postre.",
+    "En otro tazón, prepara la cobertura combinando la avena entera, la harina de almendras, la canela en polvo y la pizca de sal. Agrega el aceite de coco derretido y las dos cucharadas de miel restantes, revolviendo con los dedos hasta obtener una textura arenosa con pequeños grumos.",
+    "Esparce la cobertura de avena de forma homogénea sobre la capa de arándanos en el molde, cubriendo toda la superficie.",
+    "Hornea durante 30 minutos o hasta que la avena esté doradita y los jugos de los arándanos comiencen a burbujear por los bordes. Deja reposar el molde sobre una rejilla durante 10 minutos antes de servir para que el relleno tome consistencia."
+  ],
+  "tips": [
+    "Para esta receta, la firmeza y el dulzor natural de nuestros arándanos de alta montaña, cultivados con amor en Guasca, garantizan que el relleno quede jugoso y con la textura perfecta sin necesidad de añadir azúcares refinados.",
+    "Si te sobra crumble, guárdalo en la nevera en un recipiente hermético. Al día siguiente puedes calentarlo unos minutos en el horno tostador o en la freidora de aire para devolverle el toque crocante a la cobertura de avena."
+  ],
+  "date": "2026-10-08",
+  "publicadoEn": "2026-10-08T14:09:27.565Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/crumble-de-arandanos-y-avena.jpg"
+}

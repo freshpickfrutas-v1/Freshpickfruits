@@ -160,7 +160,8 @@
     "titulo": "Crumble de Arándanos y Avena",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-08"
   },
   {
     "orden": 19,

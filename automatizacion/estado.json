@@ -18,7 +18,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42796485/",
     "https://pubmed.ncbi.nlm.nih.gov/42794096/",
     "https://pubmed.ncbi.nlm.nih.gov/42825007/",
-    "https://pubmed.ncbi.nlm.nih.gov/42833173/"
+    "https://pubmed.ncbi.nlm.nih.gov/42833173/",
+    "https://pubmed.ncbi.nlm.nih.gov/42840233/"
   ],
   "historial": [
     {
@@ -176,6 +177,12 @@
       "tipo": "noticia",
       "slug": "impacto-del-procesamiento-termico-frente-a-la-alta-presion-en-los-arandanos",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-08",
+      "tipo": "receta",
+      "slug": "crumble-de-arandanos-y-avena",
+      "modo": "automatico"
     }
   ]
 }

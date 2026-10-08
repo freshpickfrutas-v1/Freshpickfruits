@@ -36,6 +36,9 @@ export function queriesPara(seccion: Seccion, categoria: string): string[] {
 const SENALES_COMERCIALES =
   /\b(export\w*|import\w*|mayorista\w*|distribuidor\w*|comercializadora|supermercado\w*|plaza de mercado|s\.a\.s?|ltda|fruits?|berries|agro\w*|corabastos|exito|éxito|jumbo|olimpica|olímpica|compra aqu[ií]|c[oó]digo de descuento|cup[oó]n|patrocin\w*)\b/i;
 
+/** Médicos/creadores de confianza: sus videos de arándanos se publican solos, sin pasar por el filtro de Gemini. */
+export const CANALES_DE_CONFIANZA = ['drcarlosjaramillo'];
+
 export function pareceComercial(v: { title: string; description: string; channel: string }): boolean {
   return SENALES_COMERCIALES.test(`${v.channel} ${v.title} ${v.description.slice(0, 600)}`);
 }

@@ -13,6 +13,7 @@ export const FEATURED_VIDEOS: Record<'recetas' | 'noticias', FeaturedVideo[]> = 
     { id: 'b61GIRRfq2o', title: 'Batido antioxidante de arándanos y plátano', channel: 'Postres Originales' }
   ],
   noticias: [
+    { id: '6ZVpQEQKy1Q', title: 'Los arándanos, un súper alimento lleno de beneficios', channel: 'Dr. Carlos Jaramillo' },
     { id: 'UmBfo4GKdfg', title: 'Los beneficios reales de los arándanos', channel: 'Dr. Carlos Jaramillo' },
     { id: 'Jr1DFMijGG4', title: 'Por qué deberías comer arándanos', channel: 'Webmedy Español' },
     { id: 'EAr8IPnDqJw', title: 'Los beneficios de tomar arándanos por las mañanas', channel: 'Escuela Online de Salud' }

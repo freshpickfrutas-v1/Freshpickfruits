@@ -5,14 +5,16 @@ import { ArticleCard } from '../components/ArticleCard';
 import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
+import { FEATURED_VIDEOS } from '../data/featuredVideos';
 import { BLOG_CATEGORIES, BLOG_ARTICLES, sortedArticles } from '../data/blog';
 import { BlogCategoryId } from '../types';
 import { usePageMeta } from '../lib/seo';
 
-type Filter = BlogCategoryId | 'todos';
+type Filter = BlogCategoryId | 'todos' | 'videos';
 
 function readFilterFromUrl(): Filter {
   const param = new URLSearchParams(window.location.search).get('categoria');
+  if (param === 'videos') return 'videos';
   return BLOG_CATEGORIES.some(c => c.id === param) ? (param as BlogCategoryId) : 'todos';
 }
 
@@ -31,7 +33,7 @@ export default function BlogPage() {
   };
 
   const all = sortedArticles();
-  const visible = filter === 'todos' ? all : all.filter(a => a.category === filter);
+  const visible = filter === 'todos' || filter === 'videos' ? all : all.filter(a => a.category === filter);
   const [lead, ...rest] = visible;
   const activeCategory = BLOG_CATEGORIES.find(c => c.id === filter);
   const countFor = (id: BlogCategoryId) => BLOG_ARTICLES.filter(a => a.category === id).length;
@@ -61,6 +63,7 @@ export default function BlogPage() {
               {BLOG_CATEGORIES.map(c => (
                 <Chip key={c.id} active={filter === c.id} onClick={() => selectFilter(c.id)} label={c.name} count={countFor(c.id)} />
               ))}
+              <Chip active={filter === 'videos'} onClick={() => selectFilter('videos')} label="🎬 Videos" count={FEATURED_VIDEOS.noticias.length} />
             </div>
           </div>
         </div>
@@ -68,6 +71,10 @@ export default function BlogPage() {
 
       <section className="bg-[#F7F5F0]/90 py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {filter === 'videos' ? (
+            <YouTubeFeed seccion="noticias" categoria="todos" />
+          ) : (
+          <>
           {activeCategory && (
             <div className="mb-6">
               <h2 className="text-xl sm:text-2xl font-bold font-display">{activeCategory.name}</h2>
@@ -92,8 +99,8 @@ export default function BlogPage() {
               </button>
             </div>
           )}
-
-          <YouTubeFeed seccion="noticias" categoria={filter} />
+          </>
+          )}
 
           <div className="mt-12 sm:mt-16">
             <OrderCta whatsappMessage="Hola Fresh Pick, leí sus noticias de arándanos y quiero pedir arándanos frescos" />

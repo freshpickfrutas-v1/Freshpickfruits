@@ -5,14 +5,16 @@ import { RecipeCard } from '../components/RecipeCard';
 import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
+import { FEATURED_VIDEOS } from '../data/featuredVideos';
 import { RECIPES, RECIPE_CATEGORIES, recipeCategories } from '../data/recipes';
 import { RecipeCategoryId } from '../types';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 
-type Filter = RecipeCategoryId | 'todas';
+type Filter = RecipeCategoryId | 'todas' | 'videos';
 
 function readFilterFromUrl(): Filter {
   const param = new URLSearchParams(window.location.search).get('categoria');
+  if (param === 'videos') return 'videos';
   return RECIPE_CATEGORIES.some(c => c.id === param) ? (param as RecipeCategoryId) : 'todas';
 }
 
@@ -32,7 +34,7 @@ export default function RecipesPage() {
     window.history.replaceState({}, '', url);
   };
 
-  const visible = filter === 'todas' ? RECIPES : RECIPES.filter(r => recipeCategories(r).includes(filter));
+  const visible = filter === 'todas' || filter === 'videos' ? RECIPES : RECIPES.filter(r => recipeCategories(r).includes(filter));
   const activeCategory = RECIPE_CATEGORIES.find(c => c.id === filter);
   const countFor = (id: RecipeCategoryId) => RECIPES.filter(r => recipeCategories(r).includes(id)).length;
 
@@ -69,6 +71,7 @@ export default function RecipesPage() {
                   count={countFor(c.id)}
                 />
               ))}
+              <FilterChip active={filter === 'videos'} onClick={() => selectFilter('videos')} label="🎬 Videos" count={FEATURED_VIDEOS.recetas.length} />
             </div>
           </div>
         </div>
@@ -76,6 +79,10 @@ export default function RecipesPage() {
 
       <section className="bg-[#F7F5F0]/90 py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {filter === 'videos' ? (
+            <YouTubeFeed seccion="recetas" categoria="todas" />
+          ) : (
+          <>
           <div className="mb-6">
             <h2 className="text-xl sm:text-2xl font-bold font-display">
               {activeCategory ? activeCategory.name : 'Todas las recetas'}
@@ -103,8 +110,8 @@ export default function RecipesPage() {
               </button>
             </div>
           )}
-
-          <YouTubeFeed seccion="recetas" categoria={filter} />
+          </>
+          )}
 
           <div className="mt-12 sm:mt-16">
             <OrderCta

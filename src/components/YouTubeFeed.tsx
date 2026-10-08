@@ -40,7 +40,7 @@ export const YouTubeFeed: React.FC<Props> = ({ seccion, categoria }) => {
   const videos = [...destacados, ...dinamicos.filter(v => !ids.has(v.id))];
 
   return (
-    <section className="mt-12 sm:mt-16" aria-label="Videos recomendados">
+    <section aria-label="Videos recomendados">
       <h2 className="text-xl sm:text-2xl font-bold font-display">
         {seccion === 'recetas' ? 'Recetas en video' : 'Salud y nutrición en video'}
       </h2>

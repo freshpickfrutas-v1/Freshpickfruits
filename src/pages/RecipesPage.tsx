@@ -110,6 +110,10 @@ export default function RecipesPage() {
               </button>
             </div>
           )}
+
+          <div className="mt-12 sm:mt-16">
+            <YouTubeFeed seccion="recetas" categoria={filter} />
+          </div>
           </>
           )}
 

@@ -99,6 +99,10 @@ export default function BlogPage() {
               </button>
             </div>
           )}
+
+          <div className="mt-12 sm:mt-16">
+            <YouTubeFeed seccion="noticias" categoria={filter} />
+          </div>
           </>
           )}
 

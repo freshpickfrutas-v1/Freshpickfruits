@@ -1,6 +1,6 @@
 import React from 'react';
 import { FruitItem } from '../types';
-import { X, Plus, Minus, Trash2, ShoppingBag, Sparkles, ArrowRight, AlertCircle, CheckCircle2, MessageCircle } from 'lucide-react';
+import { CreditCard, X, Plus, Minus, Trash2, ShoppingBag, Sparkles, ArrowRight, AlertCircle, CheckCircle2, MessageCircle } from 'lucide-react';
 
 export interface CartItem {
   fruit: FruitItem;
@@ -14,6 +14,8 @@ interface CartDrawerProps {
   onUpdateQuantity: (fruitId: string, quantity: number) => void;
   onRemoveItem: (fruitId: string) => void;
   onGoToCustomOrder: () => void;
+  /** Carries the cart to the order form, where the customer enters delivery data and pays online. */
+  onCheckoutOnline: () => void;
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({
@@ -22,7 +24,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   items,
   onUpdateQuantity,
   onRemoveItem,
-  onGoToCustomOrder
+  onGoToCustomOrder,
+  onCheckoutOnline
 }) => {
   if (!isOpen) return null;
 
@@ -265,6 +268,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 ${total.toLocaleString('es-CO')} COP
               </span>
             </div>
+
+            <button
+              onClick={onCheckoutOnline}
+              disabled={!meetsMinOrder || hasPackingError}
+              className="w-full py-3 px-4 rounded-xl bg-[#DDA83A] disabled:bg-stone-300 disabled:cursor-not-allowed text-[#2F183C] font-bold text-xs sm:text-sm hover:brightness-95 transition flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+            >
+              <CreditCard className="w-4 h-4" />
+              <span>Continuar y pagar en línea</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
 
             <button
               onClick={handleWhatsAppCheckout}

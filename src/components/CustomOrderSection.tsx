@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import { FruitItem, PackagingOption, AddOnItem, CustomOrder, BillingData, SavedAddress } from '../types';
 import { createOrder } from '../lib/firestore';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import { saveAddresses, hasAddress, newAddressId, MAX_ADDRESSES } from '../lib/addresses';
 import { BOGOTA, PlacePick, mapsLink } from '../lib/maps';
 import { AddressField } from './AddressField';
@@ -20,6 +21,7 @@ import {
 } from 'lucide-react';
 
 const WA = '573178931026';
+const id_in = (o: Record<string, number>, id: string) => Object.prototype.hasOwnProperty.call(o, id);
 
 interface WhatsAppOrder {
   orderId: string;
@@ -143,6 +145,20 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   }, [initialSelectedFruitId, fruits]);
 
   const { user, profile } = useAuth();
+  const cart = useCart();
+
+  // "Pagar en línea" desde el carrito: pasa los estuches al formulario de pedido.
+  useEffect(() => {
+    if (!cart.pendingCheckout) return;
+    setFruitGrams(prev => {
+      const next = Object.fromEntries(Object.keys(prev).map(id => [id, 0])) as Record<string, number>;
+      cart.items.forEach(i => {
+        if (id_in(next, i.fruit.id)) next[i.fruit.id] = (i.fruit.defaultGramUnit || 125) * i.quantity;
+      });
+      return next;
+    });
+    cart.consumeCheckout();
+  }, [cart.pendingCheckout]);
   const savedAddresses: SavedAddress[] = profile?.addresses ?? [];
   const [selectedAddressId, setSelectedAddressId] = useState<string>('');
   const [saveNewAddress, setSaveNewAddress] = useState(true);
@@ -354,6 +370,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       });
       orderId = saved.orderNumber;
       setSavedOrderDocId(saved.id);
+      cart.clearCart();
       if (user && saveNewAddress && isNewAddress && savedAddresses.length < MAX_ADDRESSES) {
         try {
           await saveAddresses(user.uid, [

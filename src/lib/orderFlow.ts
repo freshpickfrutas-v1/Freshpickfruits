@@ -113,7 +113,7 @@ function baseActions(order: FirestoreOrder, status: OrderStatus, invoiced: boole
       ];
     case 'empacado':
       return [
-        { key: 'despachar', label: 'Despachar (en ruta)', roles: ['asistente', 'contabilidad'] },
+        { key: 'despachar', label: 'Despachar (en ruta)', roles: ['asistente', 'contabilidad'], blocked: order.paymentStatus === 'verificado' ? undefined : 'No se puede despachar: el pago no está verificado.' },
         { key: 'registrar_factura', label: invoiced ? 'Editar factura' : 'Registrar factura', roles: ['contabilidad'] },
       ];
     case 'en_ruta':

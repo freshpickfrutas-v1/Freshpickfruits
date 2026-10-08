@@ -34,6 +34,7 @@ export const SiteShell: React.FC<SiteShellProps> = ({ children, onNavigateToCust
         onUpdateQuantity={cart.updateQuantity}
         onRemoveItem={cart.removeFromCart}
         onGoToCustomOrder={goToCustomOrder}
+        onCheckoutOnline={() => { cart.requestCheckout(); cart.setOpen(false); goToCustomOrder(); }}
       />
       <FloatingWhatsApp />
       <MobileBottomBar onOrder={goToCustomOrder} />

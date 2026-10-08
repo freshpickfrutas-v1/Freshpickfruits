@@ -242,6 +242,7 @@ export async function applyOrderAction(
     if (data.dispatchDate) changes.dispatchDate = data.dispatchDate;
   }
   if (action === 'despachar') {
+    if (order.paymentStatus !== 'verificado') throw new Error('No se puede despachar: el pago no está verificado.');
     changes.dispatchedAt = at;
     if (!order.dispatchDate) changes.dispatchDate = today();
   }

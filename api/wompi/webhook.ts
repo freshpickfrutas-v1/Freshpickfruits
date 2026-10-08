@@ -4,6 +4,7 @@
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { FieldValue } from 'firebase-admin/firestore';
 import { adminDb } from '../_lib/admin.js';
+import { sendPaymentConfirmed } from '../_lib/email.js';
 
 const pick = (obj: any, path: string) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
 
@@ -69,6 +70,8 @@ export default async function handler(req: any, res: any) {
         status: order.status === 'pendiente' ? 'pago_verificado' : order.status,
         history: FieldValue.arrayUnion({ status: 'pago_verificado', at, by: 'Wompi', note: `Transacción ${tx.id}` }),
       });
+      // El aviso al cliente no debe tumbar el webhook: si falla, el pago ya quedó registrado.
+      try { await sendPaymentConfirmed(order, tx.amount_in_cents / 100); } catch (e) { console.error('wompi/webhook: correo', e); }
     } else if (['DECLINED', 'ERROR', 'VOIDED'].includes(tx.status)) {
       await ref.update({ wompiLastStatus: tx.status, wompiTransactionId: tx.id });
     }

@@ -4,6 +4,7 @@ import { SiteShell } from '../components/SiteShell';
 import { RecipeCard } from '../components/RecipeCard';
 import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { YouTubeFeed } from '../components/YouTubeFeed';
 import { RECIPES, RECIPE_CATEGORIES, recipeCategories } from '../data/recipes';
 import { RecipeCategoryId } from '../types';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
@@ -102,6 +103,8 @@ export default function RecipesPage() {
               </button>
             </div>
           )}
+
+          <YouTubeFeed seccion="recetas" categoria={filter} />
 
           <div className="mt-12 sm:mt-16">
             <OrderCta

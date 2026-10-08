@@ -4,6 +4,7 @@ import { SiteShell } from '../components/SiteShell';
 import { ArticleCard } from '../components/ArticleCard';
 import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
+import { YouTubeFeed } from '../components/YouTubeFeed';
 import { BLOG_CATEGORIES, BLOG_ARTICLES, sortedArticles } from '../data/blog';
 import { BlogCategoryId } from '../types';
 import { usePageMeta } from '../lib/seo';
@@ -91,6 +92,8 @@ export default function BlogPage() {
               </button>
             </div>
           )}
+
+          <YouTubeFeed seccion="noticias" categoria={filter} />
 
           <div className="mt-12 sm:mt-16">
             <OrderCta whatsappMessage="Hola Fresh Pick, leí sus noticias de arándanos y quiero pedir arándanos frescos" />

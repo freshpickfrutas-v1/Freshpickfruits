@@ -19,7 +19,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42794096/",
     "https://pubmed.ncbi.nlm.nih.gov/42825007/",
     "https://pubmed.ncbi.nlm.nih.gov/42833173/",
-    "https://pubmed.ncbi.nlm.nih.gov/42840233/"
+    "https://pubmed.ncbi.nlm.nih.gov/42840233/",
+    "https://pubmed.ncbi.nlm.nih.gov/42833382/"
   ],
   "historial": [
     {
@@ -183,6 +184,18 @@
       "tipo": "receta",
       "slug": "crumble-de-arandanos-y-avena",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-09",
+      "tipo": "receta",
+      "slug": "salsa-de-arandanos-para-carnes",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-09",
+      "tipo": "noticia",
+      "slug": "como-influye-la-luz-en-la-maduracion-de-los-arandanos-el-rol-del-gen-vcpif7",
+      "modo": "revision"
     }
   ]
 }

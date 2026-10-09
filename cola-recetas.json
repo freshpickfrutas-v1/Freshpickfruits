@@ -169,7 +169,8 @@
     "titulo": "Salsa de Arándanos para Carnes",
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-09"
   },
   {
     "orden": 20,

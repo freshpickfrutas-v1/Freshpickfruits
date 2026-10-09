@@ -1,0 +1,62 @@
+{
+  "slug": "salsa-de-arandanos-para-carnes",
+  "title": "Salsa de Arándanos para Carnes",
+  "excerpt": "Una salsa agridulce y aromática, perfecta para realzar el sabor de tus carnes asadas. Preparada con la frescura y el dulzor natural de nuestros arándanos de alta montaña.",
+  "imageAlt": "Salsa espesa de arándanos de un color morado intenso en una salsera de cerámica rústica, servida junto a un lomo de cerdo asado y decorada con romero.",
+  "category": "preparaciones-conservas",
+  "extraCategories": [
+    "ensaladas-platos-frescos"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 15,
+  "restMinutes": 5,
+  "difficulty": "Fácil",
+  "servings": 6,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1/4 de taza de cebolla cabezona roja, finamente picada"
+    },
+    {
+      "text": "1 diente de ajo, finamente picado"
+    },
+    {
+      "text": "3 cucharadas de vinagre balsámico"
+    },
+    {
+      "text": "2 cucharadas de panela raspada"
+    },
+    {
+      "text": "1 ramita de romero fresco"
+    },
+    {
+      "text": "1 cucharadita de aceite de oliva"
+    },
+    {
+      "text": "Sal y pimienta al gusto"
+    }
+  ],
+  "steps": [
+    "En una sartén pequeña o cacerola a fuego medio, calienta el aceite de oliva y sofríe la cebolla junto con el ajo durante unos 3 minutos, hasta que estén tiernos y transparentes.",
+    "Agrega los arándanos Fresh Pick, la panela raspada, el vinagre balsámico y la ramita de romero fresco. Mezcla muy bien todos los ingredientes para integrar los sabores.",
+    "Cocina a fuego medio-bajo durante 10 a 12 minutos, revolviendo de vez en cuando. Verás cómo los arándanos, cultivados con esmero en la alta montaña de Guasca, liberan sus jugos naturales y su dulzor característico mientras se ablandan.",
+    "Con la ayuda de una cuchara de madera, presiona suavemente algunos arándanos contra la pared de la cacerola para liberar más pulpa y lograr una textura rústica con deliciosos tropezones.",
+    "Retira la ramita de romero, sazona con una pizca de sal y pimienta negra al gusto, y cocina por 2 minutos más para que los sabores se concentren.",
+    "Retira la salsa del fuego y déjala reposar durante 5 minutos para que tome una consistencia más espesa y untuosa antes de servirla tibia sobre tu corte de carne favorito."
+  ],
+  "tips": [
+    "Esta salsa agridulce es el acompañamiento ideal para carnes de cerdo, pavo, pollo o incluso para darle un toque gourmet a un buen lomo de res a la parrilla.",
+    "Gracias al dulzor natural de 13° a 15° Brix de los arándanos Fresh Pick, no necesitarás añadir exceso de endulzantes para lograr ese balance perfecto en tu plato.",
+    "Si te sobra salsa, puedes guardarla en un frasco de vidrio esterilizado en la nevera hasta por una semana. Al enfriarse, su textura se volverá aún más deliciosa."
+  ],
+  "date": "2026-10-09",
+  "publicadoEn": "2026-10-09T14:10:45.589Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/salsa-de-arandanos-para-carnes.jpg"
+}

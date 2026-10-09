@@ -13,15 +13,57 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias</loc>
-    <lastmod>2026-10-01</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/crumble-de-arandanos-y-avena</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/tostadas-francesas-con-compota-de-arandanos</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/ensalada-de-pollo-arandanos-y-nueces</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/batido-de-arandanos-y-kumis</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/agua-saborizada-de-arandanos-y-pepino</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/cheesecake-de-arandanos-sin-horno</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/waffles-integrales-de-arandanos</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/barritas-de-granola-y-arandanos</loc>
@@ -140,6 +182,24 @@
   <url>
     <loc>https://www.freshpickfruits.com/recetas/yogur-helado-crocante-de-arandanos</loc>
     <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/impacto-del-procesamiento-termico-frente-a-la-alta-presion-en-los-arandanos</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/como-proteger-los-antioxidantes-del-arandano-el-poder-de-la-pectina-de-manzana</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/impacto-del-procesamiento-termico-y-el-almacenamiento-en-los-arandanos</loc>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

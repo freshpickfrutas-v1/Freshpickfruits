@@ -1,0 +1,105 @@
+{
+  "slug": "genetica-y-poscosecha-como-los-arandanos-conservan-sus-nutrientes",
+  "title": "Genética y poscosecha: cómo los arándanos conservan sus nutrientes",
+  "metaDescription": "Descubre cómo la genética influye en la conservación de los nutrientes de los arándanos durante el almacenamiento en frío según un estudio reciente.",
+  "excerpt": "Un estudio genómico revela que la capacidad de los arándanos para mantener sus antioxidantes y compuestos bioactivos durante el almacenamiento refrigerado depende en gran medida de su genética.",
+  "category": "nutricion-ciencia",
+  "date": "2026-10-10",
+  "publicadoEn": "2026-10-10T14:07:36.232Z",
+  "readMinutes": 3,
+  "author": "Equipo Fresh Pick",
+  "imageAlt": "Arándanos frescos refrigerados mostrando su calidad y pruina natural intacta",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "1. Introducción: ¿por qué importa la estabilidad del arándano tras la cosecha?"
+    },
+    {
+      "type": "p",
+      "text": "Los arándanos son reconocidos mundialmente por sus valiosas propiedades nutricionales y su contenido de compuestos bioactivos, como flavonoides y ácidos fenólicos. Estos metabolitos vegetales se han asociado con diversos beneficios para el bienestar humano. Sin embargo, poco se habla de lo que ocurre con estos nutrientes una vez que la fruta es cosechada y guardada en refrigeración durante días o semanas antes de llegar a la mesa del consumidor."
+    },
+    {
+      "type": "p",
+      "text": "La estabilidad de estos compuestos durante el almacenamiento en frío es un factor determinante para la calidad real del alimento. Entender las variables genéticas que hacen que una fruta conserve mejor su valor nutricional permite a la ciencia agrícola desarrollar variedades más resistentes y nutritivas para el mercado."
+    },
+    {
+      "type": "h2",
+      "text": "2. Qué dice la fuente: genoma, almacenamiento en frío y compuestos bioactivos"
+    },
+    {
+      "type": "p",
+      "text": "Una investigación publicada en la revista científica The Plant Genome analizó la dinámica poscosecha de 32 metabolitos individuales, pertenecientes a flavonoides y ácidos fenólicos, en una amplia población de 165 genotipos y selecciones avanzadas de arándanos."
+    },
+    {
+      "type": "p",
+      "text": "Los investigadores evaluaron los frutos tras una y siete semanas de almacenamiento en frío a 1°C. Empleando modelos mixtos longitudinales combinados con información genómica, el equipo científico logró medir la heredabilidad de estos rasgos e identificar interacciones entre el genotipo y el tiempo de almacenamiento."
+    },
+    {
+      "type": "p",
+      "text": "Entre los hallazgos principales del estudio se destacan:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "Existe una variación sustancial entre los distintos genotipos, tanto en la cantidad como en la composición de los compuestos bioactivos evaluados.",
+        "Se observaron estimaciones de heredaibilidad de moderadas a altas, lo que indica un fuerte control genético sobre la retención de metabolitos durante la poscosecha.",
+        "Se registraron interacciones significativas entre el genotipo y el tiempo de almacenamiento: mientras que algunas líneas de arándanos mantuvieron sus niveles nutricionales de manera estable tras siete semanas a 1°C, otras sufrieron degradaciones más marcadas.",
+        "Los modelos de predicción genómica mostraron una capacidad prometedora para guiar decisiones en programas de mejoramiento genético enfocado en la calidad nutricional."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Como limitación de la fuente, vale señalar que se trata de un estudio agronómico y metabolómico realizado en laboratorio bajo condiciones controladas de almacenamiento (1°C hasta 7 semanas), y no de una evaluación en consumidores ni de un ensayo clínico sobre la asimilación digestiva de estos compuestos."
+    },
+    {
+      "type": "h2",
+      "text": "3. Contexto: la ciencia agrícola orientada hacia alimentos más funcionales"
+    },
+    {
+      "type": "p",
+      "text": "Tradicionalmente, los programas de mejoramiento de frutas se han centrado en parámetros visibles o comerciales, tales como el rendimiento del cultivo, el tamaño de la fruta, la firmeza o el color. Sin embargo, este trabajo científico demuestra un cambio relevante en la investigación moderna hacia la nutrición y los componentes funcionales."
+    },
+    {
+      "type": "p",
+      "text": "La evidencia respalda que los arándanos son una fuente importante de antioxidantes naturales. Confirmar que la preservación de los flavonoides depende en gran medida del perfil genético abre la puerta a seleccionar variedades que no solo soporten largos periodos de refrigeración y transporte, sino que mantengan intacto su aporte nutricional para el consumidor final."
+    },
+    {
+      "type": "h2",
+      "text": "4. Qué significa para ti: de la teoría científica al consumo diario"
+    },
+    {
+      "type": "p",
+      "text": "Para el consumidor cotidiano, esta investigación resalta la importancia de la frescura y del manejo adecuado del frío. Aunque la selección genómica facilitará el desarrollo de arándanos más resistentes en el futuro, en el presente la regla de oro sigue siendo consumir frutas frescas que hayan mantenido una cadena de frío constante y un manejo cuidadoso."
+    },
+    {
+      "type": "p",
+      "text": "Mantener los arándanos refrigerados en casa ayuda a desacelerar la pérdida natural de sus compuestos beneficiosos. Integrar arándanos frescos en la alimentación diaria, ya sea en desayunos, batidos o ensaladas, es una forma sencilla de aprovechar la riqueza de flavonoides que la naturaleza y la investigación agrícola buscan proteger."
+    },
+    {
+      "type": "h2",
+      "text": "5. Conclusión"
+    },
+    {
+      "type": "p",
+      "text": "Comprender el control genético detrás de los compuestos bioactivos marca un hito para ofrecer frutas de alta calidad y valor nutricional sostenido. En Fresh Pick nos llena de orgullo celebrar estos avances científicos que reafirman la importancia de cultivar arándanos con dedicación, garantizando una fruta natural y bien cuidada desde el origen."
+    }
+  ],
+  "fuentes": [
+    {
+      "titulo": "Genetic control underlying dynamics of blueberry bioactive compounds during postharvest can drive breeding for functional fruits.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42855862/",
+      "medio": "PubMed · The plant genome",
+      "idioma": "en"
+    }
+  ],
+  "relatedRecipes": [
+    "bowl-de-yogur-con-arandanos-y-granola",
+    "avena-nocturna-con-arandanos",
+    "smoothie-de-arandanos-y-avena"
+  ],
+  "estado": "publicado",
+  "modo": "revision",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/genetica-y-poscosecha-como-los-arandanos-conservan-sus-nutrientes.jpg"
+}

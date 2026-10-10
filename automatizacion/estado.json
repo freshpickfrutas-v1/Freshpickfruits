@@ -20,7 +20,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42825007/",
     "https://pubmed.ncbi.nlm.nih.gov/42833173/",
     "https://pubmed.ncbi.nlm.nih.gov/42840233/",
-    "https://pubmed.ncbi.nlm.nih.gov/42833382/"
+    "https://pubmed.ncbi.nlm.nih.gov/42833382/",
+    "https://pubmed.ncbi.nlm.nih.gov/42855862/"
   ],
   "historial": [
     {
@@ -195,6 +196,18 @@
       "fecha": "2026-10-09",
       "tipo": "noticia",
       "slug": "como-influye-la-luz-en-la-maduracion-de-los-arandanos-el-rol-del-gen-vcpif7",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-10",
+      "tipo": "receta",
+      "slug": "smoothie-bowl-de-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-10",
+      "tipo": "noticia",
+      "slug": "genetica-y-poscosecha-como-los-arandanos-conservan-sus-nutrientes",
       "modo": "revision"
     }
   ]

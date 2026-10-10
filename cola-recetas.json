@@ -178,7 +178,8 @@
     "titulo": "Smoothie Bowl de Arándanos con Granola Casera",
     "categoria": "smoothies-batidos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-10"
   },
   {
     "orden": 21,

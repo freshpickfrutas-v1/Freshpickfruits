@@ -1,0 +1,64 @@
+{
+  "slug": "smoothie-bowl-de-arandanos",
+  "title": "Smoothie Bowl de Arándanos con Granola Casera",
+  "excerpt": "Un tazón cremoso e intenso lleno de arándanos congelados, acompañado de una granola casera crujiente horneada al instante. Perfecto para comenzar la mañana con sabor y frescura.",
+  "imageAlt": "Tazón de smoothie espeso color violeta decorado con arándanos frescos, granola crocante y semillas de chía.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos",
+    "postres-saludables"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "2 y 1/2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de yogur griego natural"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón"
+    },
+    {
+      "text": "1 taza de hojuelas de avena"
+    },
+    {
+      "text": "2 cucharadas de almendras picadas"
+    },
+    {
+      "text": "2 cucharadas de miel de abejas"
+    },
+    {
+      "text": "1 cucharada de aceite de coco derretido"
+    },
+    {
+      "text": "1/2 cucharadita de canela en polvo"
+    },
+    {
+      "text": "1 cucharada de semillas de chía"
+    }
+  ],
+  "steps": [
+    "Para la granola, precalienta el horno a 160 °C. En un recipiente mezcla la avena, las almendras, la miel, el aceite de coco y la canela hasta que todo quede bien integrado.",
+    "Extiende la mezcla en una bandeja con papel para hornear y lleva al horno durante 12 a 15 minutos, revolviendo a la mitad del tiempo, hasta que se vea dorada y crujiente. Deja enfriar.",
+    "Para el smoothie, procesa en la licuadora 2 tazas de los arándanos Fresh Pick (previamente congelados) junto con el yogur griego y el jugo de limón hasta lograr una textura cremosa y firme.",
+    "Reparte la crema helada de arándanos en dos tazones profundos.",
+    "Decora la superficie con la granola casera ya fría, la media taza restante de arándanos frescos y la chía justo antes de servir."
+  ],
+  "tips": [
+    "Utilizamos arándanos Fresh Pick cultivados en la alta montaña de Guasca, cuyo dulzor natural equilibra perfectamente la frescura del batido sin necesidad de añadir azúcares.",
+    "Para obtener la textura cremosa y densa típica de un smoothie bowl, congela los arándanos al menos 4 horas antes de procesarlos.",
+    "Puedes conservar la granola casera sobrante en un frasco de vidrio hermético bien cerrado para que mantenga su crocancia hasta por dos semanas."
+  ],
+  "date": "2026-10-10",
+  "publicadoEn": "2026-10-10T14:05:47.023Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/smoothie-bowl-de-arandanos.jpg"
+}

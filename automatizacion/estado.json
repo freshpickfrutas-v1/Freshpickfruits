@@ -21,7 +21,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42833173/",
     "https://pubmed.ncbi.nlm.nih.gov/42840233/",
     "https://pubmed.ncbi.nlm.nih.gov/42833382/",
-    "https://pubmed.ncbi.nlm.nih.gov/42855862/"
+    "https://pubmed.ncbi.nlm.nih.gov/42855862/",
+    "https://pubmed.ncbi.nlm.nih.gov/42857977/"
   ],
   "historial": [
     {
@@ -208,6 +209,18 @@
       "fecha": "2026-10-10",
       "tipo": "noticia",
       "slug": "genetica-y-poscosecha-como-los-arandanos-conservan-sus-nutrientes",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-11",
+      "tipo": "receta",
+      "slug": "galletas-de-avena-y-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-11",
+      "tipo": "noticia",
+      "slug": "arandanos-y-salud-cardiovascular-que-revela-un-estudio-de-28-anos-en-mujeres",
       "modo": "revision"
     }
   ]

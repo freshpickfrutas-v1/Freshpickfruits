@@ -1,0 +1,69 @@
+{
+  "slug": "galletas-de-avena-y-arandanos",
+  "title": "Galletas de Avena y Arándanos",
+  "excerpt": "Prepara unas deliciosas galletas de avena y arándanos, crocantitas por fuera y suaves por dentro. Un snack casero facilísimo, sabroso y perfecto para acompañar el café de la tarde.",
+  "imageAlt": "Galletas doradas de avena con arándanos frescos enteros sobre una bandeja metálica con papel mantequilla.",
+  "category": "snacks-meriendas",
+  "extraCategories": [
+    "desayunos",
+    "postres-saludables"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 12,
+  "ingredients": [
+    {
+      "text": "1 y 1/2 tazas de avena en hojuelas"
+    },
+    {
+      "text": "1 taza de harina de trigo integral o común"
+    },
+    {
+      "text": "1/2 taza de mantequilla a temperatura ambiente"
+    },
+    {
+      "text": "1/2 taza de panela molida o azúcar moreno"
+    },
+    {
+      "text": "1 huevo grande"
+    },
+    {
+      "text": "1 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1/2 cucharadita de polvo de hornear"
+    },
+    {
+      "text": "1/2 cucharadita de canela en polvo"
+    },
+    {
+      "text": "1 pizca de sal"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    }
+  ],
+  "steps": [
+    "Precalienta el horno a 180 °C (350 °F) y engrasa una bandeja para hornear o cúbrela con papel mantequilla.",
+    "En un recipiente grande, bate la mantequilla con la panela molida hasta lograr una textura cremosa y uniforme.",
+    "Agrega el huevo junto con la esencia de vainilla y continúa batiendo hasta integrar completamente los ingredientes líquidos.",
+    "Añade la harina, la avena en hojuelas, el polvo de hornear, la canela y la sal. Mezcla suavemente con una espátula hasta formar una masa blanda.",
+    "Incorpora con delicadeza los arándanos Fresh Pick, cultivados en las frías tierras de alta montaña en Guasca, cuidando de no romper los frutos para mantener su jugosidad.",
+    "Forma 12 bolitas de masa con una cuchara y colócalas sobre la bandeja guardando espacio entre cada una. Aplástalas suavemente con la palma de la mano.",
+    "Hornea entre 12 y 15 minutos hasta que los bordes estén dorados. Deja reposar en la bandeja por 5 minutos antes de pasarlas a una rejilla para enfriar."
+  ],
+  "tips": [
+    "Para evitar que los frutos liberen demasiado jugo al mezclar, puedes pasarlos levemente por una cucharada de harina antes de añadirlos a la preparación.",
+    "Guarda tus galletas totalmente frías en un recipiente de vidrio hermético para mantener su textura crocante hasta por 4 días.",
+    "Puedes congelar la masa ya porcionada en bolitas y hornearlas directamente cuando quieras un snack fresco al instante."
+  ],
+  "date": "2026-10-11",
+  "publicadoEn": "2026-10-11T18:32:41.376Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/galletas-de-avena-y-arandanos.jpg"
+}

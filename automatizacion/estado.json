@@ -22,7 +22,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42840233/",
     "https://pubmed.ncbi.nlm.nih.gov/42833382/",
     "https://pubmed.ncbi.nlm.nih.gov/42855862/",
-    "https://pubmed.ncbi.nlm.nih.gov/42857977/"
+    "https://pubmed.ncbi.nlm.nih.gov/42857977/",
+    "https://pubmed.ncbi.nlm.nih.gov/42856692/"
   ],
   "historial": [
     {
@@ -222,6 +223,12 @@
       "tipo": "noticia",
       "slug": "arandanos-y-salud-cardiovascular-que-revela-un-estudio-de-28-anos-en-mujeres",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-12",
+      "tipo": "receta",
+      "slug": "infusion-caliente-de-arandanos-y-canela",
+      "modo": "automatico"
     }
   ]
 }

@@ -1,0 +1,49 @@
+{
+  "slug": "infusion-caliente-de-arandanos-y-canela",
+  "title": "Infusión Caliente de Arándanos y Canela",
+  "excerpt": "Una reconfortante bebida caliente para las tardes frías, donde el dulzor natural de los arándanos se fusiona con el aroma especiado de la canela.",
+  "imageAlt": "Taza de cristal con infusión caliente de arándanos y canela, soltando vapor con una astilla de canela dentro.",
+  "category": "bebidas-refrescos",
+  "prepMinutes": 5,
+  "cookMinutes": 10,
+  "restMinutes": 3,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 1/2 tazas de agua filtrada"
+    },
+    {
+      "text": "1 astilla de canela grande"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón recién exprimido"
+    },
+    {
+      "text": "1 a 2 cucharaditas de miel de abejas (opcional)"
+    }
+  ],
+  "steps": [
+    "En una olla pequeña, vierte las 2 1/2 tazas de agua y añade la astilla de canela junto con los arándanos Fresh Pick.",
+    "Lleva la mezcla a fuego medio-alto hasta que rompa a hervir.",
+    "Una vez esté hirviendo, baja el fuego al mínimo, tapa la olla y deja cocinar suavemente durante 8 minutos.",
+    "Nuestros arándanos de alta montaña cultivados en Guasca soltarán todo su jugo y color; usa una cuchara de madera para macerar suavemente unos cuantos frutos contra la pared de la olla e intensificar su sabor.",
+    "Retira del fuego, agrega la cucharadita de jugo de limón, tapa nuevamente y deja reposar la infusión durante 3 minutos.",
+    "Cuela la infusión al servir en tus tazas preferidas, o si lo prefieres, deja algunos arándanos enteros en el fondo para comerlos con cuchara. Añade miel al gusto si deseas un toque adicional de dulzor."
+  ],
+  "tips": [
+    "Puedes guardar los arándanos que queden en el colador para agregarlos a tu avena del desayuno o mezclarlos con yogur.",
+    "Para conservar la pruina natural y la frescura de tus arándanos Fresh Pick en casa, mantén la cajita en el refrigerador y lávalos únicamente justo antes de preparar tu receta."
+  ],
+  "date": "2026-10-12",
+  "publicadoEn": "2026-10-12T21:56:56.939Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/infusion-caliente-de-arandanos-y-canela.jpg"
+}

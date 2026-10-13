@@ -205,7 +205,8 @@
     "titulo": "Pechuga de Pollo con Salsa de Arándanos",
     "categoria": "ensaladas-platos-frescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-13"
   },
   {
     "orden": 24,

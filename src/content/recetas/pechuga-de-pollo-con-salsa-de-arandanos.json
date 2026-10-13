@@ -1,0 +1,65 @@
+{
+  "slug": "pechuga-de-pollo-con-salsa-de-arandanos",
+  "title": "Pechuga de Pollo con Salsa de Arándanos",
+  "excerpt": "Pechuga de pollo dorada a la sartén y bañada en una suculenta salsa tibia de arándanos frescos y romero. Un plato principal lleno de color y contraste.",
+  "imageAlt": "Pechuga de pollo en rodajas bañada con salsa agridulce de arándanos frescos y romero en plato blanco.",
+  "category": "ensaladas-platos-frescos",
+  "prepMinutes": 10,
+  "cookMinutes": 20,
+  "restMinutes": 5,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "2 filetes gruesos de pechuga de pollo (400 g)"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 cucharada de aceite de oliva"
+    },
+    {
+      "text": "1 cucharada de mantequilla"
+    },
+    {
+      "text": "1 diente de ajo finamente picado"
+    },
+    {
+      "text": "1 ramita de romero fresco"
+    },
+    {
+      "text": "1/4 de taza de caldo de pollo o agua"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón"
+    },
+    {
+      "text": "1 cucharadita de miel de abejas"
+    },
+    {
+      "text": "Sal marina y pimienta negra al gusto"
+    }
+  ],
+  "steps": [
+    "Seca los filetes de pechuga con papel de cocina y sazónalos generosamente por ambos lados con sal marina y pimienta negra molida.",
+    "Calienta el aceite de oliva en una sartén amplia a fuego medio-alto. Dora las pechugas durante 6 minutos por lado hasta que estén cocidas y bien doradas por fuera.",
+    "Pasa el pollo a un plato y cúbrelo sin apretar con papel aluminio para que repose y conserve todos sus jugos internos.",
+    "En la misma sartén a fuego medio, derrite la mantequilla y sofríe el ajo picado junto con la ramita de romero durante 1 minuto, removiendo constantemente para que no se queme.",
+    "Vierte el caldo de pollo, el jugo de limón y la miel, raspando el fondo de la sartén con una espátula de madera para levantar los sabores concentrados del dorado del pollo.",
+    "Agrega los arándanos Fresh Pick, cosechados en las montañas de Guasca, cuyo balance natural de acidez y dulzura aporta el cuerpo perfecto a la salsa. Cocina a fuego suave durante 4 a 5 minutos, presionando suavemente la mitad de las bayas con una cuchara de madera para soltar su jugo y dejando el resto enteras.",
+    "Corta la pechuga en rodajas diagonales, sírvela en los platos y vierte la salsa tibia de arándanos por encima antes de disfrutar."
+  ],
+  "tips": [
+    "No aplastes todos los arándanos al hacer la salsa; dejar varios enteros brinda una textura agradable y un estallido jugoso en cada bocado de pollo.",
+    "Guarda los arándanos Fresh Pick en la nevera en su recipiente original sin lavar; lávalos únicamente bajo un chorro suave de agua fría justo antes de usarlos para conservar su pruina protectora natural intacta."
+  ],
+  "date": "2026-10-13",
+  "publicadoEn": "2026-10-13T20:17:03.535Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/pechuga-de-pollo-con-salsa-de-arandanos.jpg"
+}

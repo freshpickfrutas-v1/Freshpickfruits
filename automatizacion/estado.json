@@ -229,6 +229,12 @@
       "tipo": "receta",
       "slug": "infusion-caliente-de-arandanos-y-canela",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-13",
+      "tipo": "receta",
+      "slug": "pechuga-de-pollo-con-salsa-de-arandanos",
+      "modo": "automatico"
     }
   ]
 }

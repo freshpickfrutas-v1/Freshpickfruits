@@ -235,6 +235,12 @@
       "tipo": "receta",
       "slug": "pechuga-de-pollo-con-salsa-de-arandanos",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-14",
+      "tipo": "receta",
+      "slug": "batido-de-arandanos-avena-y-canela",
+      "modo": "automatico"
     }
   ]
 }

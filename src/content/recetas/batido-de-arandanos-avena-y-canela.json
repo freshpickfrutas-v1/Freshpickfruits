@@ -1,0 +1,52 @@
+{
+  "slug": "batido-de-arandanos-avena-y-canela",
+  "title": "Batido de Arándanos, Avena y Canela",
+  "excerpt": "Disfruta un cremso batido con arándanos de alta montaña, avena y un toque de canela. Una opción deliciosa, rápida y perfecta para empezar el día.",
+  "imageAlt": "Vaso de vidrio con un batido cremoso de color violeta decorado con arándanos frescos y un toque de canela en polvo sobre una mesa de madera.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de leche de almendras o leche entera"
+    },
+    {
+      "text": "1/2 taza de hojuelas de avena tradicional"
+    },
+    {
+      "text": "1/2 cucharadita de canela en polvo"
+    },
+    {
+      "text": "1 cucharadita de miel de abejas al gusto"
+    }
+  ],
+  "steps": [
+    "Lleva las hojuelas de avena a la licuadora y procésalas unos segundos hasta obtener un polvo fino.",
+    "Añade los arándanos Fresh Pick, cultivados con esmero en el frío de Guasca.",
+    "Vierte la leche de almendras o la leche de tu preferencia junto con la canela en polvo.",
+    "Agrega la miel de abejas si deseas un toque extra de dulzor.",
+    "Licúa a velocidad alta durante dos minutos hasta que la mezcla esté completamente homogénea y cremosa.",
+    "Sirve inmediatamente en vasos fríos y decora con algunos arándanos enteros por encima."
+  ],
+  "tips": [
+    "Si prefieres una textura más helada y espesa, puedes congelar previamente los arándanos.",
+    "Guarda tus arándanos en la nevera sin lavar y consúmelos pronto para disfrutar al máximo su pruina natural y sabor."
+  ],
+  "date": "2026-10-14",
+  "publicadoEn": "2026-10-14T18:29:22.583Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/batido-de-arandanos-avena-y-canela.jpg"
+}

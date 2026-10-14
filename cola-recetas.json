@@ -214,7 +214,9 @@
     "titulo": "Sirope de Arándanos para Panqueques",
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "no se consiguió una imagen aprobada: intento 1: rechazada: La tetera o jarra que vierte el sirope tiene una forma físicamente imposible y el flujo del líquido desafía las leyes de la física al dividirse en dos hilos extraños. | intento 2: rechazada: La imagen muestra deformaciones físicas en el flujo del sirope y en la anatomía de la mano que sostiene el recipiente, lo cual delata que fue generada por IA y no cumple con los estándares de una fotografía real y apetitosa. | intento 3: rechazada: La imagen muestra arándanos y panqueques con sirope, pero la mano que sostiene la jarra de sirope en la parte superior izquierda se ve poco clara y extraña, lo que incumple la condición de realismo sin deformaciones."
   },
   {
     "orden": 25,
@@ -222,7 +224,8 @@
     "titulo": "Batido de Arándanos, Avena y Canela",
     "categoria": "smoothies-batidos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-14"
   },
   {
     "orden": 26,

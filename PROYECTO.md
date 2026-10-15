@@ -97,7 +97,7 @@ El contenido **no viaja dentro del JavaScript**. Antes de cada build, `scripts/g
 - `recetas-index.json` y `noticias-index.json`: resumen liviano de todo lo publicado, para listados, filtros y búsqueda (unos 1,3 KB por pieza).
 - `recetas/<slug>.json` y `noticias/<slug>.json`: la pieza completa, que solo se descarga al abrirla.
 
-Así publicar una pieza nueva no cambia los archivos JavaScript del sitio (el navegador los conserva en caché) y la biblioteca puede crecer sin hacer más pesada la carga. Los paneles `/panel` y `/admin` también se descargan aparte. Cuando el índice pase de unas 2.000 piezas por sección convendrá partirlo por año.
+Así publicar una pieza nueva no cambia los archivos JavaScript del sitio (el navegador los conserva en caché) y la biblioteca puede crecer sin hacer más pesada la carga. Los paneles `/panel` y `/admin` también se descargan aparte.
 
 #### Prerender (SEO)
 
@@ -106,6 +106,10 @@ Tras compilar, `scripts/prerender.mjs` genera el HTML completo de cada receta, n
 - Cada página declara su título y etiquetas con `usePageMeta` (`src/lib/seo.tsx`); esa misma información se usa en el navegador y en el prerender.
 - Las rutas a prerenderizar salen de `scripts/contenido-publicado.mjs`, la misma fuente del sitemap.
 - Para probar en local: `npm run build` y luego `npm run preview`.
+
+#### Pendientes decididos
+
+- Cargar Firebase bajo demanda (ahorra ~168 KB en recetas y noticias): guía en [`docs/PENDIENTE-firebase-bajo-demanda.md`](docs/PENDIENTE-firebase-bajo-demanda.md). No aplicado.
 
 ---
 

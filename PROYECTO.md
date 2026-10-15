@@ -107,6 +107,13 @@ Tras compilar, `scripts/prerender.mjs` genera el HTML completo de cada receta, n
 - Las rutas a prerenderizar salen de `scripts/contenido-publicado.mjs`, la misma fuente del sitemap.
 - Para probar en local: `npm run build` y luego `npm run preview`.
 
+#### Archivos de `public/` que no se deben borrar
+
+- `google5f2ce04d3bc7c6cd.html`: verificación de la propiedad en Google Search Console. Si se borra, Google pierde la verificación (cuenta `freshpickfrutas@gmail.com`). Si ocurre: restaurar el archivo con el texto `google-site-verification: google5f2ce04d3bc7c6cd.html` y pulsar **Verificar** en Search Console.
+- `robots.txt` y `sitemap.xml` (este último se regenera solo en cada build).
+- Antes de cada build, `scripts/verificar-archivos-publicos.mjs` avisa en el registro si falta alguno. Solo avisa; no detiene el despliegue.
+- Si se cambia de dominio o de proyecto de Vercel, hay que verificar la propiedad de nuevo.
+
 #### Pendientes decididos
 
 - Cargar Firebase bajo demanda (ahorra ~168 KB en recetas y noticias): guía en [`docs/PENDIENTE-firebase-bajo-demanda.md`](docs/PENDIENTE-firebase-bajo-demanda.md). No aplicado.

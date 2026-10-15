@@ -215,8 +215,8 @@
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
     "estado": "pendiente",
-    "intentos": 1,
-    "ultimoError": "no se consiguió una imagen aprobada: intento 1: rechazada: La tetera o jarra que vierte el sirope tiene una forma físicamente imposible y el flujo del líquido desafía las leyes de la física al dividirse en dos hilos extraños. | intento 2: rechazada: La imagen muestra deformaciones físicas en el flujo del sirope y en la anatomía de la mano que sostiene el recipiente, lo cual delata que fue generada por IA y no cumple con los estándares de una fotografía real y apetitosa. | intento 3: rechazada: La imagen muestra arándanos y panqueques con sirope, pero la mano que sostiene la jarra de sirope en la parte superior izquierda se ve poco clara y extraña, lo que incumple la condición de realismo sin deformaciones."
+    "intentos": 2,
+    "ultimoError": "no se consiguió una imagen aprobada: intento 1: rechazada: La imagen no cumple con la condición de no contener texto, ya que el recipiente de cristal muestra letras y marcas impresas en su superficie. | intento 2: rechazada: Los arándanos están presentes, pero la imagen fue generada mediante IA y presenta ciertas inconsistencias físicas típicas de los modelos sintéticos, como la forma del jarabe y los reflejos, además de la presencia de un recipiente con arándanos flotando de manera extraña. Sin embargo, el motivo principal es que el jarabe se vierte sobre un solo panqueque superior en lugar de estar integrado como un sirope de arándanos casero de receta visible. | intento 3: rechazada: La jarra de vidrio contiene texto y letras visibles, incumpliendo el requisito de no incluir texto ni marcas."
   },
   {
     "orden": 25,
@@ -233,7 +233,8 @@
     "titulo": "Pudín de Chía con Arándanos",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-15"
   },
   {
     "orden": 27,

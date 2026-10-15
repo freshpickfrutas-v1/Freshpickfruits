@@ -1,0 +1,56 @@
+{
+  "slug": "pudin-de-chia-con-arandanos",
+  "title": "Pudín de Chía con Arándanos",
+  "excerpt": "Disfruta de un desayuno cremoso y fresco con este pudín de chía preparado con leche vegetal, endulzado suavemente y servido con una generosa capa de arándanos Fresh Pick.",
+  "imageAlt": "Frasco de vidrio con pudín de chía cremoso y capas de arándanos Fresh Pick frescos sobre una mesa de madera.",
+  "category": "desayunos",
+  "extraCategories": [
+    "postres-saludables",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 0,
+  "restMinutes": 240,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "4 cucharadas de semillas de chía"
+    },
+    {
+      "text": "1 1/2 tazas de leche de almendras, coco o entera"
+    },
+    {
+      "text": "1 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1 1/2 cucharadas de miel de abejas"
+    },
+    {
+      "text": "1/2 cucharadita de ralladura de limón"
+    }
+  ],
+  "steps": [
+    "En un tazón o frasco de vidrio, vierte la leche de tu preferencia, las semillas de chía, la esencia de vainilla, la miel y la ralladura de limón.",
+    "Revuelve muy bien durante 2 minutos con un tenedor para asegurarte de que las semillas de chía se integren y no se peguen en el fondo.",
+    "Deja reposar la mezcla durante 10 minutos a temperatura ambiente y vuelve a batir con el tenedor para deshacer cualquier grumo que se haya formado.",
+    "Tapa el recipiente y llévalo a la nevera por lo menos durante 4 horas, o idealmente desde la noche anterior, hasta que obtenga una consistencia firme y cremosa.",
+    "Antes de servir, lava suavemente los arándanos Fresh Pick. Estos arándanos de alta montaña, cultivados en Guasca, tienen el dulzor equilibrado perfecto para acompañar la chía.",
+    "Sirve el pudín de chía en dos vasos o copas, intercalando capas de pudín con los arándanos frescos en la parte superior."
+  ],
+  "tips": [
+    "Para conservar la capa protectora natural y toda la frescura de los arándanos Fresh Pick, manténlos refrigerados en su caja y lávalos únicamente unos minutos antes de consumirlos.",
+    "Si te gusta una textura completamente suave y homogénea, puedes licuar la leche con la chía y la miel antes de refrigerar la mezcla."
+  ],
+  "date": "2026-10-15",
+  "publicadoEn": "2026-10-15T18:06:26.732Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/pudin-de-chia-con-arandanos.jpg"
+}

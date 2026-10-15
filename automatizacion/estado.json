@@ -23,7 +23,9 @@
     "https://pubmed.ncbi.nlm.nih.gov/42833382/",
     "https://pubmed.ncbi.nlm.nih.gov/42855862/",
     "https://pubmed.ncbi.nlm.nih.gov/42857977/",
-    "https://pubmed.ncbi.nlm.nih.gov/42856692/"
+    "https://pubmed.ncbi.nlm.nih.gov/42856692/",
+    "https://pubmed.ncbi.nlm.nih.gov/42865659/",
+    "https://pubmed.ncbi.nlm.nih.gov/42846037/"
   ],
   "historial": [
     {
@@ -241,6 +243,24 @@
       "tipo": "receta",
       "slug": "batido-de-arandanos-avena-y-canela",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-15",
+      "tipo": "receta",
+      "slug": "pudin-de-chia-con-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-15",
+      "tipo": "noticia",
+      "slug": "innovacion-en-el-cultivo-de-arandanos-el-impacto-de-la-fertilizacion-organica",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-15",
+      "tipo": "noticia",
+      "slug": "bacterias-antarticas-y-arandanos-control-biologico-contra-el-moho-gris",
+      "modo": "revision"
     }
   ]
 }

@@ -170,25 +170,33 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-2 flex flex-wrap gap-2">
+            <div className="pt-2">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6]">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
                 <span>GLOBALG.A.P. · GRASP · ICA</span>
               </div>
-              <a
-                href="/privacidad"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
-                <span>Política de Privacidad</span>
-              </a>
-              <a
-                href="/terminos"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
-              >
-                <FileText className="w-3.5 h-3.5 text-[#DDA83A]" />
-                <span>Términos y Condiciones</span>
-              </a>
+            </div>
+
+            <div className="pt-4 space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                Políticas & Términos
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href="/privacidad"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
+                  <span>Política de Privacidad</span>
+                </a>
+                <a
+                  href="/terminos"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
+                >
+                  <FileText className="w-3.5 h-3.5 text-[#DDA83A]" />
+                  <span>Términos y Condiciones</span>
+                </a>
+              </div>
             </div>
           </div>
 

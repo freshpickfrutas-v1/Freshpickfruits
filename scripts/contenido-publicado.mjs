@@ -53,5 +53,7 @@ export function prerenderPaths(content) {
     }
     for (const item of list) paths.push(`${detail}/${item.slug}`);
   }
+  // Páginas legales: contenido completo en el HTML (Google las revisa para verificar la marca).
+  paths.push('/privacidad', '/terminos');
   return paths;
 }

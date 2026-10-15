@@ -13,19 +13,31 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.freshpickfruits.com/privacidad</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/terminos</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://www.freshpickfruits.com/recetas/2026</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -37,7 +49,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/2026/10</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -49,7 +61,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/categoria/desayunos</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -61,7 +73,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/categoria/postres-saludables</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -85,7 +97,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/categoria/snacks-meriendas</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -109,7 +121,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/etiqueta/chia</loc>
-    <lastmod>2026-10-10</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -145,7 +157,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/etiqueta/limon</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -163,7 +175,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/etiqueta/miel</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -181,13 +193,13 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/etiqueta/sin-coccion</loc>
-    <lastmod>2026-10-14</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/etiqueta/vainilla</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -199,7 +211,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias/2026</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -211,7 +223,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias/2026/10</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -223,7 +235,7 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias/categoria/cultivo-origen</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -253,13 +265,13 @@
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias/etiqueta/cultivo</loc>
-    <lastmod>2026-10-10</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/noticias/etiqueta/estudios</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -286,6 +298,12 @@
     <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/recetas/pudin-de-chia-con-arandanos</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.freshpickfruits.com/recetas/batido-de-arandanos-avena-y-canela</loc>
@@ -482,6 +500,12 @@
   <url>
     <loc>https://www.freshpickfruits.com/recetas/mermelada-de-arandanos-con-chia</loc>
     <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.freshpickfruits.com/noticias/innovacion-en-el-cultivo-de-arandanos-el-impacto-de-la-fertilizacion-organica</loc>
+    <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

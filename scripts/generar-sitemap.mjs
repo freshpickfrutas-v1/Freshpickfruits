@@ -22,6 +22,8 @@ const urls = [
   { loc: '/', lastmod: HOME_LASTMOD, changefreq: 'weekly', priority: '1.0' },
   { loc: '/recetas', lastmod: newest(recetas), changefreq: 'daily', priority: '0.8' },
   { loc: '/noticias', lastmod: newest(noticias), changefreq: 'daily', priority: '0.8' },
+  { loc: '/privacidad', lastmod: HOME_LASTMOD, changefreq: 'yearly', priority: '0.3' },
+  { loc: '/terminos', lastmod: HOME_LASTMOD, changefreq: 'yearly', priority: '0.3' },
   ...archiveUrls,
   ...recetas.map(r => ({ loc: `/recetas/${r.slug}`, lastmod: r.date ?? HOME_LASTMOD, changefreq: 'monthly', priority: '0.7' })),
   ...noticias.map(n => ({ loc: `/noticias/${n.slug}`, lastmod: n.date, changefreq: 'monthly', priority: '0.7' }))

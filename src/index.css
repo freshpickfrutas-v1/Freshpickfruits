@@ -117,3 +117,14 @@
   color: #2F183C;
   border: 1px solid #DFCEE6;
 }
+
+/* Bordes laterales (patrón de arándanos) también en celular/tablet.
+   Margen fluido: 8px en pantallas muy pequeñas (320px) hasta 24px, sin desbordar. */
+@media (max-width: 1023.98px) {
+  .fp-side-gutters {
+    width: calc(100% - 2 * clamp(0.5rem, 3vw, 1.5rem));
+    margin-inline: auto;
+    min-width: 0;
+    overflow-x: clip;
+  }
+}

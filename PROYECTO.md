@@ -110,6 +110,7 @@ Tras compilar, `scripts/prerender.mjs` genera el HTML completo de cada receta, n
 #### Archivos de `public/` que no se deben borrar
 
 - `google5f2ce04d3bc7c6cd.html`: verificación de la propiedad en Google Search Console. Si se borra, Google pierde la verificación (cuenta `freshpickfrutas@gmail.com`). Si ocurre: restaurar el archivo con el texto `google-site-verification: google5f2ce04d3bc7c6cd.html` y pulsar **Verificar** en Search Console.
+- Etiqueta `<meta name="google-site-verification" ...>` en `index.html`: segundo método de verificación de Search Console (respaldo del archivo). No quitarla.
 - `robots.txt` y `sitemap.xml` (este último se regenera solo en cada build).
 - Antes de cada build, `scripts/verificar-archivos-publicos.mjs` avisa en el registro si falta alguno. Solo avisa; no detiene el despliegue.
 - Si se cambia de dominio o de proyecto de Vercel, hay que verificar la propiedad de nuevo.

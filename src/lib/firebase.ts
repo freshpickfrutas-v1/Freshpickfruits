@@ -3,9 +3,17 @@ import { getAuth, GoogleAuthProvider, OAuthProvider, FacebookAuthProvider } from
 import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
 import firebaseConfigJson from '../../firebase-applet-config.json';
 
+// En freshpickfruits.com el inicio de sesión se sirve desde el propio dominio (vercel.json reenvía /__/auth/*
+// a Firebase), así Google muestra "freshpickfruits.com" y no el ID técnico del proyecto. En cualquier otro
+// sitio (vistas previas de Vercel, localhost, prerender) se mantiene el dominio de Firebase.
+const ownDomain =
+  typeof window !== 'undefined' && /(^|\.)freshpickfruits\.com$/.test(window.location.hostname)
+    ? window.location.hostname
+    : null;
+
 const firebaseConfig = {
   apiKey: firebaseConfigJson.apiKey,
-  authDomain: firebaseConfigJson.authDomain,
+  authDomain: ownDomain ?? firebaseConfigJson.authDomain,
   projectId: firebaseConfigJson.projectId,
   storageBucket: firebaseConfigJson.storageBucket,
   messagingSenderId: firebaseConfigJson.messagingSenderId,

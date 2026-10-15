@@ -4,6 +4,7 @@
     { "source": "/blog/:path*", "destination": "/noticias/:path*", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/__/auth/:path*", "destination": "https://yogic-oxygen-h53bd-869ca.firebaseapp.com/__/auth/:path*" },
     { "source": "/privacidad", "destination": "/index.html" },
     { "source": "/terminos", "destination": "/index.html" },
     { "source": "/panel", "destination": "/index.html" },

@@ -72,12 +72,24 @@ cola-recetas.json         Cola de recetas pendientes
 | Ruta | Contenido |
 |---|---|
 | `/` | Inicio: hero, variedades, armar pedido, recetas, artículos, planes, sostenibilidad, testimonios y preguntas |
-| `/recetas`, `/recetas/:slug` | Listado y detalle de recetas |
-| `/noticias`, `/noticias/:slug` | Listado y detalle de artículos |
+| `/recetas`, `/recetas/:slug` | Biblioteca y detalle de recetas |
+| `/noticias`, `/noticias/:slug` | Biblioteca y detalle de artículos |
+| `/recetas/pagina/2` · `/recetas/2026` · `/recetas/2026/10` · `/recetas/categoria/desayunos` · `/recetas/etiqueta/avena` | Archivo de la biblioteca (igual para `/noticias`). Son páginas indexables y están en el sitemap |
+| `/recetas?q=avena&tiempo=15&dificultad=Fácil` | Búsqueda y filtros combinados (`noindex`, con canonical a la vista limpia) |
 | `/panel` | Panel de cliente (pide iniciar sesión) |
 | `/admin` | Panel del equipo (solo roles del equipo) |
 
 Cualquier otra dirección muestra hoy la página de inicio (no hay página 404 real).
+
+---
+
+### Biblioteca de recetas y noticias
+
+Nada se borra: todo lo publicado se acumula en `src/content/` y sigue disponible. Para que escale, los listados paginan de 12 en 12 (más recientes primero) y tienen búsqueda, filtros por año > mes, categoría, etiqueta (y, en recetas, tiempo y dificultad) y orden.
+
+- **Etiquetas automáticas:** se calculan solas desde el título, extracto, ingredientes y subtítulos (`src/lib/tagging.mjs`). Para ajustar una, edita sus reglas ahí. Una pieza también puede traer su propio `"tags": ["..."]` en el JSON, que se suma a las automáticas.
+- **SEO:** las vistas limpias (una sola categoría, etiqueta o fecha) se indexan; las etiquetas, solo con 3 o más piezas. Búsquedas y filtros combinados van `noindex, follow` con canonical a su vista limpia. `scripts/generar-sitemap.mjs` incluye las páginas de archivo.
+- **Lógica:** `src/lib/library.ts` (URL, filtros, facetas, paginación), `src/lib/libraryEntries.ts` y `src/components/LibraryControls.tsx`.
 
 ---
 

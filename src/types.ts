@@ -154,6 +154,8 @@ export interface Recipe extends ContentWorkflow {
   steps: string[];
   tips: string[];
   featured?: boolean;
+  /** Etiquetas manuales opcionales; se suman a las que se generan solas (ver src/lib/tagging.mjs). */
+  tags?: string[];
   /** Tie-breaker for recipes published the same day (lower first). */
   orden?: number;
   /** ISO publication date; newest recipes are listed first. */
@@ -207,6 +209,8 @@ export interface BlogArticle extends ContentWorkflow {
   /** Slugs of recipes to suggest at the end of the article. */
   relatedRecipes?: string[];
   featured?: boolean;
+  /** Etiquetas manuales opcionales; se suman a las que se generan solas (ver src/lib/tagging.mjs). */
+  tags?: string[];
 }
 
 export interface TestimonialItem {

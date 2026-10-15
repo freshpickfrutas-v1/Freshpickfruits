@@ -31,10 +31,12 @@ interface PageMeta {
   path: string;
   image?: string;
   type?: 'website' | 'article';
+  /** Páginas de búsqueda o filtros combinados: no se indexan, pero Google sigue sus enlaces. */
+  noindex?: boolean;
 }
 
 /** Sets per-page <title>, description, canonical and Open Graph tags. */
-export function usePageMeta({ title, description, path, image, type = 'website' }: PageMeta) {
+export function usePageMeta({ title, description, path, image, type = 'website', noindex = false }: PageMeta) {
   useEffect(() => {
     const defaultDescription =
       document.head.querySelector<HTMLMetaElement>('meta[name="description"]')?.content ?? '';
@@ -43,6 +45,7 @@ export function usePageMeta({ title, description, path, image, type = 'website' 
     document.title = title;
     setMeta('meta[name="description"]', 'name', 'description', description);
     setCanonical(url);
+    setMeta('meta[name="robots"]', 'name', 'robots', noindex ? 'noindex, follow' : 'index, follow');
     setMeta('meta[property="og:title"]', 'property', 'og:title', title);
     setMeta('meta[property="og:description"]', 'property', 'og:description', description);
     setMeta('meta[property="og:url"]', 'property', 'og:url', url);
@@ -52,12 +55,13 @@ export function usePageMeta({ title, description, path, image, type = 'website' 
     setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
     setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', imageUrl);
     return () => {
+      setMeta('meta[name="robots"]', 'name', 'robots', 'index, follow');
       document.title = DEFAULT_TITLE;
       setMeta('meta[name="description"]', 'name', 'description', defaultDescription);
       setMeta('meta[property="og:type"]', 'property', 'og:type', 'website');
       setCanonical(`${SITE_URL}/`);
     };
-  }, [title, description, path, image, type]);
+  }, [title, description, path, image, type, noindex]);
 }
 
 /** Renders a JSON-LD <script> block for structured data (Recipe, BlogPosting, etc.). */

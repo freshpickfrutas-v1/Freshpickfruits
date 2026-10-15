@@ -14,11 +14,12 @@ function renderRoute(pathname: string) {
   if (pathname === '/panel' || pathname.startsWith('/panel/')) return <UserPanel />;
   if (pathname === '/admin' || pathname.startsWith('/admin/')) return <AdminPanel />;
 
-  if (pathname === '/recetas') return <RecipesPage />;
+  // Biblioteca: /recetas, /recetas/pagina/2, /recetas/2026[/10], /recetas/categoria/x, /recetas/etiqueta/x
+  if (/^\/recetas(\/(pagina|categoria|etiqueta)\/.+|\/\d{4}(\/\d{1,2})?(\/pagina\/\d+)?)?$/.test(pathname)) return <RecipesPage />;
   const recipeMatch = pathname.match(/^\/recetas\/([^/]+)$/);
   if (recipeMatch) return <RecipeDetailPage slug={decodeURIComponent(recipeMatch[1])} />;
 
-  if (pathname === '/noticias') return <BlogPage />;
+  if (/^\/noticias(\/(pagina|categoria|etiqueta)\/.+|\/\d{4}(\/\d{1,2})?(\/pagina\/\d+)?)?$/.test(pathname)) return <BlogPage />;
   const articleMatch = pathname.match(/^\/noticias\/([^/]+)$/);
   if (articleMatch) return <BlogArticlePage slug={decodeURIComponent(articleMatch[1])} />;
 

@@ -1,0 +1,76 @@
+{
+  "slug": "bacterias-antarticas-y-arandanos-control-biologico-contra-el-moho-gris",
+  "title": "Bacterias antárticas y arándanos: control biológico contra el moho gris",
+  "metaDescription": "Un estudio analiza bacterias antárticas capaces de combatir el moho gris en arándanos a temperaturas de cadena de frío. Conoce sus implicaciones.",
+  "excerpt": "Investigadores exploran el potencial de bacterias antárticas para proteger a los arándanos y otras frutas del moho gris durante la cadena de frío.",
+  "category": "nutricion-ciencia",
+  "date": "2026-10-15",
+  "publicadoEn": "2026-10-15T18:15:30.819Z",
+  "readMinutes": 3,
+  "author": "Equipo Fresh Pick",
+  "imageAlt": "Arándanos frescos cultivados en alta montaña junto a hojas verdes en una cesta rústica.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introducción: La batalla contra el moho gris en la cadena de frío"
+    },
+    {
+      "type": "p",
+      "text": "La conservación de los frutos rojos es uno de los mayores retos en la cadena de suministro agrícola global. Entre las principales amenazas se encuentra el moho gris, un hongo patógeno que provoca pérdidas significativas postcosecha y cuya gestión se complica cada vez más debido a la resistencia a los fungicidas tradicionales. Además, muchos agentes de control biológico convencionales pierden su eficacia a las bajas temperaturas en las que se transportan y almacenan estos productos. En este contexto, la búsqueda de soluciones innovadoras ha llevado a la comunidad científica a explorar ambientes extremos en busca de respuestas naturales que aseguren la frescura y calidad de frutos tan delicados como los arándanos."
+    },
+    {
+      "type": "h2",
+      "text": "Qué dice la fuente: Hallazgos desde la Antártida hasta los arándanos"
+    },
+    {
+      "type": "p",
+      "text": "Un reciente estudio publicado en PubMed y liderado por investigadores enfocados en microbiología evaluó bacterias aisladas de la rizósfera en la Isla Rey Jorge, en la Antártida. Los científicos examinaron 57 aislamientos bacterianos para enfrentar al patógeno Botrytis cinerea tanto a temperatura ambiente como a cero grados centígrados. De ellos, 44 mostraron antagonismo a 22 °C, pero solo 28 mantuvieron su efectividad a 0 °C. En particular, cinco cepas pertenecientes al género Pseudomonas lograron inhibir el crecimiento del hongo en un porcentaje igual o superior al 70 % a bajas temperaturas, mostrando eficacia incluso frente a cepas resistentes a múltiples fármacos."
+    },
+    {
+      "type": "p",
+      "text": "Mediante la caracterización del genoma de la cepa representativa AN3A02, los investigadores identificaron características asociadas con la producción de compuestos antimicrobianos y volátiles. Al probar estos compuestos en arándanos y uvas inoculadas y almacenadas bajo condiciones simuladas de cadena de frío, se observó una reducción significativa en la incidencia del moho gris, superando incluso los métodos convencionales evaluados en el experimento."
+    },
+    {
+      "type": "h2",
+      "text": "Contexto: Innovación biológica en la protección de frutos"
+    },
+    {
+      "type": "p",
+      "text": "Este hallazgo se alinea con la tendencia científica de buscar alternativas biológicas y sostenibles en la agricultura moderna. A diferencia de los microorganismos mesófilos tradicionales, que se inactivan con el frío, las bacterias psicrófilas adaptadas a entornos polares demuestran que es posible mantener una defensa activa contra los patógenos durante la refrigeración. Para la industria de los frutos del bosque, proteger la fruta sin depender exclusivamente de químicos sintéticos representa un paso adelante en la investigación fitosanitaria, abriendo la puerta a nuevas herramientas basadas en la biodiversidad natural."
+    },
+    {
+      "type": "h2",
+      "text": "Qué significa para ti: Ciencia aplicada al cuidado de los alimentos"
+    },
+    {
+      "type": "p",
+      "text": "Para los consumidores y productores, este tipo de investigaciones demuestra el complejo entramado científico que hay detrás de la llegada de frutas frescas y saludables a los mercados. Aunque este estudio se encuentra en una fase experimental y de laboratorio, ilustra cómo la ciencia busca constantemente métodos más seguros para alargar la vida útil de los alimentos manteniendo sus propiedades intactas. El entendimiento de estas interacciones microbianas ayuda a optimizar los procesos desde la cosecha hasta el consumo final, garantizando que cada fruto conserve su calidad óptima."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusión"
+    },
+    {
+      "type": "p",
+      "text": "La investigación sobre microorganismos antárticos abre un horizonte fascinante para la protección natural de los frutos frente al deterioro por frío. Así como la ciencia explora soluciones innovadoras en la naturaleza, en Fresh Pick cuidamos cada detalle en la Vereda Santa Bárbara de Guasca para ofrecerte frutos cultivados con métodos naturales y sostenibles."
+    }
+  ],
+  "fuentes": [
+    {
+      "titulo": "Genomic and phenotypic characterization of Antarctic Pseudomonas/Aquipseudomonas sp. strains with cold-active antifungal activity against Botrytis cinerea .",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42846037/",
+      "medio": "PubMed · Frontiers in microbiology",
+      "idioma": "en"
+    }
+  ],
+  "relatedRecipes": [
+    "compota-de-arandanos-casera",
+    "mermelada-de-arandanos-con-chia",
+    "infusion-caliente-de-arandanos-y-canela"
+  ],
+  "estado": "publicado",
+  "modo": "revision",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/bacterias-antarticas-y-arandanos-control-biologico-contra-el-moho-gris.jpg"
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FruitItem } from '../types';
-import { Plus, Check, Info, Sparkles, X, Shield, SunMedium, Compass, Heart } from 'lucide-react';
+import { Plus, Minus, Check, Info, Sparkles, X, Shield, SunMedium, Compass, Heart } from 'lucide-react';
 
 interface FruitCatalogProps {
   fruits: FruitItem[];
@@ -16,9 +16,18 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
   const [activeModalFruit, setActiveModalFruit] = useState<FruitItem | null>(null);
   const [addedIds, setAddedIds] = useState<Record<string, boolean>>({});
 
+  // Cantidad elegida en cada tarjeta (estuches). Los de 125g y 250g van de 2 en 2, igual que en "Armar pedido".
+  const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const stepOf = (fruit: FruitItem) => (fruit.defaultGramUnit === 125 || fruit.defaultGramUnit === 250 ? 2 : 1);
+  const qtyOf = (fruit: FruitItem) => quantities[fruit.id] ?? stepOf(fruit);
+  const changeQty = (fruit: FruitItem, direction: 1 | -1) => {
+    const step = stepOf(fruit);
+    setQuantities(prev => ({ ...prev, [fruit.id]: Math.max(step, (prev[fruit.id] ?? step) + direction * step) }));
+  };
+
   const handleAdd = (fruit: FruitItem) => {
-    const defaultQty = (fruit.defaultGramUnit === 125 || fruit.defaultGramUnit === 250) ? 2 : 1;
-    onAddToCart(fruit, defaultQty);
+    onAddToCart(fruit, qtyOf(fruit));
+    setQuantities(prev => ({ ...prev, [fruit.id]: stepOf(fruit) }));
     setAddedIds(prev => ({ ...prev, [fruit.id]: true }));
     setTimeout(() => {
       setAddedIds(prev => ({ ...prev, [fruit.id]: false }));
@@ -106,29 +115,29 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                   </div>
 
                   {/* Pricing and Action Bar */}
-                  <div className="pt-4 border-t border-[#EADBEE] flex items-center justify-between">
-                    <div>
-                      <span className="text-[11px] text-stone-500 block font-medium">
-                        Presentación: {fruit.presentation}
-                      </span>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-lg font-black text-[#2F183C] font-display">
-                          ${fruit.standardPrice.toLocaleString('es-CO')}
+                  <div className="pt-4 border-t border-[#EADBEE] space-y-3">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <span className="text-[11px] text-stone-500 block font-medium">
+                          Presentación: {fruit.presentation}
                         </span>
-                        <span className="text-xs text-stone-500 font-medium">COP</span>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-lg font-black text-[#2F183C] font-display">
+                            ${fruit.standardPrice.toLocaleString('es-CO')}
+                          </span>
+                          <span className="text-xs text-stone-500 font-medium">COP c/u</span>
+                        </div>
+                        {stepOf(fruit) === 2 ? (
+                          <span className="text-[10px] text-[#785412] font-semibold block">
+                            ⚠️ Se piden de 2 en 2 estuches
+                          </span>
+                        ) : (
+                          <span className="text-[10px] text-[#7B4382] font-semibold block">
+                            ✨ Mínimo con 1 ud.
+                          </span>
+                        )}
                       </div>
-                      {(fruit.defaultGramUnit === 125 || fruit.defaultGramUnit === 250) ? (
-                        <span className="text-[10px] text-[#785412] font-semibold block">
-                          ⚠️ En múltiplos de 2 uds.
-                        </span>
-                      ) : (
-                        <span className="text-[10px] text-[#7B4382] font-semibold block">
-                          ✨ Mínimo con 1 ud.
-                        </span>
-                      )}
-                    </div>
 
-                    <div className="flex items-center gap-2">
                       {/* Info Button */}
                       <button
                         onClick={() => setActiveModalFruit(fruit)}
@@ -138,12 +147,44 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                       >
                         <Info className="w-4 h-4" />
                       </button>
+                    </div>
+
+                    <div className="space-y-2">
+                      {/* Quantity selector (same as "Armar pedido") */}
+                      <div className="flex items-center justify-between gap-1.5 bg-white border border-[#EADBEE] rounded-lg p-1 shadow-xs">
+                        <button
+                          type="button"
+                          onClick={() => changeQty(fruit, -1)}
+                          disabled={qtyOf(fruit) <= stepOf(fruit) || fruit.inStock === false}
+                          className="w-8 h-8 rounded-md border border-stone-200 flex items-center justify-center text-stone-700 hover:bg-stone-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                          aria-label={`Quitar estuches de ${fruit.name}`}
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <div className="min-w-[4.5rem] px-1 text-center">
+                          <span className="text-sm font-black text-[#2F183C] block leading-tight">
+                            {qtyOf(fruit)} {qtyOf(fruit) === 1 ? 'estuche' : 'estuches'}
+                          </span>
+                          <span className="text-[10px] text-[#7B4382] font-semibold block leading-tight">
+                            {qtyOf(fruit) * (fruit.defaultGramUnit || 0)}g · ${(qtyOf(fruit) * fruit.standardPrice).toLocaleString('es-CO')}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => changeQty(fruit, 1)}
+                          disabled={fruit.inStock === false}
+                          className="w-8 h-8 rounded-md bg-[#2F183C] text-white flex items-center justify-center hover:bg-[#432356] disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                          aria-label={`Agregar más estuches de ${fruit.name}`}
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
 
                       {/* Add to Order Button */}
                       <button
                         onClick={() => handleAdd(fruit)}
                         disabled={fruit.inStock === false}
-                        className={`px-3.5 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
+                        className={`w-full px-3.5 py-2.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
                           isAdded
                             ? 'bg-[#7B4382] text-white'
                             : 'bg-[#2F183C] text-white hover:bg-[#432356] active:scale-95 shadow-xs'
@@ -281,7 +322,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
               <div>
                 <span className="text-[11px] text-stone-500 block">Precio regular</span>
                 <span className="text-xl font-black text-[#2F183C] font-display">
-                  ${activeModalFruit.standardPrice.toLocaleString('es-CO')} COP
+                  ${activeModalFruit.standardPrice.toLocaleString('es-CO')} COP c/u
                 </span>
               </div>
 

@@ -33,11 +33,9 @@ Sitio web y sistema de pedidos de **Fresh Pick**, arándanos premium de alta mon
 ```bash
 npm install          # instalar dependencias
 npm run dev          # servidor local en http://localhost:3000
-npm run build        # genera el sitemap y compila a dist/
+npm run build        # genera datos y sitemap, compila a dist/ y prerenderiza recetas y noticias
 npm run lint         # revisión de tipos (tsc --noEmit)
 ```
-
-> `npm run lint` marca hoy un error conocido en `src/components/StructuredData.tsx` (no afecta la compilación).
 
 ---
 
@@ -60,6 +58,7 @@ src/
 api/wompi/                Funciones de servidor de Vercel: firma.ts (firma de integridad) y webhook.ts (confirmación de pago)
 api/_lib/                 admin.ts (Firebase Admin) y email.ts (correo de confirmación con Resend)
 scripts/contenido/        Automatización de recetas y noticias
+scripts/                  generar-contenido (datos), generar-sitemap, prerender (se ejecutan en el build)
 automatizacion/           Estado de la automatización (fuentes usadas, historial)
 .github/workflows/        contenido.yml, imagenes-faltantes.yml
 firestore.rules           Reglas de seguridad de Firestore
@@ -72,12 +71,45 @@ cola-recetas.json         Cola de recetas pendientes
 | Ruta | Contenido |
 |---|---|
 | `/` | Inicio: hero, variedades, armar pedido, recetas, artículos, planes, sostenibilidad, testimonios y preguntas |
-| `/recetas`, `/recetas/:slug` | Listado y detalle de recetas |
-| `/noticias`, `/noticias/:slug` | Listado y detalle de artículos |
+| `/recetas`, `/recetas/:slug` | Biblioteca y detalle de recetas |
+| `/noticias`, `/noticias/:slug` | Biblioteca y detalle de artículos |
+| `/recetas/pagina/2` · `/recetas/2026` · `/recetas/2026/10` · `/recetas/categoria/desayunos` · `/recetas/etiqueta/avena` | Archivo de la biblioteca (igual para `/noticias`). Son páginas indexables y están en el sitemap |
+| `/recetas?q=avena&tiempo=15&dificultad=Fácil` | Búsqueda y filtros combinados (`noindex`, con canonical a la vista limpia) |
 | `/panel` | Panel de cliente (pide iniciar sesión) |
 | `/admin` | Panel del equipo (solo roles del equipo) |
 
 Cualquier otra dirección muestra hoy la página de inicio (no hay página 404 real).
+
+---
+
+### Biblioteca de recetas y noticias
+
+Nada se borra: todo lo publicado se acumula en `src/content/` y sigue disponible. Para que escale, los listados paginan de 12 en 12 (más recientes primero) y tienen búsqueda, filtros por año > mes, categoría, etiqueta (y, en recetas, tiempo y dificultad) y orden.
+
+- **Etiquetas automáticas:** se calculan solas desde el título, extracto, ingredientes y subtítulos (`src/lib/tagging.mjs`). Para ajustar una, edita sus reglas ahí. Una pieza también puede traer su propio `"tags": ["..."]` en el JSON, que se suma a las automáticas.
+- **SEO:** las vistas limpias (una sola categoría, etiqueta o fecha) se indexan; las etiquetas, solo con 3 o más piezas. Búsquedas y filtros combinados van `noindex, follow` con canonical a su vista limpia. `scripts/generar-sitemap.mjs` incluye las páginas de archivo.
+- **Lógica:** `src/lib/library.ts` (URL, filtros, facetas, paginación), `src/lib/libraryEntries.ts` y `src/components/LibraryControls.tsx`.
+
+#### Cómo se cargan los datos (rendimiento)
+
+El contenido **no viaja dentro del JavaScript**. Antes de cada build, `scripts/generar-contenido.mjs` crea (en `public/data/`, no se sube a git):
+
+- `recetas-index.json` y `noticias-index.json`: resumen liviano de todo lo publicado, para listados, filtros y búsqueda (unos 1,3 KB por pieza).
+- `recetas/<slug>.json` y `noticias/<slug>.json`: la pieza completa, que solo se descarga al abrirla.
+
+Así publicar una pieza nueva no cambia los archivos JavaScript del sitio (el navegador los conserva en caché) y la biblioteca puede crecer sin hacer más pesada la carga. Los paneles `/panel` y `/admin` también se descargan aparte.
+
+#### Prerender (SEO)
+
+Tras compilar, `scripts/prerender.mjs` genera el HTML completo de cada receta, noticia, listado, página de archivo y página 2, 3… (`dist/recetas/<slug>/index.html`, etc.), con su título, descripción, canonical y datos estructurados. Google ve el contenido sin ejecutar JavaScript; en el navegador, React lo "hidrata" y todo funciona igual. Las rutas sin prerender (inicio, paneles, búsquedas y filtros combinados) siguen funcionando como antes. Si alguna página falla al prerenderizarse, el build lo avisa y sigue (esa página se sirve sin prerender); no bloquea el despliegue de la tienda.
+
+- Cada página declara su título y etiquetas con `usePageMeta` (`src/lib/seo.tsx`); esa misma información se usa en el navegador y en el prerender.
+- Las rutas a prerenderizar salen de `scripts/contenido-publicado.mjs`, la misma fuente del sitemap.
+- Para probar en local: `npm run build` y luego `npm run preview`.
+
+#### Pendientes decididos
+
+- Cargar Firebase bajo demanda (ahorra ~168 KB en recetas y noticias): guía en [`docs/PENDIENTE-firebase-bajo-demanda.md`](docs/PENDIENTE-firebase-bajo-demanda.md). No aplicado.
 
 ---
 

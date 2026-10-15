@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import PublicHome from './pages/PublicHome';
-import UserPanel from './pages/UserPanel';
-import AdminPanel from './pages/AdminPanel';
 import RecipesPage from './pages/RecipesPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import BlogPage from './pages/BlogPage';
@@ -9,20 +7,26 @@ import BlogArticlePage from './pages/BlogArticlePage';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { scrollToId, useAppLocation, useInternalLinkInterception } from './lib/router';
+import { matchContentRoute } from './lib/routes';
+import { preloadRoute } from './lib/routePreload';
+
+// Los paneles pesan bastante (Firestore, tableros) y solo los usa el equipo y los clientes con sesión:
+// se descargan al entrar a /panel o /admin, no con la página de inicio, recetas o noticias.
+const UserPanel = lazy(() => import('./pages/UserPanel'));
+const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 
 function renderRoute(pathname: string) {
-  if (pathname === '/panel' || pathname.startsWith('/panel/')) return <UserPanel />;
-  if (pathname === '/admin' || pathname.startsWith('/admin/')) return <AdminPanel />;
+  if (pathname === '/panel' || pathname.startsWith('/panel/')) return <Suspense fallback={null}><UserPanel /></Suspense>;
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) return <Suspense fallback={null}><AdminPanel /></Suspense>;
 
-  if (pathname === '/recetas') return <RecipesPage />;
-  const recipeMatch = pathname.match(/^\/recetas\/([^/]+)$/);
-  if (recipeMatch) return <RecipeDetailPage slug={decodeURIComponent(recipeMatch[1])} />;
-
-  if (pathname === '/noticias') return <BlogPage />;
-  const articleMatch = pathname.match(/^\/noticias\/([^/]+)$/);
-  if (articleMatch) return <BlogArticlePage slug={decodeURIComponent(articleMatch[1])} />;
-
-  return <PublicHome />;
+  const route = matchContentRoute(pathname);
+  switch (route?.type) {
+    case 'recetas-biblioteca': return <RecipesPage />;
+    case 'recetas-detalle': return <RecipeDetailPage slug={route.slug} />;
+    case 'noticias-biblioteca': return <BlogPage />;
+    case 'noticias-detalle': return <BlogArticlePage slug={route.slug} />;
+    default: return <PublicHome />;
+  }
 }
 
 /** Old /blog URLs moved to /noticias. Vercel redirects them server-side; this covers dev and any cached client. */
@@ -32,10 +36,21 @@ function legacyBlogRedirect(location: { pathname: string; search: string; hash: 
 }
 
 export default function App() {
-  const location = useAppLocation();
+  const current = useAppLocation();
   useInternalLinkInterception();
 
-  const redirectTo = legacyBlogRedirect(location);
+  // Al navegar se precargan los datos de la nueva ruta y recién entonces se muestra, así la página
+  // anterior sigue visible (sin parpadeos en blanco) y las páginas leen su contenido sin esperas.
+  const [location, setLocation] = useState(current);
+  useEffect(() => {
+    let cancelled = false;
+    preloadRoute(current.pathname).finally(() => {
+      if (!cancelled) setLocation(current);
+    });
+    return () => { cancelled = true; };
+  }, [current]);
+
+  const redirectTo = legacyBlogRedirect(current);
   useEffect(() => {
     if (redirectTo) {
       window.history.replaceState({}, '', redirectTo);

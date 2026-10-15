@@ -1,6 +1,5 @@
-import { Recipe, RecipeCategory, RecipeCategoryId } from '../types';
-
-export const QUICK_RECIPE_MAX_MINUTES = 15;
+import { Recipe, RecipeCategory, RecipeCategoryId, RecipeSummary } from '../types';
+import { recipeCategoryIds, recipeTotalMinutes as totalMinutes } from '../lib/archive.mjs';
 
 export const RECIPE_CATEGORIES: RecipeCategory[] = [
   {
@@ -53,26 +52,13 @@ export const RECIPE_CATEGORIES: RecipeCategory[] = [
   }
 ];
 
-// One JSON file per recipe in src/content/recetas/. New files are picked up automatically at build time.
-const recipeFiles = import.meta.glob<Recipe>('../content/recetas/*.json', { eager: true, import: 'default' });
-
-/** Published recipes, newest first (drafts are never shown). */
-export const RECIPES: Recipe[] = Object.values(recipeFiles)
-  .filter(r => r.estado !== 'borrador')
-  .sort((a, b) =>
-    (b.date ?? '').localeCompare(a.date ?? '') ||
-    (b.publicadoEn ?? '').localeCompare(a.publicadoEn ?? '') ||
-    (a.orden ?? 999) - (b.orden ?? 999));
-
 /** Total time including rest; a recipe is "rápida" when this is 15 minutes or less. */
-export function recipeTotalMinutes(recipe: Recipe) {
-  return recipe.prepMinutes + recipe.cookMinutes + (recipe.restMinutes ?? 0);
+export function recipeTotalMinutes(recipe: Pick<Recipe, 'prepMinutes' | 'cookMinutes' | 'restMinutes'>): number {
+  return totalMinutes(recipe);
 }
 
-export function recipeCategories(recipe: Recipe): RecipeCategoryId[] {
-  const ids: RecipeCategoryId[] = [recipe.category, ...(recipe.extraCategories ?? [])];
-  if (recipeTotalMinutes(recipe) <= QUICK_RECIPE_MAX_MINUTES) ids.push('recetas-rapidas');
-  return ids;
+export function recipeCategories(recipe: Pick<RecipeSummary, 'category' | 'extraCategories' | 'prepMinutes' | 'cookMinutes' | 'restMinutes'>): RecipeCategoryId[] {
+  return recipeCategoryIds(recipe) as RecipeCategoryId[];
 }
 
 export function formatMinutes(minutes: number) {
@@ -84,8 +70,4 @@ export function formatMinutes(minutes: number) {
 
 export function getRecipeCategory(id: RecipeCategoryId) {
   return RECIPE_CATEGORIES.find(c => c.id === id)!;
-}
-
-export function getRecipeBySlug(slug: string) {
-  return RECIPES.find(r => r.slug === slug);
 }

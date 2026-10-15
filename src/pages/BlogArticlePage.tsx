@@ -7,13 +7,13 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RecipeCard } from '../components/RecipeCard';
 import { ArticleCard } from '../components/ArticleCard';
 import { NotFoundContent } from './NotFoundContent';
-import { formatArticleDate, getArticleBySlug, getBlogCategory, sortedArticles } from '../data/blog';
-import { getRecipeBySlug } from '../data/recipes';
-import { BlogBlock, ContentSource, Recipe } from '../types';
+import { formatArticleDate, getBlogCategory } from '../data/blog';
+import { articleIndex, getArticle, getRecipeSummary } from '../data/content';
+import { BlogBlock, ContentSource, RecipeSummary } from '../types';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 
 export default function BlogArticlePage({ slug }: { slug: string }) {
-  const article = getArticleBySlug(slug);
+  const article = getArticle(slug);
 
   usePageMeta({
     title: article ? `${article.title} | Noticias de Arándanos Fresh Pick` : 'Artículo no encontrado | Fresh Pick',
@@ -38,9 +38,9 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
 
   const category = getBlogCategory(article.category);
   const relatedRecipes = (article.relatedRecipes ?? [])
-    .map(getRecipeBySlug)
-    .filter((r): r is Recipe => Boolean(r));
-  const moreArticles = sortedArticles().filter(a => a.slug !== article.slug).slice(0, 3);
+    .map(getRecipeSummary)
+    .filter((r): r is RecipeSummary => Boolean(r));
+  const moreArticles = articleIndex().filter(a => a.slug !== article.slug).slice(0, 3);
 
   return (
     <SiteShell>
@@ -51,12 +51,12 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
               items={[
                 { label: 'Inicio', href: '/' },
                 { label: 'Noticias de Arándanos', href: '/noticias' },
-                { label: category.name, href: `/noticias?categoria=${category.id}` },
+                { label: category.name, href: `/noticias/categoria/${category.id}` },
                 { label: article.title }
               ]}
             />
             <a
-              href={`/noticias?categoria=${category.id}`}
+              href={`/noticias/categoria/${category.id}`}
               className="mt-6 inline-block text-xs font-bold uppercase tracking-wider text-[#7B4382] hover:text-[#2F183C]"
             >
               {category.name}

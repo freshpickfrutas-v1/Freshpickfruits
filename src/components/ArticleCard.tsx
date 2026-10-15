@@ -1,10 +1,10 @@
 import React from 'react';
 import { ChevronRight, Clock } from 'lucide-react';
-import { BlogArticle } from '../types';
+import { ArticleSummary } from '../types';
 import { formatArticleDate, getBlogCategory } from '../data/blog';
 import { ContentImage } from './ContentImage';
 
-export const ArticleCard: React.FC<{ article: BlogArticle; large?: boolean }> = ({ article, large = false }) => {
+export const ArticleCard: React.FC<{ article: ArticleSummary; large?: boolean }> = ({ article, large = false }) => {
   const category = getBlogCategory(article.category);
 
   return (

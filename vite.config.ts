@@ -72,6 +72,21 @@ export default defineConfig(() => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          // Las librerías cambian poco: en trozos aparte el navegador las conserva en caché entre despliegues
+          // (el contenido ya no viaja dentro del JavaScript, así que publicar una receta no las invalida).
+          manualChunks(id: string) {
+            if (!id.includes('node_modules')) return undefined;
+            if (/node_modules\/(@?firebase|@firebase)\//.test(id)) return 'firebase';
+            if (/node_modules\/(react|react-dom|scheduler)\//.test(id)) return 'react';
+            if (/node_modules\/(motion|framer-motion|motion-dom|motion-utils)\//.test(id)) return 'motion';
+            return undefined;
+          },
+        },
+      },
+    },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.

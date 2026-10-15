@@ -154,6 +154,8 @@ export interface Recipe extends ContentWorkflow {
   steps: string[];
   tips: string[];
   featured?: boolean;
+  /** Etiquetas manuales opcionales; se suman a las que se generan solas (ver src/lib/tagging.mjs). */
+  tags?: string[];
   /** Tie-breaker for recipes published the same day (lower first). */
   orden?: number;
   /** ISO publication date; newest recipes are listed first. */
@@ -161,6 +163,14 @@ export interface Recipe extends ContentWorkflow {
   /** Exact publication time (set by the automation) to order recipes published the same day. */
   publicadoEn?: string;
 }
+
+/** Receta sin el detalle (ingredientes, pasos, consejos): lo necesario para listar, filtrar y buscar. */
+export type RecipeSummary = Omit<Recipe, 'ingredients' | 'steps' | 'tips' | 'tags'> & {
+  /** Etiquetas (automáticas + manuales) calculadas al generar los datos. */
+  tags: string[];
+  /** Texto normalizado (sin tildes) sobre el que busca la barra de búsqueda. */
+  search: string;
+};
 
 export type BlogCategoryId =
   | 'beneficios-arandanos'
@@ -207,7 +217,15 @@ export interface BlogArticle extends ContentWorkflow {
   /** Slugs of recipes to suggest at the end of the article. */
   relatedRecipes?: string[];
   featured?: boolean;
+  /** Etiquetas manuales opcionales; se suman a las que se generan solas (ver src/lib/tagging.mjs). */
+  tags?: string[];
 }
+
+/** Noticia sin el cuerpo ni las fuentes: lo necesario para listar, filtrar y buscar. */
+export type ArticleSummary = Omit<BlogArticle, 'blocks' | 'fuentes' | 'tags'> & {
+  tags: string[];
+  search: string;
+};
 
 export interface TestimonialItem {
   id: string;

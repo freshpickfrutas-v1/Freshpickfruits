@@ -1,11 +1,12 @@
 import React from 'react';
 import { BookOpen, ArrowRight, Newspaper } from 'lucide-react';
-import { RECIPES, RECIPE_CATEGORIES } from '../data/recipes';
+import { RECIPE_CATEGORIES } from '../data/recipes';
+import { useRecipeIndex } from '../data/content';
 import { RecipeCard } from './RecipeCard';
 
 /** Home page teaser: featured recipes with links to the full Recetas and Blog pages. */
 export const RecipesAndTips: React.FC = () => {
-  const featured = RECIPES.filter(r => r.featured).slice(0, 3);
+  const featured = (useRecipeIndex() ?? []).filter(r => r.featured).slice(0, 3);
 
   return (
     <section id="recetas-tips" className="py-12 sm:py-16 bg-[#FBF1D9]/90 backdrop-blur-[2px] border-b border-[#EBD9A8]">
@@ -30,7 +31,7 @@ export const RecipesAndTips: React.FC = () => {
           {RECIPE_CATEGORIES.map(c => (
             <a
               key={c.id}
-              href={`/recetas?categoria=${c.id}`}
+              href={`/recetas/categoria/${c.id}`}
               className="shrink-0 px-3 py-1.5 rounded-full bg-white border border-[#DFCEE6] text-xs font-semibold text-[#2F183C] hover:border-[#7B4382] hover:text-[#7B4382] transition-colors"
             >
               {c.emoji} {c.name}

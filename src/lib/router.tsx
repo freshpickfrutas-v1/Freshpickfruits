@@ -8,8 +8,17 @@ export interface AppLocation {
   hash: string;
 }
 
-function readLocation(): AppLocation {
-  if (typeof window === 'undefined') return { pathname: '/', search: '', hash: '' };
+// Durante el prerender (Node) no hay `window`: la ruta la fija el script de build.
+let serverLocation: AppLocation = { pathname: '/', search: '', hash: '' };
+
+/** Solo prerender: indica qué ruta se está renderizando. */
+export function setServerLocation(url: string) {
+  const parsed = new URL(url, 'http://localhost');
+  serverLocation = { pathname: parsed.pathname.replace(/\/+$/, '') || '/', search: parsed.search, hash: '' };
+}
+
+export function readLocation(): AppLocation {
+  if (typeof window === 'undefined') return serverLocation;
   const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
   return { pathname, search: window.location.search, hash: window.location.hash };
 }

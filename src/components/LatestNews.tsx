@@ -1,11 +1,11 @@
 import React from 'react';
 import { FlaskConical, ArrowRight } from 'lucide-react';
-import { sortedArticles } from '../data/blog';
+import { useArticleIndex } from '../data/content';
 import { ArticleCard } from './ArticleCard';
 
 /** Home page teaser: the three newest articles on healthy living and research. */
 export const LatestNews: React.FC = () => {
-  const latest = sortedArticles().slice(0, 3);
+  const latest = (useArticleIndex() ?? []).slice(0, 3);
   if (!latest.length) return null;
 
   return (

@@ -24,7 +24,7 @@ function setCanonical(href: string) {
   el.href = href;
 }
 
-interface PageMeta {
+export interface PageMeta {
   title: string;
   description: string;
   /** Path starting with "/", e.g. "/recetas". */
@@ -35,25 +35,38 @@ interface PageMeta {
   noindex?: boolean;
 }
 
+/** Valores finales de las etiquetas <head> de una página (los usa el navegador y el prerender). */
+export function resolvePageMeta({ title, description, path, image, type = 'website', noindex = false }: PageMeta) {
+  const imageUrl = image ? (image.startsWith('http') ? image : `${SITE_URL}${image}`) : `${SITE_URL}/logo.jpg`;
+  return { title, description, url: `${SITE_URL}${path}`, imageUrl, type, robots: noindex ? 'noindex, follow' : 'index, follow' };
+}
+
+// Prerender (Node): el hook no corre efectos, así que la página registra aquí su meta mientras se renderiza.
+let collected: PageMeta | null = null;
+export const resetCollectedMeta = () => { collected = null; };
+export const takeCollectedMeta = () => collected;
+
 /** Sets per-page <title>, description, canonical and Open Graph tags. */
-export function usePageMeta({ title, description, path, image, type = 'website', noindex = false }: PageMeta) {
+export function usePageMeta(meta: PageMeta) {
+  if (typeof window === 'undefined') collected = meta;
+
+  const { title, description, path, image, type, noindex } = meta;
   useEffect(() => {
     const defaultDescription =
       document.head.querySelector<HTMLMetaElement>('meta[name="description"]')?.content ?? '';
-    const url = `${SITE_URL}${path}`;
-    const imageUrl = image ? (image.startsWith('http') ? image : `${SITE_URL}${image}`) : `${SITE_URL}/logo.jpg`;
-    document.title = title;
-    setMeta('meta[name="description"]', 'name', 'description', description);
-    setCanonical(url);
-    setMeta('meta[name="robots"]', 'name', 'robots', noindex ? 'noindex, follow' : 'index, follow');
-    setMeta('meta[property="og:title"]', 'property', 'og:title', title);
-    setMeta('meta[property="og:description"]', 'property', 'og:description', description);
-    setMeta('meta[property="og:url"]', 'property', 'og:url', url);
-    setMeta('meta[property="og:type"]', 'property', 'og:type', type);
-    setMeta('meta[property="og:image"]', 'property', 'og:image', imageUrl);
-    setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', title);
-    setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
-    setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', imageUrl);
+    const v = resolvePageMeta({ title, description, path, image, type, noindex });
+    document.title = v.title;
+    setMeta('meta[name="description"]', 'name', 'description', v.description);
+    setCanonical(v.url);
+    setMeta('meta[name="robots"]', 'name', 'robots', v.robots);
+    setMeta('meta[property="og:title"]', 'property', 'og:title', v.title);
+    setMeta('meta[property="og:description"]', 'property', 'og:description', v.description);
+    setMeta('meta[property="og:url"]', 'property', 'og:url', v.url);
+    setMeta('meta[property="og:type"]', 'property', 'og:type', v.type);
+    setMeta('meta[property="og:image"]', 'property', 'og:image', v.imageUrl);
+    setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', v.title);
+    setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', v.description);
+    setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', v.imageUrl);
     return () => {
       setMeta('meta[name="robots"]', 'name', 'robots', 'index, follow');
       document.title = DEFAULT_TITLE;

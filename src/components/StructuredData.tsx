@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FRUITS_DATA, FAQ_DATA, TESTIMONIALS_DATA } from '../data/mockData';
 
 // Inyecta datos estructurados JSON-LD (Schema.org) en <head> para SEO clásico

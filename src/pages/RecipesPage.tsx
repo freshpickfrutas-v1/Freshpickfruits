@@ -7,8 +7,9 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
 import { ActiveFilters, LibraryApi, LibrarySearch, LibrarySidebar, Pagination, ResultsBar, describeFilters } from '../components/LibraryControls';
 import { FEATURED_VIDEOS } from '../data/featuredVideos';
-import { RECIPE_CATEGORIES, getRecipeBySlug } from '../data/recipes';
-import { RECIPE_ENTRIES } from '../lib/libraryEntries';
+import { RECIPE_CATEGORIES } from '../data/recipes';
+import { recipeIndex } from '../data/content';
+import { recipeEntries } from '../lib/libraryEntries';
 import {
   LibraryEntry,
   activeFilterCount,
@@ -28,11 +29,14 @@ const BASE = '/recetas';
 export default function RecipesPage() {
   const lib = useLibraryState(BASE);
   const { state } = lib;
+  const index = recipeIndex();
+  const RECIPE_ENTRIES = recipeEntries(index);
 
   const facets = useMemo(() => computeFacets(RECIPE_ENTRIES, state), [state]);
   const results = useMemo(() => sortEntries(filterEntries(RECIPE_ENTRIES, state), state), [state]);
   const page = paginate<LibraryEntry>(results, state.pagina);
-  const recipes = page.items.map(e => getRecipeBySlug(e.slug)!).filter(Boolean);
+  const bySlug = new Map(index.map(r => [r.slug, r]));
+  const recipes = page.items.map(e => bySlug.get(e.slug)!).filter(Boolean);
 
   const categoryName = (id: string) => RECIPE_CATEGORIES.find(c => c.id === id)?.name;
   const category = state.categoria ? RECIPE_CATEGORIES.find(c => c.id === state.categoria) : undefined;

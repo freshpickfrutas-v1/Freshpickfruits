@@ -164,6 +164,14 @@ export interface Recipe extends ContentWorkflow {
   publicadoEn?: string;
 }
 
+/** Receta sin el detalle (ingredientes, pasos, consejos): lo necesario para listar, filtrar y buscar. */
+export type RecipeSummary = Omit<Recipe, 'ingredients' | 'steps' | 'tips' | 'tags'> & {
+  /** Etiquetas (automáticas + manuales) calculadas al generar los datos. */
+  tags: string[];
+  /** Texto normalizado (sin tildes) sobre el que busca la barra de búsqueda. */
+  search: string;
+};
+
 export type BlogCategoryId =
   | 'beneficios-arandanos'
   | 'nutricion-ciencia'
@@ -212,6 +220,12 @@ export interface BlogArticle extends ContentWorkflow {
   /** Etiquetas manuales opcionales; se suman a las que se generan solas (ver src/lib/tagging.mjs). */
   tags?: string[];
 }
+
+/** Noticia sin el cuerpo ni las fuentes: lo necesario para listar, filtrar y buscar. */
+export type ArticleSummary = Omit<BlogArticle, 'blocks' | 'fuentes' | 'tags'> & {
+  tags: string[];
+  search: string;
+};
 
 export interface TestimonialItem {
   id: string;

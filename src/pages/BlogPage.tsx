@@ -7,8 +7,9 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
 import { ActiveFilters, LibraryApi, LibrarySearch, LibrarySidebar, Pagination, ResultsBar, describeFilters } from '../components/LibraryControls';
 import { FEATURED_VIDEOS } from '../data/featuredVideos';
-import { BLOG_CATEGORIES, getArticleBySlug } from '../data/blog';
-import { ARTICLE_ENTRIES } from '../lib/libraryEntries';
+import { BLOG_CATEGORIES } from '../data/blog';
+import { articleIndex } from '../data/content';
+import { articleEntries } from '../lib/libraryEntries';
 import {
   LibraryEntry,
   activeFilterCount,
@@ -28,11 +29,14 @@ const BASE = '/noticias';
 export default function BlogPage() {
   const lib = useLibraryState(BASE);
   const { state } = lib;
+  const index = articleIndex();
+  const ARTICLE_ENTRIES = articleEntries(index);
 
   const facets = useMemo(() => computeFacets(ARTICLE_ENTRIES, state), [state]);
   const results = useMemo(() => sortEntries(filterEntries(ARTICLE_ENTRIES, state), state), [state]);
   const page = paginate<LibraryEntry>(results, state.pagina);
-  const articles = page.items.map(e => getArticleBySlug(e.slug)!).filter(Boolean);
+  const bySlug = new Map(index.map(a => [a.slug, a]));
+  const articles = page.items.map(e => bySlug.get(e.slug)!).filter(Boolean);
 
   const categoryName = (id: string) => BLOG_CATEGORIES.find(c => c.id === id)?.name;
   const category = state.categoria ? BLOG_CATEGORIES.find(c => c.id === state.categoria) : undefined;

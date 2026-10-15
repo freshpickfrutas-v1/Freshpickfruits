@@ -39,4 +39,5 @@ async function testConnection() {
     }
   }
 }
-testConnection();
+// Solo en el navegador: el prerender (Node) no debe abrir conexiones a Firestore.
+if (typeof window !== 'undefined') testConnection();

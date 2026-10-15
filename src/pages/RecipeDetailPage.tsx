@@ -7,11 +7,12 @@ import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RecipeCard } from '../components/RecipeCard';
 import { NotFoundContent } from './NotFoundContent';
-import { RECIPES, formatMinutes, getRecipeBySlug, getRecipeCategory, recipeCategories, recipeTotalMinutes } from '../data/recipes';
+import { formatMinutes, getRecipeCategory, recipeCategories, recipeTotalMinutes } from '../data/recipes';
+import { getRecipe, recipeIndex } from '../data/content';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 
 export default function RecipeDetailPage({ slug }: { slug: string }) {
-  const recipe = getRecipeBySlug(slug);
+  const recipe = getRecipe(slug);
 
   usePageMeta({
     title: recipe ? `${recipe.title} | Recetas Fresh Pick` : 'Receta no encontrada | Fresh Pick',
@@ -36,7 +37,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
 
   const category = getRecipeCategory(recipe.category);
   const total = recipeTotalMinutes(recipe);
-  const related = RECIPES.filter(r => r.slug !== recipe.slug && recipeCategories(r).some(c => recipeCategories(recipe).includes(c))).slice(0, 3);
+  const related = recipeIndex().filter(r => r.slug !== recipe.slug && recipeCategories(r).some(c => recipeCategories(recipe).includes(c))).slice(0, 3);
 
   return (
     <SiteShell>
@@ -47,7 +48,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
               items={[
                 { label: 'Inicio', href: '/' },
                 { label: 'Recetas', href: '/recetas' },
-                { label: category.name, href: `/recetas?categoria=${category.id}` },
+                { label: category.name, href: `/recetas/categoria/${category.id}` },
                 { label: recipe.title }
               ]}
             />
@@ -55,7 +56,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
             <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
               <div>
                 <a
-                  href={`/recetas?categoria=${category.id}`}
+                  href={`/recetas/categoria/${category.id}`}
                   className="text-xs font-bold uppercase tracking-wider text-[#7B4382] hover:text-[#2F183C]"
                 >
                   {category.emoji} {category.name}

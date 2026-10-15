@@ -1,4 +1,4 @@
-import { BlogArticle, BlogCategory, BlogCategoryId } from '../types';
+import { BlogCategory, BlogCategoryId } from '../types';
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
   {
@@ -28,23 +28,8 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
   }
 ];
 
-// One JSON file per article in src/content/noticias/. New files are picked up automatically at build time.
-const articleFiles = import.meta.glob<BlogArticle>('../content/noticias/*.json', { eager: true, import: 'default' });
-
-/** Published articles (drafts are never shown). */
-export const BLOG_ARTICLES: BlogArticle[] = Object.values(articleFiles).filter(a => a.estado !== 'borrador');
-
 export function getBlogCategory(id: BlogCategoryId) {
   return BLOG_CATEGORIES.find(c => c.id === id)!;
-}
-
-export function getArticleBySlug(slug: string) {
-  return BLOG_ARTICLES.find(a => a.slug === slug);
-}
-
-/** Articles sorted newest first. */
-export function sortedArticles() {
-  return [...BLOG_ARTICLES].sort((a, b) => b.date.localeCompare(a.date) || (b.publicadoEn ?? '').localeCompare(a.publicadoEn ?? ''));
 }
 
 export function formatArticleDate(iso: string) {

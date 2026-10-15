@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import { normalize } from './tagging.mjs';
+import { MIN_TAG_PAGE_ITEMS, PAGE_SIZE } from './archive.mjs';
+import { readLocation } from './router';
 
-/** Piezas por página en recetas y noticias. */
-export const PAGE_SIZE = 12;
+export { MIN_TAG_PAGE_ITEMS, PAGE_SIZE };
 
 export type SortId = 'recientes' | 'antiguos' | 'az' | 'relevancia';
 
@@ -266,8 +267,6 @@ export function computeFacets(entries: LibraryEntry[], s: LibraryState): Facets 
  * (categoría, etiqueta o fecha), sin búsqueda ni filtros extra, con resultados. Todo lo demás va
  * `noindex` y apunta con canonical a su vista limpia.
  */
-export const MIN_TAG_PAGE_ITEMS = 3;
-
 export function isIndexable(s: LibraryState, total: number): boolean {
   if (s.vista || total === 0) return false;
   if (s.q.trim() || s.tiempo || s.dificultad) return false;
@@ -295,10 +294,10 @@ export function canonicalState(s: LibraryState): LibraryState {
  * los cambios hacen pushState (el botón "atrás" funciona) y la escritura en la búsqueda usa replaceState.
  */
 export function useLibraryState(basePath: string) {
-  const read = useCallback(
-    () => parseLibraryUrl(basePath, window.location.pathname.replace(/\/+$/, ''), window.location.search),
-    [basePath]
-  );
+  const read = useCallback(() => {
+    const { pathname, search } = readLocation();
+    return parseLibraryUrl(basePath, pathname, search);
+  }, [basePath]);
   const [state, setState] = useState<LibraryState>(read);
 
   useEffect(() => {

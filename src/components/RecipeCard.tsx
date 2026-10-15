@@ -1,10 +1,10 @@
 import React from 'react';
 import { Clock, Users, ChevronRight } from 'lucide-react';
-import { Recipe } from '../types';
+import { RecipeSummary } from '../types';
 import { formatMinutes, getRecipeCategory, recipeTotalMinutes } from '../data/recipes';
 import { ContentImage } from './ContentImage';
 
-export const RecipeCard: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
+export const RecipeCard: React.FC<{ recipe: RecipeSummary }> = ({ recipe }) => {
   const category = getRecipeCategory(recipe.category);
 
   return (

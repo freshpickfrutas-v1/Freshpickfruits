@@ -44,16 +44,16 @@ const RECIPE_RULES = [
 ];
 
 const NEWS_RULES = [
-  { id: 'salud-cardiovascular', label: 'Salud cardiovascular', pattern: /cardiovascular|corazon|cardiac|presion arterial/ },
-  { id: 'cerebro-y-memoria', label: 'Cerebro y memoria', pattern: /cerebro|cognitiv|memoria|neuro/ },
-  { id: 'salud-digestiva', label: 'Salud digestiva', pattern: /digestiv|intestin|\bfibra\b|microbiota/ },
+  { id: 'salud-cardiovascular', label: 'Salud cardiovascular', aliases: 'corazon corazón cardiaca', pattern: /cardiovascular|corazon|cardiac|presion arterial/ },
+  { id: 'cerebro-y-memoria', label: 'Cerebro y memoria', aliases: 'cognitivo mente', pattern: /cerebro|cognitiv|memoria|neuro/ },
+  { id: 'salud-digestiva', label: 'Salud digestiva', aliases: 'digestion estomago intestino', pattern: /digestiv|intestin|\bfibra\b|microbiota/ },
   { id: 'antioxidantes', label: 'Antioxidantes', pattern: /antioxidante|antocianina|polifenol|flavonoide/ },
   { id: 'vitaminas-y-minerales', label: 'Vitaminas y minerales', pattern: /vitamina|mineral|nutricional|calorias|nutrientes/ },
-  { id: 'poscosecha', label: 'Poscosecha', pattern: /poscosecha|almacenamiento|conservan|conservacion|vida util/ },
+  { id: 'poscosecha', label: 'Poscosecha', aliases: 'conservacion frescura', pattern: /poscosecha|almacenamiento|conservan|conservacion|vida util/ },
   { id: 'maduracion', label: 'Maduración', pattern: /madurac|madurez/ },
   { id: 'genetica', label: 'Genética', pattern: /genetic|\bgen\b|vcpif/ },
   { id: 'procesamiento', label: 'Procesamiento', pattern: /procesamiento|termic|alta presion/ },
-  { id: 'ejercicio', label: 'Ejercicio y deporte', pattern: /ejercicio|deporte|actividad fisica|oxidacion de grasas/ },
+  { id: 'ejercicio', label: 'Ejercicio y deporte', aliases: 'entrenamiento atletas', pattern: /ejercicio|deporte|actividad fisica|oxidacion de grasas/ },
   { id: 'cultivo', label: 'Cultivo', pattern: /cultivo|cultivar|cosecha|finca|riego|poda|crecimiento|firmeza/ },
   { id: 'guasca', label: 'Guasca y alta montaña', pattern: /guasca|alta montana|2\.?800/ },
   { id: 'estudios', label: 'Estudios científicos', pattern: /estudio|ensayo|investigacion|cientific|ciencia/ },
@@ -89,6 +89,13 @@ export function articleTagIds(article) {
   const headings = (article.blocks ?? []).filter(b => b.type === 'h2' || b.type === 'h3').map(b => b.text);
   const text = normalize([article.title, article.excerpt, article.metaDescription, ...headings].join(' | '));
   return withManual(match(NEWS_RULES, text), article);
+}
+
+const ALIASES = Object.fromEntries([...RECIPE_RULES, ...NEWS_RULES].filter(r => r.aliases).map(r => [r.id, r.aliases]));
+
+/** Texto que se suma a la búsqueda por cada etiqueta: su nombre y sinónimos (p. ej. "corazón" para salud cardiovascular). */
+export function tagSearchText(id) {
+  return [tagLabel(id), ALIASES[id]].filter(Boolean).join(' ');
 }
 
 /** Nombre legible de una etiqueta; las manuales sin regla se muestran con la primera letra en mayúscula. */

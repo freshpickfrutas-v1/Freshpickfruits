@@ -181,7 +181,10 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-          <p>© {new Date().getFullYear()} Fresh Pick - Arándanos de Alta Montaña · Fundada en 2017 · Guasca, Colombia. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} Fresh Pick - Arándanos de Alta Montaña · Fundada en 2017 · Guasca, Colombia. Todos los derechos reservados.{' '}
+            <a href="/privacidad" className="hover:text-[#DDA83A] underline">Privacidad</a> ·{' '}
+            <a href="/terminos" className="hover:text-[#DDA83A] underline">Términos</a>
+          </p>
 
           <div className="flex items-center gap-2 text-[11px]">
             <span>Medios de pago:</span>

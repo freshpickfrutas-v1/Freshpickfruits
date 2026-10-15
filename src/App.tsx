@@ -4,6 +4,7 @@ import RecipesPage from './pages/RecipesPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import BlogPage from './pages/BlogPage';
 import BlogArticlePage from './pages/BlogArticlePage';
+import LegalPage from './pages/LegalPage';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { scrollToId, useAppLocation, useInternalLinkInterception } from './lib/router';
@@ -18,6 +19,9 @@ const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 function renderRoute(pathname: string) {
   if (pathname === '/panel' || pathname.startsWith('/panel/')) return <Suspense fallback={null}><UserPanel /></Suspense>;
   if (pathname === '/admin' || pathname.startsWith('/admin/')) return <Suspense fallback={null}><AdminPanel /></Suspense>;
+
+  if (pathname === '/privacidad') return <LegalPage kind="privacidad" />;
+  if (pathname === '/terminos') return <LegalPage kind="terminos" />;
 
   const route = matchContentRoute(pathname);
   switch (route?.type) {

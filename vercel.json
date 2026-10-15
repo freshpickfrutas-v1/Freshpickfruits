@@ -4,6 +4,8 @@
     { "source": "/blog/:path*", "destination": "/noticias/:path*", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/privacidad", "destination": "/index.html" },
+    { "source": "/terminos", "destination": "/index.html" },
     { "source": "/panel", "destination": "/index.html" },
     { "source": "/panel/(.*)", "destination": "/index.html" },
     { "source": "/admin", "destination": "/index.html" },

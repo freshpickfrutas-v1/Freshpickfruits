@@ -187,7 +187,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
           '@type': 'Recipe',
           name: recipe.title,
           description: recipe.excerpt,
-          ...(recipe.image ? { image: [recipe.image] } : {}),
+          ...(recipe.image ? { image: [recipe.image.startsWith('http') ? recipe.image : `${SITE_URL}${recipe.image}`] } : {}),
           author: { '@type': 'Organization', name: 'Fresh Pick' },
           recipeCategory: category.name,
           recipeCuisine: 'Colombiana',

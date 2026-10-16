@@ -25,7 +25,10 @@
     "https://pubmed.ncbi.nlm.nih.gov/42857977/",
     "https://pubmed.ncbi.nlm.nih.gov/42856692/",
     "https://pubmed.ncbi.nlm.nih.gov/42865659/",
-    "https://pubmed.ncbi.nlm.nih.gov/42846037/"
+    "https://pubmed.ncbi.nlm.nih.gov/42846037/",
+    "https://pubmed.ncbi.nlm.nih.gov/42884731/",
+    "https://pubmed.ncbi.nlm.nih.gov/42884697/",
+    "https://pubmed.ncbi.nlm.nih.gov/42883575/"
   ],
   "historial": [
     {
@@ -260,6 +263,24 @@
       "fecha": "2026-10-15",
       "tipo": "noticia",
       "slug": "bacterias-antarticas-y-arandanos-control-biologico-contra-el-moho-gris",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-16",
+      "tipo": "receta",
+      "slug": "sirope-de-arandanos-para-panqueques",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-16",
+      "tipo": "noticia",
+      "slug": "nuevos-hallazgos-sobre-el-consumo-de-arandanos-y-biomarcadores-metabolicos",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-16",
+      "tipo": "noticia",
+      "slug": "como-la-molienda-fina-optimiza-los-antioxidantes-y-el-aroma-del-bagazo-de",
       "modo": "revision"
     }
   ]

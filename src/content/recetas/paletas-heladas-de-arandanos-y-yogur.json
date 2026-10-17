@@ -1,0 +1,54 @@
+{
+  "slug": "paletas-heladas-de-arandanos-y-yogur",
+  "title": "Paletas Heladas de Arándanos y Yogur",
+  "excerpt": "Refréscate con estas cremosas paletas caseras de arándanos Fresh Pick y yogur griego. Un postre vistoso, fácil de armar y con el equilibrio perfecto entre acidez y dulzor.",
+  "imageAlt": "Paletas heladas marmoleadas de arándanos frescos y yogur blanco sobre bandeja rústica.",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 5,
+  "restMinutes": 360,
+  "difficulty": "Fácil",
+  "servings": 6,
+  "ingredients": [
+    {
+      "text": "2 tazas (300 g) de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 y 1/2 tazas (375 g) de yogur griego natural sin azúcar"
+    },
+    {
+      "text": "3 cucharadas de miel de abejas"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón"
+    },
+    {
+      "text": "1/2 cucharadita de esencia de vainilla"
+    }
+  ],
+  "steps": [
+    "Separa media taza de arándanos Fresh Pick enteros y reserva para el armado final. El resto de la fruta aportará el color vibrante y el sabor concentrado.",
+    "En una olla pequeña a fuego bajo, cocina la taza y media de arándanos con una cucharada de miel y la cucharadita de jugo de limón por 5 minutos, machacando con un tenedor hasta formar una compota ligera. Deja enfriar a temperatura ambiente.",
+    "En un tazón, bate el yogur griego con las dos cucharadas restantes de miel y la esencia de vainilla hasta lograr una mezcla homogénea y sedosa.",
+    "Añade los arándanos frescos enteros reservados dentro del yogur para darle tropezones crocantes a cada mordisco.",
+    "En moldes para paleta, intercala cucharadas de la mezcla de yogur con el puré de arándanos. Con la punta de un cuchillo o un palillo, dibuja ochos o zigzags suaves para crear el efecto marmoleado.",
+    "Coloca los palitos de madera y congela por al menos 6 horas o durante toda la noche hasta que estén totalmente firmes.",
+    "Para desmoldar sin esfuerzo, pasa la base de los moldes bajo un chorro de agua tibia durante 10 segundos y retira las paletas halando suavemente del palito."
+  ],
+  "tips": [
+    "Gracias al cultivo de alta montaña en Guasca, estos arándanos tienen una cáscara firme y turgente con su pruina natural intacta; al congelarse en trozos enteros dentro del yogur mantienen una textura agradable sin volverse aguados.",
+    "Si no tienes moldes tradicionales, puedes usar vasitos desechables de café o vasitos de silicona; cúbrelos con papel aluminio y clava el palito en el centro para que se sostenga derecho mientras congela.",
+    "Una vez desmoldadas, puedes guardar las paletas en una bolsa hermética con cierre separadas por trozos de papel encerado para disfrutarlas cuando quieras."
+  ],
+  "date": "2026-10-17",
+  "publicadoEn": "2026-10-17T16:47:10.151Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/paletas-heladas-de-arandanos-y-yogur.jpg"
+}

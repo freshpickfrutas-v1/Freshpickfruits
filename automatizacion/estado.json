@@ -28,7 +28,10 @@
     "https://pubmed.ncbi.nlm.nih.gov/42846037/",
     "https://pubmed.ncbi.nlm.nih.gov/42884731/",
     "https://pubmed.ncbi.nlm.nih.gov/42884697/",
-    "https://pubmed.ncbi.nlm.nih.gov/42883575/"
+    "https://pubmed.ncbi.nlm.nih.gov/42883575/",
+    "https://pubmed.ncbi.nlm.nih.gov/42880014/",
+    "https://pubmed.ncbi.nlm.nih.gov/42883967/",
+    "https://pubmed.ncbi.nlm.nih.gov/42883602/"
   ],
   "historial": [
     {
@@ -281,6 +284,24 @@
       "fecha": "2026-10-16",
       "tipo": "noticia",
       "slug": "como-la-molienda-fina-optimiza-los-antioxidantes-y-el-aroma-del-bagazo-de",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-17",
+      "tipo": "receta",
+      "slug": "paletas-heladas-de-arandanos-y-yogur",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-17",
+      "tipo": "noticia",
+      "slug": "descubren-el-mecanismo-molecular-que-activa-el-color-de-los-arandanos-mediante",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-17",
+      "tipo": "noticia",
+      "slug": "una-pelicula-biologica-prolonga-la-frescura-y-nutrientes-de-los-arandanos-en",
       "modo": "revision"
     }
   ]

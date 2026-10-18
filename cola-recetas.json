@@ -252,7 +252,8 @@
     "titulo": "Scones de Arándanos y Vainilla",
     "categoria": "snacks-meriendas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-18"
   },
   {
     "orden": 29,

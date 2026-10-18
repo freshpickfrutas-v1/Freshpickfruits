@@ -31,7 +31,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42883575/",
     "https://pubmed.ncbi.nlm.nih.gov/42880014/",
     "https://pubmed.ncbi.nlm.nih.gov/42883967/",
-    "https://pubmed.ncbi.nlm.nih.gov/42883602/"
+    "https://pubmed.ncbi.nlm.nih.gov/42883602/",
+    "https://pubmed.ncbi.nlm.nih.gov/42893014/"
   ],
   "historial": [
     {
@@ -302,6 +303,18 @@
       "fecha": "2026-10-17",
       "tipo": "noticia",
       "slug": "una-pelicula-biologica-prolonga-la-frescura-y-nutrientes-de-los-arandanos-en",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-18",
+      "tipo": "receta",
+      "slug": "scones-de-arandanos-y-vainilla",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-18",
+      "tipo": "noticia",
+      "slug": "impacto-de-los-metodos-de-secado-en-la-calidad-del-bagazo-de-arandano",
       "modo": "revision"
     }
   ]

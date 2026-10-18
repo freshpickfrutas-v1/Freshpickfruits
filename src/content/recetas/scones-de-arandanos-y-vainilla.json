@@ -1,0 +1,67 @@
+{
+  "slug": "scones-de-arandanos-y-vainilla",
+  "title": "Scones de Arándanos y Vainilla",
+  "excerpt": "Disfruta de unos suaves y doraditos scones caseros perfumados con vainilla y cargados con la dulzura natural de nuestros arándanos frescos. Ideales para la hora del té o las onces.",
+  "imageAlt": "Scones dorados recién horneados con arándanos frescos y vainilla, servidos en una tabla de madera para la hora de las onces.",
+  "category": "snacks-meriendas",
+  "extraCategories": [
+    "desayunos",
+    "postres-saludables"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 20,
+  "restMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 8,
+  "ingredients": [
+    {
+      "text": "2 tazas de harina de trigo"
+    },
+    {
+      "text": "1/4 taza de azúcar"
+    },
+    {
+      "text": "1 cucharada de polvo de hornear"
+    },
+    {
+      "text": "1/2 cucharadita de sal"
+    },
+    {
+      "text": "1/2 taza de mantequilla sin sal, muy fría y en cubitos"
+    },
+    {
+      "text": "1/2 taza de crema de leche fría"
+    },
+    {
+      "text": "1 huevo grande"
+    },
+    {
+      "text": "1 cucharadita de extracto de vainilla"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    }
+  ],
+  "steps": [
+    "Precalienta el horno a 200 °C (390 °F) y prepara una bandeja para hornear con papel para parafina o un tapete de silicona.",
+    "En un tazón grande, mezcla la harina, el azúcar, el polvo de hornear y la sal. Añade la mantequilla fría y desmenúzala con los dedos hasta obtener una textura de migas gruesas.",
+    "En un recipiente pequeño, bate la crema de leche con el huevo y el extracto de vainilla hasta integrar bien.",
+    "Vierte los ingredientes líquidos sobre los secos y mezcla suavemente. Incorpora los arándanos Fresh Pick, cultivados en la alta montaña de Guasca, usando movimientos envolventes para mantener intacta su pruina natural y jugosidad.",
+    "Pasa la masa a una superficie enharinada y forma un disco de 2 cm de grosor. Corta el disco en 8 triángulos iguales.",
+    "Lleva la bandeja con los scones a la nevera durante 15 minutos; este reposo frío ayudará a que la mantequilla mantenga la textura migosa y hojaldrada durante el horneado.",
+    "Pincela la parte superior con un poco de crema de leche adicional y hornea entre 18 y 20 minutos hasta que se vean bien doraditos. Deja entibiar antes de disfrutar."
+  ],
+  "tips": [
+    "Mantener la mantequilla y la crema de leche bien frías es el gran secreto para lograr scones de textura hojaldrada por dentro y crujiente por fuera.",
+    "Aprovecha que los arándanos Fresh Pick vienen sin ceras artificiales para agregarlos directamente a la masa sin necesidad de enjuagarlos en exceso ni secarlos demasiado.",
+    "Si te quedan scones horneados, guárdalos en un recipiente hermético y caliéntalos 3 minutos en el hornito tostador antes de servir para recuperar su frescura."
+  ],
+  "date": "2026-10-18",
+  "publicadoEn": "2026-10-18T17:01:56.750Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/scones-de-arandanos-y-vainilla.jpg"
+}

@@ -261,7 +261,8 @@
     "titulo": "Avena Caliente con Arándanos y Panela",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-19"
   },
   {
     "orden": 30,

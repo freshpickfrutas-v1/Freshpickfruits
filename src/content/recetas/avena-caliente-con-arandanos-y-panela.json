@@ -1,0 +1,60 @@
+{
+  "slug": "avena-caliente-con-arandanos-y-panela",
+  "title": "Avena Caliente con Arándanos y Panela",
+  "excerpt": "Confortante avena caliente endulzada con panela rallada y servida con jugosos arándanos frescos. Un desayuno tradicional colombiano ideal para empezar las mañanas con calidez.",
+  "imageAlt": "Tazón de avena caliente cremosa con panela disuelta, decorada con arándanos frescos, astilla de canela y nueces.",
+  "category": "desayunos",
+  "extraCategories": [
+    "postres-saludables",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 10,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de avena en hojuelas"
+    },
+    {
+      "text": "2 tazas de leche"
+    },
+    {
+      "text": "1 taza de agua"
+    },
+    {
+      "text": "2 cucharadas de panela rallada"
+    },
+    {
+      "text": "1 astilla de canela"
+    },
+    {
+      "text": "1 pizca de sal"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 cucharadas de nueces picadas"
+    }
+  ],
+  "steps": [
+    "En una olla mediana, combina el agua, la leche, la astilla de canela y la panela rallada. Calienta a fuego medio hasta que la panela se disuelva.",
+    "Incorpora la avena en hojuelas junto con la pizca de sal y revuelve bien con una cuchara de madera.",
+    "Cocina a fuego medio-bajo durante 8 a 10 minutos, revolviendo constantemente para evitar que se pegue y lograr una textura cremosa.",
+    "Agrega la mitad de los arándanos un minuto antes de apagar el fuego para que se entibien y liberen suavemente su jugo.",
+    "Sirve la avena bien caliente en tazones, retira la canela y decora encima con el resto de los arándanos Fresh Pick, cultivados en las montañas de Guasca, y las nueces picadas."
+  ],
+  "tips": [
+    "Guarda los arándanos en el refrigerador dentro de su empaque original sin lavar para preservar su frescura y lávalos únicamente justo antes de consumir.",
+    "Si prefieres una textura aún más cremosa, puedes dejar remojando la avena en el agua desde la noche anterior antes de cocinarla."
+  ],
+  "date": "2026-10-19",
+  "publicadoEn": "2026-10-19T19:35:56.461Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/avena-caliente-con-arandanos-y-panela.jpg"
+}

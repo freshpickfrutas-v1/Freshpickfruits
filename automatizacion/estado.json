@@ -316,6 +316,12 @@
       "tipo": "noticia",
       "slug": "impacto-de-los-metodos-de-secado-en-la-calidad-del-bagazo-de-arandano",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-19",
+      "tipo": "receta",
+      "slug": "avena-caliente-con-arandanos-y-panela",
+      "modo": "automatico"
     }
   ]
 }

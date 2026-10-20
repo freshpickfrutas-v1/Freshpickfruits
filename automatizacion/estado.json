@@ -322,6 +322,12 @@
       "tipo": "receta",
       "slug": "avena-caliente-con-arandanos-y-panela",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-20",
+      "tipo": "receta",
+      "slug": "gelatina-natural-de-arandanos",
+      "modo": "automatico"
     }
   ]
 }

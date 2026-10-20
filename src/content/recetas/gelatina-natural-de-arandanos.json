@@ -1,0 +1,56 @@
+{
+  "slug": "gelatina-natural-de-arandanos",
+  "title": "Gelatina Natural de Arándanos",
+  "excerpt": "Aprende a preparar una deliciosa gelatina natural de arándanos, elaborada con fruta real, sin colorantes ni saborizantes artificiales. Un postre refrescante y liviano para disfrutar en casa.",
+  "imageAlt": "Copas de cristal con gelatina natural de arándanos de color morado intenso, decoradas con arándanos enteros.",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "snacks-meriendas",
+    "preparaciones-conservas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 5,
+  "restMinutes": 180,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 y 1/2 tazas de agua"
+    },
+    {
+      "text": "2 cucharadas de miel de abejas o endulzante al gusto"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón"
+    },
+    {
+      "text": "14 g de gelatina sin sabor en polvo (2 sobres)"
+    },
+    {
+      "text": "1/4 de taza de agua fría"
+    }
+  ],
+  "steps": [
+    "En un tazón pequeño, espolvorea la gelatina sin sabor sobre el 1/4 de taza de agua fría y deja reposar durante 5 minutos para que se hidrate.",
+    "En una olla a fuego medio, cocina los arándanos Fresh Pick junto con la y 1/2 tazas de agua y la miel durante 5 minutos, hasta que rompan a hervir y suavicen. Estos arándanos de alta montaña cultivados en Guasca soltarán todo su color y dulzor natural.",
+    "Retira la olla del fuego y pasa la preparación a la licuadora. Añade la cucharadita de jugo de limón y licúa muy bien a velocidad media.",
+    "Cuela la mezcla sobre un tazón si prefieres una textura completamente tersa, o déjala con los trocitos de fibra si te gusta más rústica.",
+    "Agrega la gelatina hidratada a la mezcla aún caliente y revuelve con un batidor de mano hasta que se disuelva por completo.",
+    "Vierte el líquido en cuatro copas o moldes individuales, deja reposar a temperatura ambiente y luego refrigera por lo menos 3 horas hasta que cuaje completamente."
+  ],
+  "tips": [
+    "Puedes agregar unos cuantos arándanos Fresh Pick enteros en el fondo de los moldes antes de verter el líquido para encontrar sorpresas de fruta fresca en cada cucharada.",
+    "Conserva tus gelatinas en la nevera cubiertas con vinipel para que no absorban olores de otros alimentos; se mantendrán frescas y deliciosas hasta por 5 días."
+  ],
+  "date": "2026-10-20",
+  "publicadoEn": "2026-10-20T18:15:34.978Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/gelatina-natural-de-arandanos.jpg"
+}

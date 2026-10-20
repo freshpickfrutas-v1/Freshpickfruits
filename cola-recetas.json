@@ -270,7 +270,8 @@
     "titulo": "Gelatina Natural de Arándanos",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-20"
   },
   {
     "orden": 31,

@@ -328,6 +328,12 @@
       "tipo": "receta",
       "slug": "gelatina-natural-de-arandanos",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-21",
+      "tipo": "receta",
+      "slug": "soda-italiana-de-arandanos",
+      "modo": "automatico"
     }
   ]
 }

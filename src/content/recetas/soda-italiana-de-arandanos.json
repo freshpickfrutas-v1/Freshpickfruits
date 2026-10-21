@@ -1,0 +1,59 @@
+{
+  "slug": "soda-italiana-de-arandanos",
+  "title": "Soda Italiana de Arándanos",
+  "excerpt": "Disfruta de una refrescante soda italiana artesanal con sirope casero de arándanos Fresh Pick y agua con gas. Una bebida burbujeante, vistosa y deliciosa.",
+  "imageAlt": "Vaso alto con soda italiana de arándanos, hielo, agua con gas y arándanos frescos flotando con hojas de hierbabuena.",
+  "category": "bebidas-refrescos",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 10,
+  "restMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 1/2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1/2 taza de agua"
+    },
+    {
+      "text": "1/2 taza de panela pulverizada"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón"
+    },
+    {
+      "text": "3 tazas de agua con gas helada"
+    },
+    {
+      "text": "Hielo al gusto"
+    },
+    {
+      "text": "Hojas de hierbabuena fresca para decorar"
+    }
+  ],
+  "steps": [
+    "En una olla pequeña, combina una taza de arándanos Fresh Pick, la media taza de agua, la panela y el jugo de limón.",
+    "Lleva a fuego medio durante 8 a 10 minutos, macerando suavemente la fruta con un tenedor para que libere sus jugos.",
+    "Cuela el concentrado presionando bien los arándanos para obtener un sirope sedoso, y déjalo enfriar completamente.",
+    "Llena cuatro vasos altos con abundante hielo y distribuye la media taza restante de arándanos Fresh Pick enteros.",
+    "Agrega a cada vaso entre 3 y 4 cucharadas del sirope de arándano ya frío.",
+    "Vierte el agua con gas muy fría en cada vaso, mezcla delicadamente con un pitillo o cuchara larga y decora con hierbabuena."
+  ],
+  "tips": [
+    "Los arándanos Fresh Pick de alta montaña cultivados en Guasca aportan un dulzor natural ideal que hace resaltar el sabor de este refresco artesanal.",
+    "Puedes preparar el sirope de arándanos con anterioridad y conservarlo en un frasco hermético en la nevera hasta por una semana.",
+    "Si prefieres una textura cremosa al estilo Italian Cream Soda, agrega una cucharada de crema de leche justo antes de servir."
+  ],
+  "date": "2026-10-21",
+  "publicadoEn": "2026-10-21T18:20:40.291Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/soda-italiana-de-arandanos.jpg"
+}

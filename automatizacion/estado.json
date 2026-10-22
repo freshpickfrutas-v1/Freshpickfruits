@@ -334,6 +334,12 @@
       "tipo": "receta",
       "slug": "soda-italiana-de-arandanos",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-22",
+      "tipo": "receta",
+      "slug": "smoothie-de-arandanos-y-mantequilla-de-mani",
+      "modo": "automatico"
     }
   ]
 }

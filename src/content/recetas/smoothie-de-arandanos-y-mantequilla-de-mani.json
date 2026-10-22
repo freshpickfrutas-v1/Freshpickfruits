@@ -1,0 +1,55 @@
+{
+  "slug": "smoothie-de-arandanos-y-mantequilla-de-mani",
+  "title": "Smoothie de Arándanos y Mantequilla de Maní",
+  "excerpt": "Cremoso, delicioso y recargado de sabor. Disfruta la combinación perfecta entre arándanos Fresh Pick y mantequilla de maní en un smoothie ideal para tus mañanas o meriendas.",
+  "imageAlt": "Vaso alto con smoothie cremoso de arándanos y mantequilla de maní, decorado con arándanos enteros encima.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "snacks-meriendas",
+    "desayunos"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 cucharadas de mantequilla de maní natural (sin azúcar añadida)"
+    },
+    {
+      "text": "1 taza de leche entera o bebida vegetal (almendras o avena)"
+    },
+    {
+      "text": "1/2 taza de yogur griego natural"
+    },
+    {
+      "text": "1 cucharada de miel de abejas (opcional)"
+    },
+    {
+      "text": "1/2 taza de cubos de hielo"
+    }
+  ],
+  "steps": [
+    "Lava suavemente los arándanos Fresh Pick con agua fría justo antes de usarlos.",
+    "Agrega a la licuadora la leche o bebida vegetal junto con el yogur griego para facilitar el licuado.",
+    "Incorpora los arándanos Fresh Pick, la mantequilla de maní, la miel si decides usarla y los cubos de hielo.",
+    "Licúa a velocidad alta durante 1 a 2 minutos hasta obtener una textura totalmente homogénea y cremosa.",
+    "Sirve de inmediato en vasos altos y decora la superficie con unos arándanos enteros frescos o una pincelada adicional de mantequilla de maní."
+  ],
+  "tips": [
+    "Gracias al dulzor natural de los arándanos Fresh Pick cultivados en las montañas de Guasca, no es necesario añadir azúcares refinados para equilibrar el sabor salado del maní.",
+    "Si prefieres una textura aún más densa tipo malteada, congela los arándanos unas horas antes de prepararlo y omite el hielo.",
+    "Para conservar tus arándanos frescos por más tiempo en casa, guárdalos en el refrigerador dentro de su empaque original sin lavarlos hasta el momento en que los vayas a consumir."
+  ],
+  "date": "2026-10-22",
+  "publicadoEn": "2026-10-22T18:15:10.563Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/smoothie-de-arandanos-y-mantequilla-de-mani.jpg"
+}

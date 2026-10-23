@@ -1,0 +1,57 @@
+{
+  "slug": "salmon-con-glaseado-de-arandanos",
+  "title": "Salmón con Glaseado de Arándanos y Balsámico",
+  "excerpt": "Aprende a preparar un jugoso salmón sellado bañado con un irresistible glaseado agridulce de arándanos y vinagre balsámico. Una opción elegante, rápida y perfecta para un almuerzo especial.",
+  "imageAlt": "Filete de salmón sellado bañado en un glaseado brillante de arándanos y vinagre balsámico.",
+  "category": "ensaladas-platos-frescos",
+  "prepMinutes": 10,
+  "cookMinutes": 15,
+  "difficulty": "Intermedio",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "2 filetes de salmón fresco (150 g cada uno)"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 cucharadas de vinagre balsámico"
+    },
+    {
+      "text": "1 cucharada de miel de abejas"
+    },
+    {
+      "text": "1 cucharadita de aceite de oliva"
+    },
+    {
+      "text": "1 diente de ajo finamente picado"
+    },
+    {
+      "text": "1/2 cucharadita de romero fresco picado"
+    },
+    {
+      "text": "Sal y pimienta al gusto"
+    }
+  ],
+  "steps": [
+    "Sazona los filetes de salmón por ambos lados con sal, pimienta y la mitad del romero picado.",
+    "En una sartén pequeña a fuego medio, calienta media cucharadita de aceite de oliva y sofríe el ajo durante un minuto sin dejarlo dorar demasiado.",
+    "Agrega los arándanos Fresh Pick, el vinagre balsámico y la miel a la sartén. Cocina a fuego bajo durante 7 u 8 minutos, aplastando suavemente algunos frutos con un tenedor para que liberen su jugo y se forme un glaseado espeso.",
+    "En otra sartén antiadherente a fuego medio-alto, calienta el resto del aceite de oliva y cocina el salmón comenzando por el lado de la piel durante 4 minutos hasta que esté bien dorado y crocante.",
+    "Voltea los filetes y cocina durante 2 a 3 minutos más según el término deseado.",
+    "Sirve el salmón caliente y cúbrelo de inmediato con el glaseado de arándanos de alta montaña cultivados en Guasca, decorando con el resto del romero fresco."
+  ],
+  "tips": [
+    "Para conservar tus arándanos Fresh Pick frescos por más tiempo, guárdalos en el refrigerador en un recipiente cubierto con papel absorbente y lávalos únicamente justo antes de usarlos.",
+    "Si prefieres una salsa completamente lisa y homogénea, puedes pasar el glaseado por un colador antes de verterlo sobre el salmón, guardando la pulpa restante para untar sobre galletas o tostadas."
+  ],
+  "date": "2026-10-23",
+  "publicadoEn": "2026-10-23T18:03:23.765Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/salmon-con-glaseado-de-arandanos.jpg"
+}

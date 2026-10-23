@@ -32,7 +32,9 @@
     "https://pubmed.ncbi.nlm.nih.gov/42880014/",
     "https://pubmed.ncbi.nlm.nih.gov/42883967/",
     "https://pubmed.ncbi.nlm.nih.gov/42883602/",
-    "https://pubmed.ncbi.nlm.nih.gov/42893014/"
+    "https://pubmed.ncbi.nlm.nih.gov/42893014/",
+    "https://pubmed.ncbi.nlm.nih.gov/42904966/",
+    "https://pubmed.ncbi.nlm.nih.gov/42904962/"
   ],
   "historial": [
     {
@@ -340,6 +342,18 @@
       "tipo": "receta",
       "slug": "smoothie-de-arandanos-y-mantequilla-de-mani",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-23",
+      "tipo": "receta",
+      "slug": "salmon-con-glaseado-de-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-23",
+      "tipo": "noticia",
+      "slug": "tratamiento-con-alginato-retrasa-el-ablandamiento-de-arandanos-en-poscosecha",
+      "modo": "revision"
     }
   ]
 }

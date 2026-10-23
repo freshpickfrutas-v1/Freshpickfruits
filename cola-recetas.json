@@ -297,7 +297,8 @@
     "titulo": "Salmón con Glaseado de Arándanos y Balsámico",
     "categoria": "ensaladas-platos-frescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-23"
   },
   {
     "orden": 34,

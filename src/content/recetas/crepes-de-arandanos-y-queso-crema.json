@@ -1,0 +1,68 @@
+{
+  "slug": "crepes-de-arandanos-y-queso-crema",
+  "title": "Crepes de Arándanos con Queso Crema",
+  "excerpt": "Delicadas crepes caseras rellenas de una suave mezcla de queso crema y bañadas con una salsa tibia de arándanos frescos. Un desayuno reconfortante y elegante.",
+  "imageAlt": "Crepes doradas dobladas en triángulos, rellenas de queso crema y coronadas con salsa brillante y arándanos frescos enteros.",
+  "category": "desayunos",
+  "extraCategories": [
+    "postres-saludables",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 15,
+  "restMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de harina de trigo común"
+    },
+    {
+      "text": "1 taza y cuarto de leche entera"
+    },
+    {
+      "text": "2 huevos campesinos"
+    },
+    {
+      "text": "2 cucharadas de mantequilla derretida (más un poco extra para la sartén)"
+    },
+    {
+      "text": "1 taza de queso crema a temperatura ambiente"
+    },
+    {
+      "text": "3 cucharadas de miel de abejas"
+    },
+    {
+      "text": "1/2 cucharadita de ralladura fina de limón"
+    },
+    {
+      "text": "1 pizca de sal"
+    }
+  ],
+  "steps": [
+    "En la licuadora o con un batidor de mano, mezcla la harina, la leche, los huevos, la mantequilla derretida y la pizca de sal hasta obtener una masa líquida, suave y sin grumos.",
+    "Deja reposar la masa en la nevera durante 15 minutos; este reposo relaja el gluten y permite obtener crepes tiernas y elásticas.",
+    "Para el relleno, bate en un tazón el queso crema con dos cucharadas de miel y la ralladura fina de limón hasta que quede sedoso y fácil de untar.",
+    "En una sartén pequeña a fuego medio-bajo, coloca una taza y media de arándanos Fresh Pick junto con una cucharada de miel y dos cucharadas de agua. Cocina durante 4 o 5 minutos presionando suavemente algunos frutos para que liberen su jugo carmesí sin deshacerse por completo, aprovechando la jugosidad natural de estos frutos cultivados en la alta montaña de Guasca.",
+    "Calienta una sartén antiadherente a fuego medio y engrásala con una película fina de mantequilla. Vierte aproximadamente 1/4 de taza de masa, girando la sartén de inmediato para cubrir todo el fondo de manera pareja.",
+    "Cocina por 1 minuto hasta que los bordes se despeguen solos, voltea con cuidado y dora por 30 segundos más. Repite con el resto de la masa hasta formar 8 crepes.",
+    "Unta dos cucharadas de la crema de queso en la mitad de cada crepe, dobla en triángulo o enrolla en forma de pañuelo.",
+    "Sirve de inmediato dos crepes por plato, báñalas generosamente con la salsa tibia y decora con la media taza restante de arándanos frescos al natural."
+  ],
+  "tips": [
+    "Para conservar intacta la pruina (la suave capita blanquecina natural) de los arándanos Fresh Pick, mantenlos refrigerados en su canastilla original y lávalos únicamente segundos antes de integrarlos a la receta.",
+    "Si notas que la masa de las crepes se espesa tras el reposo, añade una o dos cucharadas adicionales de leche antes de verterla en la sartén para garantizar que queden finas y flexibles.",
+    "Puedes preparar las crepes la noche anterior, guardarlas apiladas con papel parafinado entre cada una en un recipiente hermético y rellenarlas tibias al día siguiente."
+  ],
+  "date": "2026-10-24",
+  "publicadoEn": "2026-10-24T17:10:21.907Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/crepes-de-arandanos-y-queso-crema.jpg"
+}

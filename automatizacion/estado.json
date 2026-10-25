@@ -36,7 +36,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42904966/",
     "https://pubmed.ncbi.nlm.nih.gov/42904962/",
     "https://pubmed.ncbi.nlm.nih.gov/42914273/",
-    "https://pubmed.ncbi.nlm.nih.gov/42914418/"
+    "https://pubmed.ncbi.nlm.nih.gov/42914418/",
+    "https://pubmed.ncbi.nlm.nih.gov/42923071/"
   ],
   "historial": [
     {
@@ -367,6 +368,18 @@
       "fecha": "2026-10-24",
       "tipo": "noticia",
       "slug": "un-nuevo-recubrimiento-biodegradable-extiende-la-frescura-del-arandano-un-60",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-25",
+      "tipo": "receta",
+      "slug": "brownies-de-cacao-y-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-25",
+      "tipo": "noticia",
+      "slug": "la-ciencia-de-la-firmeza-por-que-algunos-arandanos-son-mas-crujientes",
       "modo": "revision"
     }
   ]

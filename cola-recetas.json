@@ -315,7 +315,8 @@
     "titulo": "Brownies de Cacao y Arándanos",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-25"
   },
   {
     "orden": 36,

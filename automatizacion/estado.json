@@ -40,7 +40,9 @@
     "https://pubmed.ncbi.nlm.nih.gov/42923071/",
     "https://pubmed.ncbi.nlm.nih.gov/42925822/",
     "https://pubmed.ncbi.nlm.nih.gov/42925669/",
-    "https://pubmed.ncbi.nlm.nih.gov/42914354/"
+    "https://pubmed.ncbi.nlm.nih.gov/42914354/",
+    "https://pubmed.ncbi.nlm.nih.gov/42939806/",
+    "https://pubmed.ncbi.nlm.nih.gov/42940281/"
   ],
   "historial": [
     {
@@ -395,6 +397,18 @@
       "fecha": "2026-10-26",
       "tipo": "noticia",
       "slug": "nuevas-peliculas-biodegradables-con-extractos-naturales-prometen-alargar-la",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-27",
+      "tipo": "receta",
+      "slug": "bocaditos-congelados-de-arandanos-y-yogur",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-27",
+      "tipo": "noticia",
+      "slug": "bebida-de-arandanos-y-hierro-demuestra-potencial-contra-la-anemia-en-ratones",
       "modo": "revision"
     }
   ]

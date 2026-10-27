@@ -1,0 +1,54 @@
+{
+  "slug": "bocaditos-congelados-de-arandanos-y-yogur",
+  "title": "Bocaditos Congelados de Arándanos y Yogur",
+  "excerpt": "Un snack cremoso, crujiente y súper refrescante. Estos bocaditos congelados de arándanos Fresh Pick bañados en yogur son ideales para disfrutar a cualquier hora del día.",
+  "imageAlt": "Bocaditos congelados de arándanos Fresh Pick cubiertos con yogur griego, dispuestos sobre papel mantequilla en una bandeja.",
+  "category": "snacks-meriendas",
+  "extraCategories": [
+    "postres-saludables",
+    "desayunos"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 0,
+  "restMinutes": 120,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 y 1/2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de yogur griego natural sin azúcar"
+    },
+    {
+      "text": "2 cucharadas de miel de abejas"
+    },
+    {
+      "text": "1/2 cucharadita de extracto de vainilla"
+    },
+    {
+      "text": "1 pizca de sal"
+    }
+  ],
+  "steps": [
+    "En un tazón mediano, integra el yogur griego con la miel de abejas, la esencia de vainilla y la pizca de sal hasta obtener una crema suave y homogénea.",
+    "Añade los arándanos Fresh Pick enteros a la mezcla de yogur. Mezcla con suavidad usando una espátula para cubrir bien cada fruta sin romperla.",
+    "Cubre una bandeja o plato plano apto para congelador con un trozo de papel mantequilla o una lámina de silicona.",
+    "Con la ayuda de una cuchara, toma pequeñas porciones agrupando de 3 a 4 arándanos cubiertos de yogur y ve colocándolos sobre la bandeja separados entre sí.",
+    "Lleva la bandeja al congelador durante al menos 2 horas o hasta que los bocaditos estén completamente sólidos y firmes al tacto.",
+    "Despega los bocaditos suavemente del papel mantequilla y sirve de inmediato para disfrutar de su textura cremosa y crujiente."
+  ],
+  "tips": [
+    "Como los arándanos Fresh Pick son de alta montaña cultivados en Guasca y llegan con su pruina natural impecable, solo requieren un lavado suave antes de secarlos bien para que el yogur se adiera perfecto.",
+    "Una vez que los bocaditos estén totalmente congelados, transfiérelos a un recipiente hermético para guardarlos en el congelador hasta por 3 semanas.",
+    "Si prefieres un toque crocante extra, puedes espolvorear un poco de granola fina o almendras picadas sobre los bocaditos justo antes de congelarlos."
+  ],
+  "date": "2026-10-27",
+  "publicadoEn": "2026-10-27T19:08:35.643Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/bocaditos-congelados-de-arandanos-y-yogur.jpg"
+}

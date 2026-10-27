@@ -325,7 +325,7 @@
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
     "estado": "pendiente",
-    "intentos": 1,
+    "intentos": 2,
     "ultimoError": "usa otras frutas como ingrediente: manzana"
   },
   {
@@ -343,7 +343,8 @@
     "titulo": "Bocaditos Congelados de Arándanos y Yogur",
     "categoria": "snacks-meriendas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-27"
   },
   {
     "orden": 39,

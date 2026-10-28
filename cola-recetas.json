@@ -324,8 +324,8 @@
     "titulo": "Vinagreta de Arándanos",
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 2,
+    "estado": "borrador",
+    "intentos": 3,
     "ultimoError": "usa otras frutas como ingrediente: manzana"
   },
   {
@@ -352,7 +352,8 @@
     "titulo": "Jugo Natural de Arándanos (Sin Azúcar)",
     "categoria": "bebidas-refrescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-28"
   },
   {
     "orden": 40,

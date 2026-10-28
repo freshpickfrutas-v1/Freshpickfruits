@@ -1,0 +1,48 @@
+{
+  "slug": "jugo-natural-de-arandanos",
+  "title": "Jugo Natural de Arándanos (Sin Azúcar)",
+  "excerpt": "Disfruta de un refrescante jugo natural de arándanos sin azúcar añadida. Dulzor natural, color vibrante y fácil de preparar para acompañar tus mañanas.",
+  "imageAlt": "Vaso con jugo natural de arándanos de color morado intenso con hielo sobre una mesa de madera.",
+  "category": "bebidas-refrescos",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 1/2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 tazas de agua fría"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón recién exprimido"
+    },
+    {
+      "text": "4 cubos de hielo"
+    }
+  ],
+  "steps": [
+    "Lava los arándanos y colócalos directamente en el vaso de la licuadora.",
+    "Añade las 2 tazas de agua fría, el jugo de limón y los arándanos Fresh Pick, cultivados en las frías montañas de Guasca para garantizar su dulzor perfecto.",
+    "Licúa a velocidad alta durante 1 a 2 minutos hasta que la mezcla quede completamente homogénea.",
+    "Pasa el jugo por un colador fino si prefieres una textura liviana, o sírvelo sin colar si deseas aprovechar toda la fibra natural de la fruta.",
+    "Sirve en vasos altos con cubos de hielo y disfruta inmediatamente bien frío."
+  ],
+  "tips": [
+    "Gracias al dulzor natural de los arándanos de alta montaña de Fresh Pick, este jugo no requiere azúcar ni endulzantes adicionales.",
+    "Si congelas los arándanos unas horas antes de licuarlos, obtendrás un jugo súper helado con una textura ligeramente frappé sin diluir el sabor."
+  ],
+  "date": "2026-10-28",
+  "publicadoEn": "2026-10-28T19:13:39.486Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/jugo-natural-de-arandanos.jpg"
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { CheckCircle2, MessageCircle } from 'lucide-react';
 import { SiteShell } from '../components/SiteShell';
 import { usePageMeta } from '../lib/seo';
+import { track } from '../lib/analytics';
 
 /** Landing after a purchase (Wompi redirects here). Google Business Profile asks for a "thank you" screen at the end of checkout. */
 export default function ThankYouPage() {
@@ -11,6 +12,17 @@ export default function ThankYouPage() {
     path: '/gracias',
     noindex: true,
   });
+
+  // Wompi devuelve aquí al cliente tras pagar: se mide la compra una sola vez con el pedido que se guardó al crearlo.
+  React.useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem('fp-last-order');
+      if (!raw) return;
+      sessionStorage.removeItem('fp-last-order');
+      const o = JSON.parse(raw) as { id: string; value: number; online: boolean };
+      if (o.online) track('purchase', { id: o.id, value: o.value });
+    } catch { /* sin almacenamiento */ }
+  }, []);
 
   return (
     <SiteShell>

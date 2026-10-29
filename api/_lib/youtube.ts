@@ -23,6 +23,11 @@ import {
 export const CANALES_DE_CONFIANZA: string[] = CANALES;
 const QUERIES = QUERIES_COMPARTIDAS as Record<Seccion, Record<string, string[]>>;
 
+/** Solo las categorías que existen: cualquier otro texto no debe gastar cuota ni saltarse la caché. */
+export function categoriaConocida(seccion: Seccion, categoria: string): boolean {
+  return !categoria || Object.prototype.hasOwnProperty.call(QUERIES[seccion], categoria);
+}
+
 export function queriesPara(seccion: Seccion, categoria: string): string[] {
   const grupo = QUERIES[seccion];
   return grupo[categoria] ?? grupo._default;

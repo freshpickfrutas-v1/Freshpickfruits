@@ -384,7 +384,9 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       });
       orderId = saved.orderNumber;
       setSavedOrderDocId(saved.id);
-      track('purchase', { id: saved.orderNumber, value: grandTotal });
+      // Pedido creado = contacto de venta; la compra real se mide en /gracias, cuando Wompi devuelve al cliente tras pagar.
+      track('lead', { id: saved.orderNumber, value: grandTotal });
+      try { sessionStorage.setItem('fp-last-order', JSON.stringify({ id: saved.orderNumber, value: grandTotal, online })); } catch { /* sin almacenamiento */ }
       // El servidor fija el total definitivo; si falla, la firma de pago lo vuelve a calcular antes de cobrar.
       fetch('/api/orders/recalcular', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ orderId: saved.id }) }).catch(() => {});
       cart.clearCart();

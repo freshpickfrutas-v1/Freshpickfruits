@@ -1,7 +1,7 @@
 // GET /api/youtube/search?seccion=recetas|noticias&categoria=<id>
 // Busca en YouTube (solo videos incrustables, en español), pasa cada uno por el filtro de Gemini y
 // devuelve únicamente los aprobados. Ningún video se guarda: el sitio solo los incrusta con iframe.
-import { CANALES_DE_CONFIANZA, geminiKey, moderar, pareceComercial, queriesPara, Seccion, VideoAprobado } from '../_lib/youtube.js';
+import { CANALES_DE_CONFIANZA, categoriaConocida, geminiKey, moderar, pareceComercial, queriesPara, Seccion, VideoAprobado } from '../_lib/youtube.js';
 
 const MAX_VIDEOS = 6;
 
@@ -48,6 +48,7 @@ export default async function handler(req: any, res: any) {
 
   const seccion: Seccion = req.query?.seccion === 'noticias' ? 'noticias' : 'recetas';
   const categoria = String(req.query?.categoria ?? '').slice(0, 60);
+  if (!categoriaConocida(seccion, categoria)) return res.status(400).json({ videos: [], motivo: 'categoría desconocida' });
   const queries = queriesPara(seccion, categoria);
   const q = queries[Math.floor(Date.now() / 86_400_000) % queries.length]; // alterna la búsqueda cada día
 

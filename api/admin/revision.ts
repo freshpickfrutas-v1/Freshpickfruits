@@ -118,6 +118,15 @@ export default async function handler(req: any, res: any) {
       if (pr.state !== 'open') return res.status(409).json({ error: 'Este borrador ya fue resuelto' });
 
       if (accion === 'aprobar') {
+        // Aprobar publica en producción: el borrador solo puede traer contenido (JSON) e imágenes generadas, nada de código.
+        const files = await github(`/pulls/${number}/files?per_page=100`);
+        const ajeno = files.find((f: any) => !/^(src\/content\/(recetas|noticias|videos)\/[^/]+\.json|public\/img\/generadas\/[^/]+)$/.test(f.filename));
+        if (ajeno || files.length >= 100) {
+          return res.status(422).json({ error: `Este borrador toca archivos que no son contenido (${ajeno?.filename ?? 'demasiados archivos'}). Revísalo en GitHub antes de aprobar.` });
+        }
+      }
+
+      if (accion === 'aprobar') {
         await github(`/pulls/${number}/merge`, { method: 'PUT', body: { merge_method: 'squash', commit_title: `Aprobado: ${String(pr.title).replace(/^Revisar:\s*/, '')}` } });
       } else {
         await github(`/pulls/${number}`, { method: 'PATCH', body: { state: 'closed' } });

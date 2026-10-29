@@ -49,18 +49,20 @@ function applyConsent() {
 }
 
 /** Mide una acción. No hace nada si el visitante no aceptó cookies o no hay ID configurado. */
-export function track(event: 'add_to_cart' | 'whatsapp_click' | 'purchase', data: { value?: number; id?: string; name?: string } = {}) {
+export function track(event: 'add_to_cart' | 'whatsapp_click' | 'lead' | 'purchase', data: { value?: number; id?: string; name?: string } = {}) {
   if (typeof window === 'undefined') return;
   const value = data.value ?? 0;
   const ga = w().gtag;
   const fb = w().fbq;
   if (ga) {
     if (event === 'whatsapp_click') ga('event', 'whatsapp_click');
+    else if (event === 'lead') ga('event', 'generate_lead', { currency: 'COP', value });
     else if (event === 'add_to_cart') ga('event', 'add_to_cart', { currency: 'COP', value, items: data.id ? [{ item_id: data.id, item_name: data.name }] : undefined });
     else ga('event', 'purchase', { currency: 'COP', value, transaction_id: data.id });
   }
   if (fb) {
     if (event === 'whatsapp_click') fb('track', 'Contact');
+    else if (event === 'lead') fb('track', 'Lead', { currency: 'COP', value });
     else if (event === 'add_to_cart') fb('track', 'AddToCart', { currency: 'COP', value, content_ids: data.id ? [data.id] : undefined });
     else fb('track', 'Purchase', { currency: 'COP', value });
   }

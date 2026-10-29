@@ -43,8 +43,8 @@ export default async function handler(req: any, res: any) {
 
     if (tx.status === 'APPROVED') {
       if (order.paymentStatus === 'verificado') return res.status(200).json({ ok: true });
-      // El monto cobrado debe coincidir con el del pedido.
-      if (tx.amount_in_cents !== Number(order.total) * 100) {
+      // El monto y la moneda cobrados deben coincidir con los del pedido.
+      if (tx.currency !== 'COP' || tx.amount_in_cents !== Number(order.total) * 100) {
         console.error('wompi/webhook: monto no coincide', orderId, tx.amount_in_cents, order.total);
         return res.status(200).json({ ok: true });
       }

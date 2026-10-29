@@ -53,13 +53,35 @@ service cloud.firestore {
     // ---------- Pedidos ----------
     match /orders/{orderId} {
       // Compra como invitado o con sesión: el pedido nace "pendiente" y, si trae userId, debe ser el de quien lo crea.
-      allow create: if request.resource.data.status == 'pendiente'
-        && request.resource.data.total is number
-        && request.resource.data.total >= 0
-        && request.resource.data.customerName is string
-        && request.resource.data.items is list
-        && (request.resource.data.userId == null
-            || (isSignedIn() && request.resource.data.userId == request.auth.uid));
+      // Quien compra solo puede crear un pedido "pendiente" y sin pago registrado: el pago lo marca el servidor (webhook de Wompi)
+      // o el equipo. Solo se aceptan los campos del formulario y con tamaño acotado, para que nadie cree pedidos "pagados" ni basura.
+      allow create: if isStaff()
+        || (request.resource.data.keys().hasOnly([
+              'orderNumber', 'userId', 'customerName', 'customerEmail', 'customerPhone', 'shippingAddress', 'shippingCity',
+              'shippingComplement', 'shippingLat', 'shippingLng', 'shippingMapsUrl', 'deliveryDate', 'deliveryTimeSlot',
+              'notes', 'packaging', 'items', 'subtotal', 'deliveryFee', 'total', 'paymentMethod', 'status', 'createdAt',
+              'paymentStatus', 'invoiceStatus', 'billing'])
+            && request.resource.data.status == 'pendiente'
+            && request.resource.data.paymentStatus == 'pendiente'
+            && request.resource.data.invoiceStatus == 'pendiente'
+            && request.resource.data.total is number
+            && request.resource.data.total >= 0
+            && request.resource.data.total <= 20000000
+            && request.resource.data.customerName is string
+            && request.resource.data.customerName.size() <= 120
+            && request.resource.data.customerEmail is string
+            && request.resource.data.customerEmail.size() <= 160
+            && request.resource.data.customerPhone is string
+            && request.resource.data.customerPhone.size() <= 40
+            && request.resource.data.shippingAddress is string
+            && request.resource.data.shippingAddress.size() <= 300
+            && request.resource.data.notes is string
+            && request.resource.data.notes.size() <= 500
+            && request.resource.data.items is list
+            && request.resource.data.items.size() >= 1
+            && request.resource.data.items.size() <= 30
+            && (request.resource.data.userId == null
+                || (isSignedIn() && request.resource.data.userId == request.auth.uid)));
 
       // El equipo ve todos; el cliente solo los suyos (por cuenta o por correo verificado).
       allow read: if isStaff()

@@ -1,8 +1,9 @@
 // POST /api/wompi/firma  { orderId }
 // Genera la referencia única y la firma de integridad de Wompi (SHA256) en el servidor.
-// El monto sale SIEMPRE del pedido guardado en Firestore, nunca del navegador.
+// El monto se recalcula en el servidor con los precios del catálogo, nunca se confía en el navegador.
 import { createHash } from 'node:crypto';
 import { adminDb } from '../_lib/admin.js';
+import { recalcOrder, OrderError } from '../_lib/orderTotal.js';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido' });
@@ -14,6 +15,7 @@ export default async function handler(req: any, res: any) {
   if (!/^[A-Za-z0-9]{10,40}$/.test(orderId)) return res.status(400).json({ error: 'Pedido inválido' });
 
   try {
+    await recalcOrder(orderId);
     const snap = await adminDb().collection('orders').doc(orderId).get();
     if (!snap.exists) return res.status(404).json({ error: 'Pedido no encontrado' });
     const order = snap.data()!;
@@ -34,6 +36,7 @@ export default async function handler(req: any, res: any) {
 
     return res.status(200).json({ reference, amountInCents, currency, integrity });
   } catch (err) {
+    if (err instanceof OrderError) return res.status(err.status).json({ error: err.message });
     console.error('wompi/firma', err);
     return res.status(500).json({ error: 'No se pudo preparar el pago' });
   }

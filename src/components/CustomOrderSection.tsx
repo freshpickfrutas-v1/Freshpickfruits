@@ -372,6 +372,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             name: fruit?.name || item.fruitId,
             quantityText: `${item.units} ${item.units === 1 ? 'estuche' : 'estuches'} (${item.grams}g)`,
             price: lineCost,
+            fruitId: item.fruitId,
+            units: item.units,
           };
         }),
         subtotal,
@@ -381,6 +383,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       });
       orderId = saved.orderNumber;
       setSavedOrderDocId(saved.id);
+      // El servidor fija el total definitivo; si falla, la firma de pago lo vuelve a calcular antes de cobrar.
+      fetch('/api/orders/recalcular', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ orderId: saved.id }) }).catch(() => {});
       cart.clearCart();
       if (user && saveNewAddress && isNewAddress && savedAddresses.length < MAX_ADDRESSES) {
         try {

@@ -383,6 +383,9 @@ export interface FirestoreOrderItem {
   name: string;
   quantityText: string;
   price: number;
+  /** Producto y estuches: con esto el servidor recalcula el precio (el total del navegador no se acepta). */
+  fruitId?: string;
+  units?: number;
 }
 
 export interface FirestoreOrder {

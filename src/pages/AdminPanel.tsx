@@ -17,6 +17,7 @@ import { SubscriptionsBoard } from '../components/SubscriptionsBoard';
 import { subscribeAllSubscriptions } from '../lib/subscriptions';
 import { FRUITS_DATA } from '../data/mockData';
 import { useFullArticleIndex, useFullRecipeIndex } from '../data/content';
+import { FEATURED_VIDEOS } from '../data/featuredVideos';
 import { ContentKind, hideContent, restoreContent, isHidden, useHiddenContent } from '../lib/hiddenContent';
 
 function isToday(iso: string) {
@@ -321,10 +322,16 @@ function ContentTab() {
 
   const articles = useFullArticleIndex() ?? [];
   const recipes = useFullRecipeIndex() ?? [];
+  const videos = [
+    ...FEATURED_VIDEOS.noticias.map(v => ({ slug: v.id, title: v.title, date: `Noticias · ${v.channel}` })),
+    ...FEATURED_VIDEOS.recetas.map(v => ({ slug: v.id, title: v.title, date: `Recetas · ${v.channel}` })),
+  ];
   const items = view === 'noticia'
     ? articles.map(a => ({ slug: a.slug, title: a.title, date: a.date }))
-    : recipes.map(r => ({ slug: r.slug, title: r.title, date: r.date ?? '' }));
-  const sortedItems = [...items].sort((a, b) => b.date.localeCompare(a.date));
+    : view === 'receta'
+      ? recipes.map(r => ({ slug: r.slug, title: r.title, date: r.date ?? '' }))
+      : videos;
+  const sortedItems = view === 'video' ? items : [...items].sort((a, b) => b.date.localeCompare(a.date));
 
   const toggle = async (slug: string, title: string, hide: boolean) => {
     if (hide && !window.confirm(`¿Eliminar "${title}" del sitio? Dejará de verse para los clientes; podrás restaurarlo desde aquí.`)) return;
@@ -343,13 +350,13 @@ function ContentTab() {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
-        {(['noticia', 'receta'] as ContentKind[]).map(k => (
+        {(['noticia', 'receta', 'video'] as ContentKind[]).map(k => (
           <button
             key={k}
             onClick={() => setView(k)}
             className={`px-4 py-2 rounded-full text-sm font-semibold border cursor-pointer ${view === k ? 'bg-[#2F183C] text-white border-[#2F183C]' : 'bg-white text-[#2F183C] border-[#DFCEE6]'}`}
           >
-            {k === 'noticia' ? `Noticias (${articles.length})` : `Recetas (${recipes.length})`}
+            {k === 'noticia' ? `Noticias (${articles.length})` : k === 'receta' ? `Recetas (${recipes.length})` : `Videos (${videos.length})`}
           </button>
         ))}
       </div>

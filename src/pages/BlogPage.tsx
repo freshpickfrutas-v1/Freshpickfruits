@@ -6,7 +6,7 @@ import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
 import { ActiveFilters, LibraryApi, LibrarySearch, LibrarySidebar, Pagination, ResultsBar, describeFilters } from '../components/LibraryControls';
-import { FEATURED_VIDEOS } from '../data/featuredVideos';
+import { visibleVideos } from '../data/featuredVideos';
 import { BLOG_CATEGORIES } from '../data/blog';
 import { articleIndex } from '../data/content';
 import { articleEntries } from '../lib/libraryEntries';
@@ -95,7 +95,7 @@ export default function BlogPage() {
 
           <div className="mt-5 flex gap-2" role="tablist" aria-label="Contenido de noticias">
             <TabLink href={BASE} active={state.vista !== 'videos'} label="📰 Artículos" count={ARTICLE_ENTRIES.length} lib={lib} />
-            <TabLink href={`${BASE}?vista=videos`} active={state.vista === 'videos'} label="🎬 Videos" count={FEATURED_VIDEOS.noticias.length} lib={lib} video />
+            <TabLink href={`${BASE}?vista=videos`} active={state.vista === 'videos'} label="🎬 Videos" count={visibleVideos('noticias').length} lib={lib} video />
           </div>
         </div>
       </section>

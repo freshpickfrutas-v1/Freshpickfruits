@@ -5,7 +5,7 @@ import { db } from './firebase';
 // Recipes and news live as JSON files in src/content/ and are never deleted by the automation (the library only grows).
 // "Eliminar" from the admin panel only hides an item from the site: a document in Firestore (hiddenContent) that can be restored.
 
-export type ContentKind = 'receta' | 'noticia';
+export type ContentKind = 'receta' | 'noticia' | 'video';
 
 export interface HiddenItem {
   tipo: ContentKind;

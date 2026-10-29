@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Play } from 'lucide-react';
-import { FEATURED_VIDEOS } from '../data/featuredVideos';
+import { visibleVideos } from '../data/featuredVideos';
+import { isHidden } from '../lib/hiddenContent';
 import { CachedVideo, readCache, writeCache } from '../lib/youtubeCache';
 
 interface Props {
@@ -35,9 +36,9 @@ export const YouTubeFeed: React.FC<Props> = ({ seccion, categoria }) => {
     return () => ctrl.abort();
   }, [seccion, categoria]);
 
-  const destacados = FEATURED_VIDEOS[seccion];
+  const destacados = visibleVideos(seccion);
   const ids = new Set(destacados.map(v => v.id));
-  const videos = [...destacados, ...dinamicos.filter(v => !ids.has(v.id))];
+  const videos = [...destacados, ...dinamicos.filter(v => !ids.has(v.id) && !isHidden('video', v.id))];
 
   return (
     <section aria-label="Videos recomendados">

@@ -6,7 +6,7 @@ import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
 import { ActiveFilters, LibraryApi, LibrarySearch, LibrarySidebar, Pagination, ResultsBar, describeFilters } from '../components/LibraryControls';
-import { FEATURED_VIDEOS } from '../data/featuredVideos';
+import { visibleVideos } from '../data/featuredVideos';
 import { RECIPE_CATEGORIES } from '../data/recipes';
 import { recipeIndex } from '../data/content';
 import { recipeEntries } from '../lib/libraryEntries';
@@ -93,7 +93,7 @@ export default function RecipesPage() {
 
           <div className="mt-5 flex gap-2" role="tablist" aria-label="Contenido de recetas">
             <TabLink href={BASE} active={state.vista !== 'videos'} label="🍽️ Recetas" count={RECIPE_ENTRIES.length} lib={lib} />
-            <TabLink href={`${BASE}?vista=videos`} active={state.vista === 'videos'} label="🎬 Videos" count={FEATURED_VIDEOS.recetas.length} lib={lib} video />
+            <TabLink href={`${BASE}?vista=videos`} active={state.vista === 'videos'} label="🎬 Videos" count={visibleVideos('recetas').length} lib={lib} video />
           </div>
         </div>
       </section>

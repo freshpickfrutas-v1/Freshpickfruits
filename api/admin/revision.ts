@@ -5,7 +5,6 @@
 //   fecha de subida   = created_at del Pull Request
 //   fecha de aprobado = merged_at (al aprobar se hace merge a main y Vercel publica solo)
 // Solo administradores (token de Firebase). Necesita GITHUB_TOKEN_REVISION en Vercel (fine-grained: Contents y Pull requests en lectura y escritura).
-import { getAuth } from 'firebase-admin/auth';
 import { adminDb } from '../_lib/admin.js';
 
 const REPO = 'freshpickfrutas-v1/Freshpickfruits';
@@ -17,6 +16,7 @@ async function esAdmin(req: any): Promise<boolean> {
   const token = header.startsWith('Bearer ') ? header.slice(7) : '';
   if (!token) return false;
   const db = adminDb(); // inicializa firebase-admin
+  const { getAuth } = await import('firebase-admin/auth');
   const decoded = await getAuth().verifyIdToken(token);
   if (decoded.email_verified && BOOTSTRAP_ADMINS.includes(decoded.email ?? '')) return true;
   const snap = await db.collection('users').doc(decoded.uid).get();
@@ -85,8 +85,9 @@ function resumen(pr: any) {
 export default async function handler(req: any, res: any) {
   try {
     if (!(await esAdmin(req))) return res.status(403).json({ error: 'Solo administradores' });
-  } catch {
-    return res.status(401).json({ error: 'Sesión no válida' });
+  } catch (err) {
+    console.error('admin/revision auth', err);
+    return res.status(401).json({ error: 'Sesión no válida', detalle: err instanceof Error ? err.message.slice(0, 160) : undefined });
   }
   if (!process.env.GITHUB_TOKEN_REVISION) return res.status(200).json({ error: 'no_configurado' });
 

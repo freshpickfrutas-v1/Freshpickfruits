@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { FruitItem } from '../types';
 import { CartItem } from '../components/CartDrawer';
 import { maxUnitsFor } from '../lib/pricing';
@@ -20,9 +20,29 @@ interface CartContextValue {
 
 const CartContext = createContext<CartContextValue | null>(null);
 
+const CART_KEY = 'fp-cart';
+
+function readSavedCart(): CartItem[] {
+  try {
+    const raw = localStorage.getItem(CART_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed.filter(i => i?.fruit?.id && Number(i.quantity) > 0) : [];
+  } catch {
+    return [];
+  }
+}
+
 /** Cart state lives above the router so it survives moving between Home, Recetas and Blog. */
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(readSavedCart);
+
+  // The cart survives closing the page, so a customer who comes back finds what they picked and can pay.
+  useEffect(() => {
+    try {
+      if (items.length) localStorage.setItem(CART_KEY, JSON.stringify(items));
+      else localStorage.removeItem(CART_KEY);
+    } catch { /* private mode: the cart just lasts this visit */ }
+  }, [items]);
   const [isOpen, setOpen] = useState(false);
   const [pendingCheckout, setPendingCheckout] = useState(false);
 

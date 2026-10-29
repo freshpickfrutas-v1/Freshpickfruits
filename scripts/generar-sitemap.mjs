@@ -5,12 +5,12 @@
 // Uso manual: node scripts/generar-sitemap.mjs
 import fs from 'node:fs';
 import path from 'node:path';
-import { hubsOf, loadContent, root } from './contenido-publicado.mjs';
+import { hubsOf, loadContent, root, sinOcultas } from './contenido-publicado.mjs';
 
 const SITE = 'https://www.freshpickfruits.com';
 const HOME_LASTMOD = '2026-09-17';
 
-const content = loadContent();
+const content = sinOcultas(loadContent());
 const { recetas, noticias } = content;
 const newest = list => list[0]?.date ?? HOME_LASTMOD;
 

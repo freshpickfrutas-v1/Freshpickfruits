@@ -56,7 +56,7 @@ export async function sendOrderReceived(order: Record<string, any>): Promise<voi
   const bcc = process.env.EMAIL_TEAM?.trim();
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', 'Idempotency-Key': `pedido-recibido-${order.orderNumber}` },
     body: JSON.stringify({ from, to, ...(bcc ? { bcc } : {}), subject: `Pedido recibido · ${order.orderNumber}`, html }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}`);

@@ -21,6 +21,17 @@ function readPublished(dir) {
       (a.orden ?? 999) - (b.orden ?? 999));
 }
 
+/** Piezas eliminadas desde el admin (las descarga scripts/obtener-ocultos.mjs): no van al sitemap ni se prerenderizan. */
+export function sinOcultas({ recetas, noticias }) {
+  let ocultos = [];
+  try { ocultos = JSON.parse(fs.readFileSync(path.join(root, 'scripts', '.ocultos.json'), 'utf8')); } catch { /* sin lista */ }
+  const set = new Set(ocultos);
+  return {
+    recetas: recetas.filter(r => !set.has(`receta__${r.slug}`)),
+    noticias: noticias.filter(n => !set.has(`noticia__${n.slug}`))
+  };
+}
+
 export function loadContent() {
   return { recetas: readPublished('recetas'), noticias: readPublished('noticias') };
 }

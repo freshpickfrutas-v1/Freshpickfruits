@@ -8,7 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadContent, prerenderPaths, root } from './contenido-publicado.mjs';
+import { loadContent, prerenderPaths, root, sinOcultas } from './contenido-publicado.mjs';
 
 const dist = path.join(root, process.env.DIST_DIR ?? 'dist');
 const ssrEntry = path.join(root, 'dist-ssr', 'entry-server.js');
@@ -60,7 +60,7 @@ function withHead(html, meta) {
   return out;
 }
 
-const paths = prerenderPaths(content);
+const paths = prerenderPaths(sinOcultas(content));
 const started = Date.now();
 let written = 0;
 const failures = [];

@@ -1,6 +1,8 @@
 // POST /api/orders/recalcular  { orderId }
 // Tras crear el pedido, el servidor calcula y guarda el total correcto (precios, límites, envío y comisión).
 import { recalcOrder, OrderError } from '../_lib/orderTotal.js';
+import { adminDb } from '../_lib/admin.js';
+import { sendOrderReceived } from '../_lib/email.js';
 
 // Tope por IP (por instancia del servidor): frena abusos simples sin bloquear a un cliente que pide varias veces.
 const hits = new Map<string, number[]>();
@@ -21,6 +23,17 @@ export default async function handler(req: any, res: any) {
   if (!/^[A-Za-z0-9]{10,40}$/.test(orderId)) return res.status(400).json({ error: 'Pedido inválido' });
   try {
     const { total } = await recalcOrder(orderId);
+    // Correo "pedido recibido": una sola vez por pedido (la marca se guarda antes de enviar para que no se repita).
+    try {
+      const ref = adminDb().collection('orders').doc(orderId);
+      const order = (await ref.get()).data();
+      if (order && order.status === 'pendiente' && !order.receivedEmailAt) {
+        await ref.update({ receivedEmailAt: new Date().toISOString() });
+        await sendOrderReceived({ ...order, total });
+      }
+    } catch (e) {
+      console.error('orders/recalcular: correo', e);
+    }
     return res.status(200).json({ total });
   } catch (err) {
     if (err instanceof OrderError) return res.status(err.status).json({ error: err.message });

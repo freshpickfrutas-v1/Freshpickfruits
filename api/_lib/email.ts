@@ -25,7 +25,7 @@ export async function sendPaymentConfirmed(order: Record<string, any>, amount: n
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from, to, ...(bcc ? { bcc } : {}), subject: `Pago confirmado · Pedido ${order.orderNumber}`, html }),
+    body: JSON.stringify({ from, to, reply_to: process.env.EMAIL_REPLY_TO?.trim() || 'info@freshpickfruits.com', ...(bcc ? { bcc } : {}), subject: `Pago confirmado · Pedido ${order.orderNumber}`, html }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}`);
 }
@@ -57,7 +57,7 @@ export async function sendOrderReceived(order: Record<string, any>): Promise<voi
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', 'Idempotency-Key': `pedido-recibido-${order.orderNumber}` },
-    body: JSON.stringify({ from, to, ...(bcc ? { bcc } : {}), subject: `Pedido recibido · ${order.orderNumber}`, html }),
+    body: JSON.stringify({ from, to, reply_to: process.env.EMAIL_REPLY_TO?.trim() || 'info@freshpickfruits.com', ...(bcc ? { bcc } : {}), subject: `Pedido recibido · ${order.orderNumber}`, html }),
   });
   if (!res.ok) throw new Error(`Resend ${res.status}`);
 }

@@ -43,7 +43,9 @@
     "https://pubmed.ncbi.nlm.nih.gov/42914354/",
     "https://pubmed.ncbi.nlm.nih.gov/42939806/",
     "https://pubmed.ncbi.nlm.nih.gov/42940281/",
-    "https://pubmed.ncbi.nlm.nih.gov/42947730/"
+    "https://pubmed.ncbi.nlm.nih.gov/42947730/",
+    "https://pubmed.ncbi.nlm.nih.gov/42951114/",
+    "https://pubmed.ncbi.nlm.nih.gov/42950765/"
   ],
   "historial": [
     {
@@ -422,6 +424,18 @@
       "fecha": "2026-10-28",
       "tipo": "noticia",
       "slug": "identifican-la-familia-genomica-vcbes1-que-ayuda-al-arandano-a-resistir-el",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-29",
+      "tipo": "receta",
+      "slug": "ensalada-de-rucula-arandanos-y-queso-de-cabra",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-29",
+      "tipo": "noticia",
+      "slug": "como-la-genetica-y-la-maduracion-definen-el-perfil-del-arandano",
       "modo": "revision"
     }
   ]

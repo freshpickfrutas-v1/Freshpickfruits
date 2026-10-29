@@ -1,7 +1,7 @@
 // GET /api/youtube/search?seccion=recetas|noticias&categoria=<id>
 // Busca en YouTube (solo videos incrustables, en español), pasa cada uno por el filtro de Gemini y
 // devuelve únicamente los aprobados. Ningún video se guarda: el sitio solo los incrusta con iframe.
-import { CANALES_DE_CONFIANZA, moderar, pareceComercial, queriesPara, Seccion, VideoAprobado } from '../_lib/youtube.js';
+import { CANALES_DE_CONFIANZA, geminiKey, moderar, pareceComercial, queriesPara, Seccion, VideoAprobado } from '../_lib/youtube.js';
 
 const MAX_VIDEOS = 6;
 
@@ -44,7 +44,7 @@ export default async function handler(req: any, res: any) {
   const key = process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY;
   // Sin claves configuradas el sitio solo muestra los videos destacados.
   if (!key) return res.status(200).json({ videos: [], motivo: 'falta la llave de YouTube en el servidor' });
-  if (!process.env.GEMINI_API_KEY) return res.status(200).json({ videos: [], motivo: 'falta GEMINI_API_KEY en el servidor' });
+  if (!geminiKey()) return res.status(200).json({ videos: [], motivo: 'falta GEMINI_API_KEY (o GEMINI_API_KEY2) en el servidor' });
 
   const seccion: Seccion = req.query?.seccion === 'noticias' ? 'noticias' : 'recetas';
   const categoria = String(req.query?.categoria ?? '').slice(0, 60);

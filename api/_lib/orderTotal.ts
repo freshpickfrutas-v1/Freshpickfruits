@@ -44,6 +44,13 @@ export async function recalcOrder(orderId: string) {
     return { total: Number(order.total), changed: false };
   }
 
+  // Reglas de entrega: solo Bogotá y solo martes o miércoles (el formulario ya las aplica; aquí no se confía en él).
+  if (!/bogot/i.test(String(order.shippingCity ?? ''))) throw new OrderError('Solo entregamos en Bogotá');
+  if (order.deliveryDate) {
+    const day = new Date(`${order.deliveryDate}T12:00:00`).getDay();
+    if (day !== 2 && day !== 3) throw new OrderError('Las entregas son solo martes y miércoles');
+  }
+
   const catalog = await loadCatalog();
   const perStep: Record<number, number> = {};
   let grams = 0;

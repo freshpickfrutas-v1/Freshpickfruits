@@ -6,6 +6,7 @@
 //   fecha de aprobado = merged_at (al aprobar se hace merge a main y Vercel publica solo)
 // Solo administradores (token de Firebase). Necesita GITHUB_TOKEN_REVISION en Vercel (fine-grained: Contents y Pull requests en lectura y escritura).
 import { adminDb } from '../_lib/admin.js';
+import firebaseConfig from '../../firebase-applet-config.json' with { type: 'json' };
 
 const REPO = 'freshpickfrutas-v1/Freshpickfruits';
 const BOOTSTRAP_ADMINS = ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
@@ -15,11 +16,18 @@ async function esAdmin(req: any): Promise<boolean> {
   const header = String(req.headers?.authorization ?? '');
   const token = header.startsWith('Bearer ') ? header.slice(7) : '';
   if (!token) return false;
-  const db = adminDb(); // inicializa firebase-admin
-  const { getAuth } = await import('firebase-admin/auth');
-  const decoded = await getAuth().verifyIdToken(token);
-  if (decoded.email_verified && BOOTSTRAP_ADMINS.includes(decoded.email ?? '')) return true;
-  const snap = await db.collection('users').doc(decoded.uid).get();
+  // Google valida el token de sesión (firma, vencimiento y proyecto). Se usa su API en vez de firebase-admin/auth,
+  // que en el servidor de Vercel falla al cargar una dependencia (jose).
+  const res = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${(firebaseConfig as { apiKey: string }).apiKey}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idToken: token })
+  });
+  if (!res.ok) return false;
+  const user = (await res.json()).users?.[0];
+  if (!user?.localId) return false;
+  if (user.emailVerified && BOOTSTRAP_ADMINS.includes(user.email ?? '')) return true;
+  const snap = await adminDb().collection('users').doc(user.localId).get();
   return snap.exists && snap.data()?.role === 'admin';
 }
 

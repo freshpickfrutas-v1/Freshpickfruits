@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Leaf, Loader2, LogIn, LogOut, ShieldAlert, AlertCircle, Apple, Facebook } from 'lucide-react';
+import { Leaf, Loader2, LogIn, LogOut, ShieldAlert, AlertCircle, Facebook } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { ROLE_LABELS } from '../types';
 
@@ -23,7 +23,7 @@ const Card: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 /** Shows the Google sign-in when there is no session, and blocks users without a team role. */
 export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, children }) => {
-  const { user, profile, role, isStaff, loading, signInWithGoogle, signInWithApple, signInWithFacebook, signOut } = useAuth();
+  const { user, profile, role, isStaff, loading, signInWithGoogle, signInWithFacebook, signOut } = useAuth();
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
 
@@ -62,14 +62,6 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
           >
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4 text-[#DDA83A]" />}
             Continuar con Google
-          </button>
-          <button
-            onClick={() => handle(signInWithApple)}
-            disabled={busy}
-            className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-black text-white text-sm font-bold disabled:opacity-60"
-          >
-            <Apple className="w-4 h-4 fill-white" />
-            Continuar con Apple
           </button>
           <button
             onClick={() => handle(signInWithFacebook)}

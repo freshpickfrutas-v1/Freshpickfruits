@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as fbSignOut, User, AuthProvider as FirebaseProvider } from 'firebase/auth';
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
-import { auth, db, googleProvider, appleProvider, facebookProvider } from '../lib/firebase';
+import { auth, db, googleProvider, facebookProvider } from '../lib/firebase';
 import { STAFF_ROLES, UserProfile, UserRole } from '../types';
 import { navigate, takeReturnTo } from '../lib/router';
 
@@ -15,7 +15,6 @@ interface AuthState {
   isStaff: boolean;
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
-  signInWithApple: () => Promise<void>;
   signInWithFacebook: () => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -112,14 +111,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         'auth/unauthorized-domain': 'Este sitio no está autorizado en Firebase para iniciar sesión.',
         'auth/network-request-failed': 'No hay conexión. Revisa tu internet e intenta de nuevo.',
         'auth/web-storage-unsupported': 'Tu navegador bloquea el almacenamiento necesario. Actívalo o prueba otro navegador.',
-        'auth/internal-error': 'Firebase no pudo completar el acceso. Si usas Apple o Facebook, revisa su configuración en Firebase.',
+        'auth/internal-error': 'Firebase no pudo completar el acceso. Si usas Facebook, revisa su configuración en Firebase.',
         'auth/invalid-credential': 'El proveedor rechazó las credenciales. Revisa la configuración del método en Firebase.',
       };
       throw new Error(code ? `${friendly[code] ?? 'No se pudo iniciar sesión.'} (${code})` : (err instanceof Error ? err.message : 'No se pudo iniciar sesión.'));
     }
   };
   const signInWithGoogle = () => signInWith(googleProvider);
-  const signInWithApple = () => signInWith(appleProvider);
   const signInWithFacebook = () => signInWith(facebookProvider);
 
   const role = profile?.role ?? null;
@@ -130,7 +128,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isStaff: role !== null && (STAFF_ROLES as UserRole[]).includes(role),
     loading,
     signInWithGoogle,
-    signInWithApple,
     signInWithFacebook,
     signOut: () => { clearIntent(); return fbSignOut(auth); }
   };

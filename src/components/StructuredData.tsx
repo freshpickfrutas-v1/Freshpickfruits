@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { JsonLd } from '../lib/seo';
 import { FRUITS_DATA, FAQ_DATA, TESTIMONIALS_DATA } from '../data/mockData';
 
 // Inyecta datos estructurados JSON-LD (Schema.org) en <head> para SEO clásico
@@ -164,28 +165,27 @@ function buildReviewSchemas() {
   }));
 }
 
-export const StructuredData: React.FC = () => {
-  useEffect(() => {
-    const schemas = [
+function buildWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: 'Fresh Pick',
+    inLanguage: 'es-CO',
+    publisher: { '@id': `${SITE_URL}/#organization` },
+  };
+}
+
+// Se pinta como <script> dentro de la página (no con un efecto del navegador) para que también salga en el HTML prerenderizado.
+export const StructuredData: React.FC = () => (
+  <>
+    {[
       buildOrganizationSchema(),
+      buildWebSiteSchema(),
       ...buildProductSchemas(),
       buildFaqSchema(),
       ...buildReviewSchemas(),
-    ];
-
-    const nodes: HTMLScriptElement[] = schemas.map((schema, i) => {
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.setAttribute('data-seo-schema', `fresh-pick-${i}`);
-      script.text = JSON.stringify(schema);
-      document.head.appendChild(script);
-      return script;
-    });
-
-    return () => {
-      nodes.forEach(node => node.remove());
-    };
-  }, []);
-
-  return null;
-};
+    ].map((schema, i) => <JsonLd key={i} data={schema} />)}
+  </>
+);

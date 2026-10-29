@@ -20,6 +20,8 @@ if (!fs.existsSync(templatePath) || !fs.existsSync(ssrEntry)) {
 }
 
 const template = fs.readFileSync(templatePath, 'utf8');
+// La portada se prerenderiza sobre dist/index.html; las rutas sin prerender (paneles, /gracias, filtros) usan esta base vacía.
+fs.writeFileSync(path.join(dist, 'app-shell.html'), template, 'utf8');
 const { render, seedContent, resolvePageMeta } = await import(pathToFileURL(ssrEntry).href);
 
 const content = loadContent();

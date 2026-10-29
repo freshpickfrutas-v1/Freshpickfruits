@@ -42,7 +42,7 @@ export function paginationPaths(basePath, count) {
 
 /** Todas las rutas que se prerenderizan: listados, páginas de archivo, paginación y detalle. */
 export function prerenderPaths(content) {
-  const paths = [];
+  const paths = ['/'];
   for (const [base, list, detail] of [
     ['/recetas', content.recetas, '/recetas'],
     ['/noticias', content.noticias, '/noticias']

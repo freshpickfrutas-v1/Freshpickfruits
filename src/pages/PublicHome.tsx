@@ -14,8 +14,14 @@ import { SiteShell } from '../components/SiteShell';
 import { useCart } from '../context/CartContext';
 import { scrollToId } from '../lib/router';
 import { useCatalog } from '../lib/catalog';
+import { usePageMeta } from '../lib/seo';
 
 export default function PublicHome() {
+  usePageMeta({
+    title: 'Fresh Pick - Arándanos Premium de Alta Montaña | Guasca, Colombia',
+    description: 'Arándanos premium de alta montaña cultivados a más de 2.800 m.s.n.m. en Guasca, Cundinamarca. Polinización 100% natural, sin ceras, sin residuos químicos. Entrega a domicilio en Bogotá martes y miércoles. Pedidos por WhatsApp +57 317 893 1026.',
+    path: '/',
+  });
   const { addToCart } = useCart();
   const catalog = useCatalog();
   // The custom order builder only offers products that are in stock.

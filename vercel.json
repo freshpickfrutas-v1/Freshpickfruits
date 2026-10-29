@@ -18,51 +18,51 @@
     },
     {
       "source": "/privacidad",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/terminos",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/gracias",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/cookies",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/panel",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/panel/(.*)",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/admin",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/admin/(.*)",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/recetas",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/recetas/(.*)",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/noticias",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     },
     {
       "source": "/noticias/(.*)",
-      "destination": "/index.html"
+      "destination": "/app-shell.html"
     }
   ],
   "headers": [

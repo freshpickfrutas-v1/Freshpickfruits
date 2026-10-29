@@ -195,6 +195,16 @@ function UserPanelInner() {
                             <Truck className="w-3 h-3" /> Despacho hoy
                           </p>
                         )}
+                        {!['en_ruta', 'entregado', 'cerrado', 'cancelado'].includes(normalizeStatus(order.status)) && (
+                          <a
+                            href={`https://wa.me/573178931026?text=${encodeURIComponent(`Hola Fresh Pick, quiero modificar o cancelar mi pedido ${order.orderNumber}`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-[#7B4382] underline"
+                          >
+                            <Phone className="w-3 h-3" /> Modificar o cancelar por WhatsApp
+                          </a>
+                        )}
                         {normalizeStatus(order.status) === 'pendiente' && order.paymentStatus !== 'verificado' && (
                           <div className="mt-2 flex flex-col items-end gap-2">
                             <p className="text-[11px] font-semibold text-amber-700">Pago pendiente</p>

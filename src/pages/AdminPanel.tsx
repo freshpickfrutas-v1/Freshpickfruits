@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   LayoutDashboard, Package, Users, ShoppingBag, ArrowLeft, Leaf,
-  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog, Repeat, Newspaper
+  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog, Repeat, Newspaper, ClipboardCheck
 } from 'lucide-react';
 import {
   subscribeProducts, addProduct, updateProduct, deleteProduct,
@@ -214,7 +214,7 @@ function ProductFormModal({
   );
 }
 
-type AdminTab = 'resumen' | 'pedidos' | 'suscripciones' | 'productos' | 'contenido' | 'clientes' | 'equipo';
+type AdminTab = 'resumen' | 'pedidos' | 'suscripciones' | 'productos' | 'aprobaciones' | 'contenido' | 'clientes' | 'equipo';
 
 /** Which team roles can open each tab. Phase 2 refines this per workflow step. */
 const TAB_ROLES: Record<AdminTab, UserRole[]> = {
@@ -222,6 +222,7 @@ const TAB_ROLES: Record<AdminTab, UserRole[]> = {
   pedidos: ['admin', 'finanzas', 'poscosecha', 'contabilidad', 'asistente', 'domiciliario'],
   suscripciones: ['admin', 'finanzas', 'asistente', 'contabilidad'],
   productos: ['admin'],
+  aprobaciones: ['admin'],
   contenido: ['admin'],
   clientes: ['admin', 'contabilidad'],
   equipo: ['admin'],
@@ -464,6 +465,175 @@ function ContentTab() {
   );
 }
 
+interface ReviewPreview {
+  title?: string; excerpt?: string; category?: string; channel?: string; videoId?: string; seccion?: string;
+  blocks?: { type: string; text?: string; items?: string[] }[];
+  ingredients?: unknown[]; steps?: unknown[]; tips?: unknown[];
+  fuentes?: { titulo: string; url: string; medio: string }[];
+}
+interface ReviewItem {
+  number: number; tipo: 'noticia' | 'receta' | 'video'; title: string; estado: 'pendiente' | 'aprobado' | 'rechazado';
+  subidoEn: string; aprobadoEn: string | null; cerradoEn: string | null; url: string; preview?: ReviewPreview | null;
+}
+
+const fmtDate = (iso: string | null) => iso
+  ? new Date(iso).toLocaleString('es-CO', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+  : '—';
+const TIPO_LABEL = { noticia: 'Noticia', receta: 'Receta', video: 'Video' } as const;
+const asText = (v: unknown) => (typeof v === 'string' ? v : v && typeof v === 'object' ? Object.values(v as Record<string, unknown>).filter(x => typeof x === 'string').join(' · ') : String(v));
+
+/** Borradores de noticias, recetas y videos: se revisan, se aprueban (se publican) o se rechazan desde aquí. */
+function ReviewTab() {
+  const { user } = useAuth();
+  const [data, setData] = useState<{ pendientes: ReviewItem[]; historial: ReviewItem[] } | null>(null);
+  const [state, setState] = useState<'cargando' | 'ok' | 'no_configurado' | 'error'>('cargando');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(null);
+
+  const call = async (init?: RequestInit) => {
+    const token = await user?.getIdToken();
+    const res = await fetch('/api/admin/revision', { ...init, headers: { Authorization: `Bearer ${token}`, ...(init?.body ? { 'Content-Type': 'application/json' } : {}) } });
+    const json = await res.json().catch(() => ({}));
+    if (json.error === 'no_configurado') { setState('no_configurado'); return null; }
+    if (!res.ok) throw new Error(json.error || `Error ${res.status}`);
+    return json;
+  };
+
+  const load = async () => {
+    setState('cargando');
+    setError('');
+    try {
+      const json = await call();
+      if (json) { setData(json); setState('ok'); }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo cargar.');
+      setState('error');
+    }
+  };
+  useEffect(() => { void load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, []);
+
+  const resolve = async (item: ReviewItem, accion: 'aprobar' | 'rechazar') => {
+    const pregunta = accion === 'aprobar'
+      ? `¿Aprobar y publicar "${item.title}"? Saldrá en el sitio en unos minutos.`
+      : `¿Rechazar "${item.title}"? No se publicará.`;
+    if (!window.confirm(pregunta)) return;
+    setBusy(item.number);
+    setError('');
+    try {
+      await call({ method: 'POST', body: JSON.stringify({ accion, number: item.number }) });
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo completar.');
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  if (state === 'no_configurado') {
+    return (
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 text-sm text-amber-900 space-y-2">
+        <p className="font-bold">Falta conectar las aprobaciones con GitHub.</p>
+        <p>Crea un token de GitHub (fine-grained) para este repositorio con permisos de lectura y escritura en <strong>Contents</strong> y <strong>Pull requests</strong>, y guárdalo en Vercel con el nombre <code>GITHUB_TOKEN_REVISION</code> (Production, Sensitive). Luego haz Redeploy.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-xs text-stone-500">Todo lo que genera el sistema (noticias, recetas y videos) espera aquí. Se registra cuándo se subió para aprobación y cuándo se aprobó y publicó.</p>
+        <button onClick={() => void load()} className="shrink-0 px-3 py-1.5 rounded-lg border border-[#DFCEE6] text-xs font-bold text-[#2F183C] cursor-pointer">Actualizar</button>
+      </div>
+      {error && <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl px-3 py-2">{error}</p>}
+      {state === 'cargando' && <p className="text-sm text-stone-500 flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Cargando borradores…</p>}
+
+      {data && (
+        <>
+          <section className="space-y-3">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#7B4382]">Por aprobar ({data.pendientes.length})</h2>
+            {data.pendientes.length === 0 && <p className="bg-white rounded-2xl border border-[#EADBEE] p-5 text-sm text-stone-500">No hay nada pendiente.</p>}
+            {data.pendientes.map(item => (
+              <div key={item.number} className="bg-white rounded-2xl border border-[#EADBEE] p-4 space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-bold uppercase text-[#7B4382]">{TIPO_LABEL[item.tipo]}</p>
+                    <p className="font-bold text-[#2F183C]">{item.title}</p>
+                    <p className="text-xs text-stone-500">Subido para aprobación: {fmtDate(item.subidoEn)}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 shrink-0">
+                    <button onClick={() => setOpen(open === item.number ? null : item.number)} className="px-3 py-1.5 rounded-lg border border-[#DFCEE6] text-xs font-bold text-[#2F183C] cursor-pointer">
+                      {open === item.number ? 'Ocultar' : 'Revisar'}
+                    </button>
+                    <button disabled={busy === item.number} onClick={() => void resolve(item, 'aprobar')} className="px-3 py-1.5 rounded-lg bg-[#2F183C] text-white text-xs font-bold disabled:opacity-50 cursor-pointer">
+                      {busy === item.number ? '…' : 'Aprobar y publicar'}
+                    </button>
+                    <button disabled={busy === item.number} onClick={() => void resolve(item, 'rechazar')} className="px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-bold disabled:opacity-50 cursor-pointer">Rechazar</button>
+                  </div>
+                </div>
+
+                {open === item.number && (
+                  <div className="border-t border-[#F0E6F3] pt-3 space-y-3 text-sm text-stone-700">
+                    {!item.preview && <p className="text-stone-500">No se pudo cargar la vista previa. <a className="underline text-[#7B4382]" href={item.url} target="_blank" rel="noopener noreferrer">Ábrelo en GitHub</a>.</p>}
+                    {item.preview?.videoId && (
+                      <div className="space-y-1">
+                        <div className="aspect-video max-w-md rounded-xl overflow-hidden bg-stone-100">
+                          <iframe className="h-full w-full" src={`https://www.youtube-nocookie.com/embed/${item.preview.videoId}`} title={item.title} allowFullScreen />
+                        </div>
+                        <p className="text-xs">Canal: {item.preview.channel} · Va en {item.preview.seccion === 'recetas' ? 'Recetas' : 'Noticias'} · <a className="underline text-[#7B4382]" href={`https://www.youtube.com/watch?v=${item.preview.videoId}`} target="_blank" rel="noopener noreferrer">Abrir en YouTube</a></p>
+                      </div>
+                    )}
+                    {item.preview?.excerpt && <p className="italic">{item.preview.excerpt}</p>}
+                    {item.preview?.blocks?.map((b, i) => b.type === 'h2' || b.type === 'h3'
+                      ? <p key={i} className="font-bold text-[#2F183C]">{b.text}</p>
+                      : b.items ? <ul key={i} className="list-disc pl-5">{b.items.map((t, j) => <li key={j}>{t}</li>)}</ul>
+                      : <p key={i}>{b.text}</p>)}
+                    {item.preview?.ingredients && <div><p className="font-bold text-[#2F183C]">Ingredientes</p><ul className="list-disc pl-5">{item.preview.ingredients.map((t, i) => <li key={i}>{asText(t)}</li>)}</ul></div>}
+                    {item.preview?.steps && <div><p className="font-bold text-[#2F183C]">Preparación</p><ol className="list-decimal pl-5">{item.preview.steps.map((t, i) => <li key={i}>{asText(t)}</li>)}</ol></div>}
+                    {item.preview?.fuentes && item.preview.fuentes.length > 0 && (
+                      <div><p className="font-bold text-[#2F183C]">Fuentes</p><ul className="list-disc pl-5">{item.preview.fuentes.map((f, i) => <li key={i}><a className="underline text-[#7B4382]" href={f.url} target="_blank" rel="noopener noreferrer">{f.titulo}</a> · {f.medio}</li>)}</ul></div>
+                    )}
+                    <p className="text-xs"><a className="underline text-[#7B4382]" href={item.url} target="_blank" rel="noopener noreferrer">Ver el borrador completo en GitHub (con la vista previa del sitio)</a></p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#7B4382]">Historial</h2>
+            <div className="bg-white rounded-2xl border border-[#EADBEE] overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead className="bg-[#F5ECF9] text-[#2F183C]">
+                  <tr>
+                    <th className="text-left px-3 py-2">Tipo</th>
+                    <th className="text-left px-3 py-2">Título</th>
+                    <th className="text-left px-3 py-2">Subido para aprobación</th>
+                    <th className="text-left px-3 py-2">Aprobado y publicado</th>
+                    <th className="text-left px-3 py-2">Estado</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#F0E6F3]">
+                  {data.historial.map(h => (
+                    <tr key={h.number}>
+                      <td className="px-3 py-2">{TIPO_LABEL[h.tipo]}</td>
+                      <td className="px-3 py-2 font-semibold text-[#2F183C]">{h.title}</td>
+                      <td className="px-3 py-2 whitespace-nowrap">{fmtDate(h.subidoEn)}</td>
+                      <td className="px-3 py-2 whitespace-nowrap">{h.estado === 'aprobado' ? fmtDate(h.aprobadoEn) : '—'}</td>
+                      <td className="px-3 py-2">{h.estado === 'aprobado' ? 'Publicado' : `Rechazado ${fmtDate(h.cerradoEn)}`}</td>
+                    </tr>
+                  ))}
+                  {data.historial.length === 0 && <tr><td colSpan={5} className="px-3 py-4 text-center text-stone-400">Aún no hay historial.</td></tr>}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </>
+      )}
+    </div>
+  );
+}
+
 function AdminPanelInner() {
   const { user, role, signOut } = useAuth();
   const allowedTabs = (Object.keys(TAB_ROLES) as AdminTab[]).filter(t => role && TAB_ROLES[t].includes(role));
@@ -584,6 +754,7 @@ function AdminPanelInner() {
             { id: 'pedidos' as const, label: 'Pedidos', icon: ShoppingBag },
             { id: 'suscripciones' as const, label: 'Suscripciones', icon: Repeat },
             { id: 'productos' as const, label: 'Productos', icon: Box },
+            { id: 'aprobaciones' as const, label: 'Aprobaciones', icon: ClipboardCheck },
             { id: 'contenido' as const, label: 'Noticias y recetas', icon: Newspaper },
             { id: 'clientes' as const, label: 'Clientes', icon: Users },
             { id: 'equipo' as const, label: 'Equipo', icon: UserCog },
@@ -605,6 +776,8 @@ function AdminPanelInner() {
 
         <main className="lg:col-span-10 space-y-6">
           {tab === 'equipo' && user && <TeamTab currentUid={user.uid} />}
+
+          {tab === 'aprobaciones' && <ReviewTab />}
 
           {tab === 'contenido' && <ContentTab />}
 

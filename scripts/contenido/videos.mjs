@@ -100,7 +100,7 @@ async function aprobado(c) {
  * Elige un video nuevo para la sección ('recetas' | 'noticias'). Devuelve { pieza, archivos } o null.
  * Primero los canales de confianza (Dr. Carlos Jaramillo); luego la búsqueda, con filtro de Gemini.
  */
-export async function crearVideoRelleno(seccion, { fecha }) {
+export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
   if (!(process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY)) {
     log('   Sin YOUTUBE_API_KEY: no se puede buscar un video de relleno.');
     return null;
@@ -109,6 +109,7 @@ export async function crearVideoRelleno(seccion, { fecha }) {
   if (fs.existsSync(path.join(ROOT, ruta))) return null; // ya hay uno hoy
 
   const usados = idsUsados();
+  for (const id of yaEnRevision) usados.add(id);
   let elegido = null;
 
   const confianza = (await deCanalesDeConfianza()).filter(c => !usados.has(c.id));

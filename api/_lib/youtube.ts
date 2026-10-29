@@ -2,6 +2,9 @@
 // Todo corre en el servidor: las claves (YOUTUBE_API_KEY, GEMINI_API_KEY) nunca llegan al navegador.
 import { GoogleGenAI, Type } from '@google/genai';
 
+/** Llave de Gemini del servidor: GEMINI_API_KEY y, si viene vacía, GEMINI_API_KEY2. */
+export const geminiKey = () => process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY2;
+
 export type Seccion = 'recetas' | 'noticias';
 
 export interface VideoAprobado {
@@ -39,7 +42,7 @@ let cliente: GoogleGenAI | undefined;
 /** Fail-closed: si Gemini falla o responde algo inválido, el video NO se aprueba. */
 export async function moderar(v: { title: string; description: string; channel: string }): Promise<Moderacion> {
   try {
-    cliente ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! });
+    cliente ??= new GoogleGenAI({ apiKey: geminiKey()! });
     const res = await cliente.models.generateContent({
       model: process.env.GEMINI_MODELO_MODERACION ?? 'gemini-3.5-flash-lite',
       contents: `<video>\ncanal: ${v.channel}\ntítulo: ${v.title}\ndescripción: ${v.description.slice(0, 1500)}\n</video>`,

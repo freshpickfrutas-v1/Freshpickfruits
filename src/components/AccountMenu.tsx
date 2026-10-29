@@ -46,7 +46,9 @@ export const AccountMenu: React.FC = () => {
       {open && (
         <div className="absolute right-0 mt-2 w-60 bg-white border border-[#EADBEE] rounded-xl shadow-xl py-2 z-50 text-sm">
           <p className="px-4 pb-2 text-xs text-stone-500 truncate border-b border-[#EADBEE]">{user.email}</p>
-          <a href="/panel" onClick={() => setOpen(false)} className="flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-[#2F183C] font-semibold"><UserRound className="w-4 h-4" /> Mi cuenta y pedidos</a>
+          {!isStaff && (
+            <a href="/panel" onClick={() => setOpen(false)} className="flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-[#2F183C] font-semibold"><UserRound className="w-4 h-4" /> Mi cuenta y pedidos</a>
+          )}
           {isStaff && (
             <a href="/admin" onClick={() => setOpen(false)} className="flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-[#2F183C] font-semibold"><LayoutDashboard className="w-4 h-4" /> Panel del equipo</a>
           )}

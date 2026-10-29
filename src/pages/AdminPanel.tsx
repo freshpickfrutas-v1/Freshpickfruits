@@ -10,6 +10,7 @@ import {
 import { FirestoreOrder, OrderStatus, ROLE_LABELS, STAFF_ROLES, SubscriptionDoc, UserProfile, UserRole } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { AuthGate } from '../components/AuthGate';
+import { usePageMeta } from '../lib/seo';
 import { OrdersBoard } from '../components/OrdersBoard';
 import { stageOf, normalizeStatus } from '../lib/orderFlow';
 import { importCatalog } from '../lib/catalog';
@@ -731,7 +732,6 @@ function AdminPanelInner() {
           </div>
           <div className="flex items-center gap-3 text-xs text-[#DFCEE6]">
             <span className="hidden sm:inline truncate max-w-[14rem]">{user?.email}</span>
-            <a href="/panel" className="hover:text-[#DDA83A]">Panel usuario →</a>
             <button onClick={() => signOut()} className="inline-flex items-center gap-1 font-semibold text-[#DDA83A] hover:text-white">
               <LogOut className="w-3.5 h-3.5" /> Salir
             </button>
@@ -951,6 +951,7 @@ function AdminPanelInner() {
 }
 
 export default function AdminPanel() {
+  usePageMeta({ title: 'Panel del equipo | Fresh Pick', description: 'Administración de Fresh Pick.', path: '/admin', noindex: true });
   return (
     <AuthGate staffOnly title="Panel del equipo Fresh Pick">
       <AdminPanelInner />

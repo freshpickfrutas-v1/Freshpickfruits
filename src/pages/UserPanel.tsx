@@ -7,6 +7,8 @@ import { findMyOrders } from '../lib/firestore';
 import { useAuth } from '../context/AuthContext';
 import { normalizeStatus } from '../lib/orderFlow';
 import { AuthGate } from '../components/AuthGate';
+import { navigate } from '../lib/router';
+import { usePageMeta } from '../lib/seo';
 import { AddressBook } from '../components/AddressBook';
 import { BillingProfile } from '../components/BillingProfile';
 import { FirestoreOrder, SubscriptionDoc, SubscriptionPlan } from '../types';
@@ -353,10 +355,17 @@ function UserPanelInner() {
   );
 }
 
+function StaffRedirect({ children }: { children: React.ReactNode }) {
+  const { isStaff, loading } = useAuth();
+  useEffect(() => { if (!loading && isStaff) navigate('/admin'); }, [loading, isStaff]);
+  return isStaff ? null : <>{children}</>;
+}
+
 export default function UserPanel() {
+  usePageMeta({ title: 'Mi cuenta | Fresh Pick', description: 'Tus pedidos y datos en Fresh Pick.', path: '/panel', noindex: true });
   return (
     <AuthGate title="Mi cuenta Fresh Pick">
-      <UserPanelInner />
+      <StaffRedirect><UserPanelInner /></StaffRedirect>
     </AuthGate>
   );
 }

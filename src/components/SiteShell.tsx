@@ -7,6 +7,7 @@ import { MobileBottomBar } from './MobileBottomBar';
 import { CookieBanner } from './CookieBanner';
 import { useCart } from '../context/CartContext';
 import { goToHomeSection } from '../lib/router';
+import { useAuth } from '../context/AuthContext';
 
 interface SiteShellProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ interface SiteShellProps {
 /** Common page frame: navigation, footer, cart drawer and WhatsApp button. */
 export const SiteShell: React.FC<SiteShellProps> = ({ children, onNavigateToCustomOrder }) => {
   const cart = useCart();
+  const { isStaff } = useAuth();
   const goToCustomOrder = onNavigateToCustomOrder ?? (() => goToHomeSection('pedidos-personalizados'));
 
   return (
@@ -28,7 +30,7 @@ export const SiteShell: React.FC<SiteShellProps> = ({ children, onNavigateToCust
       />
       <main className="flex-1">{children}</main>
       <Footer />
-      <CartDrawer
+      {!isStaff && <CartDrawer
         isOpen={cart.isOpen}
         onClose={() => cart.setOpen(false)}
         items={cart.items}
@@ -36,8 +38,8 @@ export const SiteShell: React.FC<SiteShellProps> = ({ children, onNavigateToCust
         onRemoveItem={cart.removeFromCart}
         onGoToCustomOrder={goToCustomOrder}
         onCheckoutOnline={() => { cart.requestCheckout(); cart.setOpen(false); goToCustomOrder(); }}
-      />
-      <FloatingWhatsApp />
+      />}
+      {!isStaff && <FloatingWhatsApp />}
       <MobileBottomBar onOrder={goToCustomOrder} />
       <CookieBanner />
     </div>

@@ -9,6 +9,7 @@ export default function ThankYouPage() {
     title: 'Gracias por tu compra | Fresh Pick',
     description: 'Gracias por tu compra en Fresh Pick. Despachamos los martes y miércoles.',
     path: '/gracias',
+    noindex: true,
   });
 
   return (

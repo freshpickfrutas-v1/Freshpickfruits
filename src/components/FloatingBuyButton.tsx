@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ShoppingBag } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 interface Props {
   /** id of the end-of-article call to action; the floating button hides while that one is on screen. */
@@ -8,6 +9,7 @@ interface Props {
 
 /** Buy button pinned to the right edge once the reader has scrolled into the article. */
 export const FloatingBuyButton: React.FC<Props> = ({ endId = 'cta-final' }) => {
+  const { isStaff } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [atEnd, setAtEnd] = useState(false);
 
@@ -26,7 +28,7 @@ export const FloatingBuyButton: React.FC<Props> = ({ endId = 'cta-final' }) => {
     return () => io.disconnect();
   }, [endId]);
 
-  const visible = scrolled && !atEnd;
+  const visible = scrolled && !atEnd && !isStaff;
 
   return (
     <a

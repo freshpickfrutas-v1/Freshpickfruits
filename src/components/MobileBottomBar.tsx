@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, BookOpen, Newspaper, MessageCircle, UserRound } from 'lucide-react';
+import { Sparkles, BookOpen, Newspaper, MessageCircle, UserRound, LayoutDashboard } from 'lucide-react';
 import { useAppLocation } from '../lib/router';
 import { useAuth } from '../context/AuthContext';
 
@@ -10,7 +10,7 @@ interface MobileBottomBarProps {
 /** Thumb-reach shortcuts shown only on phones: order, recipes, news and WhatsApp. */
 export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOrder }) => {
   const { pathname } = useAppLocation();
-  const { user } = useAuth();
+  const { user, isStaff } = useAuth();
   const isActive = (path: string) => pathname === path || pathname.startsWith(`${path}/`);
 
   const itemClass = (active: boolean) =>
@@ -21,10 +21,17 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOrder }) => 
       aria-label="Accesos rápidos"
       className="md:hidden fixed bottom-0 inset-x-0 z-30 grid grid-cols-5 bg-white/95 backdrop-blur-md border-t border-[#EADBEE] shadow-[0_-4px_20px_rgba(47,24,60,0.08)] pb-[env(safe-area-inset-bottom)]"
     >
-      <button type="button" onClick={onOrder} className={itemClass(false)}>
-        <Sparkles className="w-5 h-5 text-[#DDA83A]" />
-        <span>Pedir</span>
-      </button>
+      {isStaff ? (
+        <a href="/admin" className={itemClass(false)}>
+          <LayoutDashboard className="w-5 h-5 text-[#DDA83A]" />
+          <span>Admin</span>
+        </a>
+      ) : (
+        <button type="button" onClick={onOrder} className={itemClass(false)}>
+          <Sparkles className="w-5 h-5 text-[#DDA83A]" />
+          <span>Pedir</span>
+        </button>
+      )}
       <a href="/recetas" className={itemClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>
         <BookOpen className="w-5 h-5" />
         <span>Recetas</span>
@@ -42,9 +49,9 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOrder }) => 
         <MessageCircle className="w-5 h-5 text-[#25A244]" />
         <span>WhatsApp</span>
       </a>
-      <a href="/panel" className={itemClass(isActive('/panel'))} aria-current={isActive('/panel') ? 'page' : undefined}>
+      <a href={isStaff ? '/admin' : '/panel'} className={itemClass(isActive('/panel'))} aria-current={isActive('/panel') ? 'page' : undefined}>
         <UserRound className="w-5 h-5" />
-        <span>{user ? 'Mi cuenta' : 'Ingresar'}</span>
+        <span>{isStaff ? 'Equipo' : user ? 'Mi cuenta' : 'Ingresar'}</span>
       </a>
     </nav>
   );

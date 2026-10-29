@@ -128,7 +128,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Action CTAs & Cart */}
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
-            <button
+            {!isStaff && <button
               id="header-cta-custom-order"
               onClick={onNavigateToCustomOrder}
               className="hidden sm:flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white bg-[#2F183C] hover:bg-[#432356] active:scale-95 transition-all px-4 py-2.5 rounded-xl shadow-xs cursor-pointer whitespace-nowrap"
@@ -136,11 +136,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Sparkles className="w-3.5 h-3.5 text-[#DDA83A]" />
               <span>Armar Pedido</span>
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </button>}
 
             <AccountMenu />
 
-            <button
+            {!isStaff && <button
               id="header-cart-btn"
               onClick={onOpenCart}
               className="relative p-2.5 rounded-lg text-[#2F183C] hover:text-[#7B4382] hover:bg-[#F5ECF9] transition-colors"
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {cartItemCount}
                 </span>
               )}
-            </button>
+            </button>}
 
             <button
               id="mobile-menu-toggle-btn"
@@ -171,8 +171,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             {user ? (
               <div className="mb-4 rounded-xl border border-[#EADBEE] bg-[#FAF7F0] p-3 space-y-1">
                 <p className="text-xs text-stone-500 truncate">{user.email}</p>
-                <a href="/panel" onClick={closeMenu} className={mobileLinkClass(false)}>Mi cuenta y pedidos</a>
-                {isStaff && <a href="/admin" onClick={closeMenu} className={mobileLinkClass(false)}>Panel del equipo</a>}
+                {isStaff
+                  ? <a href="/admin" onClick={closeMenu} className={mobileLinkClass(false)}>Panel del equipo</a>
+                  : <a href="/panel" onClick={closeMenu} className={mobileLinkClass(false)}>Mi cuenta y pedidos</a>}
                 <button onClick={() => { closeMenu(); signOut(); }} className={mobileLinkClass(false)}>Cerrar sesión</button>
               </div>
             ) : (
@@ -184,7 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Ingresar o crear cuenta
               </a>
             )}
-            <button
+            {!isStaff && <button
               onClick={() => { setMobileMenuOpen(false); onNavigateToCustomOrder(); }}
               className="flex items-center justify-between w-full text-left py-3 px-3 rounded-xl bg-[#2F183C] text-white font-bold mb-4 sm:hidden"
             >
@@ -193,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>Armar Pedido de Arándanos</span>
               </div>
               <ChevronRight className="w-4 h-4 text-[#DDA83A]" />
-            </button>
+            </button>}
 
             {/* Three groups: one column on phones, three side by side on tablets */}
             <div className="grid gap-5 md:grid-cols-3 md:gap-6">

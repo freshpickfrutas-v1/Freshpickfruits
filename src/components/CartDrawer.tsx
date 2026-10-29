@@ -283,14 +283,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <span>Completar Pedido por WhatsApp</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-
-            <button
-              onClick={() => { onClose(); onGoToCustomOrder(); }}
-              className="w-full py-2 px-3 rounded-lg border border-[#DFCEE6] text-[#2F183C] text-xs font-bold hover:bg-[#F5ECF9] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#7B4382]" />
-              <span>O arma tu caja personalizada con gramajes exactos</span>
-            </button>
           </div>
         )}
 

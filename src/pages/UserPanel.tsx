@@ -12,6 +12,7 @@ import { BillingProfile } from '../components/BillingProfile';
 import { FirestoreOrder, SubscriptionDoc, SubscriptionPlan } from '../types';
 import { requestChange, requestSubscription, subscribeMySubscriptions, SUB_STATUS } from '../lib/subscriptions';
 import { SUBSCRIPTION_PLANS } from '../data/mockData';
+import { WompiPayButton } from '../components/WompiPayButton';
 
 const statusLabel: Record<string, { text: string; color: string }> = {
   pendiente: { text: 'Recibido', color: 'bg-sky-100 text-sky-800' },
@@ -193,6 +194,25 @@ function UserPanelInner() {
                           <p className="text-[11px] text-amber-700 flex items-center justify-end gap-1 mt-1">
                             <Truck className="w-3 h-3" /> Despacho hoy
                           </p>
+                        )}
+                        {normalizeStatus(order.status) === 'pendiente' && order.paymentStatus !== 'verificado' && (
+                          <div className="mt-2 flex flex-col items-end gap-2">
+                            <p className="text-[11px] font-semibold text-amber-700">Pago pendiente</p>
+                            {order.paymentMethod === 'tarjeta' && (
+                              <WompiPayButton
+                                orderId={order.id}
+                                customer={{ name: order.customerName, email: order.customerEmail, phone: order.customerPhone }}
+                              />
+                            )}
+                            <a
+                              href={`https://wa.me/573178931026?text=${encodeURIComponent(`Hola Fresh Pick, quiero pagar mi pedido ${order.orderNumber} por $${(order.total || 0).toLocaleString('es-CO')} COP`)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs font-bold text-[#7B4382] underline"
+                            >
+                              Pagar por WhatsApp (transferencia o Bre-B)
+                            </a>
+                          </div>
                         )}
                       </div>
                     </div>

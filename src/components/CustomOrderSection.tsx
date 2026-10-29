@@ -10,12 +10,11 @@ import { AddressField } from './AddressField';
 import { WompiPayButton } from './WompiPayButton';
 import {
   PayChoice, SHIPPING_FEE, COMMISSION_RATE, onlineCommission,
-  maxUnitsFor, earliestDeliveryDate, deliveryOptions, formatDeliveryDay,
+  maxUnitsFor, earliestDeliveryDate, formatDeliveryDay,
 } from '../lib/pricing';
 import {
   Sparkles,
   CheckCircle2,
-  Calendar,
   AlertCircle,
   RotateCcw,
   MessageCircle,
@@ -84,7 +83,7 @@ function buildWhatsAppText(o: WhatsAppOrder): string {
     `Dirección: ${o.address}${o.complement ? ', ' + o.complement : ''}`,
     `Ciudad: ${o.city}`,
     `Ubicación en mapa: ${o.mapsUrl}`,
-    `Fecha de entrega: ${when}`,
+    `Primera fecha de entrega disponible: ${when} (según dirección y ruta del domiciliario)`,
     'Horario: 8:00 a.m. a 3:00 p.m.',
     '',
     '*FACTURACIÓN*',
@@ -186,8 +185,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   const [deliveryComplement, setDeliveryComplement] = useState('');
   const [deliveryPlace, setDeliveryPlace] = useState<PlacePick | null>(null);
   const [billingAddress, setBillingAddress] = useState('');
-  const dateOptions = React.useMemo(() => deliveryOptions(8), []);
-  const [deliveryDate, setDeliveryDate] = useState(() => earliestDeliveryDate());
+  // El cliente no elige el día: la entrega es martes o miércoles, desde 8 días después, según su dirección y la ruta del domiciliario.
+  const deliveryDate = earliestDeliveryDate();
   const [payChoice, setPayChoice] = useState<PayChoice>('transferencia');
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [acceptData, setAcceptData] = useState(false);
@@ -306,7 +305,6 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     } else if (packingErrors.length > 0) {
       errors.fruits = `Por motivos de empaque y logística: ${packingErrors.join(' · ')}. Por favor, ajusta a múltiplos de 2 para poder empacar tu envío.`;
     }
-    if (!dateOptions.includes(deliveryDate)) errors.deliveryDate = 'Elige una fecha de entrega disponible (martes o miércoles, mínimo 8 días después del pedido).';
     if (!acceptTerms) errors.acceptTerms = 'Debes aceptar las condiciones de entrega y los términos para continuar.';
     if (!acceptData) errors.acceptData = 'Debes autorizar el tratamiento de tus datos personales para continuar.';
     if (!customerName.trim()) errors.customerName = 'Ingresa tu nombre.';
@@ -488,7 +486,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             )}
             <div className="mt-4 text-left text-xs bg-[#F5ECF9] border border-[#DFCEE6] rounded-xl px-4 py-3 text-[#2F183C] space-y-1">
               <p className="font-bold">¡Gracias por tu compra en Fresh Pick!</p>
-              <p>Despachamos los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). Tu fecha de entrega: <strong className="capitalize">{formatDeliveryDay(completedOrder.deliveryDate)}</strong>.</p>
+              <p>Despachamos los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). La primera fecha disponible para tu pedido es el <strong className="capitalize">{formatDeliveryDay(completedOrder.deliveryDate)}</strong>, de acuerdo a tu dirección y a la ruta del domiciliario.</p>
               <p>Te escribiremos por WhatsApp cuando tu pedido salga a ruta.</p>
             </div>
             {savedOrderDocId && completedOrder.paymentMethod === 'card' && (
@@ -861,22 +859,9 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   onChange={e => setBillingAddress(e.target.value)}
                 />
               </div>
-              <div className="rounded-xl bg-[#FAF7F0] border border-[#EADBEE] p-3 space-y-2">
-                <label className="flex items-center gap-2 text-sm font-semibold text-[#2F183C]" htmlFor="fecha-entrega">
-                  <Calendar className="w-4 h-4 text-[#7B4382]" /> Fecha de entrega
-                </label>
-                <select
-                  id="fecha-entrega"
-                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm bg-white capitalize focus:border-[#7B4382] outline-none"
-                  value={deliveryDate}
-                  onChange={e => { setDeliveryDate(e.target.value); setFormErrors(prev => ({ ...prev, deliveryDate: '' })); }}
-                >
-                  {dateOptions.map(d => <option key={d} value={d}>{formatDeliveryDay(d)}</option>)}
-                </select>
-                <p className="text-[11px] text-stone-600 leading-relaxed">
-                  Despachamos solo los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). La primera fecha disponible es 8 días después de hacer el pedido.
-                </p>
-              </div>
+              <p className="rounded-xl bg-[#FAF7F0] border border-[#EADBEE] p-3 text-xs text-stone-700 leading-relaxed">
+                Despachamos solo los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). La primera fecha disponible es 8 días después de hacer el pedido, de acuerdo a la dirección que usted nos haya dado y la ruta del domiciliario.
+              </p>
             </div>
           </div>
 

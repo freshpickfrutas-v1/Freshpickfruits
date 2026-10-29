@@ -92,7 +92,7 @@ const rowClass = (active: boolean) =>
   }`;
 
 const countClass = (active: boolean) =>
-  `text-[11px] font-bold px-1.5 rounded-full ${active ? 'bg-[#DDA83A] text-[#2F183C]' : 'bg-[#F5ECF9] text-[#7B4382]'}`;
+  `text-xs font-bold px-1.5 rounded-full ${active ? 'bg-[#DDA83A] text-[#2F183C]' : 'bg-[#F5ECF9] text-[#7B4382]'}`;
 
 const Group: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
   <div>

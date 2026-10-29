@@ -76,19 +76,19 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                   <div>
                     <div className="flex items-center gap-1 flex-wrap mb-3">
                       {fruit.popular && (
-                        <span className="px-2 py-0.5 rounded-full bg-[#7B4382] text-white text-[10px] font-bold flex items-center gap-1 whitespace-nowrap">
+                        <span className="px-2 py-0.5 rounded-full bg-[#7B4382] text-white text-xs font-bold flex items-center gap-1 whitespace-nowrap">
                           <Sparkles className="w-3 h-3 text-[#DDA83A]" />
                           <span>Más pedido</span>
                         </span>
                       )}
-                      <span className="px-2 py-0.5 rounded-full bg-[#2F183C] text-[#DDA83A] text-[10px] font-bold whitespace-nowrap">
+                      <span className="px-2 py-0.5 rounded-full bg-[#2F183C] text-[#DDA83A] text-xs font-bold whitespace-nowrap">
                         {fruit.brix}
                       </span>
-                      <span className="px-2 py-0.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-[10px] font-bold whitespace-nowrap">
+                      <span className="px-2 py-0.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold whitespace-nowrap">
                         {fruit.altitude}
                       </span>
                     </div>
-                    <p className="text-[11px] uppercase tracking-wider text-[#C59328] font-bold">
+                    <p className="text-xs uppercase tracking-wider text-[#C59328] font-bold">
                       {fruit.variety}
                     </p>
                     <h3 className="text-xl font-bold font-display leading-tight text-[#2F183C] mb-1">
@@ -106,7 +106,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                       {fruit.benefits.slice(0, 2).map((benefit, i) => (
                         <span
                           key={i}
-                          className="text-[11px] bg-[#F5ECF9] text-[#2F183C] px-2 py-0.5 rounded-md border border-[#DFCEE6] font-semibold"
+                          className="text-xs bg-[#F5ECF9] text-[#2F183C] px-2 py-0.5 rounded-md border border-[#DFCEE6] font-semibold"
                         >
                           ✓ {benefit}
                         </span>
@@ -118,7 +118,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                   <div className="pt-4 border-t border-[#EADBEE] space-y-3">
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <span className="text-[11px] text-stone-500 block font-medium">
+                        <span className="text-xs text-stone-500 block font-medium">
                           Presentación: {fruit.presentation}
                         </span>
                         <div className="flex items-baseline gap-1">
@@ -128,11 +128,11 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                           <span className="text-xs text-stone-500 font-medium">COP c/u</span>
                         </div>
                         {stepOf(fruit) === 2 ? (
-                          <span className="text-[10px] text-[#785412] font-semibold block">
+                          <span className="text-xs text-[#785412] font-semibold block">
                             ⚠️ Se piden de 2 en 2 estuches
                           </span>
                         ) : (
-                          <span className="text-[10px] text-[#7B4382] font-semibold block">
+                          <span className="text-xs text-[#7B4382] font-semibold block">
                             ✨ Mínimo con 1 ud.
                           </span>
                         )}
@@ -165,7 +165,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                           <span className="text-sm font-black text-[#2F183C] block leading-tight">
                             {qtyOf(fruit)} {qtyOf(fruit) === 1 ? 'estuche' : 'estuches'}
                           </span>
-                          <span className="text-[10px] text-[#7B4382] font-semibold block leading-tight">
+                          <span className="text-xs text-[#7B4382] font-semibold block leading-tight">
                             {qtyOf(fruit) * (fruit.defaultGramUnit || 0)}g · ${(qtyOf(fruit) * fruit.standardPrice).toLocaleString('es-CO')}
                           </span>
                         </div>
@@ -320,7 +320,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
             {/* Modal Footer */}
             <div className="p-4 border-t border-[#EADBEE] bg-[#FAF7F0] flex items-center justify-between gap-3">
               <div>
-                <span className="text-[11px] text-stone-500 block">Precio regular</span>
+                <span className="text-xs text-stone-500 block">Precio regular</span>
                 <span className="text-xl font-black text-[#2F183C] font-display">
                   ${activeModalFruit.standardPrice.toLocaleString('es-CO')} COP c/u
                 </span>

@@ -8,12 +8,12 @@ const money = (n: number) => `$${(n || 0).toLocaleString('es-CO')}`;
 const day = (iso?: string) => (iso ? new Date(iso.length === 10 ? iso + 'T12:00:00' : iso).toLocaleDateString('es-CO', { day: '2-digit', month: 'short', year: 'numeric' }) : '—');
 
 const Chip: React.FC<{ status: SubscriptionStatus }> = ({ status }) => (
-  <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${SUB_STATUS[status].tone}`}>{SUB_STATUS[status].label}</span>
+  <span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${SUB_STATUS[status].tone}`}>{SUB_STATUS[status].label}</span>
 );
 
 const RequestBadge: React.FC<{ sub: SubscriptionDoc }> = ({ sub }) =>
   sub.customerRequest ? (
-    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
+    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
       Cliente pide {sub.customerRequest === 'pausar' ? 'pausar' : 'cancelar'}
     </span>
   ) : null;

@@ -110,7 +110,7 @@ function UserPanelInner() {
               </div>
               <div>
                 <p className="text-sm font-bold leading-tight text-[#2F183C]">Mi cuenta</p>
-                <p className="text-[10px] text-stone-500">Fresh Pick</p>
+                <p className="text-xs text-stone-500">Fresh Pick</p>
               </div>
             </div>
           </div>
@@ -145,7 +145,7 @@ function UserPanelInner() {
             </button>
           ))}
           {isStaff && (
-            <a href="/admin" className="block w-full text-center text-[11px] text-stone-400 hover:text-stone-600 pt-4">
+            <a href="/admin" className="block w-full text-center text-xs text-stone-400 hover:text-stone-600 pt-4">
               Ir al panel admin →
             </a>
           )}
@@ -181,7 +181,7 @@ function UserPanelInner() {
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span className="font-bold text-[#2F183C]">{order.orderNumber}</span>
-                          <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${st.color}`}>{st.text}</span>
+                          <span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${st.color}`}>{st.text}</span>
                         </div>
                         <p className="text-xs text-stone-500 flex items-center gap-1">
                           <Clock className="w-3 h-3" /> {new Date(order.createdAt).toLocaleDateString('es-CO')}
@@ -193,7 +193,7 @@ function UserPanelInner() {
                       <div className="text-right">
                         <p className="text-lg font-black text-[#2F183C]">${(order.total || 0).toLocaleString('es-CO')}</p>
                         {normalizeStatus(order.status) === 'en_ruta' && (
-                          <p className="text-[11px] text-amber-700 flex items-center justify-end gap-1 mt-1">
+                          <p className="text-xs text-amber-700 flex items-center justify-end gap-1 mt-1">
                             <Truck className="w-3 h-3" /> Despacho hoy
                           </p>
                         )}
@@ -209,7 +209,7 @@ function UserPanelInner() {
                         )}
                         {normalizeStatus(order.status) === 'pendiente' && order.paymentStatus !== 'verificado' && (
                           <div className="mt-2 flex flex-col items-end gap-2">
-                            <p className="text-[11px] font-semibold text-amber-700">Pago pendiente</p>
+                            <p className="text-xs font-semibold text-amber-700">Pago pendiente</p>
                             {order.paymentMethod === 'tarjeta' && (
                               <WompiPayButton
                                 orderId={order.id}
@@ -253,7 +253,7 @@ function UserPanelInner() {
                   {mySubs.filter(m => m.status !== 'cancelada').map(m => (
                     <div key={m.id} className="bg-white rounded-2xl border border-[#EADBEE] p-4 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="space-y-0.5">
-                        <p className="font-bold text-[#2F183C]">{m.planTitle} <span className={`ml-1 text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${SUB_STATUS[m.status].tone}`}>{SUB_STATUS[m.status].label}</span></p>
+                        <p className="font-bold text-[#2F183C]">{m.planTitle} <span className={`ml-1 text-xs font-bold uppercase px-2 py-0.5 rounded-full ${SUB_STATUS[m.status].tone}`}>{SUB_STATUS[m.status].label}</span></p>
                         <p className="text-xs text-stone-500">{m.deliveryFrequency} · ${m.priceMonth.toLocaleString('es-CO')} COP / mes</p>
                         {m.status === 'solicitada' && <p className="text-xs text-stone-600">Recibimos tu solicitud. Te contactamos por WhatsApp para activarla.</p>}
                         {m.status === 'activa' && m.nextDelivery && <p className="text-xs text-stone-600">Próxima entrega: {new Date(m.nextDelivery + 'T12:00:00').toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' })}</p>}
@@ -282,11 +282,11 @@ function UserPanelInner() {
                     className={`relative rounded-2xl p-5 flex flex-col justify-between gap-4 ${plan.isPopular ? 'bg-[#2F183C] text-white ring-2 ring-[#DDA83A] shadow-lg' : 'bg-white border border-[#EADBEE] shadow-xs'}`}
                   >
                     {plan.isPopular && (
-                      <span className="absolute -top-3 left-5 px-3 py-0.5 rounded-full bg-[#DDA83A] text-[#2F183C] text-[10px] font-black uppercase tracking-wider">El más popular</span>
+                      <span className="absolute -top-3 left-5 px-3 py-0.5 rounded-full bg-[#DDA83A] text-[#2F183C] text-xs font-black uppercase tracking-wider">El más popular</span>
                     )}
                     <div className="space-y-3">
                       <div>
-                        <span className={`text-[11px] font-bold uppercase tracking-wider ${plan.isPopular ? 'text-[#DDA83A]' : 'text-[#7B4382]'}`}>{plan.idealFor}</span>
+                        <span className={`text-xs font-bold uppercase tracking-wider ${plan.isPopular ? 'text-[#DDA83A]' : 'text-[#7B4382]'}`}>{plan.idealFor}</span>
                         <h2 className={`text-lg font-bold font-display mt-0.5 ${plan.isPopular ? '!text-white' : ''}`}>{plan.title}</h2>
                         <p className={`text-xs mt-1 leading-relaxed ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-600'}`}>{plan.subtitle}</p>
                       </div>

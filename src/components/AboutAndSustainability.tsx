@@ -41,7 +41,7 @@ export const AboutAndSustainability: React.FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-bold">Agua 100% de Manantial</div>
-                  <div className="text-[11px] text-[#DFCEE6]">Y agua lluvia para todo el cultivo</div>
+                  <div className="text-xs text-[#DFCEE6]">Y agua lluvia para todo el cultivo</div>
                 </div>
               </div>
             </div>
@@ -156,7 +156,7 @@ export const AboutAndSustainability: React.FC = () => {
                     <Award className="w-5 h-5" />
                   </div>
                   <h4 className="text-sm font-bold text-[#2F183C]">{cert.title}</h4>
-                  <div className="text-[11px] font-semibold text-[#7B4382] mt-0.5">{cert.code}</div>
+                  <div className="text-xs font-semibold text-[#7B4382] mt-0.5">{cert.code}</div>
                   <p className="text-xs text-stone-600 mt-2 leading-relaxed">
                     {cert.description}
                   </p>

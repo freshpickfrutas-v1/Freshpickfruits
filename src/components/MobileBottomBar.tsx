@@ -14,7 +14,7 @@ export const MobileBottomBar: React.FC<MobileBottomBarProps> = ({ onOrder }) => 
   const isActive = (path: string) => pathname === path || pathname.startsWith(`${path}/`);
 
   const itemClass = (active: boolean) =>
-    `flex flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-semibold transition-colors ${active ? 'text-[#7B4382]' : 'text-[#2F183C]'} active:bg-[#F5ECF9]`;
+    `flex flex-col items-center justify-center gap-0.5 py-2 text-xs font-semibold transition-colors ${active ? 'text-[#7B4382]' : 'text-[#2F183C]'} active:bg-[#F5ECF9]`;
 
   return (
     <nav

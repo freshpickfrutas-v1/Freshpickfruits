@@ -59,8 +59,8 @@ export const TestimonialsAndFaq: React.FC = () => {
                   )}
                   <div>
                     <h4 className="text-xs font-bold text-[#2F183C]">{t.name}</h4>
-                    <p className="text-[11px] text-stone-500">{t.role} · {t.city}</p>
-                    <span className="text-[10px] text-[#7B4382] font-semibold flex items-center gap-0.5 mt-0.5">
+                    <p className="text-xs text-stone-500">{t.role} · {t.city}</p>
+                    <span className="text-xs text-[#7B4382] font-semibold flex items-center gap-0.5 mt-0.5">
                       <CheckCircle className="w-3 h-3 text-[#7B4382]" />
                       <span>{t.verifiedOrder}</span>
                     </span>

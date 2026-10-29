@@ -426,7 +426,7 @@ function ContentTab() {
             {busy === 'nuevo-video' ? 'Agregando…' : 'Agregar video'}
           </button>
           {linkMsg && <p className="text-xs text-stone-600">{linkMsg}</p>}
-          <p className="text-[11px] text-stone-500">Revisa que el video sea de arándanos y de un canal confiable antes de agregarlo: aquí no pasa por el filtro automático.</p>
+          <p className="text-xs text-stone-500">Revisa que el video sea de arándanos y de un canal confiable antes de agregarlo: aquí no pasa por el filtro automático.</p>
         </div>
       )}
       <p className="text-xs text-stone-500">
@@ -558,7 +558,7 @@ function ReviewTab() {
               <div key={item.number} className="bg-white rounded-2xl border border-[#EADBEE] p-4 space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-[11px] font-bold uppercase text-[#7B4382]">{TIPO_LABEL[item.tipo]}</p>
+                    <p className="text-xs font-bold uppercase text-[#7B4382]">{TIPO_LABEL[item.tipo]}</p>
                     <p className="font-bold text-[#2F183C]">{item.title}</p>
                     <p className="text-xs text-stone-500">Subido para aprobación: {fmtDate(item.subidoEn)}</p>
                   </div>
@@ -726,7 +726,7 @@ function AdminPanelInner() {
               </div>
               <div>
                 <p className="text-sm font-bold leading-tight">Admin Fresh Pick</p>
-                <p className="text-[10px] text-[#DFCEE6]">Operaciones</p>
+                <p className="text-xs text-[#DFCEE6]">Operaciones</p>
               </div>
             </div>
           </div>
@@ -827,7 +827,7 @@ function AdminPanelInner() {
                             <td className="py-2.5">{o.customerName}</td>
                             <td className="py-2.5 font-bold text-[#2F183C]">${(o.total || 0).toLocaleString('es-CO')}</td>
                             <td className="py-2.5">
-                              <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${stageOf(o).tone}`}>{stageOf(o).short}</span>
+                              <span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${stageOf(o).tone}`}>{stageOf(o).short}</span>
                             </td>
                             <td className="py-2.5 text-stone-500">{formatTime(o.createdAt)}</td>
                           </tr>
@@ -882,7 +882,7 @@ function AdminPanelInner() {
                         <p className="text-xs text-stone-500">{f.presentation}</p>
                         <div className="mt-2 flex items-center justify-between">
                           <span className="text-sm font-black text-[#2F183C]">${f.standardPrice.toLocaleString('es-CO')}</span>
-                          <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${f.inStock ? 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' : 'bg-red-100 text-red-800'}`}>
+                          <span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${f.inStock ? 'bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]' : 'bg-red-100 text-red-800'}`}>
                             {f.inStock ? 'Stock' : 'Agotado'}
                           </span>
                         </div>

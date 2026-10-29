@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Letra un punto más grande en toda la web y el admin (xs 12→13 px, sm 14→15 px, base 16→17 px). */
+@theme {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.25rem;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.4rem;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.6rem;
+}
+
 @layer base {
   :root {
     --fp-plum: #2F183C;
@@ -116,7 +126,7 @@
   gap: 0.5rem;
   padding: 0.35rem 0.9rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   background: #F4ECF8;
   color: #2F183C;

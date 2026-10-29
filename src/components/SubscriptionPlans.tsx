@@ -78,7 +78,7 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({
                         COP / mes
                       </span>
                     </div>
-                    <p className={`text-[11px] mt-1 font-medium ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-[#7B4382]'}`}>
+                    <p className={`text-xs mt-1 font-medium ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-[#7B4382]'}`}>
                       {plan.deliveryFrequency}
                     </p>
                   </div>
@@ -112,7 +112,7 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({
                   >
                     Suscribirme al {plan.title}
                   </button>
-                  <p className={`text-[10px] text-center mt-2 ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-500'}`}>
+                  <p className={`text-xs text-center mt-2 ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-500'}`}>
                     Sin contratos de permanencia · Cancela cuando quieras
                   </p>
                 </div>

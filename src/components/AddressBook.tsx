@@ -141,7 +141,7 @@ export const AddressBook: React.FC = () => {
                 {a.label === 'Oficina' ? <Briefcase className="w-4 h-4 text-[#7B4382]" /> : <Home className="w-4 h-4 text-[#7B4382]" />}
                 {a.label}
               </span>
-              {a.isDefault && <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-[#DDA83A]/25 text-[#8a6410] inline-flex items-center gap-1"><Star className="w-3 h-3" /> Principal</span>}
+              {a.isDefault && <span className="text-xs font-bold uppercase px-2 py-0.5 rounded-full bg-[#DDA83A]/25 text-[#8a6410] inline-flex items-center gap-1"><Star className="w-3 h-3" /> Principal</span>}
             </div>
             <p className="text-sm text-stone-800">{a.address}{a.complement ? ` · ${a.complement}` : ''}</p>
             <p className="text-xs text-stone-500">{a.neighborhood ? `${a.neighborhood} · ` : ''}{BOGOTA} · {a.recipientName} · {a.phone}</p>

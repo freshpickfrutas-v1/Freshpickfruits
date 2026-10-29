@@ -626,7 +626,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           <p className="font-bold text-sm text-[#2F183C]">{fruit.name}</p>
-                          <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-[#DFCEE6]/50 text-[#2F183C]">
+                          <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-[#DFCEE6]/50 text-[#2F183C]">
                             Presentación: {fruit.presentation}
                           </span>
                         </div>
@@ -634,11 +634,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                           Precio: <strong>${unitPrice.toLocaleString('es-CO')} COP c/u</strong>
                         </p>
                         {step === 500 ? (
-                          <p className="text-[11px] font-medium text-[#7B4382] mt-1 flex items-center gap-1">
+                          <p className="text-xs font-medium text-[#7B4382] mt-1 flex items-center gap-1">
                             ✨ ¡Con 1 solo estuche completas el pedido mínimo total!
                           </p>
                         ) : (
-                          <p className="text-[11px] font-medium text-amber-800 mt-1 flex items-center gap-1">
+                          <p className="text-xs font-medium text-amber-800 mt-1 flex items-center gap-1">
                             ⚠️ Nota de empaque: Solo disponible en múltiplos de 2 unidades.
                           </p>
                         )}
@@ -648,7 +648,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                             <button
                               type="button"
                               onClick={() => handleSetUnits(fruit.id, units < 2 ? 2 : units + 1)}
-                              className="px-2.5 py-1 bg-red-700 text-white rounded-md font-bold text-[11px] hover:bg-red-800 cursor-pointer shrink-0"
+                              className="px-2.5 py-1 bg-red-700 text-white rounded-md font-bold text-xs hover:bg-red-800 cursor-pointer shrink-0"
                             >
                               Ajustar
                             </button>
@@ -662,7 +662,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                             <span className="text-xs font-bold text-[#2F183C] block">
                               ${lineTotal.toLocaleString('es-CO')} COP
                             </span>
-                            <span className="text-[11px] text-stone-500">
+                            <span className="text-xs text-stone-500">
                               {units} {units === 1 ? 'estuche' : 'estuches'}
                             </span>
                           </div>
@@ -681,7 +681,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                             <span className="text-sm font-black text-[#2F183C] block leading-tight">
                               {units} {units === 1 ? 'estuche' : 'estuches'}
                             </span>
-                            <span className="text-[10px] text-[#7B4382] font-semibold block leading-tight">
+                            <span className="text-xs text-[#7B4382] font-semibold block leading-tight">
                               {g}g
                             </span>
                           </div>
@@ -888,11 +888,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <span>Tu Carrito</span>
                 </h3>
                 {meetsMinOrder && !hasPackingError ? (
-                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
+                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
                     ✓ Válido para envío
                   </span>
                 ) : (
-                  <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
                     Mín. 500g
                   </span>
                 )}
@@ -941,7 +941,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                         <p className="font-bold text-[#2F183C] text-xs">{f.name}</p>
                         <span className="font-bold text-[#2F183C]">${lineCost.toLocaleString('es-CO')} COP</span>
                       </div>
-                      <div className="mt-1.5 space-y-0.5 text-[11px] text-stone-600">
+                      <div className="mt-1.5 space-y-0.5 text-xs text-stone-600">
                         <p>• Presentación: {f.presentation}</p>
                         <p>• Precio: ${unitPrice.toLocaleString('es-CO')} COP c/u</p>
                         {step === 500 ? (
@@ -1000,7 +1000,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 </label>
               </fieldset>
 
-              <div className="space-y-2 text-[11px] text-stone-700">
+              <div className="space-y-2 text-xs text-stone-700">
                 <label className="flex items-start gap-2 cursor-pointer">
                   <input type="checkbox" className="mt-0.5" checked={acceptTerms} onChange={e => { setAcceptTerms(e.target.checked); setFormErrors(prev => ({ ...prev, acceptTerms: '' })); }} />
                   <span>
@@ -1051,7 +1051,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               >
                 {isSubmitting ? 'Guardando...' : online ? 'Continuar al pago en línea' : 'Confirmar pedido'}
               </button>
-              <p className="text-[11px] text-stone-400 text-center">WhatsApp: +57 317 893 1026</p>
+              <p className="text-xs text-stone-400 text-center">WhatsApp: +57 317 893 1026</p>
             </div>
           </div>
         </div>

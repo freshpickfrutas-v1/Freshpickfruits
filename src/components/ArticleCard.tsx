@@ -23,7 +23,7 @@ export const ArticleCard: React.FC<{ article: ArticleSummary; large?: boolean }>
 
       <div className={`p-5 flex-1 flex flex-col justify-between gap-4 ${large ? 'md:p-8' : ''}`}>
         <div>
-          <span className="text-[11px] font-bold text-[#7B4382] uppercase tracking-wider">{category.name}</span>
+          <span className="text-xs font-bold text-[#7B4382] uppercase tracking-wider">{category.name}</span>
           <h3 className={`font-bold text-[#2F183C] font-display mt-1 leading-snug ${large ? 'text-xl sm:text-2xl' : 'text-lg'}`}>
             {article.title}
           </h3>

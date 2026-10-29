@@ -165,8 +165,8 @@ export const Footer: React.FC = () => {
                 <div>
                   <span className="block text-white font-medium">Ubicación de Cultivos:</span>
                   <span>Vereda Santa Bárbara · Guasca, Cundinamarca</span>
-                  <span className="block text-[11px] text-stone-500">Más de 2.800 m.s.n.m.</span>
-                  <span className="block text-[11px] text-stone-500">Entregas: martes y miércoles · 8:00 a.m. – 3:00 p.m.</span>
+                  <span className="block text-xs text-stone-500">Más de 2.800 m.s.n.m.</span>
+                  <span className="block text-xs text-stone-500">Entregas: martes y miércoles · 8:00 a.m. – 3:00 p.m.</span>
                 </div>
               </div>
             </div>
@@ -174,7 +174,7 @@ export const Footer: React.FC = () => {
             <div className="pt-2">
               <div className="flex flex-wrap items-center gap-2">
                 {['GLOBALG.A.P.', 'GRASP', 'ICA'].map(c => (
-                  <span key={c} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6]">
+                  <span key={c} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-xs text-[#DFCEE6]">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
                     {c}
                   </span>
@@ -189,14 +189,14 @@ export const Footer: React.FC = () => {
               <div className="flex flex-wrap gap-2">
                 <a
                   href="/privacidad"
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-xs text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
                   <span>Política de Privacidad</span>
                 </a>
                 <a
                   href="/terminos"
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-xs text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
                 >
                   <FileText className="w-3.5 h-3.5 text-[#DDA83A]" />
                   <span>Términos y Condiciones</span>
@@ -210,14 +210,14 @@ export const Footer: React.FC = () => {
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
           <p>© {new Date().getFullYear()} Fresh Pick - Arándanos de Alta Montaña · Fundada en 2017 · Guasca, Colombia. Todos los derechos reservados.</p>
 
-          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px]">
+          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs">
             <a href="/privacidad" className="hover:text-[#DDA83A] transition-colors">Política de Datos</a>
             <a href="/terminos" className="hover:text-[#DDA83A] transition-colors">Términos y Condiciones</a>
             <a href="/cookies" className="hover:text-[#DDA83A] transition-colors">Cookies</a>
             <button type="button" onClick={openCookieSettings} className="hover:text-[#DDA83A] transition-colors cursor-pointer">Configurar cookies</button>
           </nav>
 
-          <div className="flex items-center gap-2 text-[11px]">
+          <div className="flex items-center gap-2 text-xs">
             <span>Medios de pago:</span>
             <span className="px-2 py-0.5 bg-[#2F183C] border border-[#7B4382]/50 rounded text-[#DFCEE6] font-medium">Transferencia</span>
             <span className="px-2 py-0.5 bg-[#2F183C] border border-[#7B4382]/50 rounded text-[#DDA83A] font-medium">Bre-B @9010401617</span>

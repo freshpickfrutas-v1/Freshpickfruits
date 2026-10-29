@@ -57,7 +57,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
 
               {/* Caption on image */}
               <div className="absolute bottom-4 left-4 right-4 text-white">
-                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#2F183C]/90 text-[#DDA83A] text-[11px] font-bold uppercase tracking-wider mb-1 border border-[#DDA83A]/30">
+                <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#2F183C]/90 text-[#DDA83A] text-xs font-bold uppercase tracking-wider mb-1 border border-[#DDA83A]/30">
                   Cosecha Manual
                 </span>
                 <p className="text-sm font-semibold">Arándanos Premium de Alta Montaña</p>
@@ -95,9 +95,9 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </div>
               <div>
                 <div className="text-xs font-bold text-[#2F183C]">Estuche de Arándanos 125g</div>
-                <div className="text-[11px] text-stone-500">Pruina natural protectora intacta</div>
+                <div className="text-xs text-stone-500">Pruina natural protectora intacta</div>
                 <div className="text-xs font-bold text-[#7B4382] mt-0.5">
-                  $8.000 COP <span className="font-normal text-stone-500 text-[10px]">/ 125g</span>
+                  $8.000 COP <span className="font-normal text-stone-500 text-xs">/ 125g</span>
                 </div>
               </div>
             </div>
@@ -109,7 +109,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </span>
               <div className="text-xs">
                 <p className="font-bold text-[#2F183C]">Entregas Martes y Miércoles</p>
-                <p className="text-stone-500 text-[11px]">Horario 8:00 a.m. – 3:00 p.m.</p>
+                <p className="text-stone-500 text-xs">Horario 8:00 a.m. – 3:00 p.m.</p>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </div>
               <div>
                 <div className="text-xs font-bold text-[#2F183C]">GLOBALG.A.P.</div>
-                <div className="text-[11px] text-stone-600">Inocuidad alimentaria</div>
+                <div className="text-xs text-stone-600">Inocuidad alimentaria</div>
               </div>
             </div>
 
@@ -132,7 +132,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </div>
               <div>
                 <div className="text-xs font-bold text-[#2F183C]">GRASP</div>
-                <div className="text-[11px] text-stone-600">Bienestar social</div>
+                <div className="text-xs text-stone-600">Bienestar social</div>
               </div>
             </div>
 
@@ -142,7 +142,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </div>
               <div>
                 <div className="text-xs font-bold text-[#2F183C]">13° – 15° Brix</div>
-                <div className="text-[11px] text-stone-600">Dulzor natural andino</div>
+                <div className="text-xs text-stone-600">Dulzor natural andino</div>
               </div>
             </div>
 
@@ -152,7 +152,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </div>
               <div>
                 <div className="text-xs font-bold text-[#2F183C]">7 Colmenas</div>
-                <div className="text-[11px] text-stone-600">Polinización natural</div>
+                <div className="text-xs text-stone-600">Polinización natural</div>
               </div>
             </div>
           </div>

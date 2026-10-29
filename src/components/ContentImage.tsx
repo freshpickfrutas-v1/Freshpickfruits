@@ -36,7 +36,7 @@ export const ContentImage: React.FC<ContentImageProps> = ({ src, alt, label, emo
         <BlueberryIcon className="w-14 h-14 sm:w-16 sm:h-16 drop-shadow" />
       )}
       {label && (
-        <span className="text-[11px] font-bold uppercase tracking-wider text-[#DDA83A]">{label}</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-[#DDA83A]">{label}</span>
       )}
     </div>
   );
@@ -44,5 +44,5 @@ export const ContentImage: React.FC<ContentImageProps> = ({ src, alt, label, emo
 
 /** Caption under a photo (e.g. "Foto: Fresh Pick" or "Imagen ilustrativa generada con IA"). Use inside a <figure>. */
 export const ImageCredit: React.FC<{ text: string }> = ({ text }) => (
-  <figcaption className="mt-2 text-[11px] text-stone-500 text-right">{text}</figcaption>
+  <figcaption className="mt-2 text-xs text-stone-500 text-right">{text}</figcaption>
 );

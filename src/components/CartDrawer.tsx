@@ -169,7 +169,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       <h4 className="text-xs font-bold text-[#2F183C] truncate">
                         {item.fruit.name}
                       </h4>
-                      <p className="text-[11px] text-stone-500">
+                      <p className="text-xs text-stone-500">
                         {item.fruit.presentation} · ${item.fruit.standardPrice.toLocaleString('es-CO')}
                       </p>
                       <p className="text-xs font-extrabold text-[#2F183C] mt-0.5">
@@ -216,7 +216,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     </button>
                   </div>
 
-                  <div className="text-[11px] text-stone-600 pt-1 border-t border-stone-200/60">
+                  <div className="text-xs text-stone-600 pt-1 border-t border-stone-200/60">
                     {step === 500 ? (
                       <span className="text-[#7B4382] font-medium">✨ ¡Con 1 solo estuche completas el pedido mínimo total!</span>
                     ) : (
@@ -227,7 +227,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         <span>(Por favor, ajusta a {item.quantity < 2 ? 2 : item.quantity + 1} unidades para poder empacar tu envío)</span>
                         <button
                           onClick={() => onUpdateQuantity(item.fruit.id, item.quantity < 2 ? 2 : item.quantity + 1)}
-                          className="px-2 py-0.5 bg-red-700 text-white rounded font-bold text-[10px] cursor-pointer"
+                          className="px-2 py-0.5 bg-red-700 text-white rounded font-bold text-xs cursor-pointer"
                         >
                           Ajustar
                         </button>
@@ -252,7 +252,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 <span>Envío:</span>
                 <span className="font-semibold text-stone-800">${deliveryFee.toLocaleString('es-CO')} COP</span>
               </div>
-              <p className="text-[10px] text-stone-400">
+              <p className="text-xs text-stone-400">
                 Si pagas en línea se suma la comisión de la pasarela (5%).
               </p>
             </div>

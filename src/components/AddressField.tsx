@@ -96,7 +96,7 @@ export const AddressField: React.FC<AddressFieldProps> = ({ value, onChange, pla
               </button>
             </li>
           ))}
-          <li className="px-3 py-1.5 text-[10px] text-stone-400 text-right">Powered by Google</li>
+          <li className="px-3 py-1.5 text-xs text-stone-400 text-right">Powered by Google</li>
         </ul>
       )}
 

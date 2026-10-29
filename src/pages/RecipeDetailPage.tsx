@@ -108,7 +108,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
                       <span>
                         {ing.text}
                         {ing.freshPick && (
-                          <a href="/#pedidos-personalizados" className="block text-[11px] font-bold text-[#7B4382] hover:text-[#2F183C] mt-0.5">
+                          <a href="/#pedidos-personalizados" className="block text-xs font-bold text-[#7B4382] hover:text-[#2F183C] mt-0.5">
                             Pedir arándanos Fresh Pick →
                           </a>
                         )}
@@ -207,7 +207,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
 
 const Stat: React.FC<{ icon: React.ReactNode; label: string; value: string }> = ({ icon, label, value }) => (
   <div className="rounded-xl bg-white border border-[#EADBEE] px-3 py-2.5">
-    <dt className="flex items-center gap-1.5 text-[11px] text-stone-500 font-semibold uppercase tracking-wide">
+    <dt className="flex items-center gap-1.5 text-xs text-stone-500 font-semibold uppercase tracking-wide">
       <span className="text-[#7B4382]">{icon}</span>
       {label}
     </dt>

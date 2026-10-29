@@ -185,6 +185,6 @@ const TabLink: React.FC<{
     }`}
   >
     <span>{label}</span>
-    <span className={`text-[11px] font-bold px-1.5 rounded-full ${active ? 'bg-[#DDA83A] text-[#2F183C]' : 'bg-[#F5ECF9] text-[#7B4382]'}`}>{count}</span>
+    <span className={`text-xs font-bold px-1.5 rounded-full ${active ? 'bg-[#DDA83A] text-[#2F183C]' : 'bg-[#F5ECF9] text-[#7B4382]'}`}>{count}</span>
   </a>
 );

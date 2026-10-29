@@ -22,7 +22,7 @@ export const OrderCta: React.FC<OrderCtaProps> = ({
   <div className={`rounded-2xl bg-[#2F183C] text-white border border-[#7B4382]/50 shadow-xl shadow-[#2F183C]/20 ${compact ? 'p-5' : 'p-6 sm:p-8'}`}>
     <div className={`flex flex-col ${compact ? 'gap-4' : 'md:flex-row md:items-center gap-5 md:gap-8'}`}>
       <div className="flex-1 min-w-0">
-        <div className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#DDA83A]">
+        <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#DDA83A]">
           <BlueberryIcon className="w-4 h-4" />
           <span>Del cultivo a tu mesa</span>
         </div>

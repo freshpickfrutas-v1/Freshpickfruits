@@ -20,7 +20,7 @@ export const RecipeCard: React.FC<{ recipe: RecipeSummary }> = ({ recipe }) => {
           emoji={category.emoji}
           className="group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute top-3 right-3 bg-[#2F183C]/85 text-[#DDA83A] text-[11px] font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-[#DDA83A]/30">
+        <div className="absolute top-3 right-3 bg-[#2F183C]/85 text-[#DDA83A] text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-[#DDA83A]/30">
           <Clock className="w-3 h-3" />
           <span>{formatMinutes(recipeTotalMinutes(recipe))}</span>
         </div>
@@ -28,7 +28,7 @@ export const RecipeCard: React.FC<{ recipe: RecipeSummary }> = ({ recipe }) => {
 
       <div className="p-5 flex-1 flex flex-col justify-between gap-4">
         <div>
-          <span className="text-[11px] font-bold text-[#7B4382] uppercase tracking-wider">
+          <span className="text-xs font-bold text-[#7B4382] uppercase tracking-wider">
             {category.name}
           </span>
           <h3 className="text-lg font-bold text-[#2F183C] font-display mt-0.5 leading-snug">

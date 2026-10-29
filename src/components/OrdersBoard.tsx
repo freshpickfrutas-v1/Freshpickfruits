@@ -24,7 +24,7 @@ const toLocalInput = (iso?: string) => {
 const itemsText = (o: FirestoreOrder) => o.items?.map(i => `${i.quantityText} ${i.name}`).join(', ') || 'Pedido personalizado';
 
 const Badge: React.FC<{ tone: string; children: React.ReactNode }> = ({ tone, children }) => (
-  <span className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full ${tone}`}>{children}</span>
+  <span className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full ${tone}`}>{children}</span>
 );
 
 const PaymentBadge: React.FC<{ order: FirestoreOrder }> = ({ order }) =>
@@ -64,17 +64,17 @@ const OrderCard: React.FC<{ order: FirestoreOrder; mine: boolean; onOpen: () => 
       <span className="text-sm font-black text-[#2F183C]">{money(order.total)}</span>
     </div>
     <p className="text-xs font-semibold text-stone-800 truncate">{order.customerName}</p>
-    <p className="text-[11px] text-stone-500 truncate">{order.customerPhone}</p>
-    <p className="text-[11px] text-stone-600 line-clamp-2">{itemsText(order)}</p>
+    <p className="text-xs text-stone-500 truncate">{order.customerPhone}</p>
+    <p className="text-xs text-stone-600 line-clamp-2">{itemsText(order)}</p>
     <div className="flex flex-wrap gap-1 pt-1">
       <PaymentBadge order={order} />
       <InvoiceBadge order={order} />
       <OriginBadge order={order} />
     </div>
     {order.dispatchDate && (
-      <p className="text-[11px] font-semibold text-[#7B4382] flex items-center gap-1"><CalendarClock className="w-3 h-3" /> Despacho: {shortDay(order.dispatchDate)}</p>
+      <p className="text-xs font-semibold text-[#7B4382] flex items-center gap-1"><CalendarClock className="w-3 h-3" /> Despacho: {shortDay(order.dispatchDate)}</p>
     )}
-    {mine && <p className="text-[10px] font-bold text-[#C59328]">● Te toca a ti</p>}
+    {mine && <p className="text-xs font-bold text-[#C59328]">● Te toca a ti</p>}
   </button>
 );
 
@@ -132,7 +132,7 @@ const OrderModal: React.FC<{
         <div className="sticky top-0 bg-white border-b border-[#EADBEE] px-5 py-3 flex items-center justify-between gap-3">
           <div>
             <h2 className="text-lg font-black text-[#2F183C]">{order.orderNumber}</h2>
-            <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${stage.tone}`}>
+            <span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${stage.tone}`}>
               {stage.step ? `${stage.step}. ` : ''}{stage.label}
             </span>
           </div>
@@ -501,13 +501,13 @@ export const OrdersBoard: React.FC<{
                   <div className="px-1">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-xs font-black text-[#2F183C]">{stage.step}. {stage.short}</span>
-                      <span className="text-[11px] font-bold bg-white rounded-full px-2 py-0.5 border border-[#DFCEE6]">{col.length}</span>
+                      <span className="text-xs font-bold bg-white rounded-full px-2 py-0.5 border border-[#DFCEE6]">{col.length}</span>
                     </div>
-                    <p className="text-[10px] text-stone-500">{stage.ownerLabel}</p>
+                    <p className="text-xs text-stone-500">{stage.ownerLabel}</p>
                   </div>
                   <div className="space-y-2 max-h-[65vh] overflow-y-auto">
                     {col.map(o => <OrderCard key={o.id} order={o} mine={isMine(o, role)} onOpen={() => setOpenId(o.id)} />)}
-                    {col.length === 0 && <p className="text-[11px] text-stone-400 text-center py-4">Sin pedidos</p>}
+                    {col.length === 0 && <p className="text-xs text-stone-400 text-center py-4">Sin pedidos</p>}
                   </div>
                 </div>
               );
@@ -532,7 +532,7 @@ export const OrdersBoard: React.FC<{
                     <td className="px-3 py-3 font-semibold text-[#2F183C]">{o.orderNumber}</td>
                     <td className="px-3 py-3">{o.customerName}<br /><span className="text-xs text-stone-500">{o.customerPhone}</span></td>
                     <td className="px-3 py-3 text-xs text-stone-600 max-w-[16rem]">{itemsText(o)}</td>
-                    <td className="px-3 py-3"><span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full ${st.tone}`}>{st.short}</span></td>
+                    <td className="px-3 py-3"><span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${st.tone}`}>{st.short}</span></td>
                     <td className="px-3 py-3 text-xs">{st.ownerLabel}</td>
                     <td className="px-3 py-3"><PaymentBadge order={o} /></td>
                     <td className="px-3 py-3 text-xs">{shortDay(o.dispatchDate)}</td>

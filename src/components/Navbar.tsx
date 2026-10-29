@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const mobileLinkClass = (active: boolean) =>
     `block w-full text-left py-2.5 px-3 rounded-lg font-semibold hover:bg-[#F5ECF9] hover:text-[#7B4382] ${active ? 'bg-[#F5ECF9] text-[#7B4382]' : 'text-[#2F183C]'}`;
 
-  const groupTitleClass = 'flex items-center gap-1.5 px-3 mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#7B4382]';
+  const groupTitleClass = 'flex items-center gap-1.5 px-3 mb-1.5 text-xs font-bold uppercase tracking-wider text-[#7B4382]';
 
   const closeMenu = () => setMobileMenuOpen(false);
 
@@ -105,11 +105,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Fresh Pick
                 </span>
                 {/* Hidden on desktop so the full menu fits next to the logo */}
-                <span className="hidden sm:inline xl:hidden text-[11px] sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
+                <span className="hidden sm:inline xl:hidden text-xs sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
                   Arándanos
                 </span>
               </div>
-              <p className="text-[10px] sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5 leading-tight">
+              <p className="text-xs sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5 leading-tight">
                 Arándanos de Alta Montaña
               </p>
             </div>
@@ -148,7 +148,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <ShoppingBag className="w-5 h-5" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#2F183C] text-[#DDA83A] text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">
+                <span className="absolute -top-1 -right-1 bg-[#2F183C] text-[#DDA83A] text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center shadow">
                   {cartItemCount}
                 </span>
               )}

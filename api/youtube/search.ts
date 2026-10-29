@@ -40,7 +40,8 @@ async function videosDeConfianza(key: string): Promise<VideoAprobado[]> {
 export default async function handler(req: any, res: any) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Método no permitido' });
 
-  const key = process.env.YOUTUBE_API_KEY;
+  // YOUTUBE_API_KEY_2 (llave nueva) tiene prioridad; si no existe se usa YOUTUBE_API_KEY.
+  const key = process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY;
   // Sin claves configuradas el sitio solo muestra los videos destacados.
   if (!key || !process.env.GEMINI_API_KEY) return res.status(200).json({ videos: [] });
 

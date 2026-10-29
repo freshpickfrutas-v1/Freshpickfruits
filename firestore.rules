@@ -98,6 +98,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // ---------- Videos agregados por enlace desde el panel de admin ----------
+    match /customVideos/{videoId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // ---------- Catálogo ----------
     match /products/{productId} {
       allow read: if true;

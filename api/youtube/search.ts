@@ -43,7 +43,8 @@ export default async function handler(req: any, res: any) {
   // YOUTUBE_API_KEY_2 (llave nueva) tiene prioridad; si no existe se usa YOUTUBE_API_KEY.
   const key = process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY;
   // Sin claves configuradas el sitio solo muestra los videos destacados.
-  if (!key || !process.env.GEMINI_API_KEY) return res.status(200).json({ videos: [] });
+  if (!key) return res.status(200).json({ videos: [], motivo: 'falta la llave de YouTube en el servidor' });
+  if (!process.env.GEMINI_API_KEY) return res.status(200).json({ videos: [], motivo: 'falta GEMINI_API_KEY en el servidor' });
 
   const seccion: Seccion = req.query?.seccion === 'noticias' ? 'noticias' : 'recetas';
   const categoria = String(req.query?.categoria ?? '').slice(0, 60);
@@ -63,7 +64,11 @@ export default async function handler(req: any, res: any) {
       key
     });
     const yt = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`);
-    if (!yt.ok) return res.status(200).json({ videos: [] });
+    if (!yt.ok) {
+      // Motivo de Google (llave inválida, API sin habilitar, cuota...). Nunca incluye la llave.
+      const detalle = await yt.json().catch(() => null);
+      return res.status(200).json({ videos: [], motivo: `YouTube respondió ${yt.status}: ${String(detalle?.error?.message ?? 'sin detalle').slice(0, 200)}` });
+    }
     const data = await yt.json();
 
     const candidatos = (data.items ?? [])
@@ -84,11 +89,12 @@ export default async function handler(req: any, res: any) {
     const confianza = seccion === 'noticias' ? await videosDeConfianza(key) : [];
     const vistos = new Set(confianza.map(v => v.id));
     const todos = [...confianza, ...videos.filter(v => !vistos.has(v.id))].slice(0, MAX_VIDEOS);
+    if (!todos.length) return res.status(200).json({ videos: [], motivo: `YouTube devolvió ${candidatos.length} candidatos y ninguno fue aprobado` });
 
     // La CDN de Vercel guarda la respuesta 24 h: cero impacto en la cuota por visita.
     res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate=86400');
     return res.status(200).json({ videos: todos });
-  } catch {
-    return res.status(200).json({ videos: [] });
+  } catch (err) {
+    return res.status(200).json({ videos: [], motivo: `error en el servidor: ${err instanceof Error ? err.message.slice(0, 120) : 'desconocido'}` });
   }
 }

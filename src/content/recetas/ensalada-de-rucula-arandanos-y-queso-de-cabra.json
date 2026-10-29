@@ -1,0 +1,63 @@
+{
+  "slug": "ensalada-de-rucula-arandanos-y-queso-de-cabra",
+  "title": "Ensalada de Rúcula, Arándanos y Queso de Cabra",
+  "excerpt": "Una ensalada fresca y sofisticada que combina el toque ligeramente picante de la rúcula, la cremosidad del queso de cabra y el dulzor natural de los arándanos con una vinagreta de balsámico y miel.",
+  "imageAlt": "Plato de ensalada de rúcula fresca con arándanos jugosos, queso de cabra desmoronado y nueces tostadas sobre un tazón elegante.",
+  "category": "ensaladas-platos-frescos",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 5,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "100 g de rúcula fresca lavada"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "100 g de queso de cabra suave desmoronado"
+    },
+    {
+      "text": "1/3 taza de nueces de pecana o almendras fileteadas"
+    },
+    {
+      "text": "2 cucharadas de aceite de oliva virgen extra"
+    },
+    {
+      "text": "1 cucharada de vinagre balsámico"
+    },
+    {
+      "text": "1 cucharadita de miel de abejas"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón"
+    },
+    {
+      "text": "Sal y pimienta negra recién molida al gusto"
+    }
+  ],
+  "steps": [
+    "En un sartén pequeño a fuego bajo, tuesta las nueces o almendras durante 3 a 4 minutos hasta que desprendan su aroma y estén ligeramente doradas. Retira del fuego y deja enfriar.",
+    "Para preparar la vinagreta, mezcla en un frasco o tazón pequeño el aceite de oliva, el vinagre balsámico, la miel de abejas, el jugo de limón, una pizca de sal y pimienta. Bate bien hasta emulsionar.",
+    "Coloca la rúcula fresca como base en una ensaladera o distribúyela en cuatro platos individuales.",
+    "Incorpora los arándanos Fresh Pick, cosechados a mano en la alta montaña de Guasca, cuyo dulzor contrasta de forma idónea con la intensidad del queso y las hojas verdes.",
+    "Agrega el queso de cabra suave desmoronado y las nueces tostadas por encima.",
+    "Rocía la vinagreta justo antes de servir para mantener las hojas crujientes y mezcla suavemente."
+  ],
+  "tips": [
+    "Para conservar tus arándanos Fresh Pick en perfecto estado, guárdalos refrigerados en su recipiente original y lávalos solo unos minutos antes de preparar tu receta.",
+    "Si prefieres un toque aún más crujiente, puedes caramelizar ligeramente las nueces en la sartén con media cucharadita de miel o panela rallada antes de añadirlas a la ensalada."
+  ],
+  "date": "2026-10-29",
+  "publicadoEn": "2026-10-29T19:22:07.889Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/ensalada-de-rucula-arandanos-y-queso-de-cabra.jpg"
+}

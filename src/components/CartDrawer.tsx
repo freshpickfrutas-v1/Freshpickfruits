@@ -1,5 +1,6 @@
 import React from 'react';
 import { FruitItem } from '../types';
+import { SHIPPING_FEE } from '../lib/pricing';
 import { CreditCard, X, Plus, Minus, Trash2, ShoppingBag, Sparkles, ArrowRight, AlertCircle, CheckCircle2, MessageCircle } from 'lucide-react';
 
 export interface CartItem {
@@ -37,8 +38,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     return isMultiOfTwo && item.quantity % 2 !== 0;
   });
 
-  const isFreeDelivery = subtotal >= 60000;
-  const deliveryFee = items.length === 0 ? 0 : (isFreeDelivery ? 0 : 7000);
+  // El envío es siempre $7.000 y no hay envío gratis. El pago en línea suma la comisión en el formulario de pedido.
+  const deliveryFee = items.length === 0 ? 0 : SHIPPING_FEE;
   const total = subtotal + deliveryFee;
 
   const handleWhatsAppCheckout = () => {
@@ -59,7 +60,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     const msg = `*PEDIDO DIRECTO - FRESH PICK ARÁNDANOS*%0A%0A` +
       `*Productos (${totalGrams}g totales):*%0A${list}%0A%0A` +
       `*Subtotal:* $${subtotal.toLocaleString('es-CO')} COP%0A` +
-      `*Envío:* ${isFreeDelivery ? 'GRATIS' : '$7.000 COP'}%0A` +
+      `*Envío:* $${SHIPPING_FEE.toLocaleString('es-CO')} COP%0A` +
       `*TOTAL:* $${total.toLocaleString('es-CO')} COP%0A%0A` +
       `Nota: Cumple condición de despacho (mínimo total 500g y múltiplos de 2 para estuches de 125g y 250g).%0A` +
       `Hola! Deseo confirmar este pedido de arándanos frescos para despacho a domicilio.`;
@@ -249,17 +250,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               </div>
               <div className="flex justify-between items-center">
                 <span>Envío:</span>
-                {isFreeDelivery ? (
-                  <span className="text-[#2F183C] font-bold bg-[#DFCEE6] px-2 py-0.5 rounded text-[11px]">¡Gratis!</span>
-                ) : (
-                  <span className="font-semibold text-stone-800">${deliveryFee.toLocaleString('es-CO')} COP</span>
-                )}
+                <span className="font-semibold text-stone-800">${deliveryFee.toLocaleString('es-CO')} COP</span>
               </div>
-              {!isFreeDelivery && (
-                <p className="text-[10px] text-stone-400">
-                  Faltan ${(60000 - subtotal).toLocaleString('es-CO')} para envío gratis.
-                </p>
-              )}
+              <p className="text-[10px] text-stone-400">
+                Si pagas en línea se suma la comisión de la pasarela (5%).
+              </p>
             </div>
 
             <div className="pt-2 border-t border-stone-200 flex justify-between items-baseline">

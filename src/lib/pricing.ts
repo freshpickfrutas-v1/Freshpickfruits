@@ -7,10 +7,8 @@ export function maxUnitsFor(step: number): number {
   return MAX_UNITS_BY_STEP[step] ?? 20;
 }
 
-/** Delivery fee when paying by transfer / Bre-B (WhatsApp). */
-export const SHIPPING_TRANSFER = 6000;
-/** Delivery fee when paying online (card, PSE, Nequi…). */
-export const SHIPPING_ONLINE = 7000;
+/** Delivery fee: always $7.000 COP, whatever the payment method. There is no free shipping. */
+export const SHIPPING_FEE = 7000;
 
 /** Payment-gateway commission passed on to the customer for online payments. */
 export const COMMISSION_RATE = { wompi: 0.05, bold: 0.06 } as const;

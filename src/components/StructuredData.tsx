@@ -80,9 +80,11 @@ function buildOrganizationSchema() {
   };
 }
 
+const REAL_TESTIMONIALS = TESTIMONIALS_DATA.filter(t => !t.pendiente);
+
 function buildProductSchemas() {
   const avgRating =
-    TESTIMONIALS_DATA.reduce((sum, t) => sum + t.rating, 0) / (TESTIMONIALS_DATA.length || 1);
+    REAL_TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / (REAL_TESTIMONIALS.length || 1);
 
   return FRUITS_DATA.map(f => ({
     '@context': 'https://schema.org',
@@ -125,11 +127,11 @@ function buildProductSchemas() {
       },
     },
     aggregateRating:
-      TESTIMONIALS_DATA.length > 0
+      REAL_TESTIMONIALS.length > 0
         ? {
             '@type': 'AggregateRating',
             ratingValue: avgRating.toFixed(1),
-            reviewCount: TESTIMONIALS_DATA.length,
+            reviewCount: REAL_TESTIMONIALS.length,
             bestRating: 5,
           }
         : undefined,
@@ -152,7 +154,7 @@ function buildFaqSchema() {
 }
 
 function buildReviewSchemas() {
-  return TESTIMONIALS_DATA.map(t => ({
+  return REAL_TESTIMONIALS.map(t => ({
     '@context': 'https://schema.org',
     '@type': 'Review',
     itemReviewed: { '@id': `${SITE_URL}/#organization` },

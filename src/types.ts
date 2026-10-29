@@ -219,6 +219,8 @@ export interface TestimonialItem {
   rating: number;
   comment: string;
   verifiedOrder: string;
+  /** Espacio sin llenar: se muestra con el mismo formato pero no se publica como reseña. */
+  pendiente?: boolean;
 }
 
 export interface FaqItem {

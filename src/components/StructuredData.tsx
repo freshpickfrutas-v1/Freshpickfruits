@@ -111,7 +111,7 @@ function buildProductSchemas() {
       seller: { '@id': `${SITE_URL}/#organization` },
       shippingDetails: {
         '@type': 'OfferShippingDetails',
-        shippingRate: { '@type': 'MonetaryAmount', value: 6000, currency: 'COP' },
+        shippingRate: { '@type': 'MonetaryAmount', value: 7000, currency: 'COP' },
         shippingDestination: {
           '@type': 'DefinedRegion',
           addressCountry: 'CO',

@@ -9,7 +9,7 @@ import { BOGOTA, PlacePick, mapsLink } from '../lib/maps';
 import { AddressField } from './AddressField';
 import { WompiPayButton } from './WompiPayButton';
 import {
-  PayChoice, SHIPPING_TRANSFER, SHIPPING_ONLINE, COMMISSION_RATE, onlineCommission,
+  PayChoice, SHIPPING_FEE, COMMISSION_RATE, onlineCommission,
   maxUnitsFor, earliestDeliveryDate, deliveryOptions, formatDeliveryDay,
 } from '../lib/pricing';
 import {
@@ -243,10 +243,10 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     const unitPrice = fruit.standardPrice || (fruit.pricePerGram * step);
     return sum + (units * unitPrice);
   }, 0);
-  // Pedido mínimo: 500g total. Envío $6.000 por transferencia / Bre-B, $7.000 con pago en línea (+ comisión).
+  // Pedido mínimo: 500g total. Envío siempre $7.000; el pago en línea suma además la comisión de la pasarela.
   const meetsMinOrder = totalGrams >= 500;
   const online = payChoice === 'tarjeta';
-  const deliveryFee = !meetsMinOrder || totalGrams === 0 ? 0 : (online ? SHIPPING_ONLINE : SHIPPING_TRANSFER);
+  const deliveryFee = !meetsMinOrder || totalGrams === 0 ? 0 : SHIPPING_FEE;
   const commission = online && deliveryFee > 0 ? onlineCommission(subtotal + deliveryFee) : 0;
   const grandTotal = Math.max(0, subtotal + deliveryFee + commission);
 
@@ -992,11 +992,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 <legend className="text-xs font-bold text-[#2F183C] mb-1">Forma de pago</legend>
                 <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${!online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
                   <input type="radio" name="pago" className="mt-0.5" checked={!online} onChange={() => setPayChoice('transferencia')} />
-                  <span><strong>Transferencia o Bre-B</strong> · envío $6.000 COP, sin comisión. Confirmas por WhatsApp.</span>
+                  <span><strong>Transferencia o Bre-B</strong> · sin comisión. Confirmas por WhatsApp.</span>
                 </label>
                 <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
                   <input type="radio" name="pago" className="mt-0.5" checked={online} onChange={() => setPayChoice('tarjeta')} />
-                  <span><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · envío $7.000 COP + comisión de la pasarela del {COMMISSION_RATE.wompi * 100}% (Wompi).</span>
+                  <span><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · más comisión de la pasarela del {COMMISSION_RATE.wompi * 100}% (Wompi).</span>
                 </label>
               </fieldset>
 

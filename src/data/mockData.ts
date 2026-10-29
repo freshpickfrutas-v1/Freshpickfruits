@@ -268,7 +268,7 @@ export const FAQ_DATA: FaqItem[] = [
     id: 'faq-4',
     category: 'entregas',
     question: '¿Cuánto cuesta el envío?',
-    answer: 'El costo de envío base es de $6.000 COP dentro de nuestra zona de cobertura. El envío gratis no aplica actualmente.'
+    answer: 'El domicilio cuesta $7.000 COP siempre. Si pagas en línea se suma una comisión de la pasarela del 5%. No tenemos envío gratis.'
   },
   {
     id: 'faq-5',

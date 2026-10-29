@@ -38,21 +38,25 @@ export const TestimonialsAndFaq: React.FC = () => {
                   {/* Star Rating */}
                   <div className="flex items-center gap-1 text-[#DDA83A] mb-3">
                     {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-[#DDA83A] text-[#DDA83A]" />
+                      <Star key={i} className={t.pendiente ? 'w-4 h-4 text-[#DDA83A]/40' : 'w-4 h-4 fill-[#DDA83A] text-[#DDA83A]'} />
                     ))}
                   </div>
 
-                  <p className="text-stone-700 text-xs sm:text-sm leading-relaxed italic">
+                  <p className={`text-xs sm:text-sm leading-relaxed italic ${t.pendiente ? 'text-stone-400' : 'text-stone-700'}`}>
                     "{t.comment}"
                   </p>
                 </div>
 
                 <div className="pt-4 mt-4 border-t border-[#EADBEE] flex items-center gap-3">
-                  <img
-                    src={t.avatar}
-                    alt={t.imageAlt || `Cliente de arándanos de alta montaña Fresh Pick: ${t.name}, en ${t.city}`}
-                    className="w-10 h-10 rounded-full object-cover border-2 border-[#DFCEE6]"
-                  />
+                  {t.avatar ? (
+                    <img
+                      src={t.avatar}
+                      alt={t.imageAlt || `Cliente de arándanos de alta montaña Fresh Pick: ${t.name}, en ${t.city}`}
+                      className="w-10 h-10 rounded-full object-cover border-2 border-[#DFCEE6]"
+                    />
+                  ) : (
+                    <div aria-hidden="true" className="w-10 h-10 rounded-full bg-[#F5ECF9] border-2 border-[#DFCEE6] shrink-0" />
+                  )}
                   <div>
                     <h4 className="text-xs font-bold text-[#2F183C]">{t.name}</h4>
                     <p className="text-[11px] text-stone-500">{t.role} · {t.city}</p>

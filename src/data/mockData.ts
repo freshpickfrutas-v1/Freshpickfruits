@@ -231,41 +231,19 @@ export const CERTIFICATIONS_LIST = [
   }
 ];
 
-export const TESTIMONIALS_DATA: TestimonialItem[] = [
-  {
-    id: 'test-1',
-    name: 'Carolina Velásquez',
-    role: 'Chef Pastelera & Propietaria de Café Dulce Cacao',
-    city: 'Bogotá, Colombia',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-    imageAlt: 'Carolina Velásquez, chef pastelera cliente de arándanos frescos de alta montaña Fresh Pick en Bogotá',
-    rating: 5,
-    comment: 'Trabajar con Fresh Pick cambió el estándar de nuestras tartaletas. El calibre de los arándanos es gigante y nunca vienen húmedos ni golpeados. El pedido personalizado nos permite pedir la fruta en su punto exacto.',
-    verifiedOrder: 'Pedido Personalizado recurrente (4 kg/semana)'
-  },
-  {
-    id: 'test-2',
-    name: 'Dr. Santiago Restrepo',
-    role: 'Médico Deportólogo y Maratonista',
-    city: 'Medellín, Colombia',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-    imageAlt: 'Dr. Santiago Restrepo, médico deportólogo que consume arándanos de alta montaña cultivados con agricultura responsable',
-    rating: 5,
-    comment: 'Estoy suscrito al Plan Mensual Fresco y la calidad es constante: cada martes llega fruta crujiente, dulce y con la pruina intacta. Lo recomiendo para familias que quieren incorporar antioxidantes reales a su dieta diaria.',
-    verifiedOrder: 'Suscripción Plan Mensual Fresco'
-  },
-  {
-    id: 'test-3',
-    name: 'Mariana Duarte',
-    role: 'Nutricionista Clínica',
-    city: 'Chía, Cundinamarca',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
-    imageAlt: 'Mariana Duarte, nutricionista clínica que recomienda arándanos frescos de alta montaña y agricultura limpia',
-    rating: 5,
-    comment: 'Recomiendo Fresh Pick a mis pacientes por la transparencia de su proceso: cero ceras, cero residuos y la polinización natural se nota en el sabor. Mis pacientes diabéticos lo toleran perfecto por su bajo índice glucémico.',
-    verifiedOrder: 'Plan Mensual Fresco'
-  }
-];
+// Espacios reservados: reemplazar por testimonios REALES de clientes (con su permiso) y quitar `pendiente`.
+// Mientras tengan `pendiente: true` no se publican como reseñas en los datos estructurados de Google.
+export const TESTIMONIALS_DATA: TestimonialItem[] = [1, 2, 3].map(n => ({
+  id: `test-${n}`,
+  pendiente: true,
+  name: 'Nombre del cliente',
+  role: 'Cargo o profesión',
+  city: 'Ciudad',
+  avatar: '',
+  rating: 5,
+  comment: 'Aquí irá el testimonio de un cliente real de Fresh Pick.',
+  verifiedOrder: 'Tipo de pedido o plan'
+}));
 
 export const FAQ_DATA: FaqItem[] = [
   {

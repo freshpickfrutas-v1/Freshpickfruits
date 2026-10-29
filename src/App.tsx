@@ -5,6 +5,8 @@ import RecipeDetailPage from './pages/RecipeDetailPage';
 import BlogPage from './pages/BlogPage';
 import BlogArticlePage from './pages/BlogArticlePage';
 import LegalPage from './pages/LegalPage';
+import ThankYouPage from './pages/ThankYouPage';
+import { useHiddenContent } from './lib/hiddenContent';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { scrollToId, useAppLocation, useInternalLinkInterception } from './lib/router';
@@ -22,6 +24,8 @@ function renderRoute(pathname: string) {
 
   if (pathname === '/privacidad') return <LegalPage kind="privacidad" />;
   if (pathname === '/terminos') return <LegalPage kind="terminos" />;
+  if (pathname === '/cookies') return <LegalPage kind="cookies" />;
+  if (pathname === '/gracias') return <ThankYouPage />;
 
   const route = matchContentRoute(pathname);
   switch (route?.type) {
@@ -42,6 +46,7 @@ function legacyBlogRedirect(location: { pathname: string; search: string; hash: 
 export default function App() {
   const current = useAppLocation();
   useInternalLinkInterception();
+  useHiddenContent(); // vuelve a pintar cuando el admin oculta o restaura una receta o noticia
 
   // Al navegar se precargan los datos de la nueva ruta y recién entonces se muestra, así la página
   // anterior sigue visible (sin parpadeos en blanco) y las páginas leen su contenido sin esperas.

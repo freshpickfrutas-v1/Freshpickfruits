@@ -20,10 +20,15 @@
     background-image: url('/site_bg_pattern.jpg');
     background-repeat: repeat;
     background-size: 480px 480px;
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-position: center;
     color: #2F183C;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* iOS/Android ignore or break fixed backgrounds, which cut the pattern on phones. */
+  @media (min-width: 1024px) {
+    body { background-attachment: fixed; }
   }
 
   h1, h2, h3, h4, .font-display {

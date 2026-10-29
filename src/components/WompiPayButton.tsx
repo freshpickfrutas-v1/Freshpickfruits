@@ -54,7 +54,7 @@ export const WompiPayButton: React.FC<Props> = ({ orderId, customer, onApproved 
         reference: data.reference,
         publicKey: PUBLIC_KEY,
         signature: { integrity: data.integrity },
-        redirectUrl: `${window.location.origin}/`,
+        redirectUrl: `${window.location.origin}/gracias`,
         customerData: {
           email: customer.email || undefined,
           fullName: customer.name,

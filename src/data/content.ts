@@ -6,6 +6,7 @@
 //   lo que necesita (ver lib/routePreload.ts). En el prerender, el script de build llena este almacén.
 import { useEffect, useState } from 'react';
 import { ArticleSummary, BlogArticle, Recipe, RecipeSummary } from '../types';
+import { ContentKind, hiddenVersion, isHidden } from '../lib/hiddenContent';
 
 interface Store {
   recetasIndex?: RecipeSummary[];
@@ -48,11 +49,25 @@ export const loadRecipe = (slug: string) =>
 export const loadArticle = (slug: string) =>
   store.articles.has(slug) ? Promise.resolve() : once<BlogArticle>(`/data/noticias/${encodeURIComponent(slug)}.json`, d => { store.articles.set(slug, d); });
 
+// El admin puede ocultar recetas y noticias (lib/hiddenContent.ts): el sitio no las muestra, pero siguen en la biblioteca.
+const visibleCache = new WeakMap<object, { v: number; list: unknown[] }>();
+function visible<T extends { slug: string }>(list: T[], tipo: ContentKind): T[] {
+  const v = hiddenVersion();
+  const hit = visibleCache.get(list);
+  if (hit && hit.v === v) return hit.list as T[];
+  const out = list.filter(i => !isHidden(tipo, i.slug));
+  visibleCache.set(list, { v, list: out });
+  return out;
+}
+
 /** Índice de recetas publicadas, de la más reciente a la más antigua. Vacío mientras no se haya cargado. */
-export const recipeIndex = (): RecipeSummary[] => store.recetasIndex ?? [];
-export const articleIndex = (): ArticleSummary[] => store.noticiasIndex ?? [];
-export const getRecipe = (slug: string): Recipe | undefined => store.recipes.get(slug) ?? undefined;
-export const getArticle = (slug: string): BlogArticle | undefined => store.articles.get(slug) ?? undefined;
+export const recipeIndex = (): RecipeSummary[] => visible(store.recetasIndex ?? [], 'receta');
+export const articleIndex = (): ArticleSummary[] => visible(store.noticiasIndex ?? [], 'noticia');
+/** Todo lo publicado, incluso lo oculto por el admin (solo para el panel de administración). */
+export const fullRecipeIndex = (): RecipeSummary[] => store.recetasIndex ?? [];
+export const fullArticleIndex = (): ArticleSummary[] => store.noticiasIndex ?? [];
+export const getRecipe = (slug: string): Recipe | undefined => (isHidden('receta', slug) ? undefined : store.recipes.get(slug) ?? undefined);
+export const getArticle = (slug: string): BlogArticle | undefined => (isHidden('noticia', slug) ? undefined : store.articles.get(slug) ?? undefined);
 export const getRecipeSummary = (slug: string) => recipeIndex().find(r => r.slug === slug);
 
 /** Llena el almacén sin pasar por la red (prerender en el build). */
@@ -75,3 +90,5 @@ function useIndex<T>(read: () => T[], load: () => Promise<void>, loaded: () => b
 /** Para secciones de la portada: pide el índice si aún no está y devuelve null mientras llega. */
 export const useRecipeIndex = () => useIndex(recipeIndex, loadRecipeIndex, () => !!store.recetasIndex);
 export const useArticleIndex = () => useIndex(articleIndex, loadArticleIndex, () => !!store.noticiasIndex);
+export const useFullRecipeIndex = () => useIndex(fullRecipeIndex, loadRecipeIndex, () => !!store.recetasIndex);
+export const useFullArticleIndex = () => useIndex(fullArticleIndex, loadArticleIndex, () => !!store.noticiasIndex);

@@ -212,11 +212,10 @@ async function main() {
   const recetas = args.solo === 'noticias' ? [] : await hacerRecetas(cola);
   const noticias = args.solo === 'recetas' ? [] : await hacerNoticias(estado);
 
-  // Days with no recipe or no news: a YouTube video takes its place (a plain --recetas/--noticias override doesn't count).
+  // One approved YouTube video per section per day, so the video library keeps growing (nothing is ever deleted automatically).
   const videos = [];
   for (const seccion of ['recetas', 'noticias']) {
-    const salio = (seccion === 'recetas' ? recetas : noticias).length;
-    if (!esperadas[seccion] || salio || args.solo === (seccion === 'recetas' ? 'noticias' : 'recetas')) continue;
+    if (args.solo === (seccion === 'recetas' ? 'noticias' : 'recetas')) continue;
     try {
       const v = await crearVideoRelleno(seccion, { fecha: hoy.fecha });
       if (v) videos.push(v);

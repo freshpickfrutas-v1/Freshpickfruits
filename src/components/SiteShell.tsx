@@ -4,6 +4,7 @@ import { Footer } from './Footer';
 import { CartDrawer } from './CartDrawer';
 import { FloatingWhatsApp } from './FloatingWhatsApp';
 import { MobileBottomBar } from './MobileBottomBar';
+import { CookieBanner } from './CookieBanner';
 import { useCart } from '../context/CartContext';
 import { goToHomeSection } from '../lib/router';
 
@@ -38,6 +39,7 @@ export const SiteShell: React.FC<SiteShellProps> = ({ children, onNavigateToCust
       />
       <FloatingWhatsApp />
       <MobileBottomBar onOrder={goToCustomOrder} />
+      <CookieBanner />
     </div>
   );
 };

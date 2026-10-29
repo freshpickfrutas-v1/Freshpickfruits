@@ -32,8 +32,8 @@ export default function BlogPage() {
   const index = articleIndex();
   const ARTICLE_ENTRIES = articleEntries(index);
 
-  const facets = useMemo(() => computeFacets(ARTICLE_ENTRIES, state), [state]);
-  const results = useMemo(() => sortEntries(filterEntries(ARTICLE_ENTRIES, state), state), [state]);
+  const facets = useMemo(() => computeFacets(ARTICLE_ENTRIES, state), [state, ARTICLE_ENTRIES]);
+  const results = useMemo(() => sortEntries(filterEntries(ARTICLE_ENTRIES, state), state), [state, ARTICLE_ENTRIES]);
   const page = paginate<LibraryEntry>(results, state.pagina);
   const bySlug = new Map(index.map(a => [a.slug, a]));
   const articles = page.items.map(e => bySlug.get(e.slug)!).filter(Boolean);

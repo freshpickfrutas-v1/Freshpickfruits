@@ -32,8 +32,8 @@ export default function RecipesPage() {
   const index = recipeIndex();
   const RECIPE_ENTRIES = recipeEntries(index);
 
-  const facets = useMemo(() => computeFacets(RECIPE_ENTRIES, state), [state]);
-  const results = useMemo(() => sortEntries(filterEntries(RECIPE_ENTRIES, state), state), [state]);
+  const facets = useMemo(() => computeFacets(RECIPE_ENTRIES, state), [state, RECIPE_ENTRIES]);
+  const results = useMemo(() => sortEntries(filterEntries(RECIPE_ENTRIES, state), state), [state, RECIPE_ENTRIES]);
   const page = paginate<LibraryEntry>(results, state.pagina);
   const bySlug = new Map(index.map(r => [r.slug, r]));
   const recipes = page.items.map(e => bySlug.get(e.slug)!).filter(Boolean);

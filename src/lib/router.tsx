@@ -43,6 +43,24 @@ export function goToHomeSection(id: string) {
   navigate(`/#${id}`);
 }
 
+const RETURN_KEY = 'fp-return-to';
+
+/** Saves the current page so that, after signing in from /panel, the customer goes back to keep shopping. */
+export function rememberReturnTo() {
+  try { sessionStorage.setItem(RETURN_KEY, window.location.pathname + window.location.search + (window.location.hash || '#pedidos-personalizados')); } catch { /* ignore */ }
+}
+
+/** Page saved by rememberReturnTo (and forgets it), or null. */
+export function takeReturnTo(): string | null {
+  try {
+    const v = sessionStorage.getItem(RETURN_KEY);
+    sessionStorage.removeItem(RETURN_KEY);
+    return v && v.startsWith('/') && !v.startsWith('//') ? v : null;
+  } catch {
+    return null;
+  }
+}
+
 export function scrollToId(id: string) {
   const element = document.getElementById(id);
   if (!element) return false;
@@ -80,6 +98,9 @@ export function useInternalLinkInterception() {
       if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) return;
       const href = anchor.getAttribute('href');
       if (!href || !href.startsWith('/') || href.startsWith('//')) return;
+      if ((href === '/panel' || href.startsWith('/panel?')) && !/^\/(panel|admin)(\/|$)/.test(window.location.pathname)) {
+        rememberReturnTo();
+      }
       e.preventDefault();
       navigate(href);
     };

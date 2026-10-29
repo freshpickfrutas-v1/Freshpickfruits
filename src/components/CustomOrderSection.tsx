@@ -721,7 +721,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               )}
               {!user && (
                 <p className="text-xs text-stone-500">
-                  ¿Ya tienes cuenta? <a href="/panel" className="font-semibold text-[#7B4382] underline">Ingresa</a> para usar tus direcciones guardadas.
+                  No necesitas cuenta para pedir. Si ya tienes una, <a href="/panel" className="font-semibold text-[#7B4382] underline">ingresa</a> para usar tus direcciones guardadas y volverás aquí.
                 </p>
               )}
               <input
@@ -1004,7 +1004,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
 
               {Object.values(formErrors).some(Boolean) && (
                 <div role="alert" className="p-3 rounded-xl bg-red-50 border border-red-300 text-red-800 text-xs space-y-1">
-                  <p className="font-bold flex items-center gap-1.5"><AlertCircle className="w-4 h-4 shrink-0" /> Falta completar para guardar tu pedido:</p>
+                  <p className="font-bold flex items-center gap-1.5"><AlertCircle className="w-4 h-4 shrink-0" /> Falta completar para confirmar tu pedido:</p>
                   <ul className="list-disc pl-6 space-y-0.5">
                     {Object.values(formErrors).filter(Boolean).map((m, i) => <li key={i}>{m}</li>)}
                   </ul>
@@ -1034,7 +1034,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 disabled={isSubmitting}
                 className="w-full py-2.5 rounded-xl border border-[#DFCEE6] text-[#2F183C] font-bold text-sm hover:bg-[#F5ECF9] transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Guardando...' : online ? 'Continuar al pago en línea' : 'Guardar pedido en la web'}
+                {isSubmitting ? 'Guardando...' : online ? 'Continuar al pago en línea' : 'Confirmar pedido'}
               </button>
               <p className="text-[11px] text-stone-400 text-center">WhatsApp: +57 317 893 1026</p>
             </div>

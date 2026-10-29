@@ -3,7 +3,7 @@ import { onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as fbS
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db, googleProvider, appleProvider, facebookProvider } from '../lib/firebase';
 import { STAFF_ROLES, UserProfile, UserRole } from '../types';
-import { navigate } from '../lib/router';
+import { navigate, takeReturnTo } from '../lib/router';
 
 /** Same addresses as the bootstrap admins in firestore.rules: they can always sign in as admin and assign other roles. */
 const BOOTSTRAP_ADMIN_EMAILS = ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
@@ -73,6 +73,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           if (data && (STAFF_ROLES as UserRole[]).includes(data.role) && intentIsFresh() && window.location.pathname === '/panel') {
             clearIntent();
             navigate('/admin');
+          } else if (data && intentIsFresh() && window.location.pathname === '/panel') {
+            // Customer who tapped "Ingresar" while shopping: send them back to where they were (their cart is kept).
+            const back = takeReturnTo();
+            if (back) {
+              clearIntent();
+              navigate(back);
+            }
           }
           setLoading(false);
         },

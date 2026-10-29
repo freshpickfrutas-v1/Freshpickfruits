@@ -510,6 +510,17 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             >
               Armar otro pedido
             </button>
+            <p className="mt-4 text-xs text-stone-500">
+              ¿Necesitas cambiar o cancelar tu pedido? Escríbenos por{' '}
+              <a
+                href={`https://wa.me/${WA}?text=${encodeURIComponent(`Hola Fresh Pick, quiero modificar o cancelar mi pedido ${completedOrder.id}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-[#7B4382] underline"
+              >
+                WhatsApp
+              </a>.
+            </p>
           </div>
         </div>
       </section>

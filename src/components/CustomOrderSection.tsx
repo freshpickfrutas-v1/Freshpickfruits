@@ -549,15 +549,15 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             Arma tu Pedido de Arándanos en Línea
           </h2>
           <p className="mt-3 text-stone-700">
-            Elige 125g, 250g o 500g. Mínimo 500g. Entregas martes y miércoles (8:00 a.m. – 3:00 p.m.), mínimo 8 días después de hacer el pedido. Pagos por transferencia, Bre-B @9010401617 o en línea.
+            Elige 125g, 250g o 500g. Mínimo 500g. Entregas martes y miércoles (8:00 a.m. – 3:00 p.m.), mínimo 8 días después de hacer el pedido. Pagos por transferencia, Bre-B @9010401617{ONLINE_PAYMENTS ? ' o en línea' : ''}.
           </p>
         </div>
 
-        {Object.keys(formErrors).length > 0 && (
+        {Object.values(formErrors).some(Boolean) && (
           <div className="max-w-2xl mx-auto mb-6 bg-red-50 border border-red-200 p-4 rounded-xl text-red-800 text-sm flex gap-2">
             <AlertCircle className="w-5 h-5 shrink-0" />
             <ul className="list-disc list-inside">
-              {Object.values(formErrors).map((e, i) => (
+              {Object.values(formErrors).filter(Boolean).map((e, i) => (
                 <li key={i}>{e}</li>
               ))}
             </ul>

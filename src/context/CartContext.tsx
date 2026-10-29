@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { FruitItem } from '../types';
 import { CartItem } from '../components/CartDrawer';
 import { maxUnitsFor } from '../lib/pricing';
+import { track } from '../lib/analytics';
 
 interface CartContextValue {
   items: CartItem[];
@@ -49,6 +50,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const addToCart = (fruit: FruitItem, quantity?: number) => {
     const step = (fruit.defaultGramUnit === 125 || fruit.defaultGramUnit === 250) ? 2 : 1;
     const qtyToAdd = quantity ?? step;
+    track('add_to_cart', { id: fruit.id, name: fruit.name, value: (fruit.standardPrice || 0) * qtyToAdd });
     setItems(prev => {
       const existing = prev.find(item => item.fruit.id === fruit.id);
       if (existing) {

@@ -1,3 +1,4 @@
+import { track } from '../lib/analytics';
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { FruitItem, PackagingOption, AddOnItem, CustomOrder, BillingData, SavedAddress } from '../types';
@@ -383,6 +384,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       });
       orderId = saved.orderNumber;
       setSavedOrderDocId(saved.id);
+      track('purchase', { id: saved.orderNumber, value: grandTotal });
       // El servidor fija el total definitivo; si falla, la firma de pago lo vuelve a calcular antes de cobrar.
       fetch('/api/orders/recalcular', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ orderId: saved.id }) }).catch(() => {});
       cart.clearCart();

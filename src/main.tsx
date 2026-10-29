@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import App from './App.tsx';
 import { preloadRoute } from './lib/routePreload';
 import { readLocation } from './lib/router';
+import { initAnalytics } from './lib/analytics';
 import './index.css';
 
 async function start() {
@@ -21,4 +22,5 @@ async function start() {
   else createRoot(container).render(app);
 }
 
+initAnalytics();
 void start();

@@ -1,4 +1,4 @@
-import { isHidden } from '../lib/hiddenContent';
+import { customVideosFor, isHidden } from '../lib/hiddenContent';
 
 // Videos destacados, revisados a mano con las mismas reglas que el filtro de Gemini
 // (canal independiente, en español, sin marcas competidoras). Solo se incrustan: no se alojan aquí.
@@ -37,5 +37,9 @@ export const FEATURED_VIDEOS: Record<'recetas' | 'noticias', FeaturedVideo[]> = 
 };
 
 /** Videos que se muestran en el sitio: todos menos los que el admin eliminó (ver lib/hiddenContent.ts). */
-export const visibleVideos = (seccion: 'recetas' | 'noticias'): FeaturedVideo[] =>
-  FEATURED_VIDEOS[seccion].filter(v => !isHidden('video', v.id));
+export const visibleVideos = (seccion: 'recetas' | 'noticias'): FeaturedVideo[] => {
+  const base = FEATURED_VIDEOS[seccion];
+  const ids = new Set(base.map(v => v.id));
+  const agregados = customVideosFor(seccion).filter(v => !ids.has(v.id)).map(({ id, title, channel }) => ({ id, title, channel }));
+  return [...agregados, ...base].filter(v => !isHidden('video', v.id));
+};

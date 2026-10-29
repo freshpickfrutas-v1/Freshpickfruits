@@ -18,7 +18,7 @@ import { subscribeAllSubscriptions } from '../lib/subscriptions';
 import { FRUITS_DATA } from '../data/mockData';
 import { useFullArticleIndex, useFullRecipeIndex } from '../data/content';
 import { FEATURED_VIDEOS } from '../data/featuredVideos';
-import { ContentKind, hideContent, restoreContent, isHidden, useHiddenContent } from '../lib/hiddenContent';
+import { ContentKind, hideContent, restoreContent, isHidden, useHiddenContent, allCustomVideos, addCustomVideo, youtubeIdFrom } from '../lib/hiddenContent';
 
 function isToday(iso: string) {
   if (!iso) return false;
@@ -322,10 +322,40 @@ function ContentTab() {
 
   const articles = useFullArticleIndex() ?? [];
   const recipes = useFullRecipeIndex() ?? [];
+  const custom = allCustomVideos();
   const videos = [
+    ...custom.map(v => ({ slug: v.id, title: v.title, date: `${v.seccion === 'noticias' ? 'Noticias' : 'Recetas'} · agregado por enlace` })),
     ...FEATURED_VIDEOS.noticias.map(v => ({ slug: v.id, title: v.title, date: `Noticias · ${v.channel}` })),
     ...FEATURED_VIDEOS.recetas.map(v => ({ slug: v.id, title: v.title, date: `Recetas · ${v.channel}` })),
   ];
+  const [link, setLink] = useState('');
+  const [linkSection, setLinkSection] = useState<'noticias' | 'recetas'>('noticias');
+  const [linkTitle, setLinkTitle] = useState('');
+  const [linkMsg, setLinkMsg] = useState('');
+
+  const addByLink = async () => {
+    const id = youtubeIdFrom(link);
+    if (!id) { setLinkMsg('Ese enlace no parece de YouTube. Pega la dirección del video (youtube.com/watch?v=… o youtu.be/…).'); return; }
+    setBusy('nuevo-video');
+    setLinkMsg('');
+    try {
+      // El título y el canal salen de YouTube (oEmbed); si no responde, se usa el que escribas.
+      let title = linkTitle.trim();
+      let channel = 'YouTube';
+      try {
+        const r = await fetch(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(`https://www.youtube.com/watch?v=${id}`)}`);
+        if (r.ok) { const j = await r.json(); title = title || String(j.title ?? ''); channel = String(j.author_name ?? channel); }
+      } catch { /* sin oEmbed: se queda con lo escrito */ }
+      if (!title) { setLinkMsg('No pude leer el título del video. Escríbelo en el campo de título y vuelve a intentar.'); return; }
+      await addCustomVideo({ id, seccion: linkSection, title, channel });
+      setLink(''); setLinkTitle('');
+      setLinkMsg(`Listo: "${title}" ya aparece en ${linkSection === 'noticias' ? 'Noticias' : 'Recetas'}.`);
+    } catch (err) {
+      setLinkMsg(err instanceof Error ? `No se pudo guardar: ${err.message}` : 'No se pudo guardar el video.');
+    } finally {
+      setBusy('');
+    }
+  };
   const items = view === 'noticia'
     ? articles.map(a => ({ slug: a.slug, title: a.title, date: a.date }))
     : view === 'receta'
@@ -360,6 +390,43 @@ function ContentTab() {
           </button>
         ))}
       </div>
+      {view === 'video' && (
+        <div className="bg-white rounded-2xl border border-[#EADBEE] p-4 space-y-3">
+          <p className="text-sm font-bold text-[#2F183C]">Agregar un video con su enlace de YouTube</p>
+          <div className="grid sm:grid-cols-[1fr_auto] gap-2">
+            <input
+              value={link}
+              onChange={e => setLink(e.target.value)}
+              placeholder="https://www.youtube.com/watch?v=..."
+              className="border border-stone-300 rounded-xl px-3 py-2 text-sm outline-none focus:border-[#7B4382]"
+            />
+            <select
+              value={linkSection}
+              onChange={e => setLinkSection(e.target.value as 'noticias' | 'recetas')}
+              className="border border-stone-300 rounded-xl px-3 py-2 text-sm bg-white"
+            >
+              <option value="noticias">Va en Noticias</option>
+              <option value="recetas">Va en Recetas</option>
+            </select>
+          </div>
+          <input
+            value={linkTitle}
+            onChange={e => setLinkTitle(e.target.value)}
+            placeholder="Título (opcional: se toma del video)"
+            className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm outline-none focus:border-[#7B4382]"
+          />
+          <button
+            type="button"
+            onClick={addByLink}
+            disabled={!link.trim() || busy === 'nuevo-video'}
+            className="px-4 py-2 rounded-xl bg-[#2F183C] text-white text-sm font-bold disabled:opacity-50 cursor-pointer"
+          >
+            {busy === 'nuevo-video' ? 'Agregando…' : 'Agregar video'}
+          </button>
+          {linkMsg && <p className="text-xs text-stone-600">{linkMsg}</p>}
+          <p className="text-[11px] text-stone-500">Revisa que el video sea de arándanos y de un canal confiable antes de agregarlo: aquí no pasa por el filtro automático.</p>
+        </div>
+      )}
       <p className="text-xs text-stone-500">
         La biblioteca solo crece: la automatización nunca borra nada. "Eliminar" quita el contenido del sitio y se puede restaurar cuando quieras.
       </p>
@@ -370,8 +437,17 @@ function ContentTab() {
           return (
             <div key={item.slug} className="flex items-center justify-between gap-3 px-4 py-3">
               <div className="min-w-0">
-                <p className={`text-sm font-semibold truncate ${off ? 'text-stone-400 line-through' : 'text-[#2F183C]'}`}>{item.title}</p>
-                <p className="text-xs text-stone-500">{item.date}{off ? ' · eliminado del sitio' : ''}</p>
+                <p className={`text-sm font-semibold truncate ${off ? 'text-stone-400 line-through' : 'text-[#2F183C]'}`}>
+                  {view === 'video'
+                    ? <a href={`https://www.youtube.com/watch?v=${item.slug}`} target="_blank" rel="noopener noreferrer" className="underline decoration-[#DFCEE6] hover:text-[#7B4382]" title="Abrir el video en YouTube para revisarlo">{item.title}</a>
+                    : item.title}
+                </p>
+                <p className="text-xs text-stone-500">
+                  {item.date}{off ? ' · eliminado del sitio' : ''}
+                  {view !== 'video' && !off && (
+                    <> · <a href={`/${view === 'noticia' ? 'noticias' : 'recetas'}/${item.slug}`} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#7B4382] underline">Ver en el sitio</a></>
+                  )}
+                </p>
               </div>
               <button
                 disabled={busy === item.slug}

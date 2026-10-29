@@ -1,3 +1,5 @@
+import { isHidden } from '../lib/hiddenContent';
+
 // Videos destacados, revisados a mano con las mismas reglas que el filtro de Gemini
 // (canal independiente, en español, sin marcas competidoras). Solo se incrustan: no se alojan aquí.
 export interface FeaturedVideo {
@@ -28,8 +30,12 @@ interface VideoDelDia extends FeaturedVideo {
 const delDia = Object.values(import.meta.glob<VideoDelDia>('../content/videos/*.json', { eager: true, import: 'default' }))
   .sort((a, b) => b.date.localeCompare(a.date));
 
-/** Los más recientes de relleno primero, luego los destacados fijos. */
+/** Los más recientes de relleno primero, luego los destacados fijos. Incluye los que el admin ocultó. */
 export const FEATURED_VIDEOS: Record<'recetas' | 'noticias', FeaturedVideo[]> = {
   recetas: [...delDia.filter(v => v.seccion === 'recetas'), ...FIJOS.recetas],
   noticias: [...delDia.filter(v => v.seccion === 'noticias'), ...FIJOS.noticias]
 };
+
+/** Videos que se muestran en el sitio: todos menos los que el admin eliminó (ver lib/hiddenContent.ts). */
+export const visibleVideos = (seccion: 'recetas' | 'noticias'): FeaturedVideo[] =>
+  FEATURED_VIDEOS[seccion].filter(v => !isHidden('video', v.id));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Leaf, Phone, Mail, MapPin, ShieldCheck, Heart, Instagram, Facebook } from 'lucide-react';
+import { Leaf, Phone, Mail, MapPin, ShieldCheck, FileText, Heart, Instagram, Facebook } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 export const Footer: React.FC = () => {
@@ -176,15 +176,34 @@ export const Footer: React.FC = () => {
                 <span>GLOBALG.A.P. · GRASP · ICA</span>
               </div>
             </div>
+
+            <div className="pt-4 space-y-3">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                Políticas & Términos
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                <a
+                  href="/privacidad"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
+                  <span>Política de Privacidad</span>
+                </a>
+                <a
+                  href="/terminos"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
+                >
+                  <FileText className="w-3.5 h-3.5 text-[#DDA83A]" />
+                  <span>Términos y Condiciones</span>
+                </a>
+              </div>
+            </div>
           </div>
 
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-          <p>© {new Date().getFullYear()} Fresh Pick - Arándanos de Alta Montaña · Fundada en 2017 · Guasca, Colombia. Todos los derechos reservados.{' '}
-            <a href="/privacidad" className="hover:text-[#DDA83A] underline">Privacidad</a> ·{' '}
-            <a href="/terminos" className="hover:text-[#DDA83A] underline">Términos</a>
-          </p>
+          <p>© {new Date().getFullYear()} Fresh Pick - Arándanos de Alta Montaña · Fundada en 2017 · Guasca, Colombia. Todos los derechos reservados.</p>
 
           <div className="flex items-center gap-2 text-[11px]">
             <span>Medios de pago:</span>

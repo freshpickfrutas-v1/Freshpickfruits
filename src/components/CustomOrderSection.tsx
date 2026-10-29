@@ -46,6 +46,8 @@ interface WhatsAppOrder {
   billing: BillingData | null;
 }
 
+// El pago en línea solo se ofrece si Wompi está configurado en el despliegue (VITE_WOMPI_PUBLIC_KEY); sin eso solo hay transferencia o Bre-B por WhatsApp.
+const ONLINE_PAYMENTS = !!(import.meta.env.VITE_WOMPI_PUBLIC_KEY as string | undefined)?.trim();
 const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
 
 /** The complete order as one WhatsApp message: customer, delivery, invoice data, products, totals and payment. */
@@ -998,10 +1000,12 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <input type="radio" name="pago" className="mt-0.5" checked={!online} onChange={() => setPayChoice('transferencia')} />
                   <span><strong>Transferencia o Bre-B</strong> · sin comisión. Confirmas por WhatsApp.</span>
                 </label>
-                <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
-                  <input type="radio" name="pago" className="mt-0.5" checked={online} onChange={() => setPayChoice('tarjeta')} />
-                  <span><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · más comisión de la pasarela del {COMMISSION_RATE.wompi * 100}% (Wompi).</span>
-                </label>
+                {ONLINE_PAYMENTS && (
+                  <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
+                    <input type="radio" name="pago" className="mt-0.5" checked={online} onChange={() => setPayChoice('tarjeta')} />
+                    <span><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · más comisión de la pasarela del {COMMISSION_RATE.wompi * 100}% (Wompi).</span>
+                  </label>
+                )}
               </fieldset>
 
               <div className="space-y-2 text-xs text-stone-700">

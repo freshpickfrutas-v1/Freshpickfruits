@@ -21,7 +21,7 @@ const ESQUEMA = {
 };
 
 async function youtube(ruta, params) {
-  const url = `https://www.googleapis.com/youtube/v3/${ruta}?${new URLSearchParams({ ...params, key: process.env.YOUTUBE_API_KEY })}`;
+  const url = `https://www.googleapis.com/youtube/v3/${ruta}?${new URLSearchParams({ ...params, key: process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY })}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`YouTube ${ruta}: HTTP ${res.status}`);
   return res.json();
@@ -101,7 +101,7 @@ async function aprobado(c) {
  * Primero los canales de confianza (Dr. Carlos Jaramillo); luego la búsqueda, con filtro de Gemini.
  */
 export async function crearVideoRelleno(seccion, { fecha }) {
-  if (!process.env.YOUTUBE_API_KEY) {
+  if (!(process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY)) {
     log('   Sin YOUTUBE_API_KEY: no se puede buscar un video de relleno.');
     return null;
   }

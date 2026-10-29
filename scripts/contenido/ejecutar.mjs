@@ -17,7 +17,7 @@ import { candidatasPorBusqueda, reunirCandidatas } from './fuentes-noticias.mjs'
 import { crearNoticia, elegirNoticias } from './noticias.mjs';
 import { crearVideoRelleno } from './videos.mjs';
 import {
-  PREFIJO_RAMA_REVISION, comentarIssue, commitYPush, crearPrRevision, escribirArchivos, prsDeRevisionAbiertosDesde
+  PREFIJO_RAMA_REVISION, comentarIssue, commitYPush, crearPrRevision, escribirArchivos, prsDeRevisionAbiertosDesde, tipoDePieza
 } from './publicar.mjs';
 
 const args = Object.fromEntries(process.argv.slice(2).map(a => {
@@ -214,10 +214,20 @@ async function main() {
 
   // One approved YouTube video per section per day, so the video library keeps growing (nothing is ever deleted automatically).
   const videos = [];
+  // Videos que ya esperan aprobación: no se proponen otra vez.
+  let videosEnRevision = [];
+  if (!PRUEBA) {
+    try {
+      const prefijo = `${PREFIJO_RAMA_REVISION}videos/`;
+      videosEnRevision = (await prsDeRevisionAbiertosDesde('0000-00-00')).filter(pr => pr.head.ref.startsWith(prefijo)).map(pr => pr.head.ref.slice(prefijo.length));
+    } catch (err) {
+      log(`⚠️  No se pudieron consultar los videos pendientes de aprobación: ${err.message}`);
+    }
+  }
   for (const seccion of ['recetas', 'noticias']) {
     if (args.solo === (seccion === 'recetas' ? 'noticias' : 'recetas')) continue;
     try {
-      const v = await crearVideoRelleno(seccion, { fecha: hoy.fecha });
+      const v = await crearVideoRelleno(seccion, { fecha: hoy.fecha, yaEnRevision: videosEnRevision });
       if (v) videos.push(v);
       else anotar('aviso', `Video de relleno de ${seccion}: no se encontró uno aprobado hoy.`);
     } catch (err) {
@@ -231,8 +241,10 @@ async function main() {
   const todoARevision = Boolean(args['todo-a-revision']);
   const rama = typeof args.rama === 'string' ? args.rama : 'main';
   const todoALaRama = rama !== 'main';
-  const automaticas = todoARevision ? [] : todoALaRama ? [...recetas, ...noticias] : [...recetas, ...noticias.filter(n => n.pieza.modo === 'automatico')];
-  const enRevision = todoALaRama ? [] : todoARevision ? [...recetas, ...noticias] : noticias.filter(n => n.pieza.modo === 'revision');
+  // Todo (recetas, noticias y videos) espera la aprobación del admin en el panel (pestaña Aprobaciones): un Pull Request por pieza.
+  // Solo se publica directo en una rama de prueba (--rama=...).
+  const automaticas = todoALaRama ? [...recetas, ...noticias] : [];
+  const enRevision = todoALaRama ? [] : [...recetas, ...noticias, ...videos];
 
   // Recipes sent for review stay "pendiente" in the queue; sincronizarCola marks them once merged.
   for (const r of automaticas) if (r.item) Object.assign(r.item, { estado: 'publicado', fechaPublicacion: hoy.fecha });
@@ -244,11 +256,11 @@ async function main() {
   } else {
     // 1) Automatic pieces + queue/state updates go straight to main.
     // In the safe test (--todo-a-revision) nothing goes straight to main, replacement videos included.
-    const videosAPublicar = todoARevision ? [] : videos;
-    for (const v of videos) if (todoARevision) anotar('info', `Modo revisión: hoy se publicaría el video "${v.pieza.title}" (${v.pieza.seccion}); no se publica.`);
+    const videosAPublicar = todoALaRama ? videos : [];
     for (const r of [...automaticas, ...videosAPublicar]) escribirArchivos(r.archivos);
     for (const r of [...automaticas, ...enRevision]) {
-      estado.historial.push({ fecha: hoy.fecha, tipo: r.item ? 'receta' : 'noticia', slug: r.pieza.slug, modo: r.pieza.modo });
+      const tipo = tipoDePieza(r);
+      estado.historial.push({ fecha: hoy.fecha, tipo: tipo === 'recetas' ? 'receta' : tipo === 'videos' ? 'video' : 'noticia', slug: r.pieza.slug ?? r.pieza.id, modo: r.pieza.modo ?? 'revision' });
     }
     estado.historial = estado.historial.slice(-300);
     estado.fuentesUsadas = [...new Set(estado.fuentesUsadas)].slice(-2000);

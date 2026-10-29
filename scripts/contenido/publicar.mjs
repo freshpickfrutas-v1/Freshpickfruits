@@ -63,8 +63,22 @@ export async function prsDeRevisionAbiertosDesde(fechaIso) {
   return prs.filter(pr => pr.head?.ref?.startsWith(PREFIJO_RAMA_REVISION) && pr.created_at.slice(0, 10) >= fechaIso);
 }
 
+/** 'recetas' | 'noticias' | 'videos' según la pieza. */
+export const tipoDePieza = r => (r.item ? 'recetas' : r.pieza.id && !r.pieza.slug ? 'videos' : 'noticias');
+
 function cuerpoPr(r) {
   const n = r.pieza;
+  if (tipoDePieza(r) === 'videos') {
+    return `## ${n.title}
+
+**Video para ${n.seccion === 'recetas' ? 'Recetas' : 'Noticias'}** · Canal: ${n.channel}
+
+Míralo aquí: https://www.youtube.com/watch?v=${n.id}
+
+Para publicarlo, apruébalo desde el panel de admin (Aprobaciones). Si no es relevante, recházalo.
+
+_Creado automáticamente por el sistema de contenido de Fresh Pick._`;
+  }
   const esReceta = Boolean(r.item);
   const ruta = `/${esReceta ? 'recetas' : 'noticias'}/${n.slug}`;
   const fuentes = (n.fuentes ?? []).map(f => `- [${f.titulo}](${f.url}) · ${f.medio}${f.idioma === 'en' ? ' (en inglés)' : ''}`).join('\n');
@@ -91,7 +105,7 @@ _Creado automáticamente por el sistema de contenido de Fresh Pick._`;
 
 /** Creates branch + commit + Pull Request for one piece in review mode. Returns the PR URL. */
 export async function crearPrRevision(r) {
-  const rama = `${PREFIJO_RAMA_REVISION}${r.item ? 'recetas' : 'noticias'}/${r.pieza.slug}`;
+  const rama = `${PREFIJO_RAMA_REVISION}${tipoDePieza(r)}/${r.pieza.slug ?? r.pieza.id}`;
   const actual = git('rev-parse', '--abbrev-ref', 'HEAD');
   git('switch', '-c', rama);
   try {

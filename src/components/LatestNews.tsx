@@ -39,6 +39,9 @@ export const LatestNews: React.FC = () => {
             <span>Ver todos los artículos</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
+          <a href="/#pedidos-personalizados" className="ml-3 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#DDA83A] text-[#2F183C] font-bold text-sm hover:bg-[#C59328] transition-colors">
+            Armar Pedido
+          </a>
         </div>
 
       </div>

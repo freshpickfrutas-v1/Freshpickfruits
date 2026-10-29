@@ -6,7 +6,7 @@ import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
 import { FEATURED_VIDEOS } from '../data/featuredVideos';
-import { RECIPES, RECIPE_CATEGORIES, recipeCategories } from '../data/recipes';
+import { visibleRecipes, RECIPE_CATEGORIES, recipeCategories } from '../data/recipes';
 import { RecipeCategoryId } from '../types';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 
@@ -34,9 +34,9 @@ export default function RecipesPage() {
     window.history.replaceState({}, '', url);
   };
 
-  const visible = filter === 'todas' || filter === 'videos' ? RECIPES : RECIPES.filter(r => recipeCategories(r).includes(filter));
+  const visible = filter === 'todas' || filter === 'videos' ? visibleRecipes() : visibleRecipes().filter(r => recipeCategories(r).includes(filter));
   const activeCategory = RECIPE_CATEGORIES.find(c => c.id === filter);
-  const countFor = (id: RecipeCategoryId) => RECIPES.filter(r => recipeCategories(r).includes(id)).length;
+  const countFor = (id: RecipeCategoryId) => visibleRecipes().filter(r => recipeCategories(r).includes(id)).length;
 
   return (
     <SiteShell>
@@ -61,7 +61,7 @@ export default function RecipesPage() {
           {/* Category filters */}
           <div className="mt-8 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto sm:overflow-visible">
             <div className="flex sm:flex-wrap gap-2 w-max sm:w-auto pb-1" role="tablist" aria-label="Filtrar recetas por categoría">
-              <FilterChip active={filter === 'todas'} onClick={() => selectFilter('todas')} label="Todas las recetas" count={RECIPES.length} />
+              <FilterChip active={filter === 'todas'} onClick={() => selectFilter('todas')} label="Todas las recetas" count={visibleRecipes().length} />
               {RECIPE_CATEGORIES.map(c => (
                 <FilterChip
                   key={c.id}
@@ -131,7 +131,7 @@ export default function RecipesPage() {
           '@context': 'https://schema.org',
           '@type': 'ItemList',
           name: 'Recetas con arándanos frescos Fresh Pick',
-          itemListElement: RECIPES.map((r, i) => ({
+          itemListElement: visibleRecipes().map((r, i) => ({
             '@type': 'ListItem',
             position: i + 1,
             url: `${SITE_URL}/recetas/${r.slug}`

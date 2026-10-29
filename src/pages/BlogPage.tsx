@@ -6,7 +6,7 @@ import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
 import { FEATURED_VIDEOS } from '../data/featuredVideos';
-import { BLOG_CATEGORIES, BLOG_ARTICLES, sortedArticles } from '../data/blog';
+import { BLOG_CATEGORIES, sortedArticles } from '../data/blog';
 import { BlogCategoryId } from '../types';
 import { usePageMeta } from '../lib/seo';
 
@@ -36,7 +36,7 @@ export default function BlogPage() {
   const visible = filter === 'todos' || filter === 'videos' ? all : all.filter(a => a.category === filter);
   const [lead, ...rest] = visible;
   const activeCategory = BLOG_CATEGORIES.find(c => c.id === filter);
-  const countFor = (id: BlogCategoryId) => BLOG_ARTICLES.filter(a => a.category === id).length;
+  const countFor = (id: BlogCategoryId) => all.filter(a => a.category === id).length;
 
   return (
     <SiteShell>
@@ -59,7 +59,7 @@ export default function BlogPage() {
 
           <div className="mt-8 -mx-4 px-4 sm:mx-0 sm:px-0 overflow-x-auto sm:overflow-visible">
             <div className="flex sm:flex-wrap gap-2 w-max sm:w-auto pb-1" role="tablist" aria-label="Filtrar artículos por categoría">
-              <Chip active={filter === 'todos'} onClick={() => selectFilter('todos')} label="Todos los artículos" count={BLOG_ARTICLES.length} />
+              <Chip active={filter === 'todos'} onClick={() => selectFilter('todos')} label="Todos los artículos" count={all.length} />
               {BLOG_CATEGORIES.map(c => (
                 <Chip key={c.id} active={filter === c.id} onClick={() => selectFilter(c.id)} label={c.name} count={countFor(c.id)} />
               ))}

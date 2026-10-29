@@ -6,13 +6,21 @@ import RecipesPage from './pages/RecipesPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import BlogPage from './pages/BlogPage';
 import BlogArticlePage from './pages/BlogArticlePage';
+import LegalPage from './pages/LegalPage';
+import ThankYouPage from './pages/ThankYouPage';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
+import { useHiddenContent } from './lib/hiddenContent';
 import { scrollToId, useAppLocation, useInternalLinkInterception } from './lib/router';
 
 function renderRoute(pathname: string) {
   if (pathname === '/panel' || pathname.startsWith('/panel/')) return <UserPanel />;
   if (pathname === '/admin' || pathname.startsWith('/admin/')) return <AdminPanel />;
+
+  if (pathname === '/politica-de-tratamiento-de-datos') return <LegalPage kind="datos" />;
+  if (pathname === '/terminos-y-condiciones') return <LegalPage kind="terminos" />;
+  if (pathname === '/politica-de-cookies') return <LegalPage kind="cookies" />;
+  if (pathname === '/gracias') return <ThankYouPage />;
 
   if (pathname === '/recetas') return <RecipesPage />;
   const recipeMatch = pathname.match(/^\/recetas\/([^/]+)$/);
@@ -34,6 +42,7 @@ function legacyBlogRedirect(location: { pathname: string; search: string; hash: 
 export default function App() {
   const location = useAppLocation();
   useInternalLinkInterception();
+  useHiddenContent(); // re-renders the page when the admin hides or restores a recipe or article
 
   const redirectTo = legacyBlogRedirect(location);
   useEffect(() => {

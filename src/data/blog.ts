@@ -1,4 +1,5 @@
 import { BlogArticle, BlogCategory, BlogCategoryId } from '../types';
+import { isHidden } from '../lib/hiddenContent';
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
   {
@@ -38,13 +39,16 @@ export function getBlogCategory(id: BlogCategoryId) {
   return BLOG_CATEGORIES.find(c => c.id === id)!;
 }
 
+/** Every published article, including the ones the admin hid from the site (for the admin panel). */
+export const ALL_ARTICLES = BLOG_ARTICLES;
+
 export function getArticleBySlug(slug: string) {
-  return BLOG_ARTICLES.find(a => a.slug === slug);
+  return BLOG_ARTICLES.find(a => a.slug === slug && !isHidden('noticia', slug));
 }
 
 /** Articles sorted newest first. */
 export function sortedArticles() {
-  return [...BLOG_ARTICLES].sort((a, b) => b.date.localeCompare(a.date) || (b.publicadoEn ?? '').localeCompare(a.publicadoEn ?? ''));
+  return BLOG_ARTICLES.filter(a => !isHidden('noticia', a.slug)).sort((a, b) => b.date.localeCompare(a.date) || (b.publicadoEn ?? '').localeCompare(a.publicadoEn ?? ''));
 }
 
 export function formatArticleDate(iso: string) {

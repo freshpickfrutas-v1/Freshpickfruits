@@ -9,6 +9,10 @@ import { BOGOTA, PlacePick, mapsLink } from '../lib/maps';
 import { AddressField } from './AddressField';
 import { WompiPayButton } from './WompiPayButton';
 import {
+  PayChoice, SHIPPING_TRANSFER, SHIPPING_ONLINE, COMMISSION_RATE, onlineCommission,
+  maxUnitsFor, earliestDeliveryDate, deliveryOptions, formatDeliveryDay,
+} from '../lib/pricing';
+import {
   Sparkles,
   CheckCircle2,
   Calendar,
@@ -37,6 +41,7 @@ interface WhatsAppOrder {
   totalGrams: number;
   subtotal: number;
   deliveryFee: number;
+  commission: number;
   total: number;
   billing: BillingData | null;
 }
@@ -90,10 +95,13 @@ function buildWhatsAppText(o: WhatsAppOrder): string {
     '',
     `Subtotal: ${cop(o.subtotal)}`,
     `Envío: ${cop(o.deliveryFee)}`,
+    ...(o.commission > 0 ? [`Comisión pago en línea (${COMMISSION_RATE.wompi * 100}%): ${cop(o.commission)}`] : []),
     `*TOTAL: ${cop(o.total)}*`,
     '',
     '*FORMA DE PAGO*',
-    'Transferencia bancaria o Bre-B @9010401617. Enviaré el comprobante de pago por este chat.',
+    o.commission > 0
+      ? 'Pago en línea (la pasarela me enviará el enlace de pago).'
+      : 'Transferencia bancaria o Bre-B @9010401617. Enviaré el comprobante de pago por este chat.',
     '',
     'Confirmo mi pedido. ¡Gracias!',
   ].join('\n');
@@ -178,11 +186,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   const [deliveryComplement, setDeliveryComplement] = useState('');
   const [deliveryPlace, setDeliveryPlace] = useState<PlacePick | null>(null);
   const [billingAddress, setBillingAddress] = useState('');
-  const [deliveryDate, setDeliveryDate] = useState(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    return d.toISOString().split('T')[0];
-  });
+  const dateOptions = React.useMemo(() => deliveryOptions(8), []);
+  const [deliveryDate, setDeliveryDate] = useState(() => earliestDeliveryDate());
+  const [payChoice, setPayChoice] = useState<PayChoice>('transferencia');
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [acceptData, setAcceptData] = useState(false);
   const applyAddress = (a: SavedAddress) => {
     setSelectedAddressId(a.id);
     setCustomerName(a.recipientName);
@@ -235,10 +243,12 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     const unitPrice = fruit.standardPrice || (fruit.pricePerGram * step);
     return sum + (units * unitPrice);
   }, 0);
-  // Pedido mínimo: 500g total. Envío base $6.000 COP.
+  // Pedido mínimo: 500g total. Envío $6.000 por transferencia / Bre-B, $7.000 con pago en línea (+ comisión).
   const meetsMinOrder = totalGrams >= 500;
-  const deliveryFee = !meetsMinOrder || totalGrams === 0 ? 0 : 6000;
-  const grandTotal = Math.max(0, subtotal + deliveryFee);
+  const online = payChoice === 'tarjeta';
+  const deliveryFee = !meetsMinOrder || totalGrams === 0 ? 0 : (online ? SHIPPING_ONLINE : SHIPPING_TRANSFER);
+  const commission = online && deliveryFee > 0 ? onlineCommission(subtotal + deliveryFee) : 0;
+  const grandTotal = Math.max(0, subtotal + deliveryFee + commission);
 
   const hasPackingError = fruits.some(f => {
     const step = f.defaultGramUnit || 125;
@@ -260,7 +270,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       if (unitMultiplier === 2 && nextUnits % 2 !== 0) {
         nextUnits = direction > 0 ? Math.ceil(nextUnits / 2) * 2 : Math.floor(nextUnits / 2) * 2;
       }
-      nextUnits = Math.max(0, nextUnits);
+      nextUnits = Math.min(maxUnitsFor(step), Math.max(0, nextUnits));
       return {
         ...prev,
         [fruitId]: nextUnits * step
@@ -273,7 +283,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     const step = fruit?.defaultGramUnit || 125;
     setFruitGrams(prev => ({
       ...prev,
-      [fruitId]: Math.max(0, units) * step
+      [fruitId]: Math.min(maxUnitsFor(step), Math.max(0, units)) * step
     }));
   };
 
@@ -296,6 +306,9 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
     } else if (packingErrors.length > 0) {
       errors.fruits = `Por motivos de empaque y logística: ${packingErrors.join(' · ')}. Por favor, ajusta a múltiplos de 2 para poder empacar tu envío.`;
     }
+    if (!dateOptions.includes(deliveryDate)) errors.deliveryDate = 'Elige una fecha de entrega disponible (martes o miércoles, mínimo 8 días después del pedido).';
+    if (!acceptTerms) errors.acceptTerms = 'Debes aceptar las condiciones de entrega y los términos para continuar.';
+    if (!acceptData) errors.acceptData = 'Debes autorizar el tratamiento de tus datos personales para continuar.';
     if (!customerName.trim()) errors.customerName = 'Ingresa tu nombre.';
     if (!customerPhone.trim() || customerPhone.trim().length < 7) errors.customerPhone = 'Ingresa un WhatsApp válido.';
     if (!deliveryAddress.trim()) errors.deliveryAddress = 'Ingresa la dirección de entrega.';
@@ -366,7 +379,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         subtotal,
         deliveryFee,
         total: grandTotal,
-        paymentMethod: 'nequi_daviplata',
+        paymentMethod: online ? 'tarjeta' : 'transferencia',
       });
       orderId = saved.orderNumber;
       setSavedOrderDocId(saved.id);
@@ -409,7 +422,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       deliveryTimeSlot: 'morning',
       frequency: 'one_time',
       notes: '',
-      paymentMethod: 'nequi_daviplata',
+      paymentMethod: online ? 'card' : 'transfer',
       subtotal,
       packagingCost: 0,
       addOnsCost: 0,
@@ -439,6 +452,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       totalGrams,
       subtotal,
       deliveryFee,
+      commission,
       total: grandTotal,
       billing,
     });
@@ -472,7 +486,12 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 <AlertCircle className="w-4 h-4 shrink-0" /> {saveError}
               </p>
             )}
-            {savedOrderDocId && (
+            <div className="mt-4 text-left text-xs bg-[#F5ECF9] border border-[#DFCEE6] rounded-xl px-4 py-3 text-[#2F183C] space-y-1">
+              <p className="font-bold">¡Gracias por tu compra en Fresh Pick!</p>
+              <p>Despachamos los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). Tu fecha de entrega: <strong className="capitalize">{formatDeliveryDay(completedOrder.deliveryDate)}</strong>.</p>
+              <p>Te escribiremos por WhatsApp cuando tu pedido salga a ruta.</p>
+            </div>
+            {savedOrderDocId && completedOrder.paymentMethod === 'card' && (
               <WompiPayButton
                 orderId={savedOrderDocId}
                 customer={{ name: completedOrder.customerName, email: customerEmail.trim() || (user?.email ?? ''), phone: completedOrder.customerPhone }}
@@ -511,7 +530,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             Arma tu Pedido de Arándanos en Línea
           </h2>
           <p className="mt-3 text-stone-700">
-            Elige 125g, 250g o 500g. Mínimo 500g. Entregas martes y miércoles (8:00 a.m. – 3:00 p.m.). Pagos por transferencia o Bre-B @9010401617.
+            Elige 125g, 250g o 500g. Mínimo 500g. Entregas martes y miércoles (8:00 a.m. – 3:00 p.m.), mínimo 8 días después de hacer el pedido. Pagos por transferencia, Bre-B @9010401617 o en línea.
           </p>
         </div>
 
@@ -562,6 +581,10 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <div className="flex items-start gap-2">
                     <span className="text-[#7B4382] font-bold">•</span>
                     <span><strong>Estuches de 500g:</strong> Se pueden pedir desde 1 unidad en adelante.</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-[#7B4382] font-bold">•</span>
+                    <span><strong>Máximo por pedido:</strong> 80 estuches de 125g, 40 de 250g y 20 de 500g. Para volúmenes mayores escríbenos por WhatsApp.</span>
                   </div>
                 </div>
               </div>
@@ -651,8 +674,9 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                           </div>
                           <button
                             type="button"
+                            disabled={units >= maxUnitsFor(step)}
                             onClick={() => handleGramsChange(fruit.id, 1)}
-                            className="w-8 h-8 rounded-md bg-[#2F183C] text-white flex items-center justify-center hover:bg-[#432356] transition-colors cursor-pointer"
+                            className="w-8 h-8 rounded-md bg-[#2F183C] text-white flex items-center justify-center hover:bg-[#432356] transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
                             aria-label={`Agregar estuches de ${fruit.name}`}
                           >
                             <Plus className="w-3.5 h-3.5" />
@@ -837,14 +861,21 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   onChange={e => setBillingAddress(e.target.value)}
                 />
               </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-[#7B4382]" />
-                <input
-                  type="date"
-                  className="border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
+              <div className="rounded-xl bg-[#FAF7F0] border border-[#EADBEE] p-3 space-y-2">
+                <label className="flex items-center gap-2 text-sm font-semibold text-[#2F183C]" htmlFor="fecha-entrega">
+                  <Calendar className="w-4 h-4 text-[#7B4382]" /> Fecha de entrega
+                </label>
+                <select
+                  id="fecha-entrega"
+                  className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm bg-white capitalize focus:border-[#7B4382] outline-none"
                   value={deliveryDate}
-                  onChange={e => setDeliveryDate(e.target.value)}
-                />
+                  onChange={e => { setDeliveryDate(e.target.value); setFormErrors(prev => ({ ...prev, deliveryDate: '' })); }}
+                >
+                  {dateOptions.map(d => <option key={d} value={d}>{formatDeliveryDay(d)}</option>)}
+                </select>
+                <p className="text-[11px] text-stone-600 leading-relaxed">
+                  Despachamos solo los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). La primera fecha disponible es 8 días después de hacer el pedido.
+                </p>
               </div>
             </div>
           </div>
@@ -945,10 +976,45 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <span>Envío:</span>
                   <span>{deliveryFee === 0 ? (totalGrams === 0 ? '$0 COP' : 'Calculando...') : `$${deliveryFee.toLocaleString('es-CO')} COP`}</span>
                 </div>
+                {commission > 0 && (
+                  <div className="flex justify-between text-stone-600">
+                    <span>Comisión pago en línea ({COMMISSION_RATE.wompi * 100}%):</span>
+                    <span>${commission.toLocaleString('es-CO')} COP</span>
+                  </div>
+                )}
                 <div className="flex justify-between items-baseline pt-2 border-t border-stone-200">
                   <span className="font-bold text-[#2F183C]">Total estimado:</span>
                   <span className="text-2xl font-black text-[#2F183C]">${grandTotal.toLocaleString('es-CO')} COP</span>
                 </div>
+              </div>
+
+              <fieldset className="space-y-2">
+                <legend className="text-xs font-bold text-[#2F183C] mb-1">Forma de pago</legend>
+                <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${!online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
+                  <input type="radio" name="pago" className="mt-0.5" checked={!online} onChange={() => setPayChoice('transferencia')} />
+                  <span><strong>Transferencia o Bre-B</strong> · envío $6.000 COP, sin comisión. Confirmas por WhatsApp.</span>
+                </label>
+                <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
+                  <input type="radio" name="pago" className="mt-0.5" checked={online} onChange={() => setPayChoice('tarjeta')} />
+                  <span><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · envío $7.000 COP + comisión de la pasarela del {COMMISSION_RATE.wompi * 100}% (Wompi).</span>
+                </label>
+              </fieldset>
+
+              <div className="space-y-2 text-[11px] text-stone-700">
+                <label className="flex items-start gap-2 cursor-pointer">
+                  <input type="checkbox" className="mt-0.5" checked={acceptTerms} onChange={e => { setAcceptTerms(e.target.checked); setFormErrors(prev => ({ ...prev, acceptTerms: '' })); }} />
+                  <span>
+                    He leído y acepto las condiciones de entrega (martes y miércoles, mínimo 8 días después del pedido, solo Bogotá) y los{' '}
+                    <a href="/terminos-y-condiciones" target="_blank" rel="noopener" className="font-semibold text-[#7B4382] underline">Términos y Condiciones</a>.
+                  </span>
+                </label>
+                <label className="flex items-start gap-2 cursor-pointer">
+                  <input type="checkbox" className="mt-0.5" checked={acceptData} onChange={e => { setAcceptData(e.target.checked); setFormErrors(prev => ({ ...prev, acceptData: '' })); }} />
+                  <span>
+                    Autorizo de manera previa, expresa e informada a ANDEAN FRUIT COMPANY SAS (Fresh Pick) para tratar mis datos personales según la{' '}
+                    <a href="/politica-de-tratamiento-de-datos" target="_blank" rel="noopener" className="font-semibold text-[#7B4382] underline">Política de Tratamiento de Datos</a>.
+                  </span>
+                </label>
               </div>
 
               {Object.values(formErrors).some(Boolean) && (
@@ -983,7 +1049,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 disabled={isSubmitting}
                 className="w-full py-2.5 rounded-xl border border-[#DFCEE6] text-[#2F183C] font-bold text-sm hover:bg-[#F5ECF9] transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Guardando...' : 'Guardar pedido en la web'}
+                {isSubmitting ? 'Guardando...' : online ? 'Continuar al pago en línea' : 'Guardar pedido en la web'}
               </button>
               <p className="text-[11px] text-stone-400 text-center">WhatsApp: +57 317 893 1026</p>
             </div>

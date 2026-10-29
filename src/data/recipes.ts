@@ -1,4 +1,5 @@
 import { Recipe, RecipeCategory, RecipeCategoryId } from '../types';
+import { isHidden } from '../lib/hiddenContent';
 
 export const QUICK_RECIPE_MAX_MINUTES = 15;
 
@@ -87,5 +88,10 @@ export function getRecipeCategory(id: RecipeCategoryId) {
 }
 
 export function getRecipeBySlug(slug: string) {
-  return RECIPES.find(r => r.slug === slug);
+  return RECIPES.find(r => r.slug === slug && !isHidden('receta', slug));
+}
+
+/** Recipes shown on the site: all published ones except those the admin hid. RECIPES keeps the complete library. */
+export function visibleRecipes(): Recipe[] {
+  return RECIPES.filter(r => !isHidden('receta', r.slug));
 }

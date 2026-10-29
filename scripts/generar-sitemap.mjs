@@ -26,6 +26,8 @@ const noticias = readPublished('noticias');
 const newest = list => list[0]?.date ?? HOME_LASTMOD;
 
 const urls = [
+  { loc: "/politica-de-tratamiento-de-datos", lastmod: HOME_LASTMOD, changefreq: "yearly", priority: "0.2" },
+  { loc: "/terminos-y-condiciones", lastmod: HOME_LASTMOD, changefreq: "yearly", priority: "0.2" },
   { loc: '/', lastmod: HOME_LASTMOD, changefreq: 'weekly', priority: '1.0' },
   { loc: '/recetas', lastmod: newest(recetas), changefreq: 'daily', priority: '0.8' },
   { loc: '/noticias', lastmod: newest(noticias), changefreq: 'daily', priority: '0.8' },

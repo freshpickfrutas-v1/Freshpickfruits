@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { FruitItem } from '../types';
 import { CartItem } from '../components/CartDrawer';
+import { maxUnitsFor } from '../lib/pricing';
 
 interface CartContextValue {
   items: CartItem[];
@@ -33,17 +34,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (existing) {
         return prev.map(item =>
           item.fruit.id === fruit.id
-            ? { ...item, quantity: item.quantity + qtyToAdd }
+            ? { ...item, quantity: Math.min(maxUnitsFor(fruit.defaultGramUnit || 125), item.quantity + qtyToAdd) }
             : item
         );
       }
-      return [...prev, { fruit, quantity: qtyToAdd }];
+      return [...prev, { fruit, quantity: Math.min(maxUnitsFor(fruit.defaultGramUnit || 125), qtyToAdd) }];
     });
   };
 
   const updateQuantity = (fruitId: string, quantity: number) => {
     setItems(prev =>
-      prev.map(item => (item.fruit.id === fruitId ? { ...item, quantity } : item))
+      prev.map(item => (item.fruit.id === fruitId ? { ...item, quantity: Math.min(maxUnitsFor(item.fruit.defaultGramUnit || 125), quantity) } : item))
     );
   };
 

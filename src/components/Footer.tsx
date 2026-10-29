@@ -1,6 +1,7 @@
 import React from 'react';
 import { Leaf, Phone, Mail, MapPin, ShieldCheck, Heart, Instagram, Facebook } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { openCookieSettings } from './CookieBanner';
 
 export const Footer: React.FC = () => {
   const { isStaff } = useAuth();
@@ -171,9 +172,13 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="pt-2">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6]">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
-                <span>GLOBALG.A.P. · GRASP · ICA</span>
+              <div className="flex flex-wrap items-center gap-2">
+                {['GLOBALG.A.P.', 'GRASP', 'ICA'].map(c => (
+                  <span key={c} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-[11px] text-[#DFCEE6]">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
+                    {c}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
@@ -182,6 +187,13 @@ export const Footer: React.FC = () => {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
           <p>© {new Date().getFullYear()} Fresh Pick - Arándanos de Alta Montaña · Fundada en 2017 · Guasca, Colombia. Todos los derechos reservados.</p>
+
+          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[11px]">
+            <a href="/politica-de-tratamiento-de-datos" className="hover:text-[#DDA83A] transition-colors">Política de Datos</a>
+            <a href="/terminos-y-condiciones" className="hover:text-[#DDA83A] transition-colors">Términos y Condiciones</a>
+            <a href="/politica-de-cookies" className="hover:text-[#DDA83A] transition-colors">Cookies</a>
+            <button type="button" onClick={openCookieSettings} className="hover:text-[#DDA83A] transition-colors cursor-pointer">Configurar cookies</button>
+          </nav>
 
           <div className="flex items-center gap-2 text-[11px]">
             <span>Medios de pago:</span>

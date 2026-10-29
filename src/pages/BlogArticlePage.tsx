@@ -3,6 +3,7 @@ import { Clock, CalendarDays, BookMarked } from 'lucide-react';
 import { SiteShell } from '../components/SiteShell';
 import { ContentImage, ImageCredit } from '../components/ContentImage';
 import { OrderCta } from '../components/OrderCta';
+import { FloatingBuyButton } from '../components/FloatingBuyButton';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RecipeCard } from '../components/RecipeCard';
 import { ArticleCard } from '../components/ArticleCard';
@@ -44,6 +45,7 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
 
   return (
     <SiteShell>
+      <FloatingBuyButton />
       <article>
         <header className="fp-gradient-hero border-b border-stone-200/60">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10">
@@ -90,7 +92,16 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
 
             <div className="mt-10 bg-white rounded-2xl border border-[#EADBEE] p-5 sm:p-10 shadow-sm">
               <div className="max-w-2xl mx-auto">
-                {article.blocks.map((block, i) => <Block key={i} block={block} />)}
+                {article.blocks.map((block, i) => (
+                  <React.Fragment key={i}>
+                    <Block block={block} />
+                    {i === Math.min(3, article.blocks.length - 2) && article.blocks.length > 6 && (
+                      <div className="mt-8">
+                        <OrderCta compact title="Pruébalos tú mismo" text="Arándanos de alta montaña cosechados a mano. Entregas martes y miércoles." whatsappMessage={`Hola Fresh Pick, leí "${article.title}" y quiero pedir arándanos frescos`} />
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
 
                 {article.fuentes && article.fuentes.length > 0 && <Sources sources={article.fuentes} />}
 
@@ -100,7 +111,7 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
               </div>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-10" id="cta-final">
               <OrderCta
                 title="Disfruta los beneficios con arándanos Fresh Pick"
                 text="Cosechados a mano en su punto exacto de madurez, sin ceras artificiales y con su pruina natural intacta. Entregas martes y miércoles."

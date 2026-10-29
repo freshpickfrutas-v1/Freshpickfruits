@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   LayoutDashboard, Package, Users, ShoppingBag, ArrowLeft, Leaf,
-  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog, Repeat
+  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog, Repeat, Newspaper
 } from 'lucide-react';
 import {
   subscribeProducts, addProduct, updateProduct, deleteProduct,
@@ -16,6 +16,9 @@ import { importCatalog } from '../lib/catalog';
 import { SubscriptionsBoard } from '../components/SubscriptionsBoard';
 import { subscribeAllSubscriptions } from '../lib/subscriptions';
 import { FRUITS_DATA } from '../data/mockData';
+import { ALL_ARTICLES } from '../data/blog';
+import { RECIPES } from '../data/recipes';
+import { ContentKind, hideContent, restoreContent, isHidden, useHiddenContent } from '../lib/hiddenContent';
 
 function isToday(iso: string) {
   if (!iso) return false;
@@ -211,7 +214,7 @@ function ProductFormModal({
   );
 }
 
-type AdminTab = 'resumen' | 'pedidos' | 'suscripciones' | 'productos' | 'clientes' | 'equipo';
+type AdminTab = 'resumen' | 'pedidos' | 'suscripciones' | 'productos' | 'contenido' | 'clientes' | 'equipo';
 
 /** Which team roles can open each tab. Phase 2 refines this per workflow step. */
 const TAB_ROLES: Record<AdminTab, UserRole[]> = {
@@ -219,6 +222,7 @@ const TAB_ROLES: Record<AdminTab, UserRole[]> = {
   pedidos: ['admin', 'finanzas', 'poscosecha', 'contabilidad', 'asistente', 'domiciliario'],
   suscripciones: ['admin', 'finanzas', 'asistente', 'contabilidad'],
   productos: ['admin'],
+  contenido: ['admin'],
   clientes: ['admin', 'contabilidad'],
   equipo: ['admin'],
 };
@@ -305,6 +309,72 @@ function TeamTab({ currentUid }: { currentUid: string }) {
             )}
           </tbody>
         </table>
+      </div>
+    </div>
+  );
+}
+
+function ContentTab() {
+  useHiddenContent();
+  const [busy, setBusy] = useState('');
+  const [error, setError] = useState('');
+  const [view, setView] = useState<ContentKind>('noticia');
+
+  const items = view === 'noticia'
+    ? ALL_ARTICLES.map(a => ({ slug: a.slug, title: a.title, date: a.date }))
+    : RECIPES.map(r => ({ slug: r.slug, title: r.title, date: r.date ?? '' }));
+  const sortedItems = [...items].sort((a, b) => b.date.localeCompare(a.date));
+
+  const toggle = async (slug: string, title: string, hide: boolean) => {
+    if (hide && !window.confirm(`¿Eliminar "${title}" del sitio? Dejará de verse para los clientes; podrás restaurarlo desde aquí.`)) return;
+    setBusy(slug);
+    setError('');
+    try {
+      if (hide) await hideContent(view, slug, title);
+      else await restoreContent(view, slug);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo actualizar.');
+    } finally {
+      setBusy('');
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center gap-2">
+        {(['noticia', 'receta'] as ContentKind[]).map(k => (
+          <button
+            key={k}
+            onClick={() => setView(k)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold border cursor-pointer ${view === k ? 'bg-[#2F183C] text-white border-[#2F183C]' : 'bg-white text-[#2F183C] border-[#DFCEE6]'}`}
+          >
+            {k === 'noticia' ? `Noticias (${ALL_ARTICLES.length})` : `Recetas (${RECIPES.length})`}
+          </button>
+        ))}
+      </div>
+      <p className="text-xs text-stone-500">
+        La biblioteca solo crece: la automatización nunca borra nada. "Eliminar" quita el contenido del sitio y se puede restaurar cuando quieras.
+      </p>
+      {error && <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl px-3 py-2">{error}</p>}
+      <div className="bg-white rounded-2xl border border-[#EADBEE] divide-y divide-[#F0E6F3]">
+        {sortedItems.map(item => {
+          const off = isHidden(view, item.slug);
+          return (
+            <div key={item.slug} className="flex items-center justify-between gap-3 px-4 py-3">
+              <div className="min-w-0">
+                <p className={`text-sm font-semibold truncate ${off ? 'text-stone-400 line-through' : 'text-[#2F183C]'}`}>{item.title}</p>
+                <p className="text-xs text-stone-500">{item.date}{off ? ' · eliminado del sitio' : ''}</p>
+              </div>
+              <button
+                disabled={busy === item.slug}
+                onClick={() => toggle(item.slug, item.title, !off)}
+                className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer disabled:opacity-50 ${off ? 'border border-[#DFCEE6] text-[#2F183C]' : 'bg-red-600 text-white hover:bg-red-700'}`}
+              >
+                {busy === item.slug ? '...' : off ? 'Restaurar' : 'Eliminar'}
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -430,6 +500,7 @@ function AdminPanelInner() {
             { id: 'pedidos' as const, label: 'Pedidos', icon: ShoppingBag },
             { id: 'suscripciones' as const, label: 'Suscripciones', icon: Repeat },
             { id: 'productos' as const, label: 'Productos', icon: Box },
+            { id: 'contenido' as const, label: 'Noticias y recetas', icon: Newspaper },
             { id: 'clientes' as const, label: 'Clientes', icon: Users },
             { id: 'equipo' as const, label: 'Equipo', icon: UserCog },
           ]).filter(item => allowedTabs.includes(item.id)).map(item => (
@@ -450,6 +521,8 @@ function AdminPanelInner() {
 
         <main className="lg:col-span-10 space-y-6">
           {tab === 'equipo' && user && <TeamTab currentUid={user.uid} />}
+
+          {tab === 'contenido' && <ContentTab />}
 
           {tab === 'suscripciones' && <SubscriptionsTab role={role} email={user?.email ?? ''} />}
 

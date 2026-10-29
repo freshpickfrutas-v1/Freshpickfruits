@@ -7,7 +7,7 @@ import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RecipeCard } from '../components/RecipeCard';
 import { NotFoundContent } from './NotFoundContent';
-import { RECIPES, formatMinutes, getRecipeBySlug, getRecipeCategory, recipeCategories, recipeTotalMinutes } from '../data/recipes';
+import { visibleRecipes, formatMinutes, getRecipeBySlug, getRecipeCategory, recipeCategories, recipeTotalMinutes } from '../data/recipes';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 
 export default function RecipeDetailPage({ slug }: { slug: string }) {
@@ -36,7 +36,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
 
   const category = getRecipeCategory(recipe.category);
   const total = recipeTotalMinutes(recipe);
-  const related = RECIPES.filter(r => r.slug !== recipe.slug && recipeCategories(r).some(c => recipeCategories(recipe).includes(c))).slice(0, 3);
+  const related = visibleRecipes().filter(r => r.slug !== recipe.slug && recipeCategories(r).some(c => recipeCategories(recipe).includes(c))).slice(0, 3);
 
   return (
     <SiteShell>

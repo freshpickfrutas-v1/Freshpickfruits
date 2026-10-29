@@ -1,11 +1,11 @@
 import React from 'react';
 import { BookOpen, ArrowRight, Newspaper } from 'lucide-react';
-import { RECIPES, RECIPE_CATEGORIES } from '../data/recipes';
+import { visibleRecipes, RECIPE_CATEGORIES } from '../data/recipes';
 import { RecipeCard } from './RecipeCard';
 
 /** Home page teaser: featured recipes with links to the full Recetas and Blog pages. */
 export const RecipesAndTips: React.FC = () => {
-  const featured = RECIPES.filter(r => r.featured).slice(0, 3);
+  const featured = visibleRecipes().filter(r => r.featured).slice(0, 3);
 
   return (
     <section id="recetas-tips" className="py-12 sm:py-16 bg-[#FBF1D9]/90 backdrop-blur-[2px] border-b border-[#EBD9A8]">

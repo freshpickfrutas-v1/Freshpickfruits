@@ -1,0 +1,101 @@
+{
+  "slug": "extracto-de-hoja-de-mirtilo-y-funcion-celular-que-dice-la-ciencia",
+  "title": "Extracto de hoja de mirtilo y función celular: qué dice la ciencia",
+  "metaDescription": "Un estudio in vitro analiza cómo el extracto de hoja de arándano silvestre influye en el estrés oxidativo y la inflamación celular.",
+  "excerpt": "Investigadores analizaron en laboratorio el efecto del extracto de hoja de arándano silvestre sobre la respuesta inflamatoria y los peroxisomas en células microgliales.",
+  "category": "nutricion-ciencia",
+  "date": "2026-10-30",
+  "publicadoEn": "2026-10-30T18:59:39.564Z",
+  "readMinutes": 4,
+  "author": "Equipo Fresh Pick",
+  "imageAlt": "Arándanos frescos sobre una mesa de madera junto a hojas verdes en un entorno natural",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introducción: de qué trata y por qué importa"
+    },
+    {
+      "type": "p",
+      "text": "El estudio de los componentes naturales y su interacción con los procesos celulares es una de las áreas más fascinantes de la ciencia actual. En los últimos años, la atención científica no solo se ha centrado en los frutos que consumimos habitualmente, sino también en otras partes de la planta, como las hojas, para comprender cómo sus compuestos fitoquímicos influyen en la respuesta inflamatoria y el estrés oxidativo a nivel celular."
+    },
+    {
+      "type": "p",
+      "text": "En este contexto, las células microgliales —las encargadas de la defensa inmunitaria en el sistema nervioso— juegan un papel central. Comprender cómo ciertos extractos vegetales pueden modular la función de los peroxisomas, orgánulos clave en el metabolismo de grasas y en el equilibrio del estrés oxidativo, resulta relevante para la investigación biomédica básica. Un estudio reciente publicado en BMC Complementary Medicine and Therapies indagó precisamente sobre el extracto de hoja de arándano silvestre (Vaccinium myrtillus) y su impacto en células microgliales cultivadas en laboratorio."
+    },
+    {
+      "type": "h2",
+      "text": "Qué dice la fuente: los hallazgos en laboratorio"
+    },
+    {
+      "type": "p",
+      "text": "Para llevar a cabo este experimento, los investigadores utilizaron un modelo de laboratorio in vitro con líneas celulares microgliales murinas llamadas BV-2, procedentes de ratones. El trabajo comparó dos grupos de células: un grupo silvestre o normal (wild-type) y un grupo con deficiencia genética de la enzima Acil-CoA oxidasa 1 (Acox1 -/-), involucrada en la degradación peroxisomal de ácidos grasos."
+    },
+    {
+      "type": "p",
+      "text": "A través de ensayos químicos como la prueba DPPH, el extracto de hoja de Vaccinium myrtillus demostró una capacidad captadora de radicales libres con un valor IC50 de 0,03613 mg/mL. Posteriormente, al exponer las células a lipopolisacárido (LPS), una sustancia que induce una fuerte respuesta inflamatoria, los científicos observaron diversos cambios significativos:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "En las células silvestres, la estimulación con LPS redujo la actividad de la enzima ACOX1 en aproximadamente un 40%. La adición del extracto de Vaccinium myrtillus logró restaurar dicha actividad a sus niveles iniciales.",
+        "El LPS elevó la actividad y la expresión génica (ARNm) de la catalasa en 1,5 veces en células silvestres, y en 2 y 4 veces respectivamente en células mutantes. El tratamiento con el extracto normalizó estos parámetros en las células normales y los redujo en cerca del 20% en las mutantes.",
+        "El extracto moduló la expresión del gen Abcd1, responsable del transporte de ácidos grasos hacia los peroxisomas, lo que sugiere un efecto sobre el manejo celular de lípidos y el balance redox.",
+        "Ante el estímulo inflamatorio del LPS, marcadores como el óxido nítrico y la expresión de iNos aumentaron hasta 20 y 10 veces en células mutantes, mientras que citocinas inflamatorias como Tnf-α e Il-1β se incrementaron entre 4 y 30 veces en células normales, y más de 180 veces en mutantes. El extracto redujo significativamente la producción de óxido nítrico y disminuyó la expresión de iNos, Tnf-α e Il-1β en ambas líneas celulares."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "Como limitación importante, los autores aclaran que se trata de una investigación preliminar realizada exclusivamente en un entorno in vitro con células de roedor, por lo que los mecanismos moleculares exactos aún deben esclarecerse mediante estudios posteriores."
+    },
+    {
+      "type": "h2",
+      "text": "Contexto: el interés científico en los componentes del arándano"
+    },
+    {
+      "type": "p",
+      "text": "Este hallazgo encaja de manera interesante con la literatura científica existente sobre las plantas del género Vaccinium. Mientras que la mayoría de investigaciones previas se han concentrado en la pulpa y la piel de las bayas por su contenido de antocianinas y polifenoles, este trabajo dirige la mirada hacia la hoja del mirtilo o arándano silvestre y su relación con el metabolismo de los peroxisomas."
+    },
+    {
+      "type": "p",
+      "text": "Los resultados sugieren que los compuestos bioactivos presentes en las hojas no solo poseen capacidad antioxidante directa en ensayos de laboratorio, sino que también interactúan de forma compleja con el metabolismo peroxisomal y las vías de señalización de la inflamación. Aunque la investigación en esta área específica está en sus etapas iniciales, este tipo de trabajos contribuye a construir un panorama más detallado sobre cómo los componentes botánicos modulan las respuestas celulares ante el estrés oxidativo."
+    },
+    {
+      "type": "h2",
+      "text": "Qué significa para ti: de la probeta a la vida real"
+    },
+    {
+      "type": "p",
+      "text": "Es fundamental interpretar estas novedades con rigor y prudencia. Al tratarse de un estudio realizado en placas de cultivo celular (in vitro) utilizando un extracto de hoja de Vaccinium myrtillus, no es posible trasladar directamente estos resultados al consumo de la fruta fresca ni a tratamientos de salud en seres humanos. Comer arándanos no equivale a aplicar un extracto concentrado de hoja directamente sobre células en un ensayo de laboratorio."
+    },
+    {
+      "type": "p",
+      "text": "No obstante, esta información nos ayuda a valorar la riqueza biológica de la planta entera y refuerza el interés científico por profundizar en los alimentos de origen vegetal. Disfrutar de frutas frescas como parte de un patrón alimentario variado y equilibrado nos conecta con los aportes naturales de la tierra, siempre dentro de un marco de hábitos saludables e integrales."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusión"
+    },
+    {
+      "type": "p",
+      "text": "En resumen, la ciencia continúa explorando los intrigantes mecanismos celulares a través de los cuales los componentes de las plantas interactúan con diferentes vías metabólicas e inflamatorias en entornos controlados. Este estudio in vitro aporta evidencia valiosa para futuras investigaciones sobre la modulación del estrés oxidativo celular. En Fresh Pick nos apasiona seguir de cerca estos avances científicos que profundizan en las virtudes de la naturaleza y nos inspiran a promover un conocimiento transparente y riguroso."
+    }
+  ],
+  "fuentes": [
+    {
+      "titulo": "The influence of blueberry (Vaccinium myrtillus) leaf extract on peroxisomal function in microglial cells.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42958533/",
+      "medio": "PubMed · BMC complementary medicine and therapies",
+      "idioma": "en"
+    }
+  ],
+  "relatedRecipes": [
+    "infusion-caliente-de-arandanos-y-canela",
+    "te-helado-de-arandanos",
+    "jugo-natural-de-arandanos"
+  ],
+  "estado": "publicado",
+  "modo": "revision",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/extracto-de-hoja-de-mirtilo-y-funcion-celular-que-dice-la-ciencia.jpg"
+}

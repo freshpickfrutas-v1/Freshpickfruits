@@ -45,7 +45,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42940281/",
     "https://pubmed.ncbi.nlm.nih.gov/42947730/",
     "https://pubmed.ncbi.nlm.nih.gov/42951114/",
-    "https://pubmed.ncbi.nlm.nih.gov/42950765/"
+    "https://pubmed.ncbi.nlm.nih.gov/42950765/",
+    "https://pubmed.ncbi.nlm.nih.gov/42958533/"
   ],
   "historial": [
     {
@@ -436,6 +437,18 @@
       "fecha": "2026-10-29",
       "tipo": "noticia",
       "slug": "como-la-genetica-y-la-maduracion-definen-el-perfil-del-arandano",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-30",
+      "tipo": "receta",
+      "slug": "como-deshidratar-arandanos-en-el-horno",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-10-30",
+      "tipo": "noticia",
+      "slug": "extracto-de-hoja-de-mirtilo-y-funcion-celular-que-dice-la-ciencia",
       "modo": "revision"
     }
   ]

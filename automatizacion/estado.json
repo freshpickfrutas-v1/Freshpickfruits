@@ -450,6 +450,12 @@
       "tipo": "noticia",
       "slug": "extracto-de-hoja-de-mirtilo-y-funcion-celular-que-dice-la-ciencia",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-10-31",
+      "tipo": "receta",
+      "slug": "batido-de-arandanos-y-cacao",
+      "modo": "automatico"
     }
   ]
 }

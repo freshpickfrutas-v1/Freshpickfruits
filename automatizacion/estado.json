@@ -456,6 +456,12 @@
       "tipo": "receta",
       "slug": "batido-de-arandanos-y-cacao",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-01",
+      "tipo": "receta",
+      "slug": "panqueques-de-avena-y-arandanos-sin-harina",
+      "modo": "automatico"
     }
   ]
 }

@@ -1,0 +1,66 @@
+{
+  "slug": "panqueques-de-avena-y-arandanos-sin-harina",
+  "title": "Panqueques de Avena y Arándanos sin Harina",
+  "excerpt": "Disfruta de unos panqueques esponjosos y nutritivos sin harina de trigo. Una opción deliciosa y fácil para tus mañanas, llena del dulce sabor de los arándanos frescos.",
+  "imageAlt": "Torre de panqueques de avena dorados, decorados con arándanos frescos enteros y un toque de miel en un plato de cerámica.",
+  "category": "desayunos",
+  "extraCategories": [
+    "postres-saludables",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 10,
+  "restMinutes": 5,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de hojuelas de avena"
+    },
+    {
+      "text": "1 huevo"
+    },
+    {
+      "text": "1/2 taza de leche entera o vegetal"
+    },
+    {
+      "text": "1 cucharadita de polvo de hornear"
+    },
+    {
+      "text": "1/2 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1/4 de cucharadita de canela en polvo"
+    },
+    {
+      "text": "1 cucharadita de mantequilla para la sartén"
+    },
+    {
+      "text": "1 pizca de sal"
+    }
+  ],
+  "steps": [
+    "Licúa las hojuelas de avena durante unos segundos hasta procesarlas y obtener una textura similar a una harina fina.",
+    "Añade a la licuadora el huevo, la leche, el polvo de hornear, la esencia de vainilla, la canela y la pizca de sal. Licúa nuevamente hasta obtener una mezcla suave y sin grumos.",
+    "Deja reposar la masa durante 5 minutos para que la avena absorba el líquido y espese ligeramente.",
+    "Calienta una sartén antiadherente a fuego medio y derrite un toque de mantequilla para engrasar la superficie.",
+    "Vierte porciones de la mezcla formando discos pequeños en la sartén. Distribuye inmediatamente unos cuantos arándanos Fresh Pick enteros sobre la masa caliente de cada panqueque.",
+    "Cocina durante 2 a 3 minutos hasta que aparezcan burbujas en la superficie. Voltea los panqueques con cuidado y cocina por 1 a 2 minutos más hasta que se doren por ambos lados.",
+    "Sirve los panqueques bien calientes armando una torre y decora con el resto de arándanos frescos por encima."
+  ],
+  "tips": [
+    "Los arándanos Fresh Pick, cultivados a más de 2.800 metros de altura en Guasca, se destacan por su textura firme que estalla suavemente al morder el panqueque caliente, aportando un dulzor natural inigualable.",
+    "Para conservarlos si te sobran, deja enfriar los panqueques por completo, guárdalos en un recipiente hermético en la nevera y recalienta unos segundos en la sartén o tostadora para devolverles su frescura."
+  ],
+  "date": "2026-11-01",
+  "publicadoEn": "2026-11-01T18:42:13.418Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/panqueques-de-avena-y-arandanos-sin-harina.jpg"
+}

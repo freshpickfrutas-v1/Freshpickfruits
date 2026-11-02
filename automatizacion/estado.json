@@ -46,7 +46,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/42947730/",
     "https://pubmed.ncbi.nlm.nih.gov/42951114/",
     "https://pubmed.ncbi.nlm.nih.gov/42950765/",
-    "https://pubmed.ncbi.nlm.nih.gov/42958533/"
+    "https://pubmed.ncbi.nlm.nih.gov/42958533/",
+    "https://pubmed.ncbi.nlm.nih.gov/42969403/"
   ],
   "historial": [
     {
@@ -462,6 +463,18 @@
       "tipo": "receta",
       "slug": "panqueques-de-avena-y-arandanos-sin-harina",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-02",
+      "tipo": "receta",
+      "slug": "arroz-con-leche-y-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-02",
+      "tipo": "noticia",
+      "slug": "arandanos-y-la-microbiota-el-eje-entre-el-intestino-y-la-salud-vascular",
+      "modo": "revision"
     }
   ]
 }

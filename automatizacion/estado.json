@@ -475,6 +475,12 @@
       "tipo": "noticia",
       "slug": "arandanos-y-la-microbiota-el-eje-entre-el-intestino-y-la-salud-vascular",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-03",
+      "tipo": "receta",
+      "slug": "tortas-de-arroz-con-queso-crema-y-arandanos",
+      "modo": "automatico"
     }
   ]
 }

@@ -231,6 +231,12 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   const isNewAddress = !!user && !!deliveryAddress.trim() && !hasAddress(savedAddresses, deliveryAddress, deliveryCity);
 
   const [completedOrder, setCompletedOrder] = useState<CustomOrder | null>(null);
+
+  // Al confirmar, el formulario largo se cambia por la tarjeta del pedido y la página se acorta: se lleva la vista a esa tarjeta.
+  useEffect(() => {
+    if (!completedOrder) return;
+    document.getElementById('pedidos-personalizados')?.scrollIntoView({ block: 'start' });
+  }, [completedOrder]);
   const [completedMessage, setCompletedMessage] = useState('');
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -482,7 +488,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
 
   if (completedOrder) {
     return (
-      <section id="pedidos-personalizados" className="py-12 sm:py-16 bg-stone-50">
+      <section id="pedidos-personalizados" className="py-12 sm:py-16 bg-stone-50 scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <div className="bg-white rounded-3xl shadow-xl border border-[#DFCEE6] p-8">
             <CheckCircle2 className="w-12 h-12 text-[#7B4382] mx-auto mb-3" />

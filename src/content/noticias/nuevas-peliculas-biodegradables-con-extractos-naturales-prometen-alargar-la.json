@@ -1,0 +1,76 @@
+{
+  "slug": "nuevas-peliculas-biodegradables-con-extractos-naturales-prometen-alargar-la",
+  "title": "Nuevas películas biodegradables con extractos naturales prometen alargar la frescura de los arándanos",
+  "metaDescription": "Descubre cómo una nueva investigación sobre empaques de quitosano y emulsiones naturales busca prolongar la vida útil y frescura de los arándanos.",
+  "excerpt": "Un reciente estudio científico explora el desarrollo de películas protectoras avanzadas para conservar frutos del bosque como los arándanos por más tiempo.",
+  "category": "nutricion-ciencia",
+  "date": "2026-10-26",
+  "publicadoEn": "2026-10-26T19:54:13.291Z",
+  "readMinutes": 3,
+  "author": "Equipo Fresh Pick",
+  "imageAlt": "Arándanos frescos y silvestres dispuestos sobre una superficie de madera natural.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Innovación en el empaque de frutos frescos: por qué importa la conservación"
+    },
+    {
+      "type": "p",
+      "text": "En el mundo de la agricultura y la alimentación, mantener la frescura de las frutas delicadas tras la cosecha siempre ha representado un desafío logístico fundamental. La necesidad de desarrollar métodos de conservación más eficientes, que reduzcan el desperdicio y protejan los nutrientes sin recurrir a químicos sintéticos agresivos, impulsa constantemente la investigación científica. Un reciente estudio publicado en Food Research International aborda este reto mediante la creación de materiales protectores avanzados diseñados específicamente para prolongar la vida útil de frutos del bosque, abriendo un panorama muy interesante para el manejo postcosecha de alimentos delicados."
+    },
+    {
+      "type": "h2",
+      "text": "Qué dice la fuente: películas compuestas y liberación controlada"
+    },
+    {
+      "type": "p",
+      "text": "La investigación se centró en desarrollar películas compuestas a partir de una matriz de quitosano integradas con emulsiones de tipo Pickering, estabilizadas con fibra dietética de levadura modificada y cargadas con citral. Según los resultados descritos en el trabajo, la inclusión de esta emulsión mejoró de manera notable las propiedades de barrera contra el vapor de agua, la hidrofobicidad superficial y el rendimiento antioxidante y antibacteriano del material resultante en comparación con las películas tradicionales de quitosano."
+    },
+    {
+      "type": "p",
+      "text": "Los autores observaron que estas películas alcanzaron tasas de inhibición superiores al 90% contra microorganismos comunes como E. coli, S. aureus y B. cinerea. Asimismo, las pruebas de liberación sostenida del citral demostraron un comportamiento controlado durante 72 horas. Tras evaluar diferentes concentraciones, el equipo determinó que un contenido de emulsión del 7.5% lograba el equilibrio óptimo entre la dispersión de las gotas y la integridad de la matriz, evitando la aglomeración y facilitando una protección adecuada. En las pruebas prácticas de conservación, este recubrimiento logró extender la vida útil de las fresas de 4 a 8 días y la de los arándanos de 12 a 18 días, reduciendo la pérdida de peso, la degradación de nutrientes y el ablandamiento de la textura."
+    },
+    {
+      "type": "h2",
+      "text": "Contexto: el desafío del empaque activo en la fruta fresca"
+    },
+    {
+      "type": "p",
+      "text": "Este hallazgo se alinea con la tendencia actual de la industria alimentaria hacia el desarrollo de envases activos y biodegradables. Tradicionalmente, la conservación de frutos como los arándanos dependía exclusivamente de cadenas de frío estrictas o empaques plásticos convencionales que no interactúan activamente para frenar el deterioro microbiano o la deshidratación. El uso de polímeros naturales como el quitosano combinado con compuestos antimicrobianos de origen natural representa una evolución lógica en la ciencia de materiales aplicada a los alimentos, buscando soluciones que protejan la calidad original del fruto desde el exterior."
+    },
+    {
+      "type": "h2",
+      "text": "Qué significa para ti: hacia una mejor comprensión de la postcosecha"
+    },
+    {
+      "type": "p",
+      "text": "Aunque este tipo de investigaciones se encuentran todavía en una fase de desarrollo de laboratorio y tecnología de materiales para empaques industriales, nos recuerdan la complejidad y el esfuerzo técnico que hay detrás de cada fruto que llega a nuestras manos. Para los consumidores, entender que la ciencia busca constantemente métodos inocuos y naturales para preservar la textura, los nutrientes y el sabor original sin alterar la esencia del producto es una excelente noticia. Esto demuestra que la innovación tecnológica puede ir de la mano del respeto por la naturaleza."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusión"
+    },
+    {
+      "type": "p",
+      "text": "En Noticias de Arándanos celebramos cada avance científico que aporta al cuidado y la preservación de los alimentos de forma sostenible. Al final, disfrutar de un fruto cosechado en su punto óptimo de madurez y protegido por prácticas respetuosas con el entorno realza la experiencia de saborear la naturaleza en su máxima expresión."
+    }
+  ],
+  "fuentes": [
+    {
+      "titulo": "Chitosan films incorporating Pickering emulsions stabilized by OSA-modified yeast dietary fiber for controlled citral release and berry preservation.",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42914354/",
+      "medio": "PubMed · Food research international (Ottawa, Ont.)",
+      "idioma": "en"
+    }
+  ],
+  "relatedRecipes": [
+    "compota-de-arandanos-casera",
+    "mermelada-de-arandanos-con-chia",
+    "agua-saborizada-de-arandanos-y-pepino"
+  ],
+  "estado": "publicado",
+  "modo": "revision",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/nuevas-peliculas-biodegradables-con-extractos-naturales-prometen-alargar-la.jpg"
+}

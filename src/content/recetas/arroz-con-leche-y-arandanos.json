@@ -1,0 +1,58 @@
+{
+  "slug": "arroz-con-leche-y-arandanos",
+  "title": "Arroz con Leche con Arándanos",
+  "excerpt": "Un postre tradicional colombiano reconfortante y cremoso, renovado con la frescura y el dulzor natural de nuestros arándanos de alta montaña. Una delicia perfecta para cualquier momento.",
+  "imageAlt": "Cazuela de barro con arroz con leche cremoso decorado con arándanos frescos y una astilla de canela.",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 35,
+  "restMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 taza de arroz de grano corto"
+    },
+    {
+      "text": "3 tazas de leche de su preferencia"
+    },
+    {
+      "text": "1 y 1/2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 astilla de canela"
+    },
+    {
+      "text": "1 tira pequeña de cáscara de limón"
+    },
+    {
+      "text": "3 cucharadas de miel o endulzante al gusto"
+    },
+    {
+      "text": "1 cucharadita de esencia de vainilla"
+    }
+  ],
+  "steps": [
+    "Ponga el arroz a cocinar en una olla con 2 tazas de agua a fuego medio hasta que el grano esté suave y el agua se haya absorbido casi por completo.",
+    "Incorpore la leche, la astilla de canela y la cáscara de limón. Cocine a fuego bajo revolviendo suavemente con cuchara de palo durante 20 minutos hasta obtener una consistencia cremosa.",
+    "Retire la astilla de canela y la cáscara de limón. Agregue la miel, la esencia de vainilla y la mitad de los arándanos Fresh Pick.",
+    "Cocine durante 5 minutos más revolviendo despacio para que algunos arándanos libere su jugosidad morada en el arroz.",
+    "Apague el fuego y deje reposar la preparación durante 15 minutos antes de servir en pocillos o dulceras, decorando con el resto de los arándanos enteros. "
+  ],
+  "tips": [
+    "Aproveche la pruina natural de los arándanos Fresh Pick, cultivados en las frías montañas de Guasca, sirviéndolos frescos sobre el arroz tibio para lograr un agradable contraste térmico y de textura.",
+    "Si desea disfrutarlo frío, conserve el arroz con leche en la nevera dentro de un recipiente hermético y agregue los arándanos frescos justo al momento de consumir."
+  ],
+  "date": "2026-11-02",
+  "publicadoEn": "2026-11-02T22:32:31.282Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/arroz-con-leche-y-arandanos.jpg"
+}

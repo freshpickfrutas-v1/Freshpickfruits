@@ -11,13 +11,12 @@ declare global {
 function loadLibrary(): Promise<void> {
   if (window.BoldCheckout) return Promise.resolve();
   return new Promise((resolve, reject) => {
-    const done = () => { window.removeEventListener('boldCheckoutLoaded', ok); window.removeEventListener('boldCheckoutLoadFailed', fail); };
-    const ok = () => { done(); resolve(); };
-    const fail = () => { done(); reject(new Error('No se pudo cargar el pago en línea.')); };
-    window.addEventListener('boldCheckoutLoaded', ok);
-    window.addEventListener('boldCheckoutLoadFailed', fail);
-    if (!document.querySelector(`script[src="${LIBRARY_SRC}"]`)) {
-      const s = document.createElement('script');
+    // La librería no emite eventos propios: se espera al load del script y se confirma que BoldCheckout exista.
+    const s = document.querySelector<HTMLScriptElement>(`script[src="${LIBRARY_SRC}"]`) ?? document.createElement('script');
+    const fail = () => { s.remove(); reject(new Error('No se pudo cargar el pago en línea.')); };
+    s.addEventListener('load', () => (window.BoldCheckout ? resolve() : fail()), { once: true });
+    s.addEventListener('error', fail, { once: true });
+    if (!s.parentNode) {
       s.src = LIBRARY_SRC;
       document.head.appendChild(s);
     }

@@ -368,7 +368,7 @@ export interface PaymentRecord {
   amount: number;
   /** When the payment was approved (ISO). */
   approvedAt: string;
-  source: 'wompi' | 'manual';
+  source: 'wompi' | 'bold' | 'manual';
   recordedBy: string;
 }
 
@@ -422,6 +422,7 @@ export interface FirestoreOrder {
   dispatchDate?: string;
   dispatchedAt?: string;
   wompiTransactionId?: string;
+  boldPaymentId?: string;
   deliveredAt?: string;
   history?: OrderHistoryEntry[];
 }

@@ -14,7 +14,7 @@ import { BillingProfile } from '../components/BillingProfile';
 import { FirestoreOrder, SubscriptionDoc, SubscriptionPlan } from '../types';
 import { requestChange, requestSubscription, subscribeMySubscriptions, SUB_STATUS } from '../lib/subscriptions';
 import { SUBSCRIPTION_PLANS } from '../data/mockData';
-import { WompiPayButton } from '../components/WompiPayButton';
+import { OnlinePayButton } from '../components/OnlinePayButton';
 
 const statusLabel: Record<string, { text: string; color: string }> = {
   pendiente: { text: 'Recibido', color: 'bg-sky-100 text-sky-800' },
@@ -211,7 +211,7 @@ function UserPanelInner() {
                           <div className="mt-2 flex flex-col items-end gap-2">
                             <p className="text-xs font-semibold text-amber-700">Pago pendiente</p>
                             {order.paymentMethod === 'tarjeta' && (
-                              <WompiPayButton
+                              <OnlinePayButton
                                 orderId={order.id}
                                 customer={{ name: order.customerName, email: order.customerEmail, phone: order.customerPhone }}
                               />

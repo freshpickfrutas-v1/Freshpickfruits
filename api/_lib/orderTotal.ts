@@ -73,7 +73,9 @@ export async function recalcOrder(orderId: string) {
   if (grams < 500) throw new OrderError('El pedido mínimo es de 500 g');
 
   const deliveryFee = SHIPPING_FEE;
-  const commission = order.paymentMethod === 'tarjeta' ? onlineCommission(subtotal + deliveryFee) : 0;
+  // Misma elección de pasarela que el navegador (src/lib/gateway.ts): Bold si su llave está cargada, si no Wompi.
+  const gateway = process.env.VITE_BOLD_API_KEY?.trim() ? 'bold' : 'wompi';
+  const commission = order.paymentMethod === 'tarjeta' ? onlineCommission(subtotal + deliveryFee, gateway) : 0;
   const total = subtotal + deliveryFee + commission;
 
   const changed = total !== Number(order.total) || subtotal !== Number(order.subtotal) || deliveryFee !== Number(order.deliveryFee);

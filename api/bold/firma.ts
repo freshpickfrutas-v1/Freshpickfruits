@@ -8,7 +8,8 @@ import { recalcOrder, OrderError } from '../_lib/orderTotal.js';
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido' });
 
-  const secret = process.env.BOLD_SECRET_KEY;
+  // Se limpian espacios, saltos de línea y comillas que se cuelan al pegar la llave en Vercel.
+  const secret = process.env.BOLD_SECRET_KEY?.trim().replace(/^["']+|["']+$/g, '');
   if (!secret) return res.status(500).json({ error: 'Pagos en línea no configurados' });
 
   const orderId = typeof req.body?.orderId === 'string' ? req.body.orderId : '';

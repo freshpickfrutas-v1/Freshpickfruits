@@ -20,7 +20,7 @@ export default async function handler(req: any, res: any) {
 
   // En modo pruebas Bold firma con una llave vacía (BOLD_TEST_MODE=true); en producción, con la llave secreta.
   const testMode = process.env.BOLD_TEST_MODE === 'true';
-  const secret = testMode ? '' : process.env.BOLD_SECRET_KEY;
+  const secret = testMode ? '' : process.env.BOLD_SECRET_KEY?.trim().replace(/^["']+|["']+$/g, '');
   if (secret === undefined) return res.status(500).json({ error: 'Webhook no configurado' });
 
   const body = await rawBody(req);

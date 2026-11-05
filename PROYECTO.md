@@ -199,6 +199,22 @@ Se asignan desde `/admin` → **Equipo**. Cada persona debe iniciar sesión una 
 
 ---
 
+## 8b. Pagos con Bold
+
+Bold reemplaza a Wompi cuando `VITE_BOLD_API_KEY` está cargada (si no, sigue Wompi). Mismo flujo que la sección 8:
+1. `POST /api/bold/firma` recalcula el monto en el servidor y devuelve `orderId` (`<N° pedido>_<ID pedido>_<intento>`, máx. 60 caracteres) y el hash SHA256 de `{orderId}{monto}{COP}{BOLD_SECRET_KEY}`.
+2. `BoldPayButton` abre el checkout embebido (`boldPaymentButton.js`, `renderMode: 'embedded'`) y redirige a `/gracias`.
+3. `POST /api/bold/webhook` valida `x-bold-signature` (HMAC-SHA256 del cuerpo en Base64) y, en `SALE_APPROVED`, comprueba monto y marca el pedido como pagado.
+
+| Variable | Qué es |
+|---|---|
+| `VITE_BOLD_API_KEY` | Llave de identidad (pública) |
+| `BOLD_SECRET_KEY` | Llave secreta (solo Vercel) |
+| `BOLD_TEST_MODE` | `true` solo con llaves de pruebas |
+
+- URL del webhook en el panel de Bold (Integraciones → Webhooks): `https://www.freshpickfruits.com/api/bold/webhook`.
+- La comisión al cliente con Bold es 6% (`COMMISSION_RATE.bold`).
+
 ## 8. Pagos con Wompi
 
 ### Cómo funciona

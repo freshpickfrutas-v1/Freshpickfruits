@@ -8,7 +8,8 @@ import { useCart } from '../context/CartContext';
 import { saveAddresses, hasAddress, newAddressId, MAX_ADDRESSES } from '../lib/addresses';
 import { BOGOTA, PlacePick, mapsLink } from '../lib/maps';
 import { AddressField } from './AddressField';
-import { WompiPayButton } from './WompiPayButton';
+import { OnlinePayButton } from './OnlinePayButton';
+import { ONLINE_GATEWAY, GATEWAY_NAME } from '../lib/gateway';
 import {
   PayChoice, SHIPPING_FEE, COMMISSION_RATE, onlineCommission,
   maxUnitsFor, earliestDeliveryDate, formatDeliveryDay,
@@ -46,8 +47,9 @@ interface WhatsAppOrder {
   billing: BillingData | null;
 }
 
-// El pago en línea solo se ofrece si Wompi está configurado en el despliegue (VITE_WOMPI_PUBLIC_KEY); sin eso solo hay transferencia o Bre-B por WhatsApp.
-const ONLINE_PAYMENTS = !!(import.meta.env.VITE_WOMPI_PUBLIC_KEY as string | undefined)?.trim();
+// El pago en línea solo se ofrece si hay una pasarela configurada en el despliegue (Bold o Wompi); sin eso solo hay transferencia o Bre-B por WhatsApp.
+const ONLINE_PAYMENTS = ONLINE_GATEWAY !== null;
+const COMMISSION_PCT = ONLINE_GATEWAY ? COMMISSION_RATE[ONLINE_GATEWAY] * 100 : 0;
 const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
 
 /** The complete order as one WhatsApp message: customer, delivery, invoice data, products, totals and payment. */
@@ -97,7 +99,7 @@ function buildWhatsAppText(o: WhatsAppOrder): string {
     '',
     `Subtotal: ${cop(o.subtotal)}`,
     `Envío: ${cop(o.deliveryFee)}`,
-    ...(o.commission > 0 ? [`Comisión pago en línea (${COMMISSION_RATE.wompi * 100}%): ${cop(o.commission)}`] : []),
+    ...(o.commission > 0 ? [`Comisión pago en línea (${COMMISSION_PCT}%): ${cop(o.commission)}`] : []),
     `*TOTAL: ${cop(o.total)}*`,
     '',
     '*FORMA DE PAGO*',
@@ -249,7 +251,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   const meetsMinOrder = totalGrams >= 500;
   const online = payChoice === 'tarjeta';
   const deliveryFee = !meetsMinOrder || totalGrams === 0 ? 0 : SHIPPING_FEE;
-  const commission = online && deliveryFee > 0 ? onlineCommission(subtotal + deliveryFee) : 0;
+  const commission = online && deliveryFee > 0 ? onlineCommission(subtotal + deliveryFee, ONLINE_GATEWAY ?? 'wompi') : 0;
   const grandTotal = Math.max(0, subtotal + deliveryFee + commission);
 
   const hasPackingError = fruits.some(f => {
@@ -500,7 +502,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               <p>Te escribiremos por WhatsApp cuando tu pedido salga a ruta.</p>
             </div>
             {savedOrderDocId && completedOrder.paymentMethod === 'card' && (
-              <WompiPayButton
+              <OnlinePayButton
                 orderId={savedOrderDocId}
                 customer={{ name: completedOrder.customerName, email: customerEmail.trim() || (user?.email ?? ''), phone: completedOrder.customerPhone }}
               />
@@ -984,7 +986,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 </div>
                 {commission > 0 && (
                   <div className="flex justify-between text-stone-600">
-                    <span>Comisión pago en línea ({COMMISSION_RATE.wompi * 100}%):</span>
+                    <span>Comisión pago en línea ({COMMISSION_PCT}%):</span>
                     <span>${commission.toLocaleString('es-CO')} COP</span>
                   </div>
                 )}
@@ -1003,7 +1005,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 {ONLINE_PAYMENTS && (
                   <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
                     <input type="radio" name="pago" className="mt-0.5" checked={online} onChange={() => setPayChoice('tarjeta')} />
-                    <span><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · más comisión de la pasarela del {COMMISSION_RATE.wompi * 100}% (Wompi).</span>
+                    <span><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · más comisión de la pasarela del {COMMISSION_PCT}% ({ONLINE_GATEWAY ? GATEWAY_NAME[ONLINE_GATEWAY] : ''}).</span>
                   </label>
                 )}
               </fieldset>

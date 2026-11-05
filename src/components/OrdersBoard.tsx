@@ -190,7 +190,7 @@ const OrderModal: React.FC<{
               <p className="text-xs font-bold uppercase tracking-wider text-[#7B4382] flex items-center gap-1.5"><CreditCard className="w-3.5 h-3.5" /> Pago</p>
               {order.payment ? (
                 <dl className="text-xs text-stone-700 space-y-0.5">
-                  <div className="flex justify-between gap-2"><dt className="text-stone-500">Método</dt><dd className="font-semibold">{paymentMethodLabel(order.payment.method)}{order.payment.source === 'wompi' ? ' (Wompi)' : ''}</dd></div>
+                  <div className="flex justify-between gap-2"><dt className="text-stone-500">Método</dt><dd className="font-semibold">{paymentMethodLabel(order.payment.method)}{order.payment.source === 'wompi' ? ' (Wompi)' : order.payment.source === 'bold' ? ' (Bold)' : ''}</dd></div>
                   <div className="flex justify-between gap-2"><dt className="text-stone-500">Referencia</dt><dd className="font-semibold break-all text-right">{order.payment.reference}</dd></div>
                   <div className="flex justify-between gap-2"><dt className="text-stone-500">ID de transacción</dt><dd className="font-semibold break-all text-right">{order.payment.transactionId}</dd></div>
                   <div className="flex justify-between gap-2"><dt className="text-stone-500">Valor cobrado</dt><dd className="font-semibold">{money(order.payment.amount)}</dd></div>
@@ -402,7 +402,7 @@ const NewOrderModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
 /** Everything a person might paste from Wompi or a bank receipt to find an order. */
 const searchText = (o: FirestoreOrder) =>
-  [o.orderNumber, o.customerName, o.customerEmail, o.customerPhone, o.payment?.reference, o.payment?.transactionId, o.wompiTransactionId]
+  [o.orderNumber, o.customerName, o.customerEmail, o.customerPhone, o.payment?.reference, o.payment?.transactionId, o.wompiTransactionId, o.boldPaymentId]
     .filter(Boolean).join(' ').toLowerCase();
 
 const csvCell = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
@@ -459,7 +459,7 @@ export const OrdersBoard: React.FC<{
             type="search"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Buscar pedido, referencia o ID de Wompi"
+            placeholder="Buscar pedido, referencia o ID de Wompi/Bold"
             aria-label="Buscar pedido, referencia o ID de transacción"
             className="px-3 py-2 rounded-xl text-xs border border-[#EADBEE] bg-white w-64"
           />

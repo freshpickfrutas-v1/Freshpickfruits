@@ -1,0 +1,55 @@
+{
+  "slug": "batido-de-arandanos-y-cacao",
+  "title": "Batido de Arándanos y Cacao Amargo",
+  "excerpt": "Disfruta un cremoso batido que combina el dulzor natural de los arándanos frescos de alta montaña con la intensidad del cacao amargo. Perfecto para revitalizar tu día en minutos.",
+  "imageAlt": "Vaso de batido cremoso de arándanos y cacao amargo decorado con arándanos enteros y un toque de cacao en polvo.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 y 1/2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 cucharadas de cacao amargo en polvo sin azúcar"
+    },
+    {
+      "text": "1 y 1/2 tazas de leche líquida (o bebida de almendras)"
+    },
+    {
+      "text": "1 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1 a 2 cucharadas de miel de abejas (opcional)"
+    },
+    {
+      "text": "1/2 taza de hielo en cubos"
+    }
+  ],
+  "steps": [
+    "En el vaso de la licuadora, vierte la leche de tu preferencia y la esencia de vainilla.",
+    "Añade los arándanos Fresh Pick, cultivados en las frías tierras de Guasca, y las dos cucharadas de cacao amargo en polvo.",
+    "Si deseas equilibrar la intensidad del cacao, agrega la miel de abejas al gusto.",
+    "Licúa a velocidad media durante 1 minuto hasta integrar todos los ingredientes por completo.",
+    "Agrega los cubos de hielo y licúa a velocidad alta durante 30 segundos más para darle una textura frapeada y refrescante.",
+    "Sirve de inmediato en vasos altos y disfruta fresco."
+  ],
+  "tips": [
+    "Para obtener una textura aún más cremosa sin diluir el sabor con hielo, congela los arándanos Fresh Pick durante un par de horas antes de preparar el batido.",
+    "Conserva tus arándanos en la nevera dentro de su contenedor original sin lavarlos hasta el momento en que los vayas a utilizar."
+  ],
+  "date": "2026-10-31",
+  "publicadoEn": "2026-10-31T18:05:25.567Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/batido-de-arandanos-y-cacao.jpg"
+}

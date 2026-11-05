@@ -1,0 +1,51 @@
+{
+  "slug": "tortas-de-arroz-con-queso-crema-y-arandanos",
+  "title": "Tortas de Arroz con Queso Crema y Arándanos",
+  "excerpt": "Un snack crocante, rápido y delicioso que combina tortas de arroz inflado, cremoso queso crema y la frescura de los arándanos de alta montaña. Perfecto para calmar el antojo a cualquier hora.",
+  "imageAlt": "Tortas de arroz inflado cubiertas con queso crema suave, arándanos Fresh Pick frescos y un hilo de miel.",
+  "category": "snacks-meriendas",
+  "extraCategories": [
+    "desayunos",
+    "postres-saludables"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "4 tortas de arroz inflado"
+    },
+    {
+      "text": "4 cucharadas de queso crema suave"
+    },
+    {
+      "text": "3/4 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 cucharada de miel de abejas"
+    },
+    {
+      "text": "2 cucharadas de almendras fileteadas o nueces picadas"
+    }
+  ],
+  "steps": [
+    "Alista las tortas de arroz inflado y colócalas sobre una tabla limpia o plato para servir.",
+    "Extiende una cucharada generosa de queso crema sobre la superficie de cada torta de arroz con la ayuda de una espátula o cuchillo.",
+    "Lava con cuidado y seca suavemente los arándanos Fresh Pick. Cultivados en la alta montaña de Guasca, estos frutos tienen el dulzor perfecto para contrastar con la cremosidad del queso.",
+    "Acomoda los arándanos sobre la capa de queso crema, presionando apenas un poco para que queden bien sujetos.",
+    "Finaliza decorando con las almendras fileteadas y un hilo suave de miel de abejas justo antes de servir."
+  ],
+  "tips": [
+    "Arma las tortas de arroz justo al momento de comer para asegurarte de que mantengan su textura bien crocante y no se humedezcan.",
+    "Para conservar mejor tus arándanos Fresh Pick sobrantes, guárdalos en la nevera dentro de su empaque original sin lavar y lávalos únicamente justo antes de consumir."
+  ],
+  "date": "2026-11-03",
+  "publicadoEn": "2026-11-03T20:22:55.854Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/tortas-de-arroz-con-queso-crema-y-arandanos.jpg"
+}

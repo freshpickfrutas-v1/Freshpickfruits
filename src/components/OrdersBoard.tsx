@@ -293,6 +293,19 @@ const OrderModal: React.FC<{
             </section>
           )}
 
+          {!!order.notifications?.length && (
+            <section>
+              <p className="text-xs font-bold uppercase tracking-wider text-[#7B4382] mb-1.5">Avisos enviados</p>
+              <ol className="space-y-1 text-xs text-stone-600">
+                {[...order.notifications].reverse().map((n, i) => (
+                  <li key={i}>
+                    <span className="text-stone-400">{when(n.at)}</span> · <span className="font-semibold">{n.channel === 'whatsapp' ? 'WhatsApp' : 'Correo'}</span> · {n.kind.replace(/_/g, ' ')} · {n.to} · {n.ok ? <span className="text-emerald-700">enviado</span> : <span className="text-red-700">falló{n.error ? `: ${n.error}` : ''}</span>}
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
           {!!order.history?.length && (
             <section>
               <p className="text-xs font-bold uppercase tracking-wider text-[#7B4382] mb-1.5">Historial</p>

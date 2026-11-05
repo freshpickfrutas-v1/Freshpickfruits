@@ -4,7 +4,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { FieldValue } from 'firebase-admin/firestore';
 import { adminDb } from '../_lib/admin.js';
-import { sendPaymentConfirmed, sendPaymentFailed, sendTeamAlert, orderSummaryLines } from '../_lib/email.js';
+import { notifyCustomer, notifyTeams } from '../_lib/notify.js';
 
 // La firma se calcula sobre el cuerpo tal cual llegó: hay que leerlo crudo, sin que Vercel lo convierta a objeto.
 export const config = { api: { bodyParser: false } };
@@ -77,9 +77,9 @@ export default async function handler(req: any, res: any) {
         status: order.status === 'pendiente' ? 'pago_verificado' : order.status,
         history: FieldValue.arrayUnion({ status: 'pago_verificado', at, by: 'Bold', note: `Transacción ${paymentId}` }),
       });
-      // El aviso al cliente no debe tumbar el webhook: si falla, el pago ya quedó registrado.
-      try { await sendPaymentConfirmed(order, Number(data.amount.total)); } catch (e) { console.error('bold/webhook: correo', e); }
-      try { await sendTeamAlert(`Pago aprobado · ${order.orderNumber}`, [...orderSummaryLines(order), `Método: ${method} · Transacción ${paymentId}`]); } catch (e) { console.error('bold/webhook: aviso equipo', e); }
+      // Los avisos no pueden tumbar el webhook: si fallan, el pago ya quedó registrado (y cada intento queda anotado en el pedido).
+      await notifyCustomer(ref, 'pago_confirmado', order, { amount: Number(data.amount.total) });
+      await notifyTeams(ref, 'pago_aprobado', order, [`Método: ${method} · Transacción ${paymentId}`]);
     } else if (event.type === 'SALE_REJECTED') {
       const paymentId = String(data.payment_id ?? event.subject ?? '');
       // Bold puede repetir el aviso: un mismo intento (mismo ID de transacción) se registra una sola vez.
@@ -91,8 +91,8 @@ export default async function handler(req: any, res: any) {
         boldPaymentId: paymentId,
         history: FieldValue.arrayUnion({ status: 'pago_rechazado', at, by: 'Bold', note: `${method} · $${Number(data.amount?.total ?? 0).toLocaleString('es-CO')} COP · transacción ${paymentId}` }),
       });
-      try { await sendPaymentFailed(order, paymentId); } catch (e) { console.error('bold/webhook: correo cliente', e); }
-      try { await sendTeamAlert(`Pago RECHAZADO · ${order.orderNumber}`, [...orderSummaryLines(order), `Método: ${method} · Transacción ${paymentId}`, 'El pedido sigue pendiente de pago.']); } catch (e) { console.error('bold/webhook: aviso equipo', e); }
+      await notifyCustomer(ref, 'pago_rechazado', order, { paymentId });
+      await notifyTeams(ref, 'pago_rechazado', order, [`Método: ${method} · Transacción ${paymentId}`, 'El pedido sigue pendiente de pago.']);
     }
     return res.status(200).json({ ok: true });
   } catch (err) {

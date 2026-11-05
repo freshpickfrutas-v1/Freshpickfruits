@@ -423,6 +423,8 @@ export interface FirestoreOrder {
   dispatchedAt?: string;
   wompiTransactionId?: string;
   boldPaymentId?: string;
+  /** Registro de cada aviso enviado (correo o WhatsApp) por este pedido, con su resultado. */
+  notifications?: { channel: 'correo' | 'whatsapp'; kind: string; to: string; at: string; ok: boolean; error?: string }[];
   /** Último resultado informado por Bold para un intento de pago (p. ej. REJECTED). */
   boldLastStatus?: string;
   deliveredAt?: string;

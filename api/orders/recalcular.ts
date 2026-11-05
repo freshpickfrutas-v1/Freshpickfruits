@@ -3,7 +3,7 @@
 import { recalcOrder, OrderError } from '../_lib/orderTotal.js';
 import { adminDb } from '../_lib/admin.js';
 import { FieldValue } from 'firebase-admin/firestore';
-import { sendOrderReceived, sendTeamAlert, orderSummaryLines } from '../_lib/email.js';
+import { notifyCustomer, notifyTeams } from '../_lib/notify.js';
 
 // Tope por IP (por instancia del servidor): frena abusos simples sin bloquear a un cliente que pide varias veces.
 const hits = new Map<string, number[]>();
@@ -34,8 +34,8 @@ export default async function handler(req: any, res: any) {
           // Primer renglón del registro del pedido: cuándo se creó, por qué medio de pago y por cuánto.
           history: FieldValue.arrayUnion({ status: 'pendiente', at: order.createdAt ?? new Date().toISOString(), by: 'Cliente (web)', note: `Pedido creado · ${order.paymentMethod} · $${Number(total).toLocaleString('es-CO')} COP` }),
         });
-        await sendOrderReceived({ ...order, total });
-        try { await sendTeamAlert(`Pedido nuevo · ${order.orderNumber}`, orderSummaryLines({ ...order, total })); } catch (e) { console.error('orders/recalcular: aviso equipo', e); }
+        await notifyCustomer(ref, 'pedido_recibido', { ...order, total });
+        await notifyTeams(ref, 'pedido_nuevo', { ...order, total });
       }
     } catch (e) {
       console.error('orders/recalcular: correo', e);

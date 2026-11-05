@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, signInWithPopup, signInWithRedirect, signOut as fbSignOut, User, AuthProvider as FirebaseProvider } from 'firebase/auth';
+import { getRedirectResult, onAuthStateChanged, signInWithRedirect, signOut as fbSignOut, User, AuthProvider as FirebaseProvider } from 'firebase/auth';
 import { doc, getDoc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db, googleProvider, facebookProvider } from '../lib/firebase';
 import { STAFF_ROLES, UserProfile, UserRole } from '../types';
@@ -35,6 +35,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     let unsubProfile: (() => void) | null = null;
+    // Completes the redirect sign-in; the session itself arrives through onAuthStateChanged below.
+    getRedirectResult(auth).catch(err => console.warn('No se pudo completar el inicio de sesión:', err));
     const unsubAuth = onAuthStateChanged(auth, async current => {
       unsubProfile?.();
       unsubProfile = null;
@@ -94,15 +96,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signInWith = async (provider: FirebaseProvider) => {
     try { sessionStorage.setItem(LOGIN_INTENT_KEY, String(Date.now())); } catch { /* ignore */ }
     try {
-      await signInWithPopup(auth, provider);
+      // Full-page redirect instead of a popup: the popup never reported back when the browser's
+      // Cross-Origin-Opener-Policy blocked Firebase from seeing it close, leaving the sign-in "processing" forever.
+      await signInWithRedirect(auth, provider);
     } catch (err) {
       const code = (err as { code?: string }).code;
-      // Some phone browsers block popups: fall back to a full-page redirect.
-      if (code === 'auth/popup-blocked' || code === 'auth/operation-not-supported-in-this-environment') {
-        await signInWithRedirect(auth, provider);
-        return;
-      }
-      if (code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request') return;
       if (code === 'auth/account-exists-with-different-credential') {
         throw new Error('Ya existe una cuenta con ese correo creada con otro método (por ejemplo Google). Entra con ese método.');
       }

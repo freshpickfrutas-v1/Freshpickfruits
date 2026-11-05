@@ -86,3 +86,27 @@ export function orderSummaryLines(order: Record<string, any>): string[] {
     `Forma de pago: ${order.paymentMethod ?? ''}`,
   ];
 }
+
+/** Aviso al cliente cuando su intento de pago en línea no se logró: qué pasó y cómo reintentar. */
+export async function sendPaymentFailed(order: Record<string, any>, paymentId: string): Promise<void> {
+  const key = process.env.RESEND_API_KEY;
+  const from = process.env.EMAIL_FROM;
+  const to = String(order.customerEmail ?? '').trim();
+  if (!key || !from || !/^\S+@\S+\.\S+$/.test(to)) return;
+
+  const html = `
+    <div style="font-family:Arial,sans-serif;max-width:520px;color:#2F183C">
+      <h2>No pudimos confirmar tu pago, ${esc(order.customerName)}</h2>
+      <p>El pago en línea de tu pedido <strong>${esc(order.orderNumber)}</strong> por <strong>${esc(cop(Number(order.total)))}</strong> fue rechazado por tu banco o por la pasarela. No se realizó ningún cobro.</p>
+      <p>Tu pedido sigue registrado. Puedes intentarlo de nuevo con otra tarjeta o medio de pago desde <strong>Mi cuenta</strong> en <a href="https://www.freshpickfruits.com/panel">freshpickfruits.com</a>, o pagar por transferencia o Bre-B escribiéndonos por WhatsApp al +57 317 893 1026.</p>
+      <p>No iniciamos el alistamiento hasta confirmar el pago.</p>
+      <p>Fresh Pick · Arándanos de alta montaña</p>
+    </div>`;
+
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', 'Idempotency-Key': `pago-rechazado-${paymentId}` },
+    body: JSON.stringify({ from, to, reply_to: process.env.EMAIL_REPLY_TO?.trim() || 'info@freshpickfruits.com', subject: `No se pudo confirmar tu pago · Pedido ${order.orderNumber}`, html }),
+  });
+  if (!res.ok) throw new Error(`Resend ${res.status}`);
+}

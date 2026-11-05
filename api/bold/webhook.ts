@@ -4,7 +4,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { FieldValue } from 'firebase-admin/firestore';
 import { adminDb } from '../_lib/admin.js';
-import { sendPaymentConfirmed, sendTeamAlert, orderSummaryLines } from '../_lib/email.js';
+import { sendPaymentConfirmed, sendPaymentFailed, sendTeamAlert, orderSummaryLines } from '../_lib/email.js';
 
 // La firma se calcula sobre el cuerpo tal cual llegó: hay que leerlo crudo, sin que Vercel lo convierta a objeto.
 export const config = { api: { bodyParser: false } };
@@ -91,6 +91,7 @@ export default async function handler(req: any, res: any) {
         boldPaymentId: paymentId,
         history: FieldValue.arrayUnion({ status: 'pago_rechazado', at, by: 'Bold', note: `${method} · $${Number(data.amount?.total ?? 0).toLocaleString('es-CO')} COP · transacción ${paymentId}` }),
       });
+      try { await sendPaymentFailed(order, paymentId); } catch (e) { console.error('bold/webhook: correo cliente', e); }
       try { await sendTeamAlert(`Pago RECHAZADO · ${order.orderNumber}`, [...orderSummaryLines(order), `Método: ${method} · Transacción ${paymentId}`, 'El pedido sigue pendiente de pago.']); } catch (e) { console.error('bold/webhook: aviso equipo', e); }
     }
     return res.status(200).json({ ok: true });

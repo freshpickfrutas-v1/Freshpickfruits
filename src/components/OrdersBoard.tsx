@@ -67,6 +67,7 @@ const OrderCard: React.FC<{ order: FirestoreOrder; mine: boolean; onOpen: () => 
     </div>
     <p className="text-xs font-semibold text-stone-800 truncate">{order.customerName}</p>
     <p className="text-xs text-stone-500 truncate">{order.customerPhone}</p>
+    <p className="text-xs text-stone-400">{when(order.createdAt)}</p>
     <p className="text-xs text-stone-600 line-clamp-2">{itemsText(order)}</p>
     <div className="flex flex-wrap gap-1 pt-1">
       <PaymentBadge order={order} />
@@ -137,6 +138,7 @@ const OrderModal: React.FC<{
             <span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${stage.tone}`}>
               {stage.step ? `${stage.step}. ` : ''}{stage.label}
             </span>
+            <p className="mt-1 text-xs text-stone-500">Creado: {when(order.createdAt) || '—'}{order.payment?.approvedAt ? ` · Pagado: ${when(order.payment.approvedAt)}` : ' · Sin pago registrado'}</p>
           </div>
           <button onClick={onClose} aria-label="Cerrar" className="p-2 rounded-lg hover:bg-stone-100"><X className="w-5 h-5" /></button>
         </div>
@@ -424,9 +426,9 @@ const csvCell = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
 
 /** Paid orders as a CSV to compare against the Wompi / bank report. */
 function exportPaymentsCsv(orders: FirestoreOrder[]) {
-  const head = ['N° pedido', 'Cliente', 'Correo', 'Método', 'Origen del pago', 'Referencia', 'ID de transacción', 'Valor cobrado', 'Total del pedido', 'Aprobado', 'Fecha de entrega', 'Despacho', 'Entregado', 'Factura'];
+  const head = ['N° pedido', 'Fecha y hora del pedido', 'Cliente', 'Correo', 'Método', 'Origen del pago', 'Referencia', 'ID de transacción', 'Valor cobrado', 'Total del pedido', 'Aprobado', 'Fecha de entrega', 'Despacho', 'Entregado', 'Factura'];
   const rows = orders.filter(o => o.payment).map(o => [
-    o.orderNumber, o.customerName, o.customerEmail, paymentMethodLabel(o.payment!.method), o.payment!.source,
+    o.orderNumber, o.createdAt, o.customerName, o.customerEmail, paymentMethodLabel(o.payment!.method), o.payment!.source,
     o.payment!.reference, o.payment!.transactionId, o.payment!.amount, o.total, o.payment!.approvedAt,
     o.deliveryDate ?? '', o.dispatchDate ?? '', o.deliveredAt ?? '', o.invoiceNumber ?? '',
   ]);
@@ -536,7 +538,7 @@ export const OrdersBoard: React.FC<{
           <table className="w-full text-sm min-w-[860px]">
             <thead className="bg-[#FAF7F0] text-xs text-stone-500 text-left">
               <tr>
-                {['N° pedido', 'Cliente / teléfono', 'Productos', 'Estado operativo', 'Responsable actual', 'Estado de pago', 'Despacho', 'Factura electrónica', 'Origen'].map(h => <th key={h} className="px-3 py-3 font-semibold">{h}</th>)}
+                {['N° pedido', 'Fecha y hora', 'Cliente / teléfono', 'Productos', 'Total', 'Estado operativo', 'Responsable actual', 'Estado de pago', 'Pagado el', 'Despacho', 'Factura electrónica', 'Origen'].map(h => <th key={h} className="px-3 py-3 font-semibold">{h}</th>)}
               </tr>
             </thead>
             <tbody>
@@ -545,11 +547,14 @@ export const OrdersBoard: React.FC<{
                 return (
                   <tr key={o.id} onClick={() => setOpenId(o.id)} className="border-t border-stone-100 hover:bg-[#F5ECF9]/40 cursor-pointer">
                     <td className="px-3 py-3 font-semibold text-[#2F183C]">{o.orderNumber}</td>
+                    <td className="px-3 py-3 text-xs text-stone-600 whitespace-nowrap">{when(o.createdAt) || '—'}</td>
                     <td className="px-3 py-3">{o.customerName}<br /><span className="text-xs text-stone-500">{o.customerPhone}</span></td>
                     <td className="px-3 py-3 text-xs text-stone-600 max-w-[16rem]">{itemsText(o)}</td>
+                    <td className="px-3 py-3 text-xs font-bold text-[#2F183C] whitespace-nowrap">{money(o.total)}</td>
                     <td className="px-3 py-3"><span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${st.tone}`}>{st.short}</span></td>
                     <td className="px-3 py-3 text-xs">{st.ownerLabel}</td>
                     <td className="px-3 py-3"><PaymentBadge order={o} /></td>
+                    <td className="px-3 py-3 text-xs text-stone-600 whitespace-nowrap">{o.payment?.approvedAt ? when(o.payment.approvedAt) : '—'}</td>
                     <td className="px-3 py-3 text-xs">{shortDay(o.dispatchDate)}</td>
                     <td className="px-3 py-3"><InvoiceBadge order={o} /></td>
                     <td className="px-3 py-3"><OriginBadge order={o} /></td>

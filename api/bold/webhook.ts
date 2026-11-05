@@ -4,7 +4,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import { FieldValue } from 'firebase-admin/firestore';
 import { adminDb } from '../_lib/admin.js';
-import { sendPaymentConfirmed } from '../_lib/email.js';
+import { sendPaymentConfirmed, sendTeamAlert, orderSummaryLines } from '../_lib/email.js';
 
 // La firma se calcula sobre el cuerpo tal cual llegó: hay que leerlo crudo, sin que Vercel lo convierta a objeto.
 export const config = { api: { bodyParser: false } };
@@ -79,8 +79,19 @@ export default async function handler(req: any, res: any) {
       });
       // El aviso al cliente no debe tumbar el webhook: si falla, el pago ya quedó registrado.
       try { await sendPaymentConfirmed(order, Number(data.amount.total)); } catch (e) { console.error('bold/webhook: correo', e); }
+      try { await sendTeamAlert(`Pago aprobado · ${order.orderNumber}`, [...orderSummaryLines(order), `Método: ${method} · Transacción ${paymentId}`]); } catch (e) { console.error('bold/webhook: aviso equipo', e); }
     } else if (event.type === 'SALE_REJECTED') {
-      await ref.update({ boldLastStatus: 'REJECTED', boldPaymentId: String(data.payment_id ?? '') });
+      const paymentId = String(data.payment_id ?? event.subject ?? '');
+      // Bold puede repetir el aviso: un mismo intento (mismo ID de transacción) se registra una sola vez.
+      if ((order.history ?? []).some((h: any) => h.status === 'pago_rechazado' && String(h.note ?? '').includes(paymentId))) return res.status(200).json({ ok: true });
+      const at = new Date().toISOString();
+      const method = String(data.payment_method ?? '').toLowerCase();
+      await ref.update({
+        boldLastStatus: 'REJECTED',
+        boldPaymentId: paymentId,
+        history: FieldValue.arrayUnion({ status: 'pago_rechazado', at, by: 'Bold', note: `${method} · $${Number(data.amount?.total ?? 0).toLocaleString('es-CO')} COP · transacción ${paymentId}` }),
+      });
+      try { await sendTeamAlert(`Pago RECHAZADO · ${order.orderNumber}`, [...orderSummaryLines(order), `Método: ${method} · Transacción ${paymentId}`, 'El pedido sigue pendiente de pago.']); } catch (e) { console.error('bold/webhook: aviso equipo', e); }
     }
     return res.status(200).json({ ok: true });
   } catch (err) {

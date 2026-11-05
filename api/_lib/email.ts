@@ -61,3 +61,28 @@ export async function sendOrderReceived(order: Record<string, any>): Promise<voi
   });
   if (!res.ok) throw new Error(`Resend ${res.status}`);
 }
+
+/** Aviso interno para el equipo (pedido nuevo, pago aprobado o rechazado). Va a EMAIL_TEAM (varios separados por coma); sin esa variable usa freshpickfruits@gmail.com. */
+export async function sendTeamAlert(subject: string, lines: string[]): Promise<void> {
+  const key = process.env.RESEND_API_KEY;
+  const from = process.env.EMAIL_FROM;
+  const to = (process.env.EMAIL_TEAM?.trim() || 'freshpickfruits@gmail.com').split(',').map(t => t.trim()).filter(t => /^\S+@\S+\.\S+$/.test(t));
+  if (!key || !from || !to.length) return;
+  const html = `<div style="font-family:Arial,sans-serif;max-width:520px;color:#2F183C"><h2>${esc(subject)}</h2>${lines.map(l => `<p style="margin:4px 0">${esc(l)}</p>`).join('')}<p style="margin-top:16px"><a href="https://www.freshpickfruits.com/panel">Abrir el panel de pedidos</a></p></div>`;
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ from, to, subject, html }),
+  });
+  if (!res.ok) throw new Error(`Resend ${res.status}`);
+}
+
+/** Resumen del pedido para los avisos internos. */
+export function orderSummaryLines(order: Record<string, any>): string[] {
+  return [
+    `Pedido ${order.orderNumber ?? ''} · ${cop(Number(order.total))}`,
+    `Cliente: ${order.customerName ?? ''} · ${order.customerPhone ?? ''} · ${order.customerEmail ?? ''}`,
+    `Entrega: ${order.deliveryDate ?? 'por definir'} · ${order.shippingAddress ?? ''}`,
+    `Forma de pago: ${order.paymentMethod ?? ''}`,
+  ];
+}

@@ -2,7 +2,8 @@
 // Tras crear el pedido, el servidor calcula y guarda el total correcto (precios, límites, envío y comisión).
 import { recalcOrder, OrderError } from '../_lib/orderTotal.js';
 import { adminDb } from '../_lib/admin.js';
-import { sendOrderReceived } from '../_lib/email.js';
+import { FieldValue } from 'firebase-admin/firestore';
+import { sendOrderReceived, sendTeamAlert, orderSummaryLines } from '../_lib/email.js';
 
 // Tope por IP (por instancia del servidor): frena abusos simples sin bloquear a un cliente que pide varias veces.
 const hits = new Map<string, number[]>();
@@ -28,8 +29,13 @@ export default async function handler(req: any, res: any) {
       const ref = adminDb().collection('orders').doc(orderId);
       const order = (await ref.get()).data();
       if (order && order.status === 'pendiente' && !order.receivedEmailAt) {
-        await ref.update({ receivedEmailAt: new Date().toISOString() });
+        await ref.update({
+          receivedEmailAt: new Date().toISOString(),
+          // Primer renglón del registro del pedido: cuándo se creó, por qué medio de pago y por cuánto.
+          history: FieldValue.arrayUnion({ status: 'pendiente', at: order.createdAt ?? new Date().toISOString(), by: 'Cliente (web)', note: `Pedido creado · ${order.paymentMethod} · $${Number(total).toLocaleString('es-CO')} COP` }),
+        });
         await sendOrderReceived({ ...order, total });
+        try { await sendTeamAlert(`Pedido nuevo · ${order.orderNumber}`, orderSummaryLines({ ...order, total })); } catch (e) { console.error('orders/recalcular: aviso equipo', e); }
       }
     } catch (e) {
       console.error('orders/recalcular: correo', e);

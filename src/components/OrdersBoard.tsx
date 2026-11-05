@@ -13,7 +13,7 @@ import {
 } from '../lib/orderFlow';
 
 const money = (n: number) => `$${(n || 0).toLocaleString('es-CO')}`;
-const when = (iso: string) => (iso ? new Date(iso).toLocaleString('es-CO', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '');
+const when = (iso: string) => (iso ? new Date(iso).toLocaleString('es-CO', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '');
 const shortDay = (iso?: string) => (iso ? new Date(iso.length === 10 ? iso + 'T12:00:00' : iso).toLocaleDateString('es-CO', { weekday: 'short', day: '2-digit', month: 'short' }) : '—');
 /** ISO date-time → value for <input type="datetime-local"> in the viewer's own time zone. */
 const toLocalInput = (iso?: string) => {
@@ -30,7 +30,9 @@ const Badge: React.FC<{ tone: string; children: React.ReactNode }> = ({ tone, ch
 const PaymentBadge: React.FC<{ order: FirestoreOrder }> = ({ order }) =>
   order.paymentStatus === 'verificado'
     ? <Badge tone="bg-emerald-100 text-emerald-800"><CheckCircle2 className="w-3 h-3" /> Pago verificado{order.payment?.method ? ` · ${paymentMethodLabel(order.payment.method)}` : ''}</Badge>
-    : <Badge tone="bg-amber-100 text-amber-800"><Clock className="w-3 h-3" /> Pago pendiente</Badge>;
+    : order.history?.some(h => h.status === 'pago_rechazado')
+      ? <Badge tone="bg-red-100 text-red-800"><AlertCircle className="w-3 h-3" /> Pago rechazado · pendiente</Badge>
+      : <Badge tone="bg-amber-100 text-amber-800"><Clock className="w-3 h-3" /> Pago pendiente</Badge>;
 
 const InvoiceBadge: React.FC<{ order: FirestoreOrder }> = ({ order }) =>
   order.invoiceStatus === 'emitida'
@@ -297,7 +299,7 @@ const OrderModal: React.FC<{
               <ol className="space-y-1 text-xs text-stone-600">
                 {[...order.history].reverse().map((h, i) => (
                   <li key={i}>
-                    <span className="text-stone-400">{when(h.at)}</span> · <span className="font-semibold">{h.status === 'factura' ? `Factura ${h.note ?? ''}` : h.status === 'pago' ? `Pago registrado (${h.note ?? ''})` : h.status === 'despacho' ? `Despacho programado ${h.note ?? ''}` : (STAGES.find(s => s.id === h.status)?.short ?? h.status)}</span> · {h.by}
+                    <span className="text-stone-400">{when(h.at)}</span> · <span className="font-semibold">{h.status === 'factura' ? `Factura ${h.note ?? ''}` : h.status === 'pago' ? `Pago registrado (${h.note ?? ''})` : h.status === 'pago_rechazado' ? `Pago rechazado (${h.note ?? ''})` : h.status === 'despacho' ? `Despacho programado ${h.note ?? ''}` : (STAGES.find(s => s.id === h.status)?.short ?? h.status)}</span> · {h.by}
                   </li>
                 ))}
               </ol>

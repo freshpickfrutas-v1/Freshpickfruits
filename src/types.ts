@@ -373,7 +373,7 @@ export interface PaymentRecord {
 }
 
 export interface OrderHistoryEntry {
-  status: OrderStatus | 'factura' | 'pago' | 'despacho';
+  status: OrderStatus | 'factura' | 'pago' | 'pago_rechazado' | 'despacho';
   at: string;
   by: string;
   note?: string;
@@ -423,6 +423,8 @@ export interface FirestoreOrder {
   dispatchedAt?: string;
   wompiTransactionId?: string;
   boldPaymentId?: string;
+  /** Último resultado informado por Bold para un intento de pago (p. ej. REJECTED). */
+  boldLastStatus?: string;
   deliveredAt?: string;
   history?: OrderHistoryEntry[];
 }

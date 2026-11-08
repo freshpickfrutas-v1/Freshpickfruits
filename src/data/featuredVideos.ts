@@ -10,7 +10,7 @@ export interface FeaturedVideo {
 
 const FIJOS: Record<'recetas' | 'noticias', FeaturedVideo[]> = {
   recetas: [
-    { id: 'cNNNQXNP9Zs', title: 'Receta con arándanos Fresh Pick', channel: 'Fresh Pick' },
+    { id: 'cNNNQXNP9Zs', title: 'Camembert relleno de arándanos', channel: 'ChefBosquet' },
     { id: '4R2TAOFsGhE', title: 'Smoothie de arándanos con solo 4 ingredientes', channel: 'Tu Amiga Gourmet' },
     { id: 'hZcASXmVCGI', title: 'Desayuno saludable: yogurt de avena con frutos rojos', channel: 'Pimienta TV' },
     { id: 'b61GIRRfq2o', title: 'Batido antioxidante de arándanos y plátano', channel: 'Postres Originales' }

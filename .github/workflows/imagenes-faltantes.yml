@@ -21,10 +21,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      # Push con un token de la cuenta dueña (secret PUSH_TOKEN): la regla "Proteger main" solo deja saltarse el
+      # Pull Request a los administradores y GitHub Actions no aparece como app en la lista de excepciones.
+      # Sin PUSH_TOKEN se usa el token normal del workflow.
       - uses: actions/checkout@v5
         with:
           ref: main
           fetch-depth: 0
+          token: ${{ secrets.PUSH_TOKEN || secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v5
         with:

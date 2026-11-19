@@ -39,10 +39,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
+      # Push con un token de la cuenta dueña (secret PUSH_TOKEN): la regla "Proteger main" solo deja saltarse el
+      # Pull Request a los administradores y GitHub Actions no aparece como app en la lista de excepciones.
+      # Sin PUSH_TOKEN se usa el token normal del workflow.
       - uses: actions/checkout@v5
         with:
           ref: main
           fetch-depth: 0
+          token: ${{ secrets.PUSH_TOKEN || secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v5
         with:
@@ -63,7 +67,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.ARANDANOS_ARTICULOS || secrets.GEMINI_API_KEY2 || secrets.GEMINI_API_KEY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.ACCOUNT_ID || secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.WORKERS_AI || secrets.CLOUDFLARE_API_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN || secrets.GITHUB_TOKEN }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: |
           ARGS=""

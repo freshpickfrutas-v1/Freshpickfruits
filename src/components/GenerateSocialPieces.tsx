@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Copy, RefreshCw, Loader2, Check, X, ExternalLink } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
@@ -137,8 +138,8 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
     window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
   }
 
-  return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
+  const modal = (
+    <div className="fixed inset-0 z-[100] bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
       <div
         className="bg-white rounded-2xl w-full max-w-5xl max-h-[92vh] overflow-y-auto p-6 space-y-5"
         onClick={e => e.stopPropagation()}
@@ -314,4 +315,7 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
       </div>
     </div>
   );
+
+  // Se dibuja en <body>: dentro de la lista, un ancestro con transform dejaba el modal fuera de la vista (listas largas).
+  return typeof document === 'undefined' ? modal : createPortal(modal, document.body);
 }

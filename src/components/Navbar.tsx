@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, Leaf, BookOpen } from 'lucide-react';
+import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, ChevronDown, Leaf, BookOpen } from 'lucide-react';
 import { scrollToId, useAppLocation } from '../lib/router';
 import { useAuth } from '../context/AuthContext';
 import { AccountMenu } from './AccountMenu';
@@ -113,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {t('Arándanos', 'Blueberries')}
                 </span>
               </div>
-              <p className="text-xs sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5 leading-tight">
+              <p className="text-xs sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5 leading-tight xl:hidden">
                 {t('Arándanos de Alta Montaña', 'High-Mountain Blueberries')}
               </p>
             </div>
@@ -121,16 +121,29 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop Navigation Links */}
           {/* "Inicio" lives on the logo here so the menu fits at 1280px. */}
-          <nav className="hidden xl:flex items-center gap-3 2xl:gap-4 text-[13px] font-semibold text-[#2F183C] shrink-0" aria-label={t('Menú principal', 'Main menu')}>
-            <a href="/#variedades" className={navLinkClass(false)}>{t('Nuestros Arándanos', 'Our Blueberries')}</a>
-            <a href="/#planes-mensuales" className={navLinkClass(false)}>{t('Planes Mensuales', 'Monthly Plans')}</a>
-            <a href="/#sostenibilidad" className={`${navLinkClass(false)} hidden 2xl:inline`}>{t('Sostenibilidad', 'Sustainability')}</a>
+          <nav className="hidden xl:flex items-center gap-4 text-[13px] font-semibold text-[#2F183C] shrink-0 whitespace-nowrap" aria-label={t('Menú principal', 'Main menu')}>
+            <a href="/#variedades" className={navLinkClass(false)}>{t('Arándanos', 'Blueberries')}</a>
+            <a href="/#planes-mensuales" className={navLinkClass(false)}>{t('Planes', 'Plans')}</a>
             <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>{t('Recetas', 'Recipes')}</a>
-            <a href="/noticias" className={navLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>{t('Noticias de Arándanos', 'Blueberry News')}</a>
-            <a href="/#faq" className={`${navLinkClass(false)} hidden 2xl:inline`}>{t('Preguntas', 'FAQ')}</a>
+            <a href="/noticias" className={navLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>{t('Noticias', 'News')}</a>
             <span className="h-4 w-px bg-[#DFCEE6]" aria-hidden="true" />
-            <a href="/mayoristas/colombia" className={navLinkClass(isActive('/mayoristas/colombia'))} aria-current={isActive('/mayoristas/colombia') ? 'page' : undefined}>{t('Al por mayor Colombia', 'Wholesale Colombia')}</a>
-            <a href="/mayoristas/mundo" className={navLinkClass(isActive('/mayoristas/mundo'))} aria-current={isActive('/mayoristas/mundo') ? 'page' : undefined}>Wholesale World</a>
+            <div className="relative group">
+              <a
+                href="/mayoristas"
+                className={`${navLinkClass(isActive('/mayoristas'))} inline-flex items-center gap-1 whitespace-nowrap`}
+                aria-haspopup="true"
+              >
+                {t('Mayoristas', 'Wholesale')}
+                <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" aria-hidden="true" />
+              </a>
+              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50">
+                <div className="min-w-[13rem] rounded-xl border border-[#EADBEE] bg-white shadow-xl py-1.5 text-[13px]">
+                  <a href="/mayoristas/colombia" className="block px-4 py-2.5 whitespace-nowrap hover:bg-[#F5ECF9] hover:text-[#7B4382]" aria-current={isActive('/mayoristas/colombia') ? 'page' : undefined}>{t('Al por mayor Colombia', 'Wholesale Colombia')}</a>
+                  <a href="/mayoristas/mundo" className="block px-4 py-2.5 whitespace-nowrap hover:bg-[#F5ECF9] hover:text-[#7B4382]" aria-current={isActive('/mayoristas/mundo') ? 'page' : undefined}>Wholesale World</a>
+                  <a href="/#faq" className="block px-4 py-2.5 whitespace-nowrap border-t border-[#EADBEE] hover:bg-[#F5ECF9] hover:text-[#7B4382]">{t('Preguntas Frecuentes', 'FAQ')}</a>
+                </div>
+              </div>
+            </div>
           </nav>
 
           {/* Action CTAs & Cart */}
@@ -138,7 +151,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {!isStaff && <button
               id="header-cta-custom-order"
               onClick={onNavigateToCustomOrder}
-              className="hidden sm:flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white bg-[#2F183C] hover:bg-[#432356] active:scale-95 transition-all px-4 py-2.5 rounded-xl shadow-xs cursor-pointer whitespace-nowrap"
+              className="hidden sm:flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white bg-[#2F183C] hover:bg-[#432356] active:scale-95 transition-all px-3 py-2.5 rounded-xl shadow-xs cursor-pointer whitespace-nowrap"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#DDA83A]" />
               <span>{t('Armar Pedido', 'Build Your Order')}</span>

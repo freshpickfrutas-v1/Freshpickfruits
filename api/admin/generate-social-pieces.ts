@@ -3,8 +3,13 @@
 // Solo administradores. Usa GEMINI_API_KEY (la misma que la automatización de contenido).
 import { GoogleGenAI } from '@google/genai';
 import { adminDb } from '../_lib/admin.js';
-import { geminiKey } from '../_lib/youtube.js';
 import firebaseConfig from '../../firebase-applet-config.json' with { type: 'json' };
+
+/** Misma lógica que api/_lib/youtube, sin importar ese módulo (evita arrastrar scripts al bundle). */
+function geminiKey(): string | undefined {
+  const k = process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY2;
+  return k?.trim() || undefined;
+}
 
 const BOOTSTRAP_ADMINS = ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
 

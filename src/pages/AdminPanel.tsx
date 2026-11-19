@@ -361,10 +361,10 @@ function ContentTab() {
     }
   };
   const items = view === 'noticia'
-    ? articles.map(a => ({ slug: a.slug, title: a.title, date: a.date }))
+    ? articles.map(a => ({ slug: a.slug, title: a.title, date: a.date, excerpt: a.excerpt ?? a.metaDescription ?? '' }))
     : view === 'receta'
-      ? recipes.map(r => ({ slug: r.slug, title: r.title, date: r.date ?? '' }))
-      : videos;
+      ? recipes.map(r => ({ slug: r.slug, title: r.title, date: r.date ?? '', excerpt: r.excerpt ?? '' }))
+      : videos.map(v => ({ ...v, excerpt: v.title }));
   const sortedItems = view === 'video' ? items : [...items].sort((a, b) => b.date.localeCompare(a.date));
 
   const toggle = async (slug: string, title: string, hide: boolean) => {
@@ -439,8 +439,8 @@ function ContentTab() {
         {sortedItems.map(item => {
           const off = isHidden(view, item.slug);
           return (
-            <div key={item.slug} className="flex items-center justify-between gap-3 px-4 py-3">
-              <div className="min-w-0">
+            <div key={item.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-4 py-3">
+              <div className="min-w-0 flex-1">
                 <p className={`text-sm font-semibold truncate ${off ? 'text-stone-400 line-through' : 'text-[#2F183C]'}`}>
                   {view === 'video'
                     ? <a href={`https://www.youtube.com/watch?v=${item.slug}`} target="_blank" rel="noopener noreferrer" className="underline decoration-[#DFCEE6] hover:text-[#7B4382]" title="Abrir el video en YouTube para revisarlo">{item.title}</a>
@@ -463,7 +463,7 @@ function ContentTab() {
                       setSocialTarget({
                         tipo: view,
                         title: item.title,
-                        excerpt: item.date,
+                        excerpt: 'excerpt' in item ? String(item.excerpt || '') : item.title,
                         slug: item.slug,
                         url:
                           view === 'video'
@@ -471,7 +471,7 @@ function ContentTab() {
                             : `https://www.freshpickfruits.com/${path}/${item.slug}`,
                       });
                     }}
-                    className="px-3 py-1.5 rounded-lg text-xs font-bold border border-[#DFCEE6] text-[#7B4382] hover:bg-[#F5ECF9] cursor-pointer"
+                    className="px-3 py-1.5 rounded-lg text-xs font-bold border border-[#7B4382] bg-[#F5ECF9] text-[#2F183C] hover:bg-[#EADBEE] cursor-pointer"
                   >
                     Piezas IA
                   </button>

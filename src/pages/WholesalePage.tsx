@@ -12,8 +12,8 @@ const field =
 
 /**
  * Sección mayorista única (/mayoristas). El idioma decide el mercado:
- * en español, ventas al por mayor a nivel nacional (Al por mayor Colombia);
- * en inglés, ventas al por mayor internacionales (Wholesale World).
+ * en español, ventas al por mayor a nivel nacional (Ventas nacionales al por mayor);
+ * en inglés, ventas al por mayor internacionales (International Wholesale).
  */
 export default function WholesalePage() {
   const t = useT();
@@ -22,8 +22,8 @@ export default function WholesalePage() {
 
   usePageMeta({
     title: world
-      ? 'Wholesale World | Colombian Blueberries for Importers'
-      : 'Al por mayor Colombia | Arándanos frescos Fresh Pick',
+      ? 'International Wholesale | Colombian Blueberries for Importers'
+      : 'Ventas nacionales al por mayor | Arándanos frescos Fresh Pick',
     description: world
       ? 'Fresh high-mountain blueberries from Colombia for importers and international distributors. Minimum order of 1 pallet (about 360 kg). ICA-registered export farm, GLOBALG.A.P. and GRASP certified.'
       : 'Arándanos frescos de alta montaña al por mayor para todas las ciudades de Colombia. Pedido mínimo: 1 pallet (aprox. 360 kg). Pedidos únicamente por correo.',
@@ -32,7 +32,7 @@ export default function WholesalePage() {
 
   const crumbs = [
     { label: t('Inicio', 'Home'), href: '/' },
-    { label: world ? 'Wholesale World' : 'Al por mayor Colombia' }
+    { label: world ? 'International Wholesale' : 'Ventas nacionales al por mayor' }
   ];
 
   return (
@@ -46,7 +46,7 @@ export default function WholesalePage() {
               <span>{world ? 'Wholesale' : 'Venta mayorista nacional'}</span>
             </div>
             <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display leading-tight">
-              {world ? 'Wholesale World' : 'Al por mayor Colombia'}
+              {world ? 'International Wholesale' : 'Ventas nacionales al por mayor'}
             </h1>
             <p className="mt-3 text-base sm:text-lg text-stone-700 leading-relaxed">
               {world
@@ -147,7 +147,7 @@ const QuoteForm: React.FC<{ variant: 'colombia' | 'world' }> = ({ variant }) => 
 
   const lines = world
     ? [
-        'WHOLESALE WORLD - QUOTE REQUEST',
+        'INTERNATIONAL WHOLESALE - QUOTE REQUEST',
         `Company: ${v.company}`,
         `Contact: ${v.contact}`,
         `Country / destination: ${v.place}`,
@@ -159,7 +159,7 @@ const QuoteForm: React.FC<{ variant: 'colombia' | 'world' }> = ({ variant }) => 
         v.message ? `Message: ${v.message}` : ''
       ]
     : [
-        t('AL POR MAYOR COLOMBIA - SOLICITUD DE PEDIDO', 'WHOLESALE COLOMBIA - ORDER REQUEST'),
+        t('VENTAS NACIONALES AL POR MAYOR - SOLICITUD DE PEDIDO', 'NATIONAL WHOLESALE - ORDER REQUEST'),
         `${t('Negocio', 'Business')}: ${v.company}`,
         `${t('Contacto', 'Contact')}: ${v.contact}`,
         `${t('Ciudad', 'City')}: ${v.place}`,
@@ -170,7 +170,7 @@ const QuoteForm: React.FC<{ variant: 'colombia' | 'world' }> = ({ variant }) => 
         v.message ? `${t('Mensaje', 'Message')}: ${v.message}` : ''
       ];
   const text = lines.filter(Boolean).join('\n');
-  const subject = world ? 'Wholesale World - quote request' : t('Al por mayor Colombia - solicitud de pedido', 'Wholesale Colombia - order request');
+  const subject = world ? 'International Wholesale - quote request' : t('Ventas nacionales al por mayor - solicitud de pedido', 'National wholesale - order request');
 
   // Los pedidos al por mayor se hacen solo por correo y deben llegar a los dos buzones.
   const send = () => {

@@ -5,7 +5,7 @@ import path from 'node:path';
 import { PAGE_SIZE, archiveHubs, recipeCategoryIds } from '../src/lib/archive.mjs';
 import { articleTagIds, recipeTagIds } from '../src/lib/tagging.mjs';
 
-/** Sección mayorista única: en español es nacional (Colombia) y en inglés internacional (Wholesale World). */
+/** Sección mayorista única: en español es nacional (Colombia) y en inglés internacional (International Wholesale). */
 export const WHOLESALE_PATHS = ['/mayoristas'];
 
 export const root = path.resolve(import.meta.dirname, '..');

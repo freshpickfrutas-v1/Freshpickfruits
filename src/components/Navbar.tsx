@@ -127,7 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>{t('Recetas', 'Recipes')}</a>
             <a href="/noticias" className={navLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>{t('Noticias', 'News')}</a>
             <span className="h-4 w-px bg-[#DFCEE6]" aria-hidden="true" />
-            <a href="/mayoristas" className={`${navLinkClass(isActive('/mayoristas'))} whitespace-nowrap`} aria-current={isActive('/mayoristas') ? 'page' : undefined}>{t('Al por mayor Colombia', 'Wholesale World')}</a>
+            <a href="/mayoristas" className={`${navLinkClass(isActive('/mayoristas'))} whitespace-nowrap`} aria-current={isActive('/mayoristas') ? 'page' : undefined}>{t('Ventas nacionales al por mayor', 'International Wholesale')}</a>
           </nav>
 
           {/* Action CTAs & Cart */}
@@ -210,7 +210,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <a href="/#variedades" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Nuestros Arándanos', 'Our Blueberries')}</a>
                   <a href="/#pedidos-personalizados" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Armar Pedido', 'Build Your Order')}</a>
                   <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Planes Mensuales', 'Monthly Plans')}</a>
-                  <a href="/mayoristas" onClick={closeMenu} className={mobileLinkClass(isActive('/mayoristas'))}>{t('Al por mayor Colombia', 'Wholesale World')}</a>
+                  <a href="/mayoristas" onClick={closeMenu} className={mobileLinkClass(isActive('/mayoristas'))}>{t('Ventas nacionales al por mayor', 'International Wholesale')}</a>
                 </div>
               </div>
               <div>

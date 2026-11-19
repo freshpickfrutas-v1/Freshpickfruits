@@ -52,12 +52,18 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
           {/* Visual Showcase */}
           <div className="order-3 lg:order-none lg:col-span-5 lg:col-start-8 lg:row-start-1 self-center">
             <div className="rounded-2xl overflow-hidden shadow-2xl shadow-[#2F183C]/20 border-4 border-white aspect-[4/3] sm:aspect-[5/4] relative mx-auto max-w-md lg:max-w-none">
-              <img
-                src="/assets/finca/finca-arandanos-mano-1.jpg"
-                alt={t('Arándanos frescos de Fresh Pick recién cosechados a mano en cultivo andino de alta montaña a más de 2.800 msnm con agricultura responsable y limpia', 'Fresh Pick blueberries just hand-picked in an Andean high-mountain farm above 2,800 m with responsible, clean farming')}
-                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-                loading="eager"
-              />
+              <picture>
+                <source srcSet="/assets/finca/finca-arandanos-mano-1.webp" type="image/webp" />
+                <img
+                  src="/assets/finca/finca-arandanos-mano-1.jpg"
+                  width={1000}
+                  height={1333}
+                  alt={t('Arándanos frescos de Fresh Pick recién cosechados a mano en cultivo andino de alta montaña a más de 2.800 msnm con agricultura responsable y limpia', 'Fresh Pick blueberries just hand-picked in an Andean high-mountain farm above 2,800 m with responsible, clean farming')}
+                  className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
               <div className="absolute inset-0 bg-gradient-to-t from-[#1E0E27]/80 via-transparent to-transparent pointer-events-none" />
 
               {/* Caption on image */}

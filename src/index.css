@@ -28,6 +28,7 @@
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #DDA83A;
     background-image: url('/site_bg_pattern.jpg');
+    background-image: image-set(url('/site_bg_pattern.webp') type('image/webp'), url('/site_bg_pattern.jpg') type('image/jpeg'));
     background-repeat: repeat;
     background-size: 480px 480px;
     background-attachment: scroll;
@@ -142,4 +143,42 @@
     min-width: 0;
     overflow-x: clip;
   }
+}
+
+/* Diálogos nativos (<dialog>): fondo oscuro y sin desplazar la página de atrás. */
+dialog:modal {
+  overscroll-behavior: contain;
+}
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+  backdrop-filter: blur(2px);
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Quien pide "reducir movimiento" en su sistema no ve animaciones ni transiciones largas. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Enlace "saltar al contenido": visible solo al navegar con teclado. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 0.75rem;
+  background: #2F183C;
+  color: #DDA83A;
+  font-weight: 700;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 0.75rem;
 }

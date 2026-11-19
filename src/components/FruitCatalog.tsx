@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FruitItem } from '../types';
 import { Plus, Minus, Check, Info, Sparkles, X, Shield, SunMedium, Compass, Heart } from 'lucide-react';
 import { dateLocale, useLang, useT } from '../lib/i18n';
+import { ModalDialog } from './ModalDialog';
 
 interface FruitCatalogProps {
   fruits: FruitItem[];
@@ -232,7 +233,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
 
       {/* Details & Agronomic Sheet Modal */}
       {activeModalFruit && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
+        <ModalDialog label={activeModalFruit.name} onClose={() => setActiveModalFruit(null)} className="items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl border border-[#EADBEE] max-h-[90vh] flex flex-col">
 
             {/* Modal Header */}
@@ -353,7 +354,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
             </div>
 
           </div>
-        </div>
+        </ModalDialog>
       )}
 
     </section>

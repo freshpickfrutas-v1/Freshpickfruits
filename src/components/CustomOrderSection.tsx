@@ -761,7 +761,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               )}
               <input
                 className={`w-full border ${formErrors.customerName ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
-                placeholder={t('Nombre completo', 'Full name')}
+                placeholder={t('Nombre completo', 'Full name')} aria-label={t('Nombre completo', 'Full name')}
                 name="name"
                 autoComplete="name"
                 value={customerName}
@@ -770,7 +770,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               {formErrors.customerName && <p className="text-xs text-red-600">{formErrors.customerName}</p>}
               <input
                 className={`w-full border ${formErrors.customerPhone ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
-                placeholder={t('WhatsApp (ej. 317 893 1026)', 'WhatsApp (e.g. +57 317 893 1026)')}
+                placeholder={t('WhatsApp (ej. 317 893 1026)', 'WhatsApp (e.g. +57 317 893 1026)')} aria-label={t('WhatsApp (ej. 317 893 1026)', 'WhatsApp (e.g. +57 317 893 1026)')}
                 name="tel"
                 type="tel"
                 inputMode="tel"
@@ -781,7 +781,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               {formErrors.customerPhone && <p className="text-xs text-red-600">{formErrors.customerPhone}</p>}
               <input
                 className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                placeholder={t('Correo (para tu factura y seguimiento)', 'Email (for your invoice and tracking)')}
+                placeholder={t('Correo (para tu factura y seguimiento)', 'Email (for your invoice and tracking)')} aria-label={t('Correo (para tu factura y seguimiento)', 'Email (for your invoice and tracking)')}
                 type="email"
                 name="email"
                 autoComplete="email"
@@ -799,7 +799,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               />
               <input
                 className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                placeholder={t('Apto, torre, casa u oficina (opcional)', 'Apartment, tower, house or office (optional)')}
+                placeholder={t('Apto, torre, casa u oficina (opcional)', 'Apartment, tower, house or office (optional)')} aria-label={t('Apto, torre, casa u oficina (opcional)', 'Apartment, tower, house or office (optional)')}
                 name="address-line2"
                 autoComplete="address-line2"
                 value={deliveryComplement}
@@ -821,7 +821,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <>
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder={t('Cédula para la factura (opcional)', 'ID number for the invoice (optional)')}
+                    placeholder={t('Cédula para la factura (opcional)', 'ID number for the invoice (optional)')} aria-label={t('Cédula para la factura (opcional)', 'ID number for the invoice (optional)')}
                     inputMode="numeric"
                     value={cedula}
                     onChange={e => setCedula(e.target.value)}
@@ -832,7 +832,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <>
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder={t('Razón social', 'Company name')}
+                    placeholder={t('Razón social', 'Company name')} aria-label={t('Razón social', 'Company name')}
                     name="organization"
                     autoComplete="organization"
                     value={businessName}
@@ -843,7 +843,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                     <div className="col-span-2">
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder={t('NIT (sin DV)', 'NIT / tax ID (no check digit)')}
+                    placeholder={t('NIT (sin DV)', 'NIT / tax ID (no check digit)')} aria-label={t('NIT (sin DV)', 'NIT / tax ID (no check digit)')}
                     inputMode="numeric"
                     value={nit}
                     onChange={e => setNit(e.target.value)}
@@ -852,7 +852,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                     <div>
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder="DV"
+                    placeholder="DV" aria-label="DV"
                     inputMode="numeric"
                     maxLength={1}
                     value={nitDv}
@@ -875,7 +875,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   {formErrors.taxRegime && <p className="text-xs text-red-600">{formErrors.taxRegime}</p>}
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder={t('Correo de facturación', 'Billing email')}
+                    placeholder={t('Correo de facturación', 'Billing email')} aria-label={t('Correo de facturación', 'Billing email')}
                     type="email"
                     name="billing-email"
                     autoComplete="email"
@@ -887,7 +887,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 )}
                 <input
                   className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                  placeholder={t('Dirección de facturación (si es distinta a la de entrega)', 'Billing address (if different from delivery)')}
+                  placeholder={t('Dirección de facturación (si es distinta a la de entrega)', 'Billing address (if different from delivery)')} aria-label={t('Dirección de facturación (si es distinta a la de entrega)', 'Billing address (if different from delivery)')}
                   name="billing-address"
                   autoComplete="billing street-address"
                   value={billingAddress}

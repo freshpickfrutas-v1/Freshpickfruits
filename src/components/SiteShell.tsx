@@ -8,6 +8,7 @@ import { CookieBanner } from './CookieBanner';
 import { useCart } from '../context/CartContext';
 import { goToHomeSection } from '../lib/router';
 import { useAuth } from '../context/AuthContext';
+import { useT } from '../lib/i18n';
 
 interface SiteShellProps {
   children: React.ReactNode;
@@ -19,16 +20,18 @@ interface SiteShellProps {
 export const SiteShell: React.FC<SiteShellProps> = ({ children, onNavigateToCustomOrder }) => {
   const cart = useCart();
   const { isStaff } = useAuth();
+  const t = useT();
   const goToCustomOrder = onNavigateToCustomOrder ?? (() => goToHomeSection('pedidos-personalizados'));
 
   return (
     <div className="min-h-screen flex flex-col max-md:pb-16 bg-transparent fp-side-gutters lg:w-[calc(100%-5rem)] lg:max-w-[1440px] lg:mx-auto lg:shadow-2xl lg:shadow-[#2F183C]/30 text-stone-900 font-sans selection:bg-[#2F183C] selection:text-[#DDA83A]">
+      <a href="#contenido" className="skip-link">{t('Saltar al contenido', 'Skip to content')}</a>
       <Navbar
         cartItemCount={cart.totalCount}
         onOpenCart={() => cart.setOpen(true)}
         onNavigateToCustomOrder={goToCustomOrder}
       />
-      <main className="flex-1">{children}</main>
+      <main id="contenido" tabIndex={-1} className="flex-1 outline-none">{children}</main>
       <Footer />
       {!isStaff && <CartDrawer
         isOpen={cart.isOpen}

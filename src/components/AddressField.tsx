@@ -74,7 +74,7 @@ export const AddressField: React.FC<AddressFieldProps> = ({ value, onChange, pla
         <input
           className={className ?? 'w-full border border-stone-300 rounded-xl pl-9 pr-9 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none'}
           style={{ paddingLeft: '2.25rem' }}
-          placeholder={placeholder ?? t('Calle o carrera y número (ej. Calle 100 # 15-20)', 'Street and number (e.g. Calle 100 # 15-20)')}
+          placeholder={placeholder ?? t('Calle o carrera y número (ej. Calle 100 # 15-20)', 'Street and number (e.g. Calle 100 # 15-20)')} aria-label={placeholder ?? t('Calle o carrera y número (ej. Calle 100 # 15-20)', 'Street and number (e.g. Calle 100 # 15-20)')}
           value={value}
           onChange={e => type(e.target.value)}
           onFocus={() => options.length && setOpen(true)}

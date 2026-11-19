@@ -188,7 +188,7 @@ export const AddressBook: React.FC = () => {
 
           <div className="grid sm:grid-cols-2 gap-3">
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">{t('Apto, torre, casa, oficina…', 'Apartment, tower, house, office…')}</span>
-              <input className={input} name="address-line2" autoComplete="address-line2" placeholder={t('Torre 2, Apto 502', 'Tower 2, Apt 502')} value={form.complement} onChange={e => setForm({ ...form, complement: e.target.value })} /></label>
+              <input className={input} name="address-line2" autoComplete="address-line2" placeholder={t('Torre 2, Apto 502', 'Tower 2, Apt 502')} aria-label={t('Torre 2, Apto 502', 'Tower 2, Apt 502')} value={form.complement} onChange={e => setForm({ ...form, complement: e.target.value })} /></label>
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">{t('Barrio', 'Neighborhood')}</span>
               <input className={input} name="neighborhood" autoComplete="address-level3" value={form.neighborhood} onChange={e => setForm({ ...form, neighborhood: e.target.value })} /></label>
             <label className="block text-sm"><span className="text-xs font-semibold text-stone-500">{t('Quién recibe', 'Who receives')}</span>
@@ -202,7 +202,7 @@ export const AddressBook: React.FC = () => {
                 <option value="Mañana 8am–1pm">{t('Mañana 8am–1pm', SLOT_EN['Mañana 8am–1pm'])}</option><option value="Tarde 1pm–3pm">{t('Tarde 1pm–3pm', SLOT_EN['Tarde 1pm–3pm'])}</option>
               </select></label>
             <label className="block text-sm sm:col-span-2"><span className="text-xs font-semibold text-stone-500">{t('Indicaciones para el domiciliario (opcional)', 'Instructions for the courier (optional)')}</span>
-              <input className={input} placeholder={t('Portería, punto de referencia, color de la fachada…', 'Front desk, landmark, color of the building…')} value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></label>
+              <input className={input} placeholder={t('Portería, punto de referencia, color de la fachada…', 'Front desk, landmark, color of the building…')} aria-label={t('Portería, punto de referencia, color de la fachada…', 'Front desk, landmark, color of the building…')} value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></label>
           </div>
           <label className="flex items-center gap-2 text-sm text-[#2F183C] font-semibold">
             <input type="checkbox" checked={form.makeDefault} onChange={e => setForm({ ...form, makeDefault: e.target.checked })} /> {t('Usar como dirección principal', 'Use as primary address')}

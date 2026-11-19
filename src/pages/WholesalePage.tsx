@@ -219,16 +219,16 @@ const QuoteForm: React.FC<{ variant: 'colombia' | 'world' }> = ({ variant }) => 
         noValidate
       >
         <div className="grid sm:grid-cols-2 gap-3">
-          <input className={field} placeholder={world ? 'Company' : t('Nombre del negocio', 'Business name')} name="organization" autoComplete="organization" value={v.company} onChange={set('company')} />
-          <input className={field} placeholder={world ? 'Contact name' : t('Nombre de contacto', 'Contact name')} name="name" autoComplete="name" value={v.contact} onChange={set('contact')} />
-          <input className={field} type="email" placeholder={world ? 'Email' : t('Correo', 'Email')} name="email" autoComplete="email" value={v.email} onChange={set('email')} />
-          <input className={field} type="tel" placeholder={world ? 'WhatsApp / phone (with country code)' : t('WhatsApp / teléfono', 'WhatsApp / phone')} name="tel" autoComplete="tel" value={v.phone} onChange={set('phone')} />
-          <input className={field} placeholder={world ? 'Country / destination port or airport' : t('Ciudad de entrega', 'Delivery city')} value={v.place} onChange={set('place')} />
+          <input className={field} placeholder={world ? 'Company' : t('Nombre del negocio', 'Business name')} aria-label={world ? 'Company' : t('Nombre del negocio', 'Business name')} name="organization" autoComplete="organization" value={v.company} onChange={set('company')} />
+          <input className={field} placeholder={world ? 'Contact name' : t('Nombre de contacto', 'Contact name')} aria-label={world ? 'Contact name' : t('Nombre de contacto', 'Contact name')} name="name" autoComplete="name" value={v.contact} onChange={set('contact')} />
+          <input className={field} type="email" placeholder={world ? 'Email' : t('Correo', 'Email')} aria-label={world ? 'Email' : t('Correo', 'Email')} name="email" autoComplete="email" value={v.email} onChange={set('email')} />
+          <input className={field} type="tel" placeholder={world ? 'WhatsApp / phone (with country code)' : t('WhatsApp / teléfono', 'WhatsApp / phone')} aria-label={world ? 'WhatsApp / phone (with country code)' : t('WhatsApp / teléfono', 'WhatsApp / phone')} name="tel" autoComplete="tel" value={v.phone} onChange={set('phone')} />
+          <input className={field} placeholder={world ? 'Country / destination port or airport' : t('Ciudad de entrega', 'Delivery city')} aria-label={world ? 'Country / destination port or airport' : t('Ciudad de entrega', 'Delivery city')} value={v.place} onChange={set('place')} />
           <select className={field} value={v.kind} onChange={set('kind')} aria-label={world ? 'Business type' : t('Tipo de negocio', 'Business type')}>
             <option value="">{world ? 'Business type' : t('Tipo de negocio', 'Business type')}</option>
             {kinds.map(k => <option key={k} value={k}>{k}</option>)}
           </select>
-          <input className={field} placeholder={world ? 'Quantity (number of pallets or kg)' : t('Cantidad (pallets o kg)', 'Quantity (pallets or kg)')} value={v.volume} onChange={set('volume')} />
+          <input className={field} placeholder={world ? 'Quantity (number of pallets or kg)' : t('Cantidad (pallets o kg)', 'Quantity (pallets or kg)')} aria-label={world ? 'Quantity (number of pallets or kg)' : t('Cantidad (pallets o kg)', 'Quantity (pallets or kg)')} value={v.volume} onChange={set('volume')} />
           {world && (
             <select className={field} value={v.incoterm} onChange={set('incoterm')} aria-label="Preferred Incoterm">
               <option value="">Preferred Incoterm (optional)</option>
@@ -236,7 +236,7 @@ const QuoteForm: React.FC<{ variant: 'colombia' | 'world' }> = ({ variant }) => 
             </select>
           )}
         </div>
-        <textarea className={field} rows={4} placeholder={world ? 'Pack size and anything else we should know' : t('Presentación y cualquier detalle que debamos saber', 'Pack size and anything else we should know')} value={v.message} onChange={set('message')} />
+        <textarea className={field} rows={4} placeholder={world ? 'Pack size and anything else we should know' : t('Presentación y cualquier detalle que debamos saber', 'Pack size and anything else we should know')} aria-label={world ? 'Pack size and anything else we should know' : t('Presentación y cualquier detalle que debamos saber', 'Pack size and anything else we should know')} value={v.message} onChange={set('message')} />
         {showErrors && missing && (
           <p role="alert" className="text-xs bg-red-50 text-red-700 border border-red-200 rounded-lg px-3 py-2">
             {world

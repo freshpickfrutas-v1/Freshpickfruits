@@ -2,6 +2,7 @@ import React from 'react';
 import { FruitItem } from '../types';
 import { SHIPPING_FEE } from '../lib/pricing';
 import { dateLocale, useLang, useT } from '../lib/i18n';
+import { ModalDialog } from './ModalDialog';
 import { waLink } from '../lib/contact';
 import { CreditCard, X, Plus, Minus, Trash2, ShoppingBag, Sparkles, ArrowRight, AlertCircle, CheckCircle2, MessageCircle } from 'lucide-react';
 
@@ -69,7 +70,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/50 backdrop-blur-xs animate-in fade-in duration-200">
+    <ModalDialog label={t('Tu Carrito de Cosecha', 'Your Harvest Cart')} onClose={onClose} className="justify-end">
       <div className="w-full max-w-md bg-white h-full shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300">
         
         {/* Drawer Header */}
@@ -287,6 +288,6 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         )}
 
       </div>
-    </div>
+    </ModalDialog>
   );
 };

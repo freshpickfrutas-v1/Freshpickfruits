@@ -1,4 +1,21 @@
 {
+  "crons": [
+    {
+      "path": "/api/cron/social-drafts",
+      "schedule": "0 13 * * *"
+    }
+  ],
+  "functions": {
+    "api/admin/social-queue.ts": {
+      "maxDuration": 60
+    },
+    "api/cron/social-drafts.ts": {
+      "maxDuration": 60
+    },
+    "api/admin/publish-social.ts": {
+      "maxDuration": 60
+    }
+  },
   "redirects": [
     {
       "source": "/blog",

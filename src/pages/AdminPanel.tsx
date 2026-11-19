@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   LayoutDashboard, Package, Users, ShoppingBag, ArrowLeft, Leaf,
-  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog, Repeat, Newspaper, ClipboardCheck
+  TrendingUp, Clock, AlertCircle, Box, Pencil, Trash2, Plus, X, Loader2, LogOut, UserCog, Repeat, Newspaper, ClipboardCheck, Share2
 } from 'lucide-react';
 import {
   subscribeProducts, addProduct, updateProduct, deleteProduct,
@@ -21,6 +21,7 @@ import { useFullArticleIndex, useFullRecipeIndex } from '../data/content';
 import { FEATURED_VIDEOS } from '../data/featuredVideos';
 import { ContentKind, hideContent, restoreContent, isHidden, useHiddenContent, allCustomVideos, addCustomVideo, youtubeIdFrom } from '../lib/hiddenContent';
 import { GenerateSocialPieces, type SocialContentInput } from '../components/GenerateSocialPieces';
+import { SocialQueue } from '../components/SocialQueue';
 
 function isToday(iso: string) {
   if (!iso) return false;
@@ -216,7 +217,7 @@ function ProductFormModal({
   );
 }
 
-type AdminTab = 'resumen' | 'pedidos' | 'suscripciones' | 'productos' | 'aprobaciones' | 'contenido' | 'clientes' | 'equipo';
+type AdminTab = 'resumen' | 'pedidos' | 'suscripciones' | 'productos' | 'aprobaciones' | 'contenido' | 'redes' | 'clientes' | 'equipo';
 
 /** Which team roles can open each tab. Phase 2 refines this per workflow step. */
 const TAB_ROLES: Record<AdminTab, UserRole[]> = {
@@ -226,6 +227,7 @@ const TAB_ROLES: Record<AdminTab, UserRole[]> = {
   productos: ['admin'],
   aprobaciones: ['admin'],
   contenido: ['admin'],
+  redes: ['admin'],
   clientes: ['admin', 'contabilidad'],
   equipo: ['admin'],
 };
@@ -789,6 +791,7 @@ function AdminPanelInner() {
             { id: 'productos' as const, label: 'Productos', icon: Box },
             { id: 'aprobaciones' as const, label: 'Aprobaciones', icon: ClipboardCheck },
             { id: 'contenido' as const, label: 'Noticias y recetas', icon: Newspaper },
+            { id: 'redes' as const, label: 'Redes sociales', icon: Share2 },
             { id: 'clientes' as const, label: 'Clientes', icon: Users },
             { id: 'equipo' as const, label: 'Equipo', icon: UserCog },
           ]).filter(item => allowedTabs.includes(item.id)).map(item => (
@@ -813,6 +816,8 @@ function AdminPanelInner() {
           {tab === 'aprobaciones' && <ReviewTab />}
 
           {tab === 'contenido' && <ContentTab />}
+
+          {tab === 'redes' && <SocialQueue />}
 
           {tab === 'suscripciones' && <SubscriptionsTab role={role} email={user?.email ?? ''} />}
 

@@ -18,6 +18,8 @@ export type SocialContentInput = {
   body?: string;
   url?: string;
   slug?: string;
+  /** Imagen pública (https, JPEG) que usa Instagram al publicar. */
+  imageUrl?: string;
 };
 
 interface Props {
@@ -65,6 +67,39 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
       setError(err instanceof Error ? err.message : 'No se pudieron generar las piezas');
     } finally {
       setLoading(false);
+    }
+  }
+
+  const [publishing, setPublishing] = useState(false);
+  const [publishMsg, setPublishMsg] = useState('');
+
+  async function publish() {
+    if (!pieces) return;
+    const link = content.url || `https://www.freshpickfruits.com/${content.tipo === 'receta' ? 'recetas' : 'noticias'}/${content.slug ?? ''}`;
+    const conIg = !!content.imageUrl;
+    if (!window.confirm(`¿Publicar ahora en Facebook${conIg ? ' e Instagram' : ''}? Se verá público de inmediato.${conIg ? '' : '\n\n(Sin imagen no se publica en Instagram.)'}`)) return;
+    setPublishing(true);
+    setError('');
+    setPublishMsg('');
+    try {
+      const token = await getIdToken();
+      if (!token) throw new Error('No hay sesión');
+      const res = await fetch('/api/admin/publish-social', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({
+          facebook: { message: pieces.facebook.copy, link },
+          ...(conIg ? { instagram: { caption: `${pieces.instagram.copy}\n\n${pieces.instagram.hashtags.join(' ')}`, imageUrl: content.imageUrl } } : {}),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
+      const r = data.resultados as Record<string, { ok: boolean; error?: string }>;
+      setPublishMsg(Object.entries(r).map(([k, v]) => `${k === 'facebook' ? 'Facebook' : 'Instagram'}: ${v.ok ? 'publicado' : `falló (${v.error})`}`).join(' · '));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'No se pudo publicar');
+    } finally {
+      setPublishing(false);
     }
   }
 
@@ -159,6 +194,17 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
               {pieces ? 'Regenerar' : 'Generar con IA'}
             </button>
+            {pieces && (
+              <button
+                type="button"
+                onClick={publish}
+                disabled={publishing}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#7B4382] text-white text-sm font-bold disabled:opacity-60"
+              >
+                {publishing && <Loader2 className="w-4 h-4 animate-spin" />}
+                Publicar en FB e IG
+              </button>
+            )}
             {pieces && content.slug && (
               <button
                 type="button"
@@ -180,6 +226,9 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
 
         {error && (
           <p className="text-sm bg-red-50 text-red-700 border border-red-200 rounded-xl px-3 py-2">{error}</p>
+        )}
+        {publishMsg && (
+          <p className="text-sm bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl px-3 py-2">{publishMsg}</p>
         )}
         {savedOk && !error && (
           <p className="text-sm bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl px-3 py-2">

@@ -361,10 +361,12 @@ function ContentTab() {
     }
   };
   const items = view === 'noticia'
-    ? articles.map(a => ({ slug: a.slug, title: a.title, date: a.date, excerpt: a.excerpt ?? a.metaDescription ?? '' }))
+    ? articles.map(a => ({ slug: a.slug, title: a.title, date: a.date, excerpt: a.excerpt ?? a.metaDescription ?? '', image: a.image ?? '' }))
     : view === 'receta'
-      ? recipes.map(r => ({ slug: r.slug, title: r.title, date: r.date ?? '', excerpt: r.excerpt ?? '' }))
-      : videos.map(v => ({ ...v, excerpt: v.title }));
+      ? recipes.map(r => ({ slug: r.slug, title: r.title, date: r.date ?? '', excerpt: r.excerpt ?? '', image: r.image ?? '' }))
+      : videos.map(v => ({ ...v, excerpt: v.title, image: `https://img.youtube.com/vi/${v.slug}/hqdefault.jpg` }));
+  // Instagram necesita una URL pública absoluta (https).
+  const imagenPublica = (img: string) => (!img ? undefined : img.startsWith('http') ? img : `https://www.freshpickfruits.com${img.startsWith('/') ? '' : '/'}${img}`);
   const sortedItems = view === 'video' ? items : [...items].sort((a, b) => b.date.localeCompare(a.date));
 
   const toggle = async (slug: string, title: string, hide: boolean) => {
@@ -463,8 +465,9 @@ function ContentTab() {
                       setSocialTarget({
                         tipo: view,
                         title: item.title,
-                        excerpt: 'excerpt' in item ? String(item.excerpt || '') : item.title,
+                        excerpt: item.excerpt || item.title,
                         slug: item.slug,
+                        imageUrl: imagenPublica(item.image),
                         url:
                           view === 'video'
                             ? `https://www.youtube.com/watch?v=${item.slug}`

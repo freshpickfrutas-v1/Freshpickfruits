@@ -1,0 +1,67 @@
+{
+  "slug": "granola-casera-con-arandanos",
+  "title": "Granola Casera con Arándanos",
+  "excerpt": "Prepara una granola dorada y crocante horneada en casa, acompañada del toque fresco y jugoso de los arándanos. El desayuno perfecto para comenzar la mañana con energía.",
+  "imageAlt": "Tazón con granola casera dorada y crujiente, servida con arándanos frescos enteros y trozos de almendra.",
+  "category": "desayunos",
+  "extraCategories": [
+    "snacks-meriendas",
+    "postres-saludables"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 25,
+  "restMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 6,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 tazas de hojuelas de avena entera"
+    },
+    {
+      "text": "1/2 taza de almendras picadas"
+    },
+    {
+      "text": "1/4 taza de semillas de calabaza"
+    },
+    {
+      "text": "3 cucharadas de miel de abejas"
+    },
+    {
+      "text": "2 cucharadas de aceite de coco fundido"
+    },
+    {
+      "text": "1 cucharadita de esencia de vainilla"
+    },
+    {
+      "text": "1/2 cucharadita de canela en polvo"
+    },
+    {
+      "text": "1 pizca de sal marina"
+    }
+  ],
+  "steps": [
+    "Precalienta el horno a 160 °C y cubre una bandeja con papel para hornear.",
+    "En un recipiente grande, mezcla la avena entera, las almendras picadas, las semillas de calabaza, la canela y la pizca de sal marina.",
+    "En un tazón pequeño, combina la miel, el aceite de coco y la esencia de vainilla hasta integrar bien.",
+    "Vierte la mezcla líquida sobre los ingredientes secos y revuelve con una espátula para que todo quede bien impregnado.",
+    "Esparce la granola uniformemente sobre la bandeja horneadora, presionando suavemente con la espátula.",
+    "Hornea durante 20 a 25 minutos, removiendo la granola suavemente a mitad del tiempo para que se dore de forma pareja.",
+    "Retira del horno y deja enfriar por 15 minutos sin moverla para que tome su textura crocante.",
+    "Sirve en tazones y añade los arándanos Fresh Pick frescos por encima. Estos arándanos de alta montaña cultivados en Guasca aportan un contraste jugoso y dulce natural incomparable."
+  ],
+  "tips": [
+    "Guarda la base de granola horneada en un frasco de vidrio hermético hasta por dos semanas a temperatura ambiente. Agrega los arándanos Fresh Pick al instante de servir para mantener la fruta fresca y el cereal bien crujiente.",
+    "Para lograr trozos más grandes y crocantes (clusters), presiona bien la mezcla sobre la bandeja antes de hornear y no la muevas demasiado mientras se enfría."
+  ],
+  "date": "2026-11-19",
+  "publicadoEn": "2026-11-19T14:20:34.239Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/granola-casera-con-arandanos.jpg"
+}

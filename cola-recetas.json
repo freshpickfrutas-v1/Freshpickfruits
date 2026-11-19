@@ -361,7 +361,8 @@
     "titulo": "Ensalada de Rúcula, Arándanos y Queso de Cabra",
     "categoria": "ensaladas-platos-frescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-29"
   },
   {
     "orden": 41,
@@ -369,7 +370,8 @@
     "titulo": "Cómo Deshidratar Arándanos en el Horno",
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-30"
   },
   {
     "orden": 42,
@@ -377,7 +379,8 @@
     "titulo": "Batido de Arándanos y Cacao Amargo",
     "categoria": "smoothies-batidos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-10-31"
   },
   {
     "orden": 43,
@@ -385,7 +388,8 @@
     "titulo": "Panqueques de Avena y Arándanos sin Harina",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-11-01"
   },
   {
     "orden": 44,
@@ -393,7 +397,8 @@
     "titulo": "Arroz con Leche con Arándanos",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-11-02"
   },
   {
     "orden": 45,
@@ -401,7 +406,8 @@
     "titulo": "Tortas de Arroz con Queso Crema y Arándanos",
     "categoria": "snacks-meriendas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-11-03"
   },
   {
     "orden": 46,

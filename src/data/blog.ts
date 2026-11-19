@@ -1,4 +1,5 @@
 import { BlogCategory, BlogCategoryId } from '../types';
+import type { Lang } from '../lib/i18n';
 
 export const BLOG_CATEGORIES: BlogCategory[] = [
   {
@@ -28,11 +29,22 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
   }
 ];
 
+const BLOG_CATEGORIES_EN: Record<string, { name: string; description: string }> = {
+  'beneficios-arandanos': { name: 'Blueberry Benefits', description: 'What blueberries add to your diet and why they are worth including.' },
+  'nutricion-ciencia': { name: 'Nutrition and Science', description: 'Nutrition facts, antioxidants and what the research says.' },
+  'salud-digestiva-bienestar': { name: 'Digestive Health and Wellness', description: 'Fiber, digestion and habits that make you feel good.' },
+  'estilo-vida-saludable': { name: 'Healthy Lifestyle', description: 'Practical ideas to eat better every day.' },
+  'cultivo-origen': { name: 'Growing and Origin', description: 'How we farm in Guasca above 2,800 m and where Fresh Pick blueberries come from.' }
+};
+
+export const blogCategoriesFor = (lang: Lang): BlogCategory[] =>
+  BLOG_CATEGORIES.map(c => (lang === 'en' && BLOG_CATEGORIES_EN[c.id] ? { ...c, ...BLOG_CATEGORIES_EN[c.id] } : c));
+
 export function getBlogCategory(id: BlogCategoryId) {
   return BLOG_CATEGORIES.find(c => c.id === id)!;
 }
 
-export function formatArticleDate(iso: string) {
+export function formatArticleDate(iso: string, lang: Lang = 'es') {
   const [y, m, d] = iso.split('-').map(Number);
-  return new Date(y, m - 1, d).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
+  return new Date(y, m - 1, d).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-CO', { day: 'numeric', month: 'long', year: 'numeric' });
 }

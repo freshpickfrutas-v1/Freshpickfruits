@@ -1,6 +1,7 @@
 import React from 'react';
 import { SubscriptionPlan } from '../types';
 import { Check, Sparkles, CalendarCheck, ShieldCheck, HeartHandshake } from 'lucide-react';
+import { dateLocale, useLang, useT } from '../lib/i18n';
 
 interface SubscriptionPlansProps {
   plans: SubscriptionPlan[];
@@ -11,6 +12,8 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({
   plans,
   onSelectPlan
 }) => {
+  const t = useT();
+  const loc = dateLocale(useLang());
   return (
     <section id="planes-mensuales" className="py-12 sm:py-16 bg-white/85 backdrop-blur-[2px] border-b border-stone-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,13 +22,13 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">
             <CalendarCheck className="w-3.5 h-3.5 text-[#7B4382]" />
-            <span>Suscripciones & Entregas Programadas</span>
+            <span>{t('Suscripciones & Entregas Programadas', 'Subscriptions & Scheduled Deliveries')}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2F183C] tracking-tight font-display">
-            Planes Mensuales de Arándanos Frescos a tu Puerta
+            {t('Planes Mensuales de Arándanos Frescos a tu Puerta', 'Monthly Plans of Fresh Blueberries at Your Door')}
           </h2>
           <p className="mt-3 text-base sm:text-lg text-stone-700">
-            Cuatro planes de 2.000g al mes con entregas semanales o quincenales. Entregas los martes y miércoles de 8:00 a.m. a 3:00 p.m. Sin contratos de permanencia.
+            {t('Cuatro planes de 2.000g al mes con entregas semanales o quincenales. Entregas los martes y miércoles de 8:00 a.m. a 3:00 p.m. Sin contratos de permanencia.', 'Four plans of 2,000 g per month with weekly or bi-weekly deliveries. Deliveries on Tuesdays and Wednesdays from 8:00 a.m. to 3:00 p.m. No long-term contracts.')}
           </p>
         </div>
 
@@ -45,7 +48,7 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({
                 {plan.isPopular && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#DDA83A] text-[#2F183C] text-xs font-black uppercase tracking-wider shadow-md flex items-center gap-1.5 border border-white/40">
                     <Sparkles className="w-3 h-3 text-[#2F183C]" />
-                    <span>El Más Popular</span>
+                    <span>{t('El Más Popular', 'Most Popular')}</span>
                   </div>
                 )}
 
@@ -72,10 +75,10 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({
                   <div className="mb-5">
                     <div className="flex items-baseline gap-1">
                       <span className="text-2xl sm:text-3xl font-black font-display">
-                        ${plan.priceMonth.toLocaleString('es-CO')}
+                        ${plan.priceMonth.toLocaleString(loc)}
                       </span>
                       <span className={`text-xs font-medium ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-500'}`}>
-                        COP / mes
+                        {t('COP / mes', 'COP / month')}
                       </span>
                     </div>
                     <p className={`text-xs mt-1 font-medium ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-[#7B4382]'}`}>
@@ -110,10 +113,10 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({
                         : 'bg-[#2F183C] text-white hover:bg-[#432356] active:scale-98 shadow-xs'
                     }`}
                   >
-                    Suscribirme al {plan.title}
+                    {t('Suscribirme al', 'Subscribe to the')} {plan.title}
                   </button>
                   <p className={`text-xs text-center mt-2 ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-500'}`}>
-                    Sin contratos de permanencia · Cancela cuando quieras
+                    {t('Sin contratos de permanencia · Cancela cuando quieras', 'No long-term contracts · Cancel any time')}
                   </p>
                 </div>
 
@@ -130,21 +133,19 @@ export const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({
             </div>
             <div>
               <h4 className="text-base font-bold text-[#2F183C] font-display">
-                ¿Eres restaurante, repostería, cafetería o distribuidor?
+                {t('¿Eres restaurante, repostería, cafetería o distribuidor?', 'Are you a restaurant, bakery, café or distributor?')}
               </h4>
               <p className="text-xs sm:text-sm text-stone-600 mt-0.5">
-                Escríbenos por WhatsApp y te enviamos lista de precios institucionales para negocios. Pedido mínimo 500g.
+                {t('Cuéntanos tu negocio y te enviamos la lista de precios institucionales. Atendemos Colombia y exportación.', 'Tell us about your business and we will send you our wholesale price list. We serve Colombia and export markets.')}
               </p>
             </div>
           </div>
 
           <a
-            href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20tengo%20un%20negocio/restaurante%20y%20me%20gustar%C3%ADa%20conocer%20la%20lista%20de%20precios%20institucionales%20de%20ar%C3%A1ndanos%20al%20por%20mayor."
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/mayoristas"
             className="shrink-0 px-5 py-3 rounded-xl bg-[#2F183C] text-white text-xs sm:text-sm font-bold hover:bg-[#432356] transition-colors"
           >
-            Cotizar por Mayor
+            {t('Cotizar por Mayor', 'Request Wholesale Pricing')}
           </a>
         </div>
 

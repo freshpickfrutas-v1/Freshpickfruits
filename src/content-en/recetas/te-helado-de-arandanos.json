@@ -1,0 +1,42 @@
+{
+  "title": "Blueberry Iced Tea",
+  "excerpt": "Refresh your afternoons with an exquisite homemade iced tea infused with the natural sweetness of Fresh Pick blueberries and an irresistible citrus touch.",
+  "imageAlt": "Tall glass of blueberry iced tea, ice cubes, whole blueberries floating and a sprig of fresh mint.",
+  "ingredients": [
+    {
+      "text": "1 1/2 cups Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "4 black or green tea bags"
+    },
+    {
+      "text": "4 cups water"
+    },
+    {
+      "text": "3 tablespoons bee honey or grated panela"
+    },
+    {
+      "text": "1 tablespoon lemon juice"
+    },
+    {
+      "text": "Ice, to taste"
+    },
+    {
+      "text": "Fresh mint leaves for garnish (optional)"
+    }
+  ],
+  "steps": [
+    "Heat 2 cups of water until it comes to a boil. Remove from the heat, add the tea bags and steep for 5 minutes. Remove the tea bags without squeezing them.",
+    "In a small pot, combine the Fresh Pick blueberries with 1/2 cup of water and the honey. Cook over medium heat for 7 minutes, gently mashing the fruit with a fork to release all its juice.",
+    "Pour the blueberry concentrate over the tea infusion, passing the mixture through a strainer for a crystal-clear drink, or add it straight in if you prefer to feel the natural pulp.",
+    "Add the lemon juice and the remaining 1 1/2 cups of cold water. Mix well.",
+    "Let it cool to room temperature and then refrigerate for at least 1 hour to intensify the flavors.",
+    "Serve in tall glasses full of ice, garnished with whole blueberries and mint leaves to taste."
+  ],
+  "tips": [
+    "Take advantage of the natural sweetness of 13° to 15° Brix of our high-mountain Fresh Pick blueberries grown in Guasca; you will see they need very little extra honey to get the perfect balance.",
+    "To keep the bloom intact and the maximum freshness of your blueberries at home, store them in the fridge unwashed and rinse them only right before making your recipe."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

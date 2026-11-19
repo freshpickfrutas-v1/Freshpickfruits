@@ -1,0 +1,44 @@
+{
+  "title": "Hot Oatmeal with Blueberries and Panela",
+  "excerpt": "Comforting hot oatmeal sweetened with grated panela and served with juicy fresh blueberries. A traditional Colombian breakfast, ideal for starting the morning with warmth.",
+  "imageAlt": "Bowl of creamy hot oatmeal with dissolved panela, topped with fresh blueberries, a cinnamon stick and walnuts.",
+  "ingredients": [
+    {
+      "text": "1 cup rolled oats"
+    },
+    {
+      "text": "2 cups milk"
+    },
+    {
+      "text": "1 cup water"
+    },
+    {
+      "text": "2 tablespoons grated panela (unrefined cane sugar)"
+    },
+    {
+      "text": "1 cinnamon stick"
+    },
+    {
+      "text": "1 pinch of salt"
+    },
+    {
+      "text": "1 cup Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "2 tablespoons chopped walnuts"
+    }
+  ],
+  "steps": [
+    "In a medium pot, combine the water, milk, cinnamon stick and grated panela. Heat over medium heat until the panela dissolves.",
+    "Add the rolled oats along with the pinch of salt and stir well with a wooden spoon.",
+    "Cook over medium-low heat for 8 to 10 minutes, stirring constantly to keep it from sticking and to get a creamy texture.",
+    "Add half of the blueberries one minute before turning off the heat so they warm up and gently release their juice.",
+    "Serve the oatmeal piping hot in bowls, remove the cinnamon and top with the remaining Fresh Pick blueberries, grown in the mountains of Guasca, and the chopped walnuts."
+  ],
+  "tips": [
+    "Store the blueberries in the refrigerator in their original packaging, unwashed, to preserve their freshness, and wash them only right before eating.",
+    "If you prefer an even creamier texture, you can soak the oats in the liquid the night before cooking them."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

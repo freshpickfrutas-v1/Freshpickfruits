@@ -1,4 +1,5 @@
 import { track } from '../lib/analytics';
+import { dateLocale, useLang, useT } from '../lib/i18n';
 import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { FruitItem, PackagingOption, AddOnItem, CustomOrder, BillingData, SavedAddress } from '../types';
@@ -50,7 +51,7 @@ interface WhatsAppOrder {
 // El pago en línea solo se ofrece si hay una pasarela configurada en el despliegue (Bold o Wompi); sin eso solo hay transferencia o Bre-B por WhatsApp.
 const ONLINE_PAYMENTS = ONLINE_GATEWAY !== null;
 const COMMISSION_PCT = ONLINE_GATEWAY ? COMMISSION_RATE[ONLINE_GATEWAY] * 100 : 0;
-const cop = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
+const copEs = (n: number) => `$${n.toLocaleString('es-CO')} COP`;
 
 /** The complete order as one WhatsApp message: customer, delivery, invoice data, products, totals and payment. */
 function buildWhatsAppText(o: WhatsAppOrder): string {
@@ -97,10 +98,10 @@ function buildWhatsAppText(o: WhatsAppOrder): string {
     `*PRODUCTOS (${o.totalGrams}g en total)*`,
     ...o.lines,
     '',
-    `Subtotal: ${cop(o.subtotal)}`,
-    `Envío: ${cop(o.deliveryFee)}`,
-    ...(o.commission > 0 ? [`Comisión pago en línea (${COMMISSION_PCT}%): ${cop(o.commission)}`] : []),
-    `*TOTAL: ${cop(o.total)}*`,
+    `Subtotal: ${copEs(o.subtotal)}`,
+    `Envío: ${copEs(o.deliveryFee)}`,
+    ...(o.commission > 0 ? [`Comisión pago en línea (${COMMISSION_PCT}%): ${copEs(o.commission)}`] : []),
+    `*TOTAL: ${copEs(o.total)}*`,
     '',
     '*FORMA DE PAGO*',
     o.commission > 0
@@ -124,6 +125,11 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
   initialSelectedFruitId,
   onOrderCompleted
 }) => {
+  const t = useT();
+  const lang = useLang();
+  const loc = dateLocale(lang);
+  const cop = (n: number) => (lang === 'en' ? `COP $${n.toLocaleString(loc)}` : `$${n.toLocaleString(loc)} COP`);
+  const unitWord = (n: number) => (lang === 'en' ? (n === 1 ? 'box' : 'boxes') : (n === 1 ? 'estuche' : 'estuches'));
   const [fruitGrams, setFruitGrams] = useState<Record<string, number>>(() => {
     const initial: Record<string, number> = {};
     fruits.forEach(f => {
@@ -305,31 +311,31 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       const step = f.defaultGramUnit || 125;
       const units = step > 0 ? Math.round(g / step) : 0;
       if ((step === 125 || step === 250) && units > 0 && units % 2 !== 0) {
-        packingErrors.push(`${f.name} (llevas ${units} ${units === 1 ? 'estuche' : 'estuches'}, debe ser múltiplo de 2: ej. 2, 4, 6)`);
+        packingErrors.push(t(`${f.name} (llevas ${units} ${units === 1 ? 'estuche' : 'estuches'}, debe ser múltiplo de 2: ej. 2, 4, 6)`, `${f.name} (you have ${units} ${unitWord(units)}, must be a multiple of 2: e.g. 2, 4, 6)`));
       }
     });
 
     if (totalGrams === 0) {
-      errors.fruits = 'Selecciona al menos un formato de arándanos (pedido mínimo total: 500g).';
+      errors.fruits = t('Selecciona al menos un formato de arándanos (pedido mínimo total: 500g).', 'Select at least one blueberry size (minimum total order: 500 g).');
     } else if (totalGrams < 500) {
-      errors.fruits = `El pedido mínimo total son 500g. Llevas ${totalGrams}g (faltan ${500 - totalGrams}g para completar el mínimo).`;
+      errors.fruits = t(`El pedido mínimo total son 500g. Llevas ${totalGrams}g (faltan ${500 - totalGrams}g para completar el mínimo).`, `The minimum total order is 500 g. You have ${totalGrams} g (${500 - totalGrams} g short of the minimum).`);
     } else if (packingErrors.length > 0) {
-      errors.fruits = `Por motivos de empaque y logística: ${packingErrors.join(' · ')}. Por favor, ajusta a múltiplos de 2 para poder empacar tu envío.`;
+      errors.fruits = t(`Por motivos de empaque y logística: ${packingErrors.join(' · ')}. Por favor, ajusta a múltiplos de 2 para poder empacar tu envío.`, `For packing and logistics reasons: ${packingErrors.join(' · ')}. Please adjust to multiples of 2 so we can pack your order.`);
     }
-    if (!acceptTerms) errors.acceptTerms = 'Debes aceptar las condiciones de entrega y los términos para continuar.';
-    if (!acceptData) errors.acceptData = 'Debes autorizar el tratamiento de tus datos personales para continuar.';
-    if (!customerName.trim()) errors.customerName = 'Ingresa tu nombre.';
-    if (!customerPhone.trim() || customerPhone.trim().length < 7) errors.customerPhone = 'Ingresa un WhatsApp válido.';
-    if (!deliveryAddress.trim()) errors.deliveryAddress = 'Ingresa la dirección de entrega.';
-    if (customerEmail.trim() && !/^\S+@\S+\.\S+$/.test(customerEmail.trim())) errors.customerEmail = 'Revisa el correo.';
+    if (!acceptTerms) errors.acceptTerms = t('Debes aceptar las condiciones de entrega y los términos para continuar.', 'You must accept the delivery conditions and the terms to continue.');
+    if (!acceptData) errors.acceptData = t('Debes autorizar el tratamiento de tus datos personales para continuar.', 'You must authorize the processing of your personal data to continue.');
+    if (!customerName.trim()) errors.customerName = t('Ingresa tu nombre.', 'Enter your name.');
+    if (!customerPhone.trim() || customerPhone.trim().length < 7) errors.customerPhone = t('Ingresa un WhatsApp válido.', 'Enter a valid WhatsApp number.');
+    if (!deliveryAddress.trim()) errors.deliveryAddress = t('Ingresa la dirección de entrega.', 'Enter the delivery address.');
+    if (customerEmail.trim() && !/^\S+@\S+\.\S+$/.test(customerEmail.trim())) errors.customerEmail = t('Revisa el correo.', 'Check the email address.');
     if (wantsNit) {
-      if (!/^\d{5,12}$/.test(nit.trim())) errors.nit = 'Ingresa el NIT sin puntos ni dígito de verificación.';
-      if (!/^\d$/.test(nitDv.trim())) errors.nitDv = 'Dígito de verificación (1 número).';
-      if (!businessName.trim()) errors.businessName = 'Ingresa la razón social.';
-      if (!taxRegime.trim()) errors.taxRegime = 'Elige el régimen fiscal.';
-      if (!/^\S+@\S+\.\S+$/.test(billingEmail.trim())) errors.billingEmail = 'Ingresa un correo de facturación válido.';
+      if (!/^\d{5,12}$/.test(nit.trim())) errors.nit = t('Ingresa el NIT sin puntos ni dígito de verificación.', 'Enter the NIT (tax ID) without dots or check digit.');
+      if (!/^\d$/.test(nitDv.trim())) errors.nitDv = t('Dígito de verificación (1 número).', 'Check digit (1 number).');
+      if (!businessName.trim()) errors.businessName = t('Ingresa la razón social.', 'Enter the company name.');
+      if (!taxRegime.trim()) errors.taxRegime = t('Elige el régimen fiscal.', 'Choose the tax regime.');
+      if (!/^\S+@\S+\.\S+$/.test(billingEmail.trim())) errors.billingEmail = t('Ingresa un correo de facturación válido.', 'Enter a valid billing email.');
     } else if (cedula.trim() && !/^\d{5,12}$/.test(cedula.trim())) {
-      errors.cedula = 'La cédula debe tener solo números.';
+      errors.cedula = t('La cédula debe tener solo números.', 'The ID number must contain digits only.');
     }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -418,8 +424,8 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
       // el cliente puede seguir confirmando por WhatsApp con un número local.
       setSaveError(
         err instanceof Error
-          ? `El pedido no se pudo guardar en el sistema (${err.message}), pero puedes confirmarlo por WhatsApp igual.`
-          : 'El pedido no se pudo guardar en el sistema, pero puedes confirmarlo por WhatsApp igual.'
+          ? t(`El pedido no se pudo guardar en el sistema (${err.message}), pero puedes confirmarlo por WhatsApp igual.`, `The order could not be saved in the system (${err.message}), but you can still confirm it on WhatsApp.`)
+          : t('El pedido no se pudo guardar en el sistema, pero puedes confirmarlo por WhatsApp igual.', 'The order could not be saved in the system, but you can still confirm it on WhatsApp.')
       );
     }
 
@@ -463,7 +469,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         const step = fruit?.defaultGramUnit || 125;
         const units = Math.round(item.grams / step);
         const lineCost = units * (fruit?.standardPrice || 0);
-        return `• ${fruit?.name || item.fruitId}: ${units} ${units === 1 ? 'estuche' : 'estuches'} (${item.grams}g) - ${cop(lineCost)}`;
+        return `• ${fruit?.name || item.fruitId}: ${units} ${units === 1 ? 'estuche' : 'estuches'} (${item.grams}g) - ${copEs(lineCost)}`;
       }),
       totalGrams,
       subtotal,
@@ -492,10 +498,10 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         <div className="max-w-2xl mx-auto px-4 text-center">
           <div className="bg-white rounded-3xl shadow-xl border border-[#DFCEE6] p-8">
             <CheckCircle2 className="w-12 h-12 text-[#7B4382] mx-auto mb-3" />
-            <h3 className="text-2xl font-black text-[#2F183C]">Orden #{completedOrder.id}</h3>
-            <p className="text-stone-600 mt-2">Gracias, {completedOrder.customerName}. Tu pedido fue registrado.</p>
+            <h3 className="text-2xl font-black text-[#2F183C]">{t('Orden', 'Order')} #{completedOrder.id}</h3>
+            <p className="text-stone-600 mt-2">{t(`Gracias, ${completedOrder.customerName}. Tu pedido fue registrado.`, `Thank you, ${completedOrder.customerName}. Your order has been registered.`)}</p>
             <p className="text-xl font-black text-[#2F183C] mt-4">
-              ${completedOrder.total.toLocaleString('es-CO')} COP
+              {cop(completedOrder.total)}
             </p>
             {saveError && (
               <p className="mt-3 text-xs bg-amber-50 text-amber-800 border border-amber-200 rounded-xl px-3 py-2 text-left flex gap-2">
@@ -503,9 +509,9 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               </p>
             )}
             <div className="mt-4 text-left text-xs bg-[#F5ECF9] border border-[#DFCEE6] rounded-xl px-4 py-3 text-[#2F183C] space-y-1">
-              <p className="font-bold">¡Gracias por tu compra en Fresh Pick!</p>
-              <p>Despachamos los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). La primera fecha disponible para tu pedido es el <strong className="capitalize">{formatDeliveryDay(completedOrder.deliveryDate)}</strong>, de acuerdo a tu dirección y a la ruta del domiciliario.</p>
-              <p>Te escribiremos por WhatsApp cuando tu pedido salga a ruta.</p>
+              <p className="font-bold">{t('¡Gracias por tu compra en Fresh Pick!', 'Thank you for your purchase at Fresh Pick!')}</p>
+              <p>{t(<>Despachamos los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). La primera fecha disponible para tu pedido es el <strong className="capitalize">{formatDeliveryDay(completedOrder.deliveryDate, lang)}</strong>, de acuerdo a tu dirección y a la ruta del domiciliario.</>, <>We dispatch on <strong>Tuesdays and Wednesdays</strong> (8:00 a.m. – 3:00 p.m.). The first available date for your order is <strong className="capitalize">{formatDeliveryDay(completedOrder.deliveryDate, lang)}</strong>, depending on your address and the courier's route.</>)}</p>
+              <p>{t('Te escribiremos por WhatsApp cuando tu pedido salga a ruta.', 'We will message you on WhatsApp when your order is on its way.')}</p>
             </div>
             {savedOrderDocId && completedOrder.paymentMethod === 'card' && (
               <OnlinePayButton
@@ -520,18 +526,18 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#2F183C] text-white font-bold hover:bg-[#432356] transition-colors"
             >
               <MessageCircle className="w-4 h-4 text-[#DDA83A]" />
-              Confirmar por WhatsApp
+              {t('Confirmar por WhatsApp', 'Confirm on WhatsApp')}
             </a>
             <button
               onClick={() => setCompletedOrder(null)}
               className="mt-3 block mx-auto text-sm text-[#7B4382] underline font-medium cursor-pointer"
             >
-              Armar otro pedido
+              {t('Armar otro pedido', 'Build another order')}
             </button>
             <p className="mt-4 text-xs text-stone-500">
-              ¿Necesitas cambiar o cancelar tu pedido? Escríbenos por{' '}
+              {t('¿Necesitas cambiar o cancelar tu pedido? Escríbenos por', 'Need to change or cancel your order? Message us on')}{' '}
               <a
-                href={`https://wa.me/${WA}?text=${encodeURIComponent(`Hola Fresh Pick, quiero modificar o cancelar mi pedido ${completedOrder.id}`)}`}
+                href={`https://wa.me/${WA}?text=${encodeURIComponent(t(`Hola Fresh Pick, quiero modificar o cancelar mi pedido ${completedOrder.id}`, `Hello Fresh Pick, I would like to change or cancel my order ${completedOrder.id}`))}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-[#7B4382] underline"
@@ -551,13 +557,13 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#7B4382]" />
-            Pedidos personalizados
+            {t('Pedidos personalizados', 'Custom orders')}
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-[#2F183C] tracking-tight font-display">
-            Arma tu Pedido de Arándanos en Línea
+            {t('Arma tu Pedido de Arándanos en Línea', 'Build Your Blueberry Order Online')}
           </h2>
           <p className="mt-3 text-stone-700">
-            Elige 125g, 250g o 500g. Mínimo 500g. Entregas martes y miércoles (8:00 a.m. – 3:00 p.m.), mínimo 8 días después de hacer el pedido. Pagos por transferencia, Bre-B @9010401617{ONLINE_PAYMENTS ? ' o en línea' : ''}.
+            {t(`Elige 125g, 250g o 500g. Mínimo 500g. Entregas martes y miércoles (8:00 a.m. – 3:00 p.m.), mínimo 8 días después de hacer el pedido. Pagos por transferencia, Bre-B @9010401617${ONLINE_PAYMENTS ? ' o en línea' : ''}.`, `Choose 125 g, 250 g or 500 g. 500 g minimum. Deliveries on Tuesdays and Wednesdays (8:00 a.m. – 3:00 p.m.), at least 8 days after placing the order. Pay by bank transfer, Bre-B @9010401617${ONLINE_PAYMENTS ? ' or online' : ''}. Delivery in Bogotá only.`)}
           </p>
         </div>
 
@@ -579,39 +585,39 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <h3 className="font-bold text-lg text-[#2F183C] flex items-center gap-2 font-display">
                     <span className="text-xl">📦</span>
-                    <span>1. Formatos y condiciones de envío</span>
+                    <span>{t('1. Formatos y condiciones de envío', '1. Sizes and shipping conditions')}</span>
                   </h3>
                   {totalGrams < 500 ? (
                     <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 inline-flex items-center gap-1 w-fit">
-                      Pedido mín. total: 500g ({totalGrams > 0 ? `faltan ${500 - totalGrams}g` : '0g actual'})
+                      {t('Pedido mín. total: 500g', 'Min. total order: 500 g')} ({totalGrams > 0 ? t(`faltan ${500 - totalGrams}g`, `${500 - totalGrams} g to go`) : t('0g actual', '0 g now')})
                     </span>
                   ) : (
                     <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] inline-flex items-center gap-1 w-fit">
-                      ✓ Mínimo alcanzado ({totalGrams}g)
+                      {t('✓ Mínimo alcanzado', '✓ Minimum reached')} ({totalGrams}g)
                     </span>
                   )}
                 </div>
 
                 <p className="text-xs text-stone-600 mt-2 leading-relaxed">
-                  El pedido mínimo total es de <strong>500g</strong>. Puedes alcanzar este peso combinando los formatos como desees. Por motivos de logística y seguridad en el empaque, aplican las siguientes reglas:
+                  {t(<>El pedido mínimo total es de <strong>500g</strong>. Puedes alcanzar este peso combinando los formatos como desees. Por motivos de logística y seguridad en el empaque, aplican las siguientes reglas:</>, <>The minimum total order is <strong>500 g</strong>. You can reach it by combining sizes as you like. For logistics and packing safety, the following rules apply:</>)}
                 </p>
 
                 <div className="mt-3 p-3 bg-[#FAF7F0] border border-[#EADBEE] rounded-xl text-xs space-y-1.5 text-stone-700">
                   <div className="flex items-start gap-2">
                     <span className="text-[#DDA83A] font-bold">•</span>
-                    <span><strong>Estuches de 125g:</strong> Se deben pedir obligatoriamente en múltiplos de 2 (ej: 2, 4, 6 unidades).</span>
+                    <span>{t(<><strong>Estuches de 125g:</strong> Se deben pedir obligatoriamente en múltiplos de 2 (ej: 2, 4, 6 unidades).</>, <><strong>125 g boxes:</strong> must be ordered in multiples of 2 (e.g. 2, 4, 6 units).</>)}</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-[#DDA83A] font-bold">•</span>
-                    <span><strong>Estuches de 250g:</strong> Se deben pedir obligatoriamente en múltiplos de 2 (ej: 2, 4, 6 unidades).</span>
+                    <span>{t(<><strong>Estuches de 250g:</strong> Se deben pedir obligatoriamente en múltiplos de 2 (ej: 2, 4, 6 unidades).</>, <><strong>250 g boxes:</strong> must be ordered in multiples of 2 (e.g. 2, 4, 6 units).</>)}</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-[#7B4382] font-bold">•</span>
-                    <span><strong>Estuches de 500g:</strong> Se pueden pedir desde 1 unidad en adelante.</span>
+                    <span>{t(<><strong>Estuches de 500g:</strong> Se pueden pedir desde 1 unidad en adelante.</>, <><strong>500 g boxes:</strong> can be ordered from 1 unit.</>)}</span>
                   </div>
                   <div className="flex items-start gap-2">
                     <span className="text-[#7B4382] font-bold">•</span>
-                    <span><strong>Máximo por pedido:</strong> 80 estuches de 125g, 40 de 250g y 20 de 500g. Para volúmenes mayores escríbenos por WhatsApp.</span>
+                    <span>{t(<><strong>Máximo por pedido:</strong> 80 estuches de 125g, 40 de 250g y 20 de 500g. Para volúmenes mayores escríbenos por WhatsApp.</>, <><strong>Maximum per order:</strong> 80 boxes of 125 g, 40 of 250 g and 20 of 500 g. For larger volumes, see our <a href="/mayoristas" className="underline font-semibold">wholesale section</a> or message us on WhatsApp.</>)}</span>
                   </div>
                 </div>
               </div>
@@ -641,30 +647,30 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                         <div className="flex items-center gap-2 flex-wrap">
                           <p className="font-bold text-sm text-[#2F183C]">{fruit.name}</p>
                           <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-[#DFCEE6]/50 text-[#2F183C]">
-                            Presentación: {fruit.presentation}
+                            {t('Presentación', 'Size')}: {fruit.presentation}
                           </span>
                         </div>
                         <p className="text-xs text-stone-700 mt-1">
-                          Precio: <strong>${unitPrice.toLocaleString('es-CO')} COP c/u</strong>
+                          {t('Precio', 'Price')}: <strong>{cop(unitPrice)} {t('c/u', 'each')}</strong>
                         </p>
                         {step === 500 ? (
                           <p className="text-xs font-medium text-[#7B4382] mt-1 flex items-center gap-1">
-                            ✨ ¡Con 1 solo estuche completas el pedido mínimo total!
+                            {t('✨ ¡Con 1 solo estuche completas el pedido mínimo total!', '✨ A single box completes the minimum order!')}
                           </p>
                         ) : (
                           <p className="text-xs font-medium text-amber-800 mt-1 flex items-center gap-1">
-                            ⚠️ Nota de empaque: Solo disponible en múltiplos de 2 unidades.
+                            {t('⚠️ Nota de empaque: Solo disponible en múltiplos de 2 unidades.', '⚠️ Packing note: only available in multiples of 2 units.')}
                           </p>
                         )}
                         {isOdd && (
                           <div className="mt-2 p-2 rounded-lg bg-red-100/70 border border-red-200 text-xs text-red-800 flex items-center justify-between gap-2">
-                            <span>(Por favor, ajusta a {units < 2 ? 2 : units + 1} unidades para poder empacar tu envío)</span>
+                            <span>{t(`(Por favor, ajusta a ${units < 2 ? 2 : units + 1} unidades para poder empacar tu envío)`, `(Please adjust to ${units < 2 ? 2 : units + 1} units so we can pack your order)`)}</span>
                             <button
                               type="button"
                               onClick={() => handleSetUnits(fruit.id, units < 2 ? 2 : units + 1)}
                               className="px-2.5 py-1 bg-red-700 text-white rounded-md font-bold text-xs hover:bg-red-800 cursor-pointer shrink-0"
                             >
-                              Ajustar
+                              {t('Ajustar', 'Adjust')}
                             </button>
                           </div>
                         )}
@@ -674,10 +680,10 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                         {g > 0 && (
                           <div className="text-right mr-1">
                             <span className="text-xs font-bold text-[#2F183C] block">
-                              ${lineTotal.toLocaleString('es-CO')} COP
+                              {cop(lineTotal)}
                             </span>
                             <span className="text-xs text-stone-500">
-                              {units} {units === 1 ? 'estuche' : 'estuches'}
+                              {units} {unitWord(units)}
                             </span>
                           </div>
                         )}
@@ -687,13 +693,13 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                             disabled={g === 0}
                             onClick={() => handleGramsChange(fruit.id, -1)}
                             className="w-8 h-8 rounded-md border border-stone-200 flex items-center justify-center text-stone-700 hover:bg-stone-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-                            aria-label={`Quitar estuches de ${fruit.name}`}
+                            aria-label={t(`Quitar estuches de ${fruit.name}`, `Remove boxes of ${fruit.name}`)}
                           >
                             <Minus className="w-3.5 h-3.5" />
                           </button>
                           <div className="min-w-[4.5rem] px-1 text-center">
                             <span className="text-sm font-black text-[#2F183C] block leading-tight">
-                              {units} {units === 1 ? 'estuche' : 'estuches'}
+                              {units} {unitWord(units)}
                             </span>
                             <span className="text-xs text-[#7B4382] font-semibold block leading-tight">
                               {g}g
@@ -704,7 +710,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                             disabled={units >= maxUnitsFor(step)}
                             onClick={() => handleGramsChange(fruit.id, 1)}
                             className="w-8 h-8 rounded-md bg-[#2F183C] text-white flex items-center justify-center hover:bg-[#432356] transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
-                            aria-label={`Agregar estuches de ${fruit.name}`}
+                            aria-label={t(`Agregar estuches de ${fruit.name}`, `Add boxes of ${fruit.name}`)}
                           >
                             <Plus className="w-3.5 h-3.5" />
                           </button>
@@ -717,10 +723,10 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
             </div>
 
             <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 space-y-3 shadow-sm">
-              <h3 className="font-bold text-lg text-[#2F183C] font-display">2. Datos de entrega</h3>
+              <h3 className="font-bold text-lg text-[#2F183C] font-display">{t('2. Datos de entrega', '2. Delivery details')}</h3>
               {user && savedAddresses.length > 0 && (
-                <div className="space-y-2" role="radiogroup" aria-label="Dirección de entrega">
-                  <p className="text-xs font-semibold text-stone-500">¿A cuál de tus direcciones lo enviamos?</p>
+                <div className="space-y-2" role="radiogroup" aria-label={t('Dirección de entrega', 'Delivery address')}>
+                  <p className="text-xs font-semibold text-stone-500">{t('¿A cuál de tus direcciones lo enviamos?', 'Which of your addresses should we deliver to?')}</p>
                   <div className="grid sm:grid-cols-2 gap-2">
                     {savedAddresses.map(a => (
                       <button
@@ -731,7 +737,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                         onClick={() => applyAddress(a)}
                         className={`text-left rounded-xl border p-3 text-sm transition-colors ${selectedAddressId === a.id ? 'border-[#2F183C] bg-[#F5ECF9] ring-1 ring-[#2F183C]' : 'border-[#EADBEE] bg-white hover:bg-[#FAF7F0]'}`}
                       >
-                        <span className="font-bold text-[#2F183C]">{a.label}{a.isDefault ? ' · principal' : ''}</span>
+                        <span className="font-bold text-[#2F183C]">{a.label}{a.isDefault ? t(' · principal', ' · primary') : ''}</span>
                         <span className="block text-stone-700">{a.address}</span>
                         <span className="block text-xs text-stone-500">{a.city} · {a.recipientName}</span>
                       </button>
@@ -743,19 +749,19 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                       onClick={() => { setSelectedAddressId(''); setDeliveryAddress(''); }}
                       className={`text-left rounded-xl border border-dashed p-3 text-sm font-semibold ${selectedAddressId === '' ? 'border-[#2F183C] bg-[#F5ECF9] text-[#2F183C]' : 'border-[#DFCEE6] text-[#7B4382] hover:bg-[#FAF7F0]'}`}
                     >
-                      + Enviar a otra dirección
+                      {t('+ Enviar a otra dirección', '+ Deliver to another address')}
                     </button>
                   </div>
                 </div>
               )}
               {!user && (
                 <p className="text-xs text-stone-500">
-                  No necesitas cuenta para pedir. Si ya tienes una, <a href="/panel" className="font-semibold text-[#7B4382] underline">ingresa</a> para usar tus direcciones guardadas y volverás aquí.
+                  {t(<>No necesitas cuenta para pedir. Si ya tienes una, <a href="/panel" className="font-semibold text-[#7B4382] underline">ingresa</a> para usar tus direcciones guardadas y volverás aquí.</>, <>You do not need an account to order. If you already have one, <a href="/panel" className="font-semibold text-[#7B4382] underline">sign in</a> to use your saved addresses and you will come back here.</>)}
                 </p>
               )}
               <input
                 className={`w-full border ${formErrors.customerName ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
-                placeholder="Nombre completo"
+                placeholder={t('Nombre completo', 'Full name')}
                 name="name"
                 autoComplete="name"
                 value={customerName}
@@ -764,7 +770,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               {formErrors.customerName && <p className="text-xs text-red-600">{formErrors.customerName}</p>}
               <input
                 className={`w-full border ${formErrors.customerPhone ? 'border-red-400' : 'border-stone-300'} rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none`}
-                placeholder="WhatsApp (ej. 317 893 1026)"
+                placeholder={t('WhatsApp (ej. 317 893 1026)', 'WhatsApp (e.g. +57 317 893 1026)')}
                 name="tel"
                 type="tel"
                 inputMode="tel"
@@ -775,7 +781,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               {formErrors.customerPhone && <p className="text-xs text-red-600">{formErrors.customerPhone}</p>}
               <input
                 className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                placeholder="Correo (para tu factura y seguimiento)"
+                placeholder={t('Correo (para tu factura y seguimiento)', 'Email (for your invoice and tracking)')}
                 type="email"
                 name="email"
                 autoComplete="email"
@@ -783,7 +789,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 onChange={e => setCustomerEmail(e.target.value)}
               />
               {formErrors.customerEmail && <p className="text-xs text-red-600">{formErrors.customerEmail}</p>}
-              <p className="text-xs text-stone-500 px-1">📍 Ciudad: <span className="font-semibold text-[#2F183C]">{BOGOTA}</span> · solo entregamos en Bogotá</p>
+              <p className="text-xs text-stone-500 px-1">{t('📍 Ciudad:', '📍 City:')} <span className="font-semibold text-[#2F183C]">{BOGOTA}</span> {t('· solo entregamos en Bogotá', '· we only deliver in Bogotá')}</p>
               <AddressField
                 value={deliveryAddress}
                 onChange={text => { setDeliveryAddress(text); setFormErrors(prev => ({ ...prev, deliveryAddress: '' })); }}
@@ -793,7 +799,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               />
               <input
                 className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                placeholder="Apto, torre, casa u oficina (opcional)"
+                placeholder={t('Apto, torre, casa u oficina (opcional)', 'Apartment, tower, house or office (optional)')}
                 name="address-line2"
                 autoComplete="address-line2"
                 value={deliveryComplement}
@@ -803,19 +809,19 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               {isNewAddress && savedAddresses.length < MAX_ADDRESSES && (
                 <label className="flex items-center gap-2 text-xs font-semibold text-[#2F183C] cursor-pointer">
                   <input type="checkbox" checked={saveNewAddress} onChange={e => setSaveNewAddress(e.target.checked)} />
-                  Guardar esta dirección en mi cuenta para próximos pedidos
+                  {t('Guardar esta dirección en mi cuenta para próximos pedidos', 'Save this address to my account for future orders')}
                 </label>
               )}
               <div className="rounded-xl bg-[#FAF7F0] border border-[#EADBEE] p-3 space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-[#2F183C] cursor-pointer">
                   <input type="checkbox" checked={wantsNit} onChange={e => setWantsNit(e.target.checked)} />
-                  Necesito factura a nombre de una empresa (NIT)
+                  {t('Necesito factura a nombre de una empresa (NIT)', 'I need an invoice in a company name (NIT)')}
                 </label>
                 {!wantsNit ? (
                   <>
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder="Cédula para la factura (opcional)"
+                    placeholder={t('Cédula para la factura (opcional)', 'ID number for the invoice (optional)')}
                     inputMode="numeric"
                     value={cedula}
                     onChange={e => setCedula(e.target.value)}
@@ -826,7 +832,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                   <>
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder="Razón social"
+                    placeholder={t('Razón social', 'Company name')}
                     name="organization"
                     autoComplete="organization"
                     value={businessName}
@@ -837,7 +843,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                     <div className="col-span-2">
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder="NIT (sin DV)"
+                    placeholder={t('NIT (sin DV)', 'NIT / tax ID (no check digit)')}
                     inputMode="numeric"
                     value={nit}
                     onChange={e => setNit(e.target.value)}
@@ -861,15 +867,15 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                     value={taxRegime}
                     onChange={e => setTaxRegime(e.target.value)}
                   >
-                    <option value="">Régimen fiscal</option>
-                    <option value="Responsable de IVA">Responsable de IVA</option>
-                    <option value="No responsable de IVA">No responsable de IVA</option>
-                    <option value="Régimen simple de tributación">Régimen simple de tributación</option>
+                    <option value="">{t('Régimen fiscal', 'Tax regime')}</option>
+                    <option value="Responsable de IVA">{t('Responsable de IVA', 'VAT-responsible')}</option>
+                    <option value="No responsable de IVA">{t('No responsable de IVA', 'Not VAT-responsible')}</option>
+                    <option value="Régimen simple de tributación">{t('Régimen simple de tributación', 'Simple taxation regime')}</option>
                   </select>
                   {formErrors.taxRegime && <p className="text-xs text-red-600">{formErrors.taxRegime}</p>}
                   <input
                     className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                    placeholder="Correo de facturación"
+                    placeholder={t('Correo de facturación', 'Billing email')}
                     type="email"
                     name="billing-email"
                     autoComplete="email"
@@ -881,7 +887,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 )}
                 <input
                   className="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none"
-                  placeholder="Dirección de facturación (si es distinta a la de entrega)"
+                  placeholder={t('Dirección de facturación (si es distinta a la de entrega)', 'Billing address (if different from delivery)')}
                   name="billing-address"
                   autoComplete="billing street-address"
                   value={billingAddress}
@@ -889,7 +895,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 />
               </div>
               <p className="rounded-xl bg-[#FAF7F0] border border-[#EADBEE] p-3 text-xs text-stone-700 leading-relaxed">
-                Despachamos solo los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). La primera fecha disponible es 8 días después de hacer el pedido, de acuerdo a la dirección que usted nos haya dado y la ruta del domiciliario.
+                {t(<>Despachamos solo los <strong>martes y miércoles</strong> (8:00 a.m. – 3:00 p.m.). La primera fecha disponible es 8 días después de hacer el pedido, de acuerdo a la dirección que usted nos haya dado y la ruta del domiciliario.</>, <>We dispatch only on <strong>Tuesdays and Wednesdays</strong> (8:00 a.m. – 3:00 p.m.). The first available date is 8 days after placing the order, depending on the address you gave us and the courier's route.</>)}
               </p>
             </div>
           </div>
@@ -899,15 +905,15 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
               <div className="flex items-center justify-between border-b border-stone-100 pb-3">
                 <h3 className="font-bold text-lg text-[#2F183C] flex items-center gap-2 font-display">
                   <span className="text-xl">🛒</span>
-                  <span>Tu Carrito</span>
+                  <span>{t('Tu Carrito', 'Your Cart')}</span>
                 </h3>
                 {meetsMinOrder && !hasPackingError ? (
                   <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
-                    ✓ Válido para envío
+                    {t('✓ Válido para envío', '✓ Ready to ship')}
                   </span>
                 ) : (
                   <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
-                    Mín. 500g
+                    {t('Mín. 500g', 'Min. 500 g')}
                   </span>
                 )}
               </div>
@@ -917,14 +923,14 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0 text-amber-700" />
                   <span>
-                    <strong>Pedido mín. total: 500g</strong> (Faltan <strong>{500 - totalGrams}g</strong> para completar el mínimo)
+                    {t(<><strong>Pedido mín. total: 500g</strong> (Faltan <strong>{500 - totalGrams}g</strong> para completar el mínimo)</>, <><strong>Minimum total order: 500 g</strong> (<strong>{500 - totalGrams} g</strong> short of the minimum)</>)}
                   </span>
                 </div>
               ) : (
                 <div className="p-2.5 rounded-xl bg-[#F5ECF9] border border-[#DFCEE6] text-[#2F183C] text-xs flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 shrink-0 text-[#7B4382]" />
                   <span>
-                    <strong>✓ Pedido mínimo total completado</strong> ({totalGrams}g seleccionados)
+                    {t(<><strong>✓ Pedido mínimo total completado</strong> ({totalGrams}g seleccionados)</>, <><strong>✓ Minimum total order reached</strong> ({totalGrams} g selected)</>)}
                   </span>
                 </div>
               )}
@@ -953,21 +959,21 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                     >
                       <div className="flex justify-between items-start gap-2">
                         <p className="font-bold text-[#2F183C] text-xs">{f.name}</p>
-                        <span className="font-bold text-[#2F183C]">${lineCost.toLocaleString('es-CO')} COP</span>
+                        <span className="font-bold text-[#2F183C]">{cop(lineCost)}</span>
                       </div>
                       <div className="mt-1.5 space-y-0.5 text-xs text-stone-600">
-                        <p>• Presentación: {f.presentation}</p>
-                        <p>• Precio: ${unitPrice.toLocaleString('es-CO')} COP c/u</p>
+                        <p>• {t('Presentación', 'Size')}: {f.presentation}</p>
+                        <p>• {t('Precio', 'Price')}: {cop(unitPrice)} {t('c/u', 'each')}</p>
                         {step === 500 ? (
-                          <p className="text-[#7B4382] font-medium">• ✨ ¡Con 1 solo estuche completas el pedido mínimo total!</p>
+                          <p className="text-[#7B4382] font-medium">• {t('✨ ¡Con 1 solo estuche completas el pedido mínimo total!', '✨ A single box completes the minimum order!')}</p>
                         ) : (
-                          <p className="text-amber-800 font-medium">• ⚠️ Nota de empaque: Solo disponible en múltiplos de 2 unidades.</p>
+                          <p className="text-amber-800 font-medium">• {t('⚠️ Nota de empaque: Solo disponible en múltiplos de 2 unidades.', '⚠️ Packing note: only available in multiples of 2 units.')}</p>
                         )}
                         <p className={`font-semibold ${isOdd ? 'text-red-700' : 'text-[#2F183C]'} pt-0.5`}>
-                          • Tu selección: {units} {units === 1 ? 'estuche' : 'estuches'} ({g}g) — ${lineCost.toLocaleString('es-CO')} COP
+                          • {t('Tu selección', 'Your selection')}: {units} {unitWord(units)} ({g}g) — {cop(lineCost)}
                           {isOdd && (
                             <span className="text-red-700 font-bold block mt-0.5">
-                              (Por favor, ajusta a {units < 2 ? 2 : units + 1} unidades para poder empacar tu envío)
+                              {t(`(Por favor, ajusta a ${units < 2 ? 2 : units + 1} unidades para poder empacar tu envío)`, `(Please adjust to ${units < 2 ? 2 : units + 1} units so we can pack your order)`)}
                             </span>
                           )}
                         </p>
@@ -979,39 +985,39 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
 
               <div className="space-y-1.5 pt-2 border-t border-stone-100 text-sm">
                 <div className="flex justify-between text-stone-600">
-                  <span>Peso total:</span>
+                  <span>{t('Peso total:', 'Total weight:')}</span>
                   <strong className="text-[#2F183C]">{totalGrams}g</strong>
                 </div>
                 <div className="flex justify-between text-stone-600">
                   <span>Subtotal:</span>
-                  <span className="font-semibold text-[#2F183C]">${subtotal.toLocaleString('es-CO')} COP</span>
+                  <span className="font-semibold text-[#2F183C]">{cop(subtotal)}</span>
                 </div>
                 <div className="flex justify-between text-stone-600">
-                  <span>Envío:</span>
-                  <span>{deliveryFee === 0 ? (totalGrams === 0 ? '$0 COP' : 'Calculando...') : `$${deliveryFee.toLocaleString('es-CO')} COP`}</span>
+                  <span>{t('Envío:', 'Shipping:')}</span>
+                  <span>{deliveryFee === 0 ? (totalGrams === 0 ? cop(0) : t('Calculando...', 'Calculating...')) : cop(deliveryFee)}</span>
                 </div>
                 {commission > 0 && (
                   <div className="flex justify-between text-stone-600">
-                    <span>Comisión pago en línea ({COMMISSION_PCT}%):</span>
-                    <span>${commission.toLocaleString('es-CO')} COP</span>
+                    <span>{t('Comisión pago en línea', 'Online payment fee')} ({COMMISSION_PCT}%):</span>
+                    <span>{cop(commission)}</span>
                   </div>
                 )}
                 <div className="flex justify-between items-baseline pt-2 border-t border-stone-200">
-                  <span className="font-bold text-[#2F183C]">Total estimado:</span>
-                  <span className="text-2xl font-black text-[#2F183C]">${grandTotal.toLocaleString('es-CO')} COP</span>
+                  <span className="font-bold text-[#2F183C]">{t('Total estimado:', 'Estimated total:')}</span>
+                  <span className="text-2xl font-black text-[#2F183C]">{cop(grandTotal)}</span>
                 </div>
               </div>
 
               <fieldset className="space-y-2">
-                <legend className="text-xs font-bold text-[#2F183C] mb-1">Forma de pago</legend>
+                <legend className="text-xs font-bold text-[#2F183C] mb-1">{t('Forma de pago', 'Payment method')}</legend>
                 <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${!online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
                   <input type="radio" name="pago" className="mt-0.5" checked={!online} onChange={() => setPayChoice('transferencia')} />
-                  <span><strong>Transferencia o Bre-B</strong> · sin comisión. Confirmas por WhatsApp.</span>
+                  <span>{t(<><strong>Transferencia o Bre-B</strong> · sin comisión. Confirmas por WhatsApp.</>, <><strong>Bank transfer or Bre-B</strong> · no fee. You confirm on WhatsApp.</>)}</span>
                 </label>
                 {ONLINE_PAYMENTS && (
                   <label className={`flex items-start gap-2 rounded-xl border p-2.5 text-xs cursor-pointer ${online ? 'border-[#2F183C] bg-[#F5ECF9]' : 'border-[#EADBEE]'}`}>
                     <input type="radio" name="pago" className="mt-0.5" checked={online} onChange={() => setPayChoice('tarjeta')} />
-                    <span><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · más comisión de la pasarela del {COMMISSION_PCT}% ({ONLINE_GATEWAY ? GATEWAY_NAME[ONLINE_GATEWAY] : ''}).</span>
+                    <span>{t(<><strong>Pago en línea (tarjeta, PSE, Nequi)</strong> · más comisión de la pasarela del {COMMISSION_PCT}% ({ONLINE_GATEWAY ? GATEWAY_NAME[ONLINE_GATEWAY] : ''}).</>, <><strong>Online payment (card, PSE, Nequi)</strong> · plus a {COMMISSION_PCT}% payment gateway fee ({ONLINE_GATEWAY ? GATEWAY_NAME[ONLINE_GATEWAY] : ''}).</>)}</span>
                   </label>
                 )}
               </fieldset>
@@ -1020,33 +1026,33 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 <label className="flex items-start gap-2 cursor-pointer">
                   <input type="checkbox" className="mt-0.5" checked={acceptTerms} onChange={e => { setAcceptTerms(e.target.checked); setFormErrors(prev => ({ ...prev, acceptTerms: '' })); }} />
                   <span>
-                    He leído y acepto las condiciones de entrega (martes y miércoles, mínimo 8 días después del pedido, solo Bogotá) y los{' '}
-                    <a href="/terminos" target="_blank" rel="noopener" className="font-semibold text-[#7B4382] underline">Términos y Condiciones</a>.
+                    {t('He leído y acepto las condiciones de entrega (martes y miércoles, mínimo 8 días después del pedido, solo Bogotá) y los', 'I have read and accept the delivery conditions (Tuesdays and Wednesdays, at least 8 days after the order, Bogotá only) and the')}{' '}
+                    <a href="/terminos" target="_blank" rel="noopener" className="font-semibold text-[#7B4382] underline">{t('Términos y Condiciones', 'Terms & Conditions')}</a>.
                   </span>
                 </label>
                 <label className="flex items-start gap-2 cursor-pointer">
                   <input type="checkbox" className="mt-0.5" checked={acceptData} onChange={e => { setAcceptData(e.target.checked); setFormErrors(prev => ({ ...prev, acceptData: '' })); }} />
                   <span>
-                    Autorizo de manera previa, expresa e informada a ANDEAN FRUIT COMPANY SAS (Fresh Pick) para tratar mis datos personales según la{' '}
-                    <a href="/privacidad" target="_blank" rel="noopener" className="font-semibold text-[#7B4382] underline">Política de Tratamiento de Datos</a>.
+                    {t('Autorizo de manera previa, expresa e informada a ANDEAN FRUIT COMPANY SAS (Fresh Pick) para tratar mis datos personales según la', 'I give my prior, express and informed authorization to ANDEAN FRUIT COMPANY SAS (Fresh Pick) to process my personal data under the')}{' '}
+                    <a href="/privacidad" target="_blank" rel="noopener" className="font-semibold text-[#7B4382] underline">{t('Política de Tratamiento de Datos', 'Data Processing Policy')}</a>.
                   </span>
                 </label>
               </div>
 
               {Object.values(formErrors).some(Boolean) && (
                 <div role="alert" className="p-3 rounded-xl bg-red-50 border border-red-300 text-red-800 text-xs space-y-1">
-                  <p className="font-bold flex items-center gap-1.5"><AlertCircle className="w-4 h-4 shrink-0" /> Falta completar para confirmar tu pedido:</p>
+                  <p className="font-bold flex items-center gap-1.5"><AlertCircle className="w-4 h-4 shrink-0" /> {t('Falta completar para confirmar tu pedido:', 'Please complete the following to confirm your order:')}</p>
                   <ul className="list-disc pl-6 space-y-0.5">
                     {Object.values(formErrors).filter(Boolean).map((m, i) => <li key={i}>{m}</li>)}
                   </ul>
-                  <p className="text-red-700/80">Los datos de entrega están en el paso 2, a la izquierda.</p>
+                  <p className="text-red-700/80">{t('Los datos de entrega están en el paso 2, a la izquierda.', 'The delivery details are in step 2, on the left.')}</p>
                 </div>
               )}
 
               {hasPackingError && (
                 <div className="p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0" />
-                  <span>Por favor ajusta los estuches de 125g y 250g a múltiplos de 2 unidades para poder empacar tu envío.</span>
+                  <span>{t('Por favor ajusta los estuches de 125g y 250g a múltiplos de 2 unidades para poder empacar tu envío.', 'Please adjust the 125 g and 250 g boxes to multiples of 2 so we can pack your order.')}</span>
                 </div>
               )}
 
@@ -1057,7 +1063,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 className="w-full py-3 rounded-xl bg-[#2F183C] text-white font-bold flex items-center justify-center gap-2 hover:bg-[#432356] transition-colors cursor-pointer shadow-md disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <MessageCircle className="w-4 h-4 text-[#DDA83A]" />}
-                Pedir por WhatsApp
+                {t('Pedir por WhatsApp', 'Order on WhatsApp')}
               </button>
               <button
                 type="button"
@@ -1065,7 +1071,7 @@ export const CustomOrderSection: React.FC<CustomOrderSectionProps> = ({
                 disabled={isSubmitting}
                 className="w-full py-2.5 rounded-xl border border-[#DFCEE6] text-[#2F183C] font-bold text-sm hover:bg-[#F5ECF9] transition-colors cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? 'Guardando...' : online ? 'Continuar al pago en línea' : 'Confirmar pedido'}
+                {isSubmitting ? t('Guardando...', 'Saving...') : online ? t('Continuar al pago en línea', 'Continue to online payment') : t('Confirmar pedido', 'Confirm order')}
               </button>
               <p className="text-xs text-stone-400 text-center">WhatsApp: +57 317 893 1026</p>
             </div>

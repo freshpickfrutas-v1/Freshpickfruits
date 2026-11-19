@@ -1,0 +1,42 @@
+{
+  "title": "Quinoa, Blueberry and Avocado Salad",
+  "excerpt": "Enjoy a fresh, colorful salad combining quinoa, creamy avocado and blueberries for a perfect sweet-and-tart touch.",
+  "imageAlt": "Fresh quinoa salad with avocado and blueberries in a ceramic bowl.",
+  "ingredients": [
+    {
+      "text": "1 cup cooked quinoa"
+    },
+    {
+      "text": "1 cup Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1 ripe avocado, cubed"
+    },
+    {
+      "text": "2 cups fresh spinach"
+    },
+    {
+      "text": "2 tablespoons lemon juice"
+    },
+    {
+      "text": "3 tablespoons extra virgin olive oil"
+    },
+    {
+      "text": "Salt and pepper, to taste"
+    }
+  ],
+  "steps": [
+    "Rinse the quinoa very well under cold water and cook it in two cups of boiling water with a pinch of salt for about 15 minutes until soft.",
+    "Remove the quinoa from the heat, let it rest covered for 10 minutes and then fluff it with a fork in a deep bowl.",
+    "Add the finely chopped fresh spinach and mix gently with the warm quinoa.",
+    "Very carefully fold in the avocado cubes and the high-mountain blueberries grown in Guasca, ideal for adding a natural, balanced sweetness to the dish.",
+    "Make the dressing by mixing the lemon juice, olive oil, salt and pepper in a small bowl.",
+    "Pour the dressing over the salad right before serving and toss with gentle movements so you don’t bruise the ingredients."
+  ],
+  "tips": [
+    "To better preserve the natural bloom and firmness of your blueberries, keep them in the fridge unwashed and in their original packaging until you are ready to use them.",
+    "If you prefer a crunchy touch, you can add a handful of toasted almonds or chopped walnuts on top when serving."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

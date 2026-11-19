@@ -1,0 +1,58 @@
+{
+  "title": "Impact of Thermal Processing and Storage on Blueberries",
+  "metaDescription": "We look at a scientific study on how heat and storage affect the quality, bioactive compounds and aroma of blueberries.",
+  "excerpt": "A recent scientific study examines how heat treatments and storage temperatures alter the quality and aroma of blueberries.",
+  "imageAlt": "Glasses of fresh blueberry juice and whole fruit on a wooden table.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introduction: what it is about and why it matters"
+    },
+    {
+      "type": "p",
+      "text": "Blueberry juice is highly valued both for its distinctive flavor and for its health-promoting bioactive compounds. However, the heat processes it is often subjected to and subsequent storage can significantly alter its overall quality and aroma profile. Understanding these changes is key for the industry and for consumers who want to keep the best properties of this fruit."
+    },
+    {
+      "type": "h2",
+      "text": "What the source says: the main finding"
+    },
+    {
+      "type": "p",
+      "text": "A study published in the scientific journal Molecules evaluated the effects of pasteurization (PT, at 90 degrees Celsius for 30 seconds) and ultra-high-temperature processing (UHT, at 135 degrees Celsius for 6 seconds) on blueberry juice. The research analyzed physicochemical properties, bioactive compounds, antioxidant activity, volatile profiles and sensory characteristics during a four-week storage at three different temperatures: 4, 25 and 35 degrees Celsius."
+    },
+    {
+      "type": "p",
+      "text": "The results indicated that, although both heat treatments ensured microbial safety, the UHT process caused greater color deterioration, greater loss of phenolic compounds and anthocyanins, and the formation of compounds with off-flavors. In contrast, pasteurization better preserved the color, the bioactive components and the natural fruity aroma. Likewise, storage temperature proved to be the determining factor in the decline in quality, with storage at 4 degrees Celsius significantly slowing this deterioration."
+    },
+    {
+      "type": "p",
+      "text": "A key aspect of the study was the analysis of linalool enantiomers, chiral aroma compounds. The researchers observed that pasteurization mainly induced the isomerization of (R)-linalool into the (S) form, whereas the UHT process caused the direct degradation of (R)-linalool. This shows the importance of monitoring enantiomeric composition to accurately assess flavor quality."
+    },
+    {
+      "type": "h2",
+      "text": "Context: how it fits with what is already known about blueberries"
+    },
+    {
+      "type": "p",
+      "text": "Until now, most scientific research had focused on measuring the total volatile profiles of blueberry-derived foods. However, the specific behavior of chiral aroma compounds, and in particular linalool enantiomers, was not clearly understood. This new work broadens the earlier perspective by showing that it is not enough to measure the total amount of a substance; it is vital to understand how its specific molecular forms change due to heat and the passage of time."
+    },
+    {
+      "type": "h2",
+      "text": "What it means for you: practical application"
+    },
+    {
+      "type": "p",
+      "text": "For those who enjoy blueberry products in their daily lives, this study offers a useful guide on how processed foods behave. The data suggest that gentler preservation methods, combined with proper refrigeration at four degrees Celsius, are very effective tools to maintain both flavor stability and the overall quality of the product. On a practical level, it reinforces the idea of prioritizing minimally processed products and keeping them properly refrigerated to get the most out of their sensory characteristics."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusion"
+    },
+    {
+      "type": "p",
+      "text": "At Fresh Pick we celebrate the science that lets us better understand each fruit, remembering that on our farm in Guasca we grow blueberries with natural practices that guarantee exceptional sweetness and freshness from the high mountains."
+    }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative image generated with AI"
+}

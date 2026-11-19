@@ -1,0 +1,87 @@
+{
+  "title": "A Biological Film Extends Blueberry Freshness and Nutrients After Harvest",
+  "metaDescription": "A study reveals how an edible film with soy protein helps preserve the nutrients and freshness of blueberries for 20 days.",
+  "excerpt": "Scientists developed a film based on soy protein and nanocellulose that reduces fungal spoilage and retains up to 33% more anthocyanins in stored blueberries.",
+  "imageAlt": "Fresh blueberries on a laboratory tray for quality and post-harvest preservation analysis",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introduction: the challenge of preserving a delicate fruit"
+    },
+    {
+      "type": "p",
+      "text": "The blueberry is a fruit appreciated worldwide for its characteristic flavor and its nutritional profile. However, those who work in its cultivation, marketing or simply enjoy eating it at home know that it is a highly perishable food. During the post-harvest stage, this fruit faces constant threats that compromise its appearance and composition: moisture loss, contact with ambient oxygen and, especially, fungal infections that speed up its decay."
+    },
+    {
+      "type": "p",
+      "text": "Finding sustainable alternatives to protect fruit after picking, without altering its properties or resorting to harsh methods, is one of the most active fields in food science. A recent study published in the scientific journal Foods addresses this dilemma by developing a biologically sourced composite film designed specifically to act as a protective barrier on stored blueberries."
+    },
+    {
+      "type": "h2",
+      "text": "What the research says: a biological barrier against spoilage"
+    },
+    {
+      "type": "p",
+      "text": "The research team formulated a standalone composite film that combined soy protein isolate (SPI), 3.0% cellulose nanofibers (CNF) and 3.0% natamycin (NA), an antifungal agent known in the food industry. The central goal was to evaluate whether this structure could counter fungal attack and preserve the physical and chemical quality of the blueberries during storage."
+    },
+    {
+      "type": "p",
+      "text": "In the initial laboratory tests (in vitro plate assays), the film showed notable antifungal capacity against the fungus Aspergillus niger CICC 40868, reaching an inhibition zone of 35.22 millimeters in diameter. Likewise, the coordinated incorporation of cellulose nanofibers and natamycin allowed the material to offer buffering performance against water vapor, oxygen and ultraviolet (UV) light."
+    },
+    {
+      "type": "p",
+      "text": "When this treatment was applied in a blueberry preservation trial over a 20-day storage period, the researchers observed striking differences compared with the untreated control group:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "A 28.30% reduction in the fruit’s weight loss rate.",
+        "A relative increase of 10.78% in soluble solids content.",
+        "A 14.20% higher titratable acidity content.",
+        "A 33.13% higher retention of anthocyanin concentration, the natural pigments characteristic of the fruit."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "It is important to stress the nature of this work: it is experimental materials science and post-harvest research carried out in the laboratory. It is not a clinical trial in humans, but a technical test aimed at showing how packaging biotechnology can extend the stability of fresh fruit."
+    },
+    {
+      "type": "h2",
+      "text": "Context: protecting antioxidants and fruit firmness"
+    },
+    {
+      "type": "p",
+      "text": "The behavior observed in this study fits directly with the known principles of berry senescence. When a fruit is harvested, it keeps breathing and exchanging gases with its surroundings. Ultraviolet radiation and free oxygen speed up the degradation of bioactive compounds such as anthocyanins, while transpiration evaporates internal water, causing shriveling and mass loss."
+    },
+    {
+      "type": "p",
+      "text": "In addition, the proliferation of fungi such as Aspergillus tends to colonize micro-cracks in the fruit’s epidermis. By limiting the passage of light and oxygen through soy- and cellulose-derived biopolymers, combined with the targeted action of natamycin, the fruit’s oxidative and metabolic stress is slowed. In this way, the fruit not only keeps its outward appearance but also manages to safeguard its natural sugars, its acidity and its richness of pigments for almost three weeks."
+    },
+    {
+      "type": "h2",
+      "text": "What it means for you: care lessons for fruit at home"
+    },
+    {
+      "type": "p",
+      "text": "Although these biocomposite films are technologies in a development and innovation stage for the distribution chain, the results offer very valuable practical lessons for everyday handling of blueberries at home."
+    },
+    {
+      "type": "p",
+      "text": "The technical evidence confirms that the three main enemies of blueberry longevity are uncontrolled moisture (which stimulates fungi), oxygen and direct light. In practice, this suggests that the best way to keep the berries is to store them in containers that protect them from dehydration without trapping excess condensation, keep them in dark, cold areas of the fridge and not wash them until the exact moment they will be eaten, avoiding adding water that encourages fungal growth."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusion"
+    },
+    {
+      "type": "p",
+      "text": "The development of films based on soy protein and nanofibers represents a promising advance toward creating biodegradable packaging able to mitigate food waste and keep the nutrients of sensitive fruits such as the blueberry intact."
+    },
+    {
+      "type": "p",
+      "text": "This principle of protecting the freshness and natural integrity of the fruit from the harvest is essential to ensure that every berry keeps its optimal texture and sweetness when it reaches the table."
+    }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative image generated with AI"
+}

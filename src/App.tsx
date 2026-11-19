@@ -6,12 +6,15 @@ import BlogPage from './pages/BlogPage';
 import BlogArticlePage from './pages/BlogArticlePage';
 import LegalPage from './pages/LegalPage';
 import ThankYouPage from './pages/ThankYouPage';
+import WholesalePage from './pages/WholesalePage';
 import { useHiddenContent } from './lib/hiddenContent';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { scrollToId, useAppLocation, useInternalLinkInterception } from './lib/router';
 import { matchContentRoute } from './lib/routes';
 import { preloadRoute } from './lib/routePreload';
+import { LangProvider, splitLang } from './lib/i18n';
+import { setContentLang } from './data/content';
 
 // Los paneles pesan bastante (Firestore, tableros) y solo los usa el equipo y los clientes con sesión:
 // se descargan al entrar a /panel o /admin, no con la página de inicio, recetas o noticias.
@@ -26,6 +29,9 @@ function renderRoute(pathname: string) {
   if (pathname === '/terminos') return <LegalPage kind="terminos" />;
   if (pathname === '/cookies') return <LegalPage kind="cookies" />;
   if (pathname === '/gracias') return <ThankYouPage />;
+  if (pathname === '/mayoristas') return <WholesalePage variant="hub" />;
+  if (pathname === '/mayoristas/colombia') return <WholesalePage variant="colombia" />;
+  if (pathname === '/mayoristas/mundo') return <WholesalePage variant="world" />;
 
   const route = matchContentRoute(pathname);
   switch (route?.type) {
@@ -39,8 +45,9 @@ function renderRoute(pathname: string) {
 
 /** Old /blog URLs moved to /noticias. Vercel redirects them server-side; this covers dev and any cached client. */
 function legacyBlogRedirect(location: { pathname: string; search: string; hash: string }) {
-  if (location.pathname !== '/blog' && !location.pathname.startsWith('/blog/')) return null;
-  return location.pathname.replace(/^\/blog/, '/noticias') + location.search + location.hash;
+  const { lang, path } = splitLang(location.pathname);
+  if (path !== '/blog' && !path.startsWith('/blog/')) return null;
+  return (lang === 'en' ? '/en' : '') + path.replace(/^\/blog/, '/noticias') + location.search + location.hash;
 }
 
 export default function App() {
@@ -58,6 +65,10 @@ export default function App() {
     });
     return () => { cancelled = true; };
   }, [current]);
+
+  const { lang, path } = splitLang(location.pathname);
+  setContentLang(lang);
+  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
 
   const redirectTo = legacyBlogRedirect(current);
   useEffect(() => {
@@ -82,12 +93,14 @@ export default function App() {
   }, [location.pathname, location.search, location.hash]);
 
   return (
-    <AuthProvider>
-      <CartProvider>
-        <React.Fragment key={location.pathname + location.search}>
-          {redirectTo ? null : renderRoute(location.pathname)}
-        </React.Fragment>
-      </CartProvider>
-    </AuthProvider>
+    <LangProvider lang={lang}>
+      <AuthProvider>
+        <CartProvider>
+          <React.Fragment key={location.pathname + location.search}>
+            {redirectTo ? null : renderRoute(path)}
+          </React.Fragment>
+        </CartProvider>
+      </AuthProvider>
+    </LangProvider>
   );
 }

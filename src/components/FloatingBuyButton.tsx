@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useT } from '../lib/i18n';
 
 interface Props {
   /** id of the end-of-article call to action; the floating button hides while that one is on screen. */
@@ -10,6 +11,7 @@ interface Props {
 /** Buy button pinned to the right edge once the reader has scrolled into the article. */
 export const FloatingBuyButton: React.FC<Props> = ({ endId = 'cta-final' }) => {
   const { isStaff } = useAuth();
+  const t = useT();
   const [scrolled, setScrolled] = useState(false);
   const [atEnd, setAtEnd] = useState(false);
 
@@ -38,7 +40,7 @@ export const FloatingBuyButton: React.FC<Props> = ({ endId = 'cta-final' }) => {
       className={`fixed right-3 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-1.5 px-3 py-4 rounded-2xl bg-[#DDA83A] text-[#2F183C] font-bold text-xs shadow-xl shadow-[#2F183C]/30 hover:bg-[#C59328] transition-all duration-300 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6 pointer-events-none'}`}
     >
       <ShoppingBag className="w-5 h-5" />
-      <span className="[writing-mode:vertical-rl] rotate-180 tracking-wide">Comprar arándanos</span>
+      <span className="[writing-mode:vertical-rl] rotate-180 tracking-wide">{t('Comprar arándanos', 'Buy blueberries')}</span>
     </a>
   );
 };

@@ -1,0 +1,44 @@
+{
+  "title": "French Toast with Blueberry Compote",
+  "excerpt": "Enjoy a special breakfast with this golden French toast and a warm compote of high-mountain blueberries.",
+  "imageAlt": "Golden French toast served on a white plate with a generous warm compote of fresh blueberries.",
+  "ingredients": [
+    {
+      "text": "1 1/2 cups Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "4 slices brioche or thick sliced bread"
+    },
+    {
+      "text": "2 eggs"
+    },
+    {
+      "text": "1/2 cup milk"
+    },
+    {
+      "text": "1 teaspoon vanilla extract"
+    },
+    {
+      "text": "1 teaspoon ground cinnamon"
+    },
+    {
+      "text": "2 tablespoons sugar or grated panela"
+    },
+    {
+      "text": "1 tablespoon butter for cooking"
+    }
+  ],
+  "steps": [
+    "In a deep bowl, whisk the eggs with the milk, vanilla and half of the cinnamon until well combined.",
+    "For the compote, place the Fresh Pick blueberries in a small skillet over medium heat with the sugar and two tablespoons of water. Cook for 5 minutes until the fruit releases its juices and a thick sauce forms.",
+    "Dip each slice of bread into the egg mixture, making sure it gets well soaked on both sides without falling apart.",
+    "Heat a wide skillet with the butter over medium heat. Place the bread slices and brown for 3 minutes per side until crisp and golden.",
+    "Serve the French toast hot, right out of the skillet, and top it generously with the warm compote of blueberries grown in Guasca."
+  ],
+  "tips": [
+    "To better preserve your blueberries at home, store them in the fridge unwashed and remove any that look overripe before storing them.",
+    "If you prefer a more aromatic touch, you can add a pinch of lemon zest to the compote while it cooks in the skillet."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

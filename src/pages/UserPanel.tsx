@@ -15,6 +15,16 @@ import { FirestoreOrder, SubscriptionDoc, SubscriptionPlan } from '../types';
 import { requestChange, requestSubscription, subscribeMySubscriptions, SUB_STATUS } from '../lib/subscriptions';
 import { SUBSCRIPTION_PLANS } from '../data/mockData';
 import { OnlinePayButton } from '../components/OnlinePayButton';
+import { SUBSCRIPTION_PLANS as PLANS_ES } from '../data/mockData';
+import { PLANS_EN, localizeList } from '../data/mockData.en';
+import { dateLocale, useLang, useT } from '../lib/i18n';
+import { waLink } from '../lib/contact';
+
+const STATUS_EN: Record<string, string> = {
+  pendiente: 'Received', pago_verificado: 'Payment confirmed', en_proceso: 'Preparing your order', empacado: 'Packed',
+  en_ruta: 'On its way', entregado: 'Delivered', cerrado: 'Delivered', cancelado: 'Cancelled'
+};
+const SUB_STATUS_EN: Record<string, string> = { solicitada: 'Requested', activa: 'Active', pausada: 'Paused', cancelada: 'Cancelled' };
 
 const statusLabel: Record<string, { text: string; color: string }> = {
   pendiente: { text: 'Recibido', color: 'bg-sky-100 text-sky-800' },
@@ -28,6 +38,12 @@ const statusLabel: Record<string, { text: string; color: string }> = {
 };
 
 function UserPanelInner() {
+  const t = useT();
+  const lang = useLang();
+  const loc = dateLocale(lang);
+  const plans = localizeList(PLANS_ES, PLANS_EN, lang);
+  const statusText = (key: string, fallback: string) => (lang === 'en' ? STATUS_EN[key] ?? fallback : fallback);
+  const subLabel = (status: string, fallback: string) => (lang === 'en' ? SUB_STATUS_EN[status] ?? fallback : fallback);
   const { user, profile, isStaff, signOut } = useAuth();
 
   const [mySubs, setMySubs] = useState<SubscriptionDoc[]>([]);
@@ -36,7 +52,7 @@ function UserPanelInner() {
 
   useEffect(() => {
     if (!user) return;
-    return subscribeMySubscriptions(user.uid, setMySubs, err => setSubError('No se pudieron cargar tus suscripciones: ' + err.message));
+    return subscribeMySubscriptions(user.uid, setMySubs, err => setSubError(t('No se pudieron cargar tus suscripciones: ', 'We could not load your subscriptions: ') + err.message));
   }, [user]);
 
   const currentSub = (planId: string) => mySubs.find(m => m.planId === planId && m.status !== 'cancelada');
@@ -50,27 +66,27 @@ function UserPanelInner() {
       const addr = profile?.addresses?.find(x => x.isDefault) ?? profile?.addresses?.[0];
       await requestSubscription({ uid: user.uid, email: user.email, name: user.displayName ?? '' }, plan, addr);
     } catch (err) {
-      setSubError(err instanceof Error ? 'No se pudo registrar tu solicitud: ' + err.message : 'No se pudo registrar tu solicitud.');
+      setSubError(err instanceof Error ? t('No se pudo registrar tu solicitud: ', 'We could not register your request: ') + err.message : t('No se pudo registrar tu solicitud.', 'We could not register your request.'));
     } finally { setSubBusy(null); }
   };
 
   const askChange = async (id: string, request: 'pausar' | 'cancelar' | '') => {
     setSubBusy(id); setSubError('');
     try { await requestChange(id, request); }
-    catch (err) { setSubError(err instanceof Error ? err.message : 'No se pudo enviar tu solicitud.'); }
+    catch (err) { setSubError(err instanceof Error ? err.message : t('No se pudo enviar tu solicitud.', 'We could not send your request.')); }
     finally { setSubBusy(null); }
   };
 
   const subscribeLink = (plan: SubscriptionPlan) => {
     const addr = profile?.addresses?.find(x => x.isDefault) ?? profile?.addresses?.[0];
     const lines = [
-      `Hola Fresh Pick! Deseo suscribirme al *${plan.title}* (${plan.weight} por $${plan.priceMonth.toLocaleString('es-CO')} COP/mes).`,
-      `Nombre: ${user?.displayName || addr?.recipientName || ''}`,
-      `Correo: ${user?.email ?? ''}`,
-      addr ? `Dirección de entrega: ${addr.address}, ${addr.city}` : '',
-      'Por favor indíquenme cómo activar mi suscripción de arándanos.',
+      t(`Hola Fresh Pick! Deseo suscribirme al *${plan.title}* (${plan.weight} por $${plan.priceMonth.toLocaleString('es-CO')} COP/mes).`, `Hello Fresh Pick! I would like to subscribe to the *${plan.title}* (${plan.weight} for COP $${plan.priceMonth.toLocaleString('en-US')}/month).`),
+      `${t('Nombre', 'Name')}: ${user?.displayName || addr?.recipientName || ''}`,
+      `${t('Correo', 'Email')}: ${user?.email ?? ''}`,
+      addr ? `${t('Dirección de entrega', 'Delivery address')}: ${addr.address}, ${addr.city}` : '',
+      t('Por favor indíquenme cómo activar mi suscripción de arándanos.', 'Please tell me how to activate my blueberry subscription.'),
     ].filter(Boolean);
-    return `https://wa.me/573178931026?text=${encodeURIComponent(lines.join('\n'))}`;
+    return waLink(lines.join('\n'));
   };
   const [tab, setTab] = useState<'pedidos' | 'suscripcion' | 'perfil'>('pedidos');
 
@@ -85,7 +101,7 @@ function UserPanelInner() {
     setError('');
     findMyOrders({ uid: user.uid, email: user.email })
       .then(results => { if (!cancelled) setOrders(results); })
-      .catch(err => { if (!cancelled) setError(err instanceof Error ? err.message : 'No se pudieron cargar tus pedidos.'); })
+      .catch(err => { if (!cancelled) setError(err instanceof Error ? err.message : t('No se pudieron cargar tus pedidos.', 'We could not load your orders.')); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
   }, [user]);
@@ -93,7 +109,7 @@ function UserPanelInner() {
   return (
     <div className="min-h-screen bg-[#F7F5F0]/90 backdrop-blur-[2px] text-stone-900 font-sans">
       <div className="bg-[#DDA83A] text-[#2F183C] text-xs sm:text-sm font-bold text-center py-2 px-4">
-        Panel de cliente · Tus pedidos y datos de entrega
+        {t('Panel de cliente · Tus pedidos y datos de entrega', 'Customer panel · Your orders and delivery details')}
       </div>
 
       <header className="bg-white border-b border-[#EADBEE] sticky top-0 z-30">
@@ -101,7 +117,7 @@ function UserPanelInner() {
           <div className="flex items-center gap-3">
             <a href="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-stone-600 hover:text-[#7B4382]">
               <ArrowLeft className="w-4 h-4" />
-              Tienda
+              {t('Tienda', 'Store')}
             </a>
             <span className="text-stone-300">|</span>
             <div className="flex items-center gap-2">
@@ -109,16 +125,16 @@ function UserPanelInner() {
                 <Leaf className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-sm font-bold leading-tight text-[#2F183C]">Mi cuenta</p>
+                <p className="text-sm font-bold leading-tight text-[#2F183C]">{t('Mi cuenta', 'My account')}</p>
                 <p className="text-xs text-stone-500">Fresh Pick</p>
               </div>
             </div>
           </div>
           <div className="flex items-center gap-2 text-xs text-stone-500">
             <User className="w-4 h-4" />
-            <span className="hidden sm:inline">{user?.displayName || user?.email || 'Cliente'}</span>
+            <span className="hidden sm:inline">{user?.displayName || user?.email || t('Cliente', 'Customer')}</span>
             <button onClick={() => signOut()} className="inline-flex items-center gap-1 ml-2 font-semibold text-[#7B4382] hover:text-[#2F183C]">
-              <LogOut className="w-3.5 h-3.5" /> Salir
+              <LogOut className="w-3.5 h-3.5" /> {t('Salir', 'Sign out')}
             </button>
           </div>
         </div>
@@ -127,9 +143,9 @@ function UserPanelInner() {
       <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         <aside className="lg:col-span-3 space-y-2">
           {([
-            { id: 'pedidos' as const, label: 'Mis pedidos', icon: Package },
-            { id: 'suscripcion' as const, label: 'Suscripción', icon: CreditCard },
-            { id: 'perfil' as const, label: 'Datos y entrega', icon: MapPin },
+            { id: 'pedidos' as const, label: t('Mis pedidos', 'My orders'), icon: Package },
+            { id: 'suscripcion' as const, label: t('Suscripción', 'Subscription'), icon: CreditCard },
+            { id: 'perfil' as const, label: t('Datos y entrega', 'Details and delivery'), icon: MapPin },
           ]).map(item => (
             <button
               key={item.id}
@@ -146,7 +162,7 @@ function UserPanelInner() {
           ))}
           {isStaff && (
             <a href="/admin" className="block w-full text-center text-xs text-stone-400 hover:text-stone-600 pt-4">
-              Ir al panel admin →
+              {t('Ir al panel admin →', 'Go to the admin panel →')}
             </a>
           )}
         </aside>
@@ -154,10 +170,10 @@ function UserPanelInner() {
         <main className="lg:col-span-9 space-y-6">
           {tab === 'pedidos' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Mis pedidos</h1>
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">{t('Mis pedidos', 'My orders')}</h1>
 
               <p className="text-sm text-stone-500">
-                Pedidos de <span className="font-semibold text-[#2F183C]">{user?.email}</span>
+                {t('Pedidos de', 'Orders for')} <span className="font-semibold text-[#2F183C]">{user?.email}</span>
                 {loading && <Loader2 className="inline w-4 h-4 ml-2 animate-spin text-[#7B4382]" />}
               </p>
 
@@ -169,7 +185,7 @@ function UserPanelInner() {
 
               {!loading && orders.length === 0 && !error && (
                 <div className="bg-white rounded-2xl border border-[#EADBEE] p-6 text-center text-sm text-stone-500">
-                  Aún no tienes pedidos con esta cuenta. Si pediste antes como invitado, usa el mismo correo con el que entraste.
+                  {t('Aún no tienes pedidos con esta cuenta. Si pediste antes como invitado, usa el mismo correo con el que entraste.', 'You have no orders with this account yet. If you ordered before as a guest, use the same email you signed in with.')}
                 </div>
               )}
 
@@ -181,35 +197,35 @@ function UserPanelInner() {
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span className="font-bold text-[#2F183C]">{order.orderNumber}</span>
-                          <span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${st.color}`}>{st.text}</span>
+                          <span className={`text-xs font-bold uppercase px-2 py-0.5 rounded-full ${st.color}`}>{statusText(normalizeStatus(order.status), st.text)}</span>
                         </div>
                         <p className="text-xs text-stone-500 flex items-center gap-1">
-                          <Clock className="w-3 h-3" /> {new Date(order.createdAt).toLocaleDateString('es-CO')}
+                          <Clock className="w-3 h-3" /> {new Date(order.createdAt).toLocaleDateString(loc)}
                         </p>
                         <p className="text-sm text-stone-700 mt-1">
-                          {order.items?.map(i => i.name).join(', ') || 'Pedido personalizado'}
+                          {order.items?.map(i => i.name).join(', ') || t('Pedido personalizado', 'Custom order')}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-lg font-black text-[#2F183C]">${(order.total || 0).toLocaleString('es-CO')}</p>
+                        <p className="text-lg font-black text-[#2F183C]">${(order.total || 0).toLocaleString(loc)}</p>
                         {normalizeStatus(order.status) === 'en_ruta' && (
                           <p className="text-xs text-amber-700 flex items-center justify-end gap-1 mt-1">
-                            <Truck className="w-3 h-3" /> Despacho hoy
+                            <Truck className="w-3 h-3" /> {t('Despacho hoy', 'Dispatched today')}
                           </p>
                         )}
                         {!['en_ruta', 'entregado', 'cerrado', 'cancelado'].includes(normalizeStatus(order.status)) && (
                           <a
-                            href={`https://wa.me/573178931026?text=${encodeURIComponent(`Hola Fresh Pick, quiero modificar o cancelar mi pedido ${order.orderNumber}`)}`}
+                            href={waLink(t(`Hola Fresh Pick, quiero modificar o cancelar mi pedido ${order.orderNumber}`, `Hello Fresh Pick, I would like to change or cancel my order ${order.orderNumber}`))}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-[#7B4382] underline"
                           >
-                            <Phone className="w-3 h-3" /> Modificar o cancelar por WhatsApp
+                            <Phone className="w-3 h-3" /> {t('Modificar o cancelar por WhatsApp', 'Change or cancel on WhatsApp')}
                           </a>
                         )}
                         {normalizeStatus(order.status) === 'pendiente' && order.paymentStatus !== 'verificado' && (
                           <div className="mt-2 flex flex-col items-end gap-2">
-                            <p className="text-xs font-semibold text-amber-700">Pago pendiente</p>
+                            <p className="text-xs font-semibold text-amber-700">{t('Pago pendiente', 'Payment pending')}</p>
                             {order.paymentMethod === 'tarjeta' && (
                               <OnlinePayButton
                                 orderId={order.id}
@@ -217,12 +233,12 @@ function UserPanelInner() {
                               />
                             )}
                             <a
-                              href={`https://wa.me/573178931026?text=${encodeURIComponent(`Hola Fresh Pick, quiero pagar mi pedido ${order.orderNumber} por $${(order.total || 0).toLocaleString('es-CO')} COP`)}`}
+                              href={waLink(t(`Hola Fresh Pick, quiero pagar mi pedido ${order.orderNumber} por $${(order.total || 0).toLocaleString('es-CO')} COP`, `Hello Fresh Pick, I would like to pay my order ${order.orderNumber} for COP $${(order.total || 0).toLocaleString('en-US')}`))}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-xs font-bold text-[#7B4382] underline"
                             >
-                              Pagar por WhatsApp (transferencia o Bre-B)
+                              {t('Pagar por WhatsApp (transferencia o Bre-B)', 'Pay on WhatsApp (bank transfer or Bre-B)')}
                             </a>
                           </div>
                         )}
@@ -236,9 +252,9 @@ function UserPanelInner() {
 
           {tab === 'suscripcion' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Mi suscripción</h1>
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">{t('Mi suscripción', 'My subscription')}</h1>
               <p className="text-sm text-stone-600">
-                Elige un plan: registramos tu solicitud y abrimos WhatsApp para activarlo contigo, con tu dirección principal. Entregas los martes y miércoles de 8:00 a.m. a 3:00 p.m. Sin contratos de permanencia.
+                {t('Elige un plan: registramos tu solicitud y abrimos WhatsApp para activarlo contigo, con tu dirección principal. Entregas los martes y miércoles de 8:00 a.m. a 3:00 p.m. Sin contratos de permanencia.', 'Choose a plan: we register your request and open WhatsApp to activate it with you, using your primary address. Deliveries on Tuesdays and Wednesdays from 8:00 a.m. to 3:00 p.m. No long-term contracts.')}
               </p>
 
               {subError && (
@@ -249,23 +265,23 @@ function UserPanelInner() {
 
               {mySubs.some(m => m.status !== 'cancelada') && (
                 <div className="space-y-2">
-                  <h2 className="text-sm font-bold uppercase tracking-wider text-[#7B4382]">Tus suscripciones</h2>
+                  <h2 className="text-sm font-bold uppercase tracking-wider text-[#7B4382]">{t('Tus suscripciones', 'Your subscriptions')}</h2>
                   {mySubs.filter(m => m.status !== 'cancelada').map(m => (
                     <div key={m.id} className="bg-white rounded-2xl border border-[#EADBEE] p-4 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="space-y-0.5">
-                        <p className="font-bold text-[#2F183C]">{m.planTitle} <span className={`ml-1 text-xs font-bold uppercase px-2 py-0.5 rounded-full ${SUB_STATUS[m.status].tone}`}>{SUB_STATUS[m.status].label}</span></p>
-                        <p className="text-xs text-stone-500">{m.deliveryFrequency} · ${m.priceMonth.toLocaleString('es-CO')} COP / mes</p>
-                        {m.status === 'solicitada' && <p className="text-xs text-stone-600">Recibimos tu solicitud. Te contactamos por WhatsApp para activarla.</p>}
-                        {m.status === 'activa' && m.nextDelivery && <p className="text-xs text-stone-600">Próxima entrega: {new Date(m.nextDelivery + 'T12:00:00').toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' })}</p>}
-                        {m.customerRequest && <p className="text-xs font-semibold text-amber-700">Solicitaste {m.customerRequest === 'pausar' ? 'pausar' : 'cancelar'} este plan. Lo confirmamos contigo.</p>}
+                        <p className="font-bold text-[#2F183C]">{m.planTitle} <span className={`ml-1 text-xs font-bold uppercase px-2 py-0.5 rounded-full ${SUB_STATUS[m.status].tone}`}>{subLabel(m.status, SUB_STATUS[m.status].label)}</span></p>
+                        <p className="text-xs text-stone-500">{m.deliveryFrequency} · ${m.priceMonth.toLocaleString(loc)} {t('COP / mes', 'COP / month')}</p>
+                        {m.status === 'solicitada' && <p className="text-xs text-stone-600">{t('Recibimos tu solicitud. Te contactamos por WhatsApp para activarla.', 'We received your request. We will contact you on WhatsApp to activate it.')}</p>}
+                        {m.status === 'activa' && m.nextDelivery && <p className="text-xs text-stone-600">{t('Próxima entrega', 'Next delivery')}: {new Date(m.nextDelivery + 'T12:00:00').toLocaleDateString(loc, { weekday: 'long', day: 'numeric', month: 'long' })}</p>}
+                        {m.customerRequest && <p className="text-xs font-semibold text-amber-700">{t(`Solicitaste ${m.customerRequest === 'pausar' ? 'pausar' : 'cancelar'} este plan. Lo confirmamos contigo.`, `You requested to ${m.customerRequest === 'pausar' ? 'pause' : 'cancel'} this plan. We will confirm it with you.`)}</p>}
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {m.customerRequest ? (
-                          <button onClick={() => askChange(m.id, '')} disabled={subBusy === m.id} className="text-xs font-bold text-stone-600 underline">Retirar solicitud</button>
+                          <button onClick={() => askChange(m.id, '')} disabled={subBusy === m.id} className="text-xs font-bold text-stone-600 underline">{t('Retirar solicitud', 'Withdraw request')}</button>
                         ) : (m.status === 'activa' || m.status === 'pausada') && (
                           <>
-                            {m.status === 'activa' && <button onClick={() => askChange(m.id, 'pausar')} disabled={subBusy === m.id} className="px-3 py-2 rounded-xl border border-amber-300 text-amber-800 text-xs font-bold">Pedir pausa</button>}
-                            <button onClick={() => { if (window.confirm('¿Quieres cancelar este plan?')) askChange(m.id, 'cancelar'); }} disabled={subBusy === m.id} className="px-3 py-2 rounded-xl border border-red-200 text-red-700 text-xs font-bold">Pedir cancelación</button>
+                            {m.status === 'activa' && <button onClick={() => askChange(m.id, 'pausar')} disabled={subBusy === m.id} className="px-3 py-2 rounded-xl border border-amber-300 text-amber-800 text-xs font-bold">{t('Pedir pausa', 'Request pause')}</button>}
+                            <button onClick={() => { if (window.confirm(t('¿Quieres cancelar este plan?', 'Do you want to cancel this plan?'))) askChange(m.id, 'cancelar'); }} disabled={subBusy === m.id} className="px-3 py-2 rounded-xl border border-red-200 text-red-700 text-xs font-bold">{t('Pedir cancelación', 'Request cancellation')}</button>
                           </>
                         )}
                       </div>
@@ -274,15 +290,15 @@ function UserPanelInner() {
                 </div>
               )}
 
-              <h2 className="text-sm font-bold uppercase tracking-wider text-[#7B4382] pt-1">Planes disponibles</h2>
+              <h2 className="text-sm font-bold uppercase tracking-wider text-[#7B4382] pt-1">{t('Planes disponibles', 'Available plans')}</h2>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                {SUBSCRIPTION_PLANS.map(plan => (
+                {plans.map(plan => (
                   <div
                     key={plan.id}
                     className={`relative rounded-2xl p-5 flex flex-col justify-between gap-4 ${plan.isPopular ? 'bg-[#2F183C] text-white ring-2 ring-[#DDA83A] shadow-lg' : 'bg-white border border-[#EADBEE] shadow-xs'}`}
                   >
                     {plan.isPopular && (
-                      <span className="absolute -top-3 left-5 px-3 py-0.5 rounded-full bg-[#DDA83A] text-[#2F183C] text-xs font-black uppercase tracking-wider">El más popular</span>
+                      <span className="absolute -top-3 left-5 px-3 py-0.5 rounded-full bg-[#DDA83A] text-[#2F183C] text-xs font-black uppercase tracking-wider">{t('El más popular', 'Most popular')}</span>
                     )}
                     <div className="space-y-3">
                       <div>
@@ -295,8 +311,8 @@ function UserPanelInner() {
                         <span className="block font-normal opacity-80">{plan.deliveryFrequency}</span>
                       </div>
                       <p className="flex items-baseline gap-1">
-                        <span className="text-2xl font-black font-display">${plan.priceMonth.toLocaleString('es-CO')}</span>
-                        <span className={`text-xs ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-500'}`}>COP / mes</span>
+                        <span className="text-2xl font-black font-display">${plan.priceMonth.toLocaleString(loc)}</span>
+                        <span className={`text-xs ${plan.isPopular ? 'text-[#DFCEE6]' : 'text-stone-500'}`}>{t('COP / mes', 'COP / month')}</span>
                       </p>
                       <ul className="space-y-1.5">
                         {plan.features.map(f => (
@@ -308,7 +324,7 @@ function UserPanelInner() {
                     </div>
                     {currentSub(plan.id) ? (
                       <p className={`text-center text-sm font-bold py-3 rounded-xl ${plan.isPopular ? 'bg-[#432356] text-[#DDA83A]' : 'bg-[#F5ECF9] text-[#2F183C]'}`}>
-                        {SUB_STATUS[currentSub(plan.id)!.status].label === 'Solicitada' ? 'Solicitud enviada ✓' : 'Ya tienes este plan'}
+                        {SUB_STATUS[currentSub(plan.id)!.status].label === 'Solicitada' ? t('Solicitud enviada ✓', 'Request sent ✓') : t('Ya tienes este plan', 'You already have this plan')}
                       </p>
                     ) : (
                       <button
@@ -316,7 +332,7 @@ function UserPanelInner() {
                         disabled={subBusy === plan.id}
                         className={`inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-bold disabled:opacity-60 ${plan.isPopular ? 'bg-[#DDA83A] text-[#2F183C]' : 'bg-[#2F183C] text-white'}`}
                       >
-                        {subBusy === plan.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Phone className="w-4 h-4" />} Quiero este plan
+                        {subBusy === plan.id ? <Loader2 className="w-4 h-4 animate-spin" /> : <Phone className="w-4 h-4" />} {t('Quiero este plan', 'I want this plan')}
                       </button>
                     )}
                   </div>
@@ -324,9 +340,9 @@ function UserPanelInner() {
               </div>
 
               <p className="text-xs text-stone-500">
-                ¿Tienes dudas o ya tienes un plan activo?{' '}
-                <a href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20info%20de%20suscripciones" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#7B4382] hover:underline">
-                  Escríbenos por WhatsApp
+                {t('¿Tienes dudas o ya tienes un plan activo?', 'Have questions or already on an active plan?')}{' '}
+                <a href={waLink(t('Hola Fresh Pick, quiero info de suscripciones', 'Hello Fresh Pick, I would like information about subscriptions'))} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#7B4382] hover:underline">
+                  {t('Escríbenos por WhatsApp', 'Message us on WhatsApp')}
                 </a>
                 .
               </p>
@@ -335,17 +351,17 @@ function UserPanelInner() {
 
           {tab === 'perfil' && (
             <div className="space-y-4">
-              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">Datos y entrega</h1>
+              <h1 className="text-2xl font-black tracking-tight text-[#2F183C] font-display">{t('Datos y entrega', 'Details and delivery')}</h1>
               <AddressBook />
               <BillingProfile />
               <a
-                href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20actualizar%20mis%20datos%20de%20entrega"
+                href={waLink(t('Hola Fresh Pick, quiero actualizar mis datos de entrega', 'Hello Fresh Pick, I would like to update my delivery details'))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-[#7B4382] hover:underline"
               >
                 <Phone className="w-4 h-4 text-[#DDA83A]" />
-                ¿Necesitas ayuda con tus datos? Escríbenos por WhatsApp
+                {t('¿Necesitas ayuda con tus datos? Escríbenos por WhatsApp', 'Need help with your details? Message us on WhatsApp')}
               </a>
             </div>
           )}
@@ -362,9 +378,10 @@ function StaffRedirect({ children }: { children: React.ReactNode }) {
 }
 
 export default function UserPanel() {
-  usePageMeta({ title: 'Mi cuenta | Fresh Pick', description: 'Tus pedidos y datos en Fresh Pick.', path: '/panel', noindex: true });
+  const t = useT();
+  usePageMeta({ title: t('Mi cuenta | Fresh Pick', 'My account | Fresh Pick'), description: t('Tus pedidos y datos en Fresh Pick.', 'Your orders and details at Fresh Pick.'), path: '/panel', noindex: true });
   return (
-    <AuthGate title="Mi cuenta Fresh Pick">
+    <AuthGate title={t('Mi cuenta Fresh Pick', 'My Fresh Pick account')}>
       <StaffRedirect><UserPanelInner /></StaffRedirect>
     </AuthGate>
   );

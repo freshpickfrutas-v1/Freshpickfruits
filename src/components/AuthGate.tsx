@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Leaf, Loader2, LogIn, LogOut, ShieldAlert, AlertCircle, Facebook } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { ROLE_LABELS } from '../types';
+import { useT } from '../lib/i18n';
 
 interface AuthGateProps {
   /** Only team members (any staff role) can see the content. */
@@ -23,6 +24,7 @@ const Card: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 /** Shows the Google sign-in when there is no session, and blocks users without a team role. */
 export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, children }) => {
+  const t = useT();
   const { user, profile, role, isStaff, loading, signInWithGoogle, signInWithFacebook, signOut } = useAuth();
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
@@ -31,7 +33,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
     return (
       <Card>
         <Loader2 className="w-6 h-6 mx-auto animate-spin text-[#7B4382]" />
-        <p className="text-sm text-stone-500 mt-3">Verificando tu sesión…</p>
+        <p className="text-sm text-stone-500 mt-3">{t('Verificando tu sesión…', 'Checking your session…')}</p>
       </Card>
     );
   }
@@ -43,7 +45,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
       try {
         await method();
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'No se pudo iniciar sesión.');
+        setError(err instanceof Error ? err.message : t('No se pudo iniciar sesión.', 'We could not sign you in.'));
       } finally {
         setBusy(false);
       }
@@ -52,7 +54,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
       <Card>
         <h1 className="text-xl font-black text-[#2F183C] font-display">{title}</h1>
         <p className="text-sm text-stone-600 mt-1 mb-5">
-          {staffOnly ? 'Acceso exclusivo para el equipo de Fresh Pick.' : 'Entra para ver el estado de tus pedidos y tus datos de entrega.'}
+          {staffOnly ? t('Acceso exclusivo para el equipo de Fresh Pick.', 'Access is limited to the Fresh Pick team.') : t('Entra para ver el estado de tus pedidos y tus datos de entrega.', 'Sign in to see the status of your orders and your delivery details.')}
         </p>
         <div className="space-y-2.5">
           <button
@@ -61,7 +63,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
             className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#2F183C] text-white text-sm font-bold disabled:opacity-60"
           >
             {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4 text-[#DDA83A]" />}
-            Continuar con Google
+            {t('Continuar con Google', 'Continue with Google')}
           </button>
           <button
             onClick={() => handle(signInWithFacebook)}
@@ -69,7 +71,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
             className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#1877F2] text-white text-sm font-bold disabled:opacity-60"
           >
             <Facebook className="w-4 h-4 fill-white" />
-            Continuar con Facebook
+            {t('Continuar con Facebook', 'Continue with Facebook')}
           </button>
         </div>
         {error && (
@@ -77,7 +79,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
             <AlertCircle className="w-4 h-4 shrink-0" /> {error}
           </p>
         )}
-        <a href="/" className="block mt-5 text-xs text-stone-500 hover:text-[#7B4382]">← Volver a la tienda</a>
+        <a href="/" className="block mt-5 text-xs text-stone-500 hover:text-[#7B4382]">{t('← Volver a la tienda', '← Back to the store')}</a>
       </Card>
     );
   }
@@ -87,7 +89,7 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
     return (
       <Card>
         <Loader2 className="w-6 h-6 mx-auto animate-spin text-[#7B4382]" />
-        <p className="text-sm text-stone-500 mt-3">Cargando tu perfil…</p>
+        <p className="text-sm text-stone-500 mt-3">{t('Cargando tu perfil…', 'Loading your profile…')}</p>
       </Card>
     );
   }
@@ -96,14 +98,14 @@ export const AuthGate: React.FC<AuthGateProps> = ({ staffOnly = false, title, ch
     return (
       <Card>
         <ShieldAlert className="w-7 h-7 mx-auto text-amber-600 mb-2" />
-        <h1 className="text-lg font-black text-[#2F183C] font-display">Sin acceso</h1>
+        <h1 className="text-lg font-black text-[#2F183C] font-display">{t('Sin acceso', 'No access')}</h1>
         <p className="text-sm text-stone-600 mt-1">
-          {user.email} no tiene un rol del equipo{role ? ` (tu rol es: ${ROLE_LABELS[role]})` : ''}. Pide al administrador que te asigne uno.
+          {t(`${user.email} no tiene un rol del equipo${role ? ` (tu rol es: ${ROLE_LABELS[role]})` : ''}. Pide al administrador que te asigne uno.`, `${user.email} does not have a team role${role ? ` (your role is: ${ROLE_LABELS[role]})` : ''}. Ask the administrator to assign you one.`)}
         </p>
         <button onClick={() => signOut()} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#7B4382]">
-          <LogOut className="w-4 h-4" /> Cerrar sesión
+          <LogOut className="w-4 h-4" /> {t('Cerrar sesión', 'Sign out')}
         </button>
-        <a href="/" className="block mt-3 text-xs text-stone-500 hover:text-[#7B4382]">← Volver a la tienda</a>
+        <a href="/" className="block mt-3 text-xs text-stone-500 hover:text-[#7B4382]">{t('← Volver a la tienda', '← Back to the store')}</a>
       </Card>
     );
   }

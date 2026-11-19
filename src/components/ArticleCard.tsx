@@ -1,11 +1,14 @@
 import React from 'react';
 import { ChevronRight, Clock } from 'lucide-react';
 import { ArticleSummary } from '../types';
-import { formatArticleDate, getBlogCategory } from '../data/blog';
+import { formatArticleDate, blogCategoriesFor } from '../data/blog';
+import { useLang, useT } from '../lib/i18n';
 import { ContentImage } from './ContentImage';
 
 export const ArticleCard: React.FC<{ article: ArticleSummary; large?: boolean }> = ({ article, large = false }) => {
-  const category = getBlogCategory(article.category);
+  const t = useT();
+  const lang = useLang();
+  const category = blogCategoriesFor(lang).find(c => c.id === article.category)!;
 
   return (
     <a
@@ -34,14 +37,14 @@ export const ArticleCard: React.FC<{ article: ArticleSummary; large?: boolean }>
 
         <div className="pt-3 border-t border-[#EADBEE] flex items-center justify-between gap-2 text-xs text-stone-500">
           <div className="flex items-center gap-3 min-w-0">
-            <time dateTime={article.date} className="truncate">{formatArticleDate(article.date)}</time>
+            <time dateTime={article.date} className="truncate">{formatArticleDate(article.date, lang)}</time>
             <span className="flex items-center gap-1 shrink-0">
               <Clock className="w-3.5 h-3.5" />
               {article.readMinutes} min
             </span>
           </div>
           <span className="font-bold text-[#7B4382] group-hover:text-[#2F183C] flex items-center gap-0.5 shrink-0">
-            Leer
+            {t('Leer', 'Read')}
             <ChevronRight className="w-3.5 h-3.5" />
           </span>
         </div>

@@ -1,0 +1,39 @@
+{
+  "title": "Blueberry Peanut Butter Smoothie",
+  "excerpt": "Creamy, delicious and full of flavor. Enjoy the perfect combination of Fresh Pick blueberries and peanut butter in a smoothie ideal for your mornings or snacks.",
+  "imageAlt": "Tall glass with a creamy blueberry and peanut butter smoothie, topped with whole blueberries.",
+  "ingredients": [
+    {
+      "text": "1 cup Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "2 tablespoons natural peanut butter (no added sugar)"
+    },
+    {
+      "text": "1 cup whole milk or plant-based drink (almond or oat)"
+    },
+    {
+      "text": "1/2 cup plain Greek yogurt"
+    },
+    {
+      "text": "1 tablespoon bee honey (optional)"
+    },
+    {
+      "text": "1/2 cup ice cubes"
+    }
+  ],
+  "steps": [
+    "Gently rinse the Fresh Pick blueberries with cold water right before using them.",
+    "Add the milk or plant-based drink to the blender along with the Greek yogurt to make blending easier.",
+    "Add the Fresh Pick blueberries, the peanut butter, the honey if you decide to use it, and the ice cubes.",
+    "Blend on high speed for 1 to 2 minutes until you get a completely even, creamy texture.",
+    "Serve immediately in tall glasses and top with a few fresh whole blueberries or an extra swirl of peanut butter."
+  ],
+  "tips": [
+    "Thanks to the natural sweetness of Fresh Pick blueberries grown in the mountains of Guasca, there is no need to add refined sugars to balance the salty flavor of the peanuts.",
+    "If you prefer an even thicker, milkshake-like texture, freeze the blueberries a few hours before making it and leave out the ice.",
+    "To keep your fresh blueberries longer at home, store them in the refrigerator in their original packaging, unwashed, until you are ready to eat them."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

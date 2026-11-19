@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sparkles, ArrowRight, ShieldCheck, HeartHandshake, Award } from 'lucide-react';
 import { BlueberryIcon } from './BlueberryIcon';
+import { useT } from '../lib/i18n';
 
 interface HeroProps {
   onGoToCustomOrder: () => void;
@@ -8,6 +9,7 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }) => {
+  const t = useT();
   return (
     <section className="relative overflow-hidden fp-gradient-hero pt-8 pb-10 lg:pt-12 lg:pb-14 border-b border-stone-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -23,24 +25,27 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
             {/* Top pill badge */}
             <div className="fp-pill text-xs sm:text-sm shadow-sm">
               <span className="w-2 h-2 rounded-full bg-[#7B4382] animate-pulse" />
-              <span>Cultivo Responsable de Alta Montaña · Guasca, Colombia</span>
+              <span>{t('Cultivo Responsable de Alta Montaña · Guasca, Colombia', 'Responsible High-Mountain Farming · Guasca, Colombia')}</span>
             </div>
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black text-[#2F183C] tracking-tight leading-[1.12] font-display">
-              Arándanos frescos con{' '}
+              {t('Arándanos frescos con', 'Fresh blueberries with')}{' '}
               <span className="text-[#7B4382]">
-                sabor intenso
+                {t('sabor intenso', 'intense flavor')}
               </span>{' '}
-              que solo la alta montaña puede lograr.
+              {t('que solo la alta montaña puede lograr.', 'that only the high mountains can deliver.')}
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-stone-700 max-w-2xl leading-relaxed">
-              En <strong className="text-[#2F183C] font-bold">Fresh Pick</strong> cultivamos
+              {t(<>En <strong className="text-[#2F183C] font-bold">Fresh Pick</strong> cultivamos
               arándanos premium de alta montaña a más de 2.800 m.s.n.m. Un producto puro por naturaleza:
               polinización 100% natural, libre de ceras artificiales, sin residuos químicos y
-              recolectado a mano en su punto exacto de madurez.
+              recolectado a mano en su punto exacto de madurez.</>, <>At <strong className="text-[#2F183C] font-bold">Fresh Pick</strong> we grow
+              premium high-mountain blueberries at over 2,800 m above sea level. A product that is pure by nature:
+              100% natural pollination, free of artificial waxes, with no chemical residues and
+              hand-picked at exactly the right moment of ripeness.</>)}
             </p>
           </div>
 
@@ -49,7 +54,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
             <div className="rounded-2xl overflow-hidden shadow-2xl shadow-[#2F183C]/20 border-4 border-white aspect-[4/3] sm:aspect-[5/4] relative mx-auto max-w-md lg:max-w-none">
               <img
                 src="/assets/finca/finca-arandanos-mano-1.jpg"
-                alt="Arándanos frescos de Fresh Pick recién cosechados a mano en cultivo andino de alta montaña a más de 2.800 msnm con agricultura responsable y limpia"
+                alt={t('Arándanos frescos de Fresh Pick recién cosechados a mano en cultivo andino de alta montaña a más de 2.800 msnm con agricultura responsable y limpia', 'Fresh Pick blueberries just hand-picked in an Andean high-mountain farm above 2,800 m with responsible, clean farming')}
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
                 loading="eager"
               />
@@ -58,10 +63,10 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               {/* Caption on image */}
               <div className="absolute bottom-4 left-4 right-4 text-white">
                 <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#2F183C]/90 text-[#DDA83A] text-xs font-bold uppercase tracking-wider mb-1 border border-[#DDA83A]/30">
-                  Cosecha Manual
+                  {t('Cosecha Manual', 'Hand-picked')}
                 </span>
-                <p className="text-sm font-semibold">Arándanos Premium de Alta Montaña</p>
-                <p className="text-xs text-stone-200">Vereda Santa Bárbara · Guasca, Cundinamarca · 2.800 m.s.n.m.</p>
+                <p className="text-sm font-semibold">{t('Arándanos Premium de Alta Montaña', 'Premium High-Mountain Blueberries')}</p>
+                <p className="text-xs text-stone-200">{t('Vereda Santa Bárbara · Guasca, Cundinamarca · 2.800 m.s.n.m.', 'Santa Bárbara hamlet · Guasca, Cundinamarca · 2,800 m above sea level')}</p>
               </div>
             </div>
           </div>
@@ -74,7 +79,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               className="group flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-3.5 fp-btn-primary text-base active:scale-[0.98] cursor-pointer"
             >
               <Sparkles className="w-5 h-5 text-[#DDA83A] group-hover:rotate-12 transition-transform shrink-0" />
-              <span>Haz tu Pedido de Arándanos en Línea</span>
+              <span>{t('Haz tu Pedido de Arándanos en Línea', 'Order Your Blueberries Online')}</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform shrink-0" />
             </button>
 
@@ -83,7 +88,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               onClick={onExploreFruits}
               className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 fp-btn-secondary text-base active:scale-[0.98] cursor-pointer"
             >
-              <span>Explora tus opciones en la cosecha de arándanos</span>
+              <span>{t('Explora tus opciones en la cosecha de arándanos', 'Explore this season’s blueberry options')}</span>
             </button>
           </div>
 
@@ -94,10 +99,10 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
                 <BlueberryIcon className="w-7 h-7" />
               </div>
               <div>
-                <div className="text-xs font-bold text-[#2F183C]">Estuche de Arándanos 125g</div>
-                <div className="text-xs text-stone-500">Pruina natural protectora intacta</div>
+                <div className="text-xs font-bold text-[#2F183C]">{t('Estuche de Arándanos 125g', '125 g Blueberry Box')}</div>
+                <div className="text-xs text-stone-500">{t('Pruina natural protectora intacta', 'Natural protective bloom intact')}</div>
                 <div className="text-xs font-bold text-[#7B4382] mt-0.5">
-                  $8.000 COP <span className="font-normal text-stone-500 text-xs">/ 125g</span>
+                  {t('$8.000 COP', 'COP $8,000')} <span className="font-normal text-stone-500 text-xs">/ 125 g</span>
                 </div>
               </div>
             </div>
@@ -108,8 +113,8 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
                 <span className="relative inline-flex w-2.5 h-2.5 rounded-full bg-[#C59328]" />
               </span>
               <div className="text-xs">
-                <p className="font-bold text-[#2F183C]">Entregas Martes y Miércoles</p>
-                <p className="text-stone-500 text-xs">Horario 8:00 a.m. – 3:00 p.m.</p>
+                <p className="font-bold text-[#2F183C]">{t('Entregas Martes y Miércoles', 'Deliveries Tuesday and Wednesday')}</p>
+                <p className="text-stone-500 text-xs">{t('Horario 8:00 a.m. – 3:00 p.m.', 'Hours 8:00 a.m. – 3:00 p.m.')}</p>
               </div>
             </div>
           </div>
@@ -122,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </div>
               <div>
                 <div className="text-xs font-bold text-[#2F183C]">GLOBALG.A.P.</div>
-                <div className="text-xs text-stone-600">Inocuidad alimentaria</div>
+                <div className="text-xs text-stone-600">{t('Inocuidad alimentaria', 'Food safety')}</div>
               </div>
             </div>
 
@@ -132,7 +137,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </div>
               <div>
                 <div className="text-xs font-bold text-[#2F183C]">GRASP</div>
-                <div className="text-xs text-stone-600">Bienestar social</div>
+                <div className="text-xs text-stone-600">{t('Bienestar social', 'Social welfare')}</div>
               </div>
             </div>
 
@@ -142,7 +147,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
               </div>
               <div>
                 <div className="text-xs font-bold text-[#2F183C]">13° – 15° Brix</div>
-                <div className="text-xs text-stone-600">Dulzor natural andino</div>
+                <div className="text-xs text-stone-600">{t('Dulzor natural andino', 'Natural Andean sweetness')}</div>
               </div>
             </div>
 
@@ -151,8 +156,8 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
                 <HeartHandshake className="w-4 h-4 text-[#7B4382]" />
               </div>
               <div>
-                <div className="text-xs font-bold text-[#2F183C]">7 Colmenas</div>
-                <div className="text-xs text-stone-600">Polinización natural</div>
+                <div className="text-xs font-bold text-[#2F183C]">{t('7 Colmenas', '7 Beehives')}</div>
+                <div className="text-xs text-stone-600">{t('Polinización natural', 'Natural pollination')}</div>
               </div>
             </div>
           </div>

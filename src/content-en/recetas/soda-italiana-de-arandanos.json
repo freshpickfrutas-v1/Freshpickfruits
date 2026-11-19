@@ -1,0 +1,43 @@
+{
+  "title": "Blueberry Italian Soda",
+  "excerpt": "Enjoy a refreshing artisan Italian soda made with homemade Fresh Pick blueberry syrup and sparkling water. A bubbly, eye-catching and delicious drink.",
+  "imageAlt": "Tall glass with blueberry Italian soda, ice, sparkling water and fresh blueberries floating with mint leaves.",
+  "ingredients": [
+    {
+      "text": "1 1/2 cups Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1/2 cup water"
+    },
+    {
+      "text": "1/2 cup powdered panela (unrefined cane sugar)"
+    },
+    {
+      "text": "1 teaspoon lemon juice"
+    },
+    {
+      "text": "3 cups ice-cold sparkling water"
+    },
+    {
+      "text": "Ice, to taste"
+    },
+    {
+      "text": "Fresh mint leaves for garnish"
+    }
+  ],
+  "steps": [
+    "In a small pot, combine one cup of Fresh Pick blueberries, the half cup of water, the panela and the lemon juice.",
+    "Bring to medium heat for 8 to 10 minutes, gently mashing the fruit with a fork so it releases its juices.",
+    "Strain the concentrate, pressing the blueberries well to get a silky syrup, and let it cool completely.",
+    "Fill four tall glasses with plenty of ice and divide the remaining half cup of whole Fresh Pick blueberries among them.",
+    "Add 3 to 4 tablespoons of the cooled blueberry syrup to each glass.",
+    "Pour the very cold sparkling water into each glass, stir gently with a straw or long spoon and garnish with mint."
+  ],
+  "tips": [
+    "High-mountain Fresh Pick blueberries grown in Guasca provide an ideal natural sweetness that makes the flavor of this artisan refresher stand out.",
+    "You can make the blueberry syrup ahead of time and keep it in an airtight jar in the fridge for up to a week.",
+    "If you prefer a creamy texture in the style of an Italian cream soda, add a tablespoon of heavy cream right before serving."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

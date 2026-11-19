@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CreditCard, Loader2 } from 'lucide-react';
+import { useT } from '../lib/i18n';
 
 const WIDGET_SRC = 'https://checkout.wompi.co/widget.js';
 const PUBLIC_KEY = import.meta.env.VITE_WOMPI_PUBLIC_KEY as string | undefined;
@@ -28,6 +29,7 @@ interface Props {
 
 /** Abre el widget de Wompi. El pago real se confirma por el webhook del servidor, no por este callback. */
 export const WompiPayButton: React.FC<Props> = ({ orderId, customer, onApproved }) => {
+  const t = useT();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [status, setStatus] = useState('');
@@ -44,7 +46,7 @@ export const WompiPayButton: React.FC<Props> = ({ orderId, customer, onApproved 
         body: JSON.stringify({ orderId }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'No se pudo preparar el pago.');
+      if (!res.ok) throw new Error(data.error || t('No se pudo preparar el pago.', 'We could not prepare the payment.'));
       await loadWidget();
 
       const phone = customer.phone.replace(/\D/g, '').replace(/^57(?=\d{10}$)/, '');
@@ -64,16 +66,16 @@ export const WompiPayButton: React.FC<Props> = ({ orderId, customer, onApproved 
       checkout.open((result: any) => {
         const st = result?.transaction?.status;
         if (st === 'APPROVED') {
-          setStatus('¡Pago recibido! Estamos confirmándolo; tu pedido pasará a alistamiento.');
+          setStatus(t('¡Pago recibido! Estamos confirmándolo; tu pedido pasará a alistamiento.', 'Payment received! We are confirming it; your order will move on to preparation.'));
           onApproved?.();
         } else if (st === 'PENDING') {
-          setStatus('Tu pago está en proceso. Te avisaremos cuando se confirme.');
+          setStatus(t('Tu pago está en proceso. Te avisaremos cuando se confirme.', 'Your payment is being processed. We will let you know once it is confirmed.'));
         } else if (st) {
-          setError('El pago no se completó. Puedes intentarlo de nuevo o pagar por transferencia.');
+          setError(t('El pago no se completó. Puedes intentarlo de nuevo o pagar por transferencia.', 'The payment was not completed. You can try again or pay by bank transfer.'));
         }
       });
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo abrir el pago.');
+      setError(e instanceof Error ? e.message : t('No se pudo abrir el pago.', 'We could not open the payment.'));
     } finally {
       setLoading(false);
     }
@@ -87,7 +89,7 @@ export const WompiPayButton: React.FC<Props> = ({ orderId, customer, onApproved 
         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#DDA83A] text-[#2F183C] font-bold hover:brightness-95 transition disabled:opacity-60 cursor-pointer"
       >
         {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CreditCard className="w-4 h-4" />}
-        Pagar en línea (tarjeta, PSE, Nequi)
+        {t('Pagar en línea (tarjeta, PSE, Nequi)', 'Pay online (card, PSE, Nequi)')}
       </button>
       {status && <p className="mt-2 text-xs text-emerald-800">{status}</p>}
       {error && <p className="mt-2 text-xs text-red-700">{error}</p>}

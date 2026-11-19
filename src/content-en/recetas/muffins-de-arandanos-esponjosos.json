@@ -1,0 +1,45 @@
+{
+  "title": "Soft and Fluffy Blueberry Muffins",
+  "excerpt": "Classic muffins with a fluffy crumb thanks to a thorough initial beating and a high-heat start that gives them professional volume.",
+  "imageAlt": "Baked fresh high-mountain blueberry muffins, fluffy and golden",
+  "ingredients": [
+    {
+      "text": "250 g wheat flour"
+    },
+    {
+      "text": "2 teaspoons (10 g) baking powder"
+    },
+    {
+      "text": "150 g sugar"
+    },
+    {
+      "text": "60 g softened butter"
+    },
+    {
+      "text": "250 ml milk"
+    },
+    {
+      "text": "2 eggs"
+    },
+    {
+      "text": "Lemon zest, to taste"
+    },
+    {
+      "text": "150 g Fresh Pick blueberries",
+      "freshPick": true
+    }
+  ],
+  "steps": [
+    "Beat the eggs with the sugar for at least 3 minutes, until you get a very fluffy mixture.",
+    "Stir in the butter, milk and lemon zest.",
+    "Mix the flour with the baking powder and fold it in gently.",
+    "Lightly flour the blueberries so they don’t sink to the bottom of the mold, and add them to the batter.",
+    "Let the batter rest in the fridge for 30 minutes.",
+    "Preheat the oven to 210°C (410°F). Fill the molds two-thirds full and bake for 5 minutes at 210°C; then lower to 180°C (350°F) and bake 15–20 more minutes."
+  ],
+  "tips": [
+    "The cold rest and the initial blast of high heat are what form the bakery-style “dome”.",
+    "Store them in an airtight container for up to 3 days, or freeze them individually for up to a month."
+  ],
+  "imagenCredit": "Photo: Unsplash"
+}

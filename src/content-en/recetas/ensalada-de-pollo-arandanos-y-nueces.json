@@ -1,0 +1,42 @@
+{
+  "title": "Chicken, Blueberry and Walnut Salad",
+  "excerpt": "Enjoy a colorful, crunchy chicken, blueberry and walnut salad, perfect for a fresh, light lunch full of homemade flavor.",
+  "imageAlt": "Fresh salad in a deep bowl with golden chicken pieces, walnuts and plenty of whole blueberries.",
+  "ingredients": [
+    {
+      "text": "2 cups Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "2 cooked chicken breasts, shredded or cubed"
+    },
+    {
+      "text": "4 cups chopped Batavia or mixed lettuce"
+    },
+    {
+      "text": "1/2 cup chopped walnuts"
+    },
+    {
+      "text": "3 tablespoons olive oil"
+    },
+    {
+      "text": "1 tablespoon lemon juice"
+    },
+    {
+      "text": "A pinch of salt and pepper, to taste"
+    }
+  ],
+  "steps": [
+    "Wash the lettuce very well and disinfect it, then cut it into medium pieces and place it in a large salad bowl as the base.",
+    "Spread the cubes or pieces of cooked chicken evenly over the bed of lettuce.",
+    "Add the chopped walnuts to give the dish a crunchy touch.",
+    "Add the Fresh Pick blueberries, grown in the high mountains of Guasca, for their characteristic natural sweetness and vibrant color.",
+    "In a small bowl, mix the olive oil, lemon juice, salt and pepper until you get an even dressing.",
+    "Pour the dressing over the salad right before serving and toss gently to bring all the flavors together."
+  ],
+  "tips": [
+    "To keep the freshness and natural bloom of the blueberries, store them in the fridge unwashed and in their original packaging until you are ready to use them.",
+    "You can lightly toast the walnuts in a skillet over low heat for a couple of minutes to intensify their aroma before adding them to the salad."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

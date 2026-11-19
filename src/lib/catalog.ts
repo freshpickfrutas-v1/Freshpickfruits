@@ -3,6 +3,8 @@ import { collection, doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { db } from './firebase';
 import { FRUITS_DATA } from '../data/mockData';
 import { FruitItem } from '../types';
+import { FRUITS_EN, localizeList } from '../data/mockData.en';
+import { useLang } from './i18n';
 
 type CatalogDoc = FruitItem & { sortOrder?: number };
 
@@ -17,6 +19,7 @@ const position = (f: CatalogDoc) => {
  * until that collection has data, or if it cannot be read, the built-in catalog is used so the store never goes empty.
  */
 export function useCatalog(): FruitItem[] {
+  const lang = useLang();
   const [items, setItems] = useState<FruitItem[]>(FRUITS_DATA);
 
   useEffect(() => {
@@ -33,7 +36,7 @@ export function useCatalog(): FruitItem[] {
     return unsub;
   }, []);
 
-  return items;
+  return localizeList(items, FRUITS_EN, lang);
 }
 
 /** Admin only (firestore.rules): copies the built-in catalog into Firestore, keeping each product's id and order. */

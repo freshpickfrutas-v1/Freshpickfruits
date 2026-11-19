@@ -1,0 +1,40 @@
+{
+  "title": "Blueberry Banana Protein Smoothie",
+  "excerpt": "A creamy, energy-packed shake for your mornings or after a workout. It combines the natural sweetness of our Guasca blueberries with the protein boost you need for the day.",
+  "imageAlt": "Glass cup with a creamy deep purple smoothie, topped with whole fresh blueberries and a slice of banana.",
+  "ingredients": [
+    {
+      "text": "1 cup Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1 ripe banana, peeled and frozen in slices"
+    },
+    {
+      "text": "1 scoop of your favorite protein powder (vanilla or plain)"
+    },
+    {
+      "text": "1 cup almond milk or your preferred milk"
+    },
+    {
+      "text": "1 teaspoon chia seeds"
+    },
+    {
+      "text": "1/2 teaspoon vanilla extract"
+    }
+  ],
+  "steps": [
+    "Pour the milk of your choice into the blender jar to make blending easier.",
+    "Add the frozen banana slices, which will give the smoothie an incredibly creamy, cold texture without needing ice.",
+    "Add the scoop of protein powder, the chia seeds and the vanilla extract.",
+    "Add the Fresh Pick blueberries, grown in the high mountains of Guasca at over 2,800 meters, which will give that vibrant purple color and a balanced sweetness.",
+    "Blend on high speed for 1 or 2 minutes, until all the ingredients are fully combined and you have a smooth, silky consistency.",
+    "Serve immediately in a tall glass and top with a few whole fresh blueberries to enjoy their firm texture when you bite into them."
+  ],
+  "tips": [
+    "For an even thicker texture, ideal for eating with a spoon like a bowl, reduce the milk to half a cup and add your favorite toppings on top.",
+    "Don’t remove the whitish coating (bloom) from your Fresh Pick blueberries; it is their seal of freshness and natural protection, since they are hand-picked and contain no artificial waxes.",
+    "You can leave individual containers with portions of banana and blueberries ready in the freezer to save time on busy mornings."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CreditCard, Loader2 } from 'lucide-react';
+import { useT } from '../lib/i18n';
 
 const LIBRARY_SRC = 'https://checkout.bold.co/library/boldPaymentButton.js';
 const API_KEY = import.meta.env.VITE_BOLD_API_KEY as string | undefined;
@@ -31,6 +32,7 @@ interface Props {
 
 /** Abre el checkout embebido de Bold. El pago real se confirma por el webhook del servidor, no por el navegador. */
 export const BoldPayButton: React.FC<Props> = ({ orderId, customer }) => {
+  const t = useT();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -46,7 +48,7 @@ export const BoldPayButton: React.FC<Props> = ({ orderId, customer }) => {
         body: JSON.stringify({ orderId }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'No se pudo preparar el pago.');
+      if (!res.ok) throw new Error(data.error || t('No se pudo preparar el pago.', 'We could not prepare the payment.'));
       await loadLibrary();
 
       const phone = customer.phone.replace(/\D/g, '').replace(/^57(?=\d{10}$)/, '');
@@ -68,7 +70,7 @@ export const BoldPayButton: React.FC<Props> = ({ orderId, customer }) => {
       });
       checkout.open();
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'No se pudo abrir el pago.');
+      setError(e instanceof Error ? e.message : t('No se pudo abrir el pago.', 'We could not open the payment.'));
     } finally {
       setLoading(false);
     }
@@ -82,7 +84,7 @@ export const BoldPayButton: React.FC<Props> = ({ orderId, customer }) => {
         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#DDA83A] text-[#2F183C] font-bold hover:brightness-95 transition disabled:opacity-60 cursor-pointer"
       >
         {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CreditCard className="w-4 h-4" />}
-        Pagar en línea (tarjeta, PSE, Nequi)
+        {t('Pagar en línea (tarjeta, PSE, Nequi)', 'Pay online (card, PSE, Nequi)')}
       </button>
       {error && <p className="mt-2 text-xs text-red-700">{error}</p>}
     </div>

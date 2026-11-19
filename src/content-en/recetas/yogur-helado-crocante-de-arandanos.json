@@ -1,0 +1,35 @@
+{
+  "title": "Crunchy Frozen Blueberry Yogurt Bark",
+  "excerpt": "A sheet of frozen yogurt with blueberries and almonds that you break into pieces: a fresh, easy, no-bake dessert.",
+  "imageAlt": "Pieces of frozen yogurt bark with fresh blueberries and sliced almonds on baking paper",
+  "ingredients": [
+    {
+      "text": "1 cup (150 g) Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "2 cups (480 g) plain Greek yogurt"
+    },
+    {
+      "text": "2 tablespoons honey or agave syrup"
+    },
+    {
+      "text": "1/2 teaspoon vanilla extract"
+    },
+    {
+      "text": "1/4 cup sliced almonds or chopped walnuts"
+    }
+  ],
+  "steps": [
+    "Line a small tray with baking paper.",
+    "Mix the yogurt with the honey and vanilla.",
+    "Spread the mixture over the paper in a layer about 1 cm (1/2 in) thick.",
+    "Scatter the blueberries and almonds on top, pressing them in lightly.",
+    "Freeze for at least 3 hours and break into irregular pieces right before serving."
+  ],
+  "tips": [
+    "Crush half of the blueberries with a fork before adding them: they create very eye-catching purple swirls.",
+    "Store it in the freezer in an airtight container, separating the layers with paper."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

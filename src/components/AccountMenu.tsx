@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { LogIn, LogOut, UserRound, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useT } from '../lib/i18n';
 
 /** Header account button: "Ingresar" when signed out, a small menu (account, team panel, sign out) when signed in. */
 export const AccountMenu: React.FC = () => {
   const { user, isStaff, loading, signOut } = useAuth();
+  const t = useT();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -22,12 +24,12 @@ export const AccountMenu: React.FC = () => {
       <a
         href="/panel"
         id="header-login-btn"
-        title="Ingresar o crear cuenta"
-        aria-label="Ingresar o crear cuenta"
+        title={t('Ingresar o crear cuenta', 'Sign in or create an account')}
+        aria-label={t('Ingresar o crear cuenta', 'Sign in or create an account')}
         className="hidden sm:inline-flex items-center gap-1.5 px-2.5 2xl:px-3.5 py-2.5 rounded-xl border border-[#2F183C] text-[#2F183C] text-xs sm:text-sm font-semibold hover:bg-[#F5ECF9] transition-colors whitespace-nowrap"
       >
         <LogIn className="w-4 h-4" />
-        <span className="hidden 2xl:inline">Ingresar</span>
+        <span className="hidden 2xl:inline">{t('Ingresar', 'Sign in')}</span>
       </a>
     );
   }
@@ -37,7 +39,7 @@ export const AccountMenu: React.FC = () => {
     <div className="relative hidden sm:block" ref={ref}>
       <button
         onClick={() => setOpen(!open)}
-        aria-label="Mi cuenta"
+        aria-label={t('Mi cuenta', 'My account')}
         aria-expanded={open}
         className="w-10 h-10 rounded-full bg-[#2F183C] text-[#DDA83A] font-bold flex items-center justify-center border-2 border-[#DDA83A]/70"
       >
@@ -47,12 +49,12 @@ export const AccountMenu: React.FC = () => {
         <div className="absolute right-0 mt-2 w-60 bg-white border border-[#EADBEE] rounded-xl shadow-xl py-2 z-50 text-sm">
           <p className="px-4 pb-2 text-xs text-stone-500 truncate border-b border-[#EADBEE]">{user.email}</p>
           {!isStaff && (
-            <a href="/panel" onClick={() => setOpen(false)} className="flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-[#2F183C] font-semibold"><UserRound className="w-4 h-4" /> Mi cuenta y pedidos</a>
+            <a href="/panel" onClick={() => setOpen(false)} className="flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-[#2F183C] font-semibold"><UserRound className="w-4 h-4" /> {t('Mi cuenta y pedidos', 'My account and orders')}</a>
           )}
           {isStaff && (
-            <a href="/admin" onClick={() => setOpen(false)} className="flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-[#2F183C] font-semibold"><LayoutDashboard className="w-4 h-4" /> Panel del equipo</a>
+            <a href="/admin" onClick={() => setOpen(false)} className="flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-[#2F183C] font-semibold"><LayoutDashboard className="w-4 h-4" /> {t('Panel del equipo', 'Team panel')}</a>
           )}
-          <button onClick={() => { setOpen(false); signOut(); }} className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-stone-700 font-semibold"><LogOut className="w-4 h-4" /> Cerrar sesión</button>
+          <button onClick={() => { setOpen(false); signOut(); }} className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-[#F5ECF9] text-stone-700 font-semibold"><LogOut className="w-4 h-4" /> {t('Cerrar sesión', 'Sign out')}</button>
         </div>
       )}
     </div>

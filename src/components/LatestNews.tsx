@@ -2,9 +2,11 @@ import React from 'react';
 import { FlaskConical, ArrowRight } from 'lucide-react';
 import { useArticleIndex } from '../data/content';
 import { ArticleCard } from './ArticleCard';
+import { useT } from '../lib/i18n';
 
 /** Home page teaser: the three newest articles on healthy living and research. */
 export const LatestNews: React.FC = () => {
+  const t = useT();
   const latest = (useArticleIndex() ?? []).slice(0, 3);
   if (!latest.length) return null;
 
@@ -15,13 +17,13 @@ export const LatestNews: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">
             <FlaskConical className="w-3.5 h-3.5 text-[#7B4382]" />
-            <span>Vida saludable e investigación</span>
+            <span>{t('Vida saludable e investigación', 'Healthy living and research')}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2F183C] tracking-tight font-display">
-            Lo último sobre arándanos y bienestar
+            {t('Lo último sobre arándanos y bienestar', 'The latest on blueberries and wellness')}
           </h2>
           <p className="mt-3 text-base sm:text-lg text-stone-700">
-            Artículos sobre estudios, hábitos y alimentación saludable, explicados en palabras sencillas.
+            {t('Artículos sobre estudios, hábitos y alimentación saludable, explicados en palabras sencillas.', 'Articles on studies, habits and healthy eating, explained in plain words.')}
           </p>
         </div>
 
@@ -36,11 +38,11 @@ export const LatestNews: React.FC = () => {
 
         <div className="mt-8 flex justify-center">
           <a href="/noticias" className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 fp-btn-primary text-sm">
-            <span>Ver todos los artículos</span>
+            <span>{t('Ver todos los artículos', 'See all articles')}</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
           <a href="/#pedidos-personalizados" className="ml-3 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#DDA83A] text-[#2F183C] font-bold text-sm hover:bg-[#C59328] transition-colors">
-            Armar Pedido
+            {t('Armar Pedido', 'Build Your Order')}
           </a>
         </div>
 

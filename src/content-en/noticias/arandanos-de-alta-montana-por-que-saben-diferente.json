@@ -1,0 +1,70 @@
+{
+  "title": "High-Mountain Blueberries: Why Growing at 2,800 m Shows in the Flavor",
+  "metaDescription": "Learn how we grow blueberries in Guasca, Cundinamarca, above 2,800 m: natural pollination, hand harvesting and a natural sweetness of 13° to 15° Brix.",
+  "excerpt": "Mountain sunlight, cold nights, spring water and bee pollination: this is how Fresh Pick blueberries are born.",
+  "imageAlt": "Fresh Pick blueberry crop in the Santa Bárbara hamlet, Guasca, above 2,800 m above sea level",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "In the Santa Bárbara hamlet, in Guasca (Cundinamarca), more than 2,800 meters above sea level, we grow our blueberries. Altitude is not a detail: it affects the flavor, firmness and color of every berry."
+    },
+    {
+      "type": "h2",
+      "text": "The altitude effect"
+    },
+    {
+      "type": "p",
+      "text": "In the high Andean mountains, days have intense solar radiation and nights are cold. That temperature difference makes the plant ripen its fruit more slowly, which favors the concentration of natural sugars and produces firmer, crunchier berries."
+    },
+    {
+      "type": "h2",
+      "text": "Natural sweetness of 13° to 15° Brix"
+    },
+    {
+      "type": "p",
+      "text": "Brix degrees measure the soluble sugar content of a fruit. Our blueberries typically reach between 13° and 15° Brix, a natural sweetness balanced by their characteristic tartness."
+    },
+    {
+      "type": "h2",
+      "text": "100% natural pollination"
+    },
+    {
+      "type": "p",
+      "text": "On the farm we have 7 beehives whose bees pollinate the crop. Natural pollination favors well-formed fruit and is part of our commitment to biodiversity."
+    },
+    {
+      "type": "h2",
+      "text": "Spring water and black soil"
+    },
+    {
+      "type": "p",
+      "text": "We irrigate with spring water and rainwater, and we grow on black soil up to 2 meters deep, rich in organic matter."
+    },
+    {
+      "type": "h2",
+      "text": "Hand harvesting at the exact moment"
+    },
+    {
+      "type": "p",
+      "text": "Every blueberry is picked by hand, selecting only those at their optimal ripeness. This way we protect the bloom, the natural whitish coating that covers the fruit and keeps it fresh for longer."
+    },
+    {
+      "type": "h2",
+      "text": "Certifications that back our work"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "GLOBALG.A.P.: good agricultural practices and food safety.",
+        "GRASP: social welfare of workers.",
+        "ICA: Good Agricultural Practices certification in Colombia."
+      ]
+    },
+    {
+      "type": "quote",
+      "text": "We care for your food, we care for the people who grow it and we care for our planet."
+    }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Photo: Fresh Pick"
+}

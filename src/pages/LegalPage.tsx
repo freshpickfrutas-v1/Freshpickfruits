@@ -3,6 +3,8 @@ import { SiteShell } from '../components/SiteShell';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { usePageMeta } from '../lib/seo';
 import { openCookieSettings } from '../components/CookieBanner';
+import { useLang, useT } from '../lib/i18n';
+import { LEGAL_NOTE_EN, LEGAL_UPDATED_EN, PAGES_EN } from './LegalPage.en';
 
 export type LegalKind = 'privacidad' | 'terminos' | 'cookies';
 
@@ -67,7 +69,9 @@ const PAGES: Record<LegalKind, { title: string; description: string; intro: stri
 };
 
 export default function LegalPage({ kind }: { kind: LegalKind }) {
-  const page = PAGES[kind];
+  const t = useT();
+  const lang = useLang();
+  const page = lang === 'en' ? PAGES_EN[kind] : PAGES[kind];
   usePageMeta({
     title: `${page.title} | Fresh Pick`,
     description: page.description,
@@ -78,9 +82,10 @@ export default function LegalPage({ kind }: { kind: LegalKind }) {
     <SiteShell>
       <section className="fp-gradient-hero">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-          <Breadcrumbs items={[{ label: 'Inicio', href: '/' }, { label: page.title }]} />
+          <Breadcrumbs items={[{ label: t('Inicio', 'Home'), href: '/' }, { label: page.title }]} />
           <h1 className="mt-6 text-3xl sm:text-4xl font-black font-display">{page.title}</h1>
-          <p className="mt-2 text-xs text-stone-500">Última actualización: {UPDATED}</p>
+          <p className="mt-2 text-xs text-stone-500">{t(`Última actualización: ${UPDATED}`, `Last updated: ${LEGAL_UPDATED_EN}`)}</p>
+          {lang === 'en' && <p className="mt-2 text-xs text-stone-500 italic">{LEGAL_NOTE_EN}</p>}
           <p className="mt-5 text-stone-700 leading-relaxed">{page.intro}</p>
           <div className="mt-8 space-y-6">
             {page.sections.map((s, i) => (

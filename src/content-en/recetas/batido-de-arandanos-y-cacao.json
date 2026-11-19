@@ -1,0 +1,39 @@
+{
+  "title": "Blueberry and Dark Cocoa Smoothie",
+  "excerpt": "Enjoy a creamy smoothie that combines the natural sweetness of fresh high-mountain blueberries with the intensity of dark cocoa. Perfect to revitalize your day in minutes.",
+  "imageAlt": "Glass of creamy blueberry and dark cocoa smoothie garnished with whole blueberries and a sprinkle of cocoa powder.",
+  "ingredients": [
+    {
+      "text": "1 1/2 cups Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "2 tablespoons unsweetened dark cocoa powder"
+    },
+    {
+      "text": "1 1/2 cups liquid milk (or almond drink)"
+    },
+    {
+      "text": "1 teaspoon vanilla extract"
+    },
+    {
+      "text": "1 to 2 tablespoons bee honey (optional)"
+    },
+    {
+      "text": "1/2 cup ice cubes"
+    }
+  ],
+  "steps": [
+    "In the blender jar, pour the milk of your choice and the vanilla extract.",
+    "Add the Fresh Pick blueberries, grown in the cold lands of Guasca, and the two tablespoons of dark cocoa powder.",
+    "If you want to balance the intensity of the cocoa, add honey to taste.",
+    "Blend on medium speed for 1 minute until all the ingredients are fully combined.",
+    "Add the ice cubes and blend on high speed for 30 more seconds to give it a frosty, refreshing texture.",
+    "Serve right away in tall glasses and enjoy it fresh."
+  ],
+  "tips": [
+    "For an even creamier texture without diluting the flavor with ice, freeze the Fresh Pick blueberries for a couple of hours before making the smoothie.",
+    "Keep your blueberries in the fridge in their original container, unwashed, until you are ready to use them."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

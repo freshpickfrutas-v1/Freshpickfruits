@@ -1,0 +1,41 @@
+{
+  "title": "Rice Pudding with Blueberries",
+  "excerpt": "A comforting, creamy traditional Colombian dessert, renewed with the freshness and natural sweetness of our high-mountain blueberries. A treat for any moment.",
+  "imageAlt": "Clay pot of creamy rice pudding topped with fresh blueberries and a cinnamon stick.",
+  "ingredients": [
+    {
+      "text": "1 cup short-grain rice"
+    },
+    {
+      "text": "3 cups milk of your choice"
+    },
+    {
+      "text": "1 1/2 cups Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1 cinnamon stick"
+    },
+    {
+      "text": "1 small strip of lemon peel"
+    },
+    {
+      "text": "3 tablespoons honey or sweetener, to taste"
+    },
+    {
+      "text": "1 teaspoon vanilla extract"
+    }
+  ],
+  "steps": [
+    "Cook the rice in a pot with 2 cups of water over medium heat until the grains are soft and the water is almost fully absorbed.",
+    "Add the milk, the cinnamon stick and the lemon peel. Cook over low heat, stirring gently with a wooden spoon, for 20 minutes until creamy.",
+    "Remove the cinnamon stick and the lemon peel. Add the honey, the vanilla extract and half of the Fresh Pick blueberries.",
+    "Cook for 5 more minutes, stirring slowly so some of the blueberries release their purple juiciness into the rice.",
+    "Turn off the heat and let the pudding rest for 15 minutes before serving in small cups or dessert bowls, garnished with the remaining whole blueberries."
+  ],
+  "tips": [
+    "Take advantage of the natural bloom of Fresh Pick blueberries, grown in the cold mountains of Guasca, by serving them fresh over the warm rice for a pleasant contrast of temperature and texture.",
+    "If you want to enjoy it cold, keep the rice pudding in the fridge in an airtight container and add the fresh blueberries right when you serve it."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

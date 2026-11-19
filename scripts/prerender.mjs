@@ -25,13 +25,16 @@ fs.writeFileSync(path.join(dist, 'app-shell.html'), template, 'utf8');
 const { render, seedContent, resolvePageMeta } = await import(pathToFileURL(ssrEntry).href);
 
 const content = loadContent();
-const readIndex = name => JSON.parse(fs.readFileSync(path.join(dist, 'data', `${name}-index.json`), 'utf8'));
-seedContent({
-  recetas: content.recetas,
-  noticias: content.noticias,
-  recetasIndex: readIndex('recetas'),
-  noticiasIndex: readIndex('noticias')
-});
+const readIndex = (name, lang) => JSON.parse(fs.readFileSync(path.join(dist, 'data', ...(lang === 'en' ? ['en'] : []), `${name}-index.json`), 'utf8'));
+for (const lang of ['es', 'en']) {
+  const c = lang === 'es' ? content : loadContent('en');
+  seedContent({
+    recetas: c.recetas,
+    noticias: c.noticias,
+    recetasIndex: readIndex('recetas', lang),
+    noticiasIndex: readIndex('noticias', lang)
+  }, lang);
+}
 
 const esc = value => String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -53,6 +56,11 @@ function withHead(html, meta) {
   out = metaContent(out, 'property', 'og:description', v.description);
   out = metaContent(out, 'property', 'og:url', v.url);
   out = metaContent(out, 'property', 'og:type', v.type);
+  out = metaContent(out, 'property', 'og:locale', v.lang === 'en' ? 'en_US' : 'es_CO');
+  out = replaceOnce(out, /<html lang="[^"]*"/, `<html lang="${v.lang}"`, 'html lang');
+  const alternates = [['es', v.alternates.es], ['en', v.alternates.en], ['x-default', v.alternates.es]]
+    .map(([l, href]) => `    <link rel="alternate" hreflang="${l}" href="${esc(href)}" />`).join('\n');
+  out = replaceOnce(out, /(<link rel="canonical"[^>]*>)/, (_, tag) => `${tag}\n${alternates}`, 'canonical (hreflang)');
   out = metaContent(out, 'property', 'og:image', v.imageUrl);
   out = metaContent(out, 'name', 'twitter:title', v.title);
   out = metaContent(out, 'name', 'twitter:description', v.description);
@@ -65,9 +73,27 @@ const started = Date.now();
 let written = 0;
 const failures = [];
 
+/**
+ * En las páginas en inglés los enlaces internos llevan el prefijo /en para que Google los rastree dentro del
+ * sitio en inglés (en el navegador, la navegación ya agrega el prefijo al hacer clic).
+ */
+function prefixInternalLinks(html) {
+  return html.replace(/<a\s[^>]*>/g, tag => {
+    if (tag.includes('data-lang-switch')) return tag;
+    return tag.replace(/href="(\/[^"]*)"/, (whole, href) => {
+      if (href.startsWith('//') || /^\/(en|admin|assets|img|data|api|__)([/?#]|$)/.test(href)) return whole;
+      if (/^\/[^?#]*\.[a-z0-9]+([?#]|$)/i.test(href)) return whole;
+      return `href="${href === '/' ? '/en' : href.startsWith('/#') || href.startsWith('/?') ? `/en${href.slice(1)}` : `/en${href}`}"`;
+    });
+  });
+}
+
 for (const route of paths) {
   try {
-    const { html, meta } = render(route);
+    const rendered = render(route);
+    const isEnglish = route === '/en' || route.startsWith('/en/');
+    const html = isEnglish ? prefixInternalLinks(rendered.html) : rendered.html;
+    const meta = rendered.meta;
     if (!meta) throw new Error('la página no declaró su título y descripción');
     const page = replaceOnce(withHead(template, meta), /<div id="root"><\/div>/, () => `<div id="root">${html}</div>`, 'root');
     const file = path.join(dist, ...route.split('/').filter(Boolean), 'index.html');

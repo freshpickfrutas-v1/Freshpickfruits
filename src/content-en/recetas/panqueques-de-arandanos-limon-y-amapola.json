@@ -1,0 +1,52 @@
+{
+  "title": "Blueberry, Lemon and Poppy Seed Pancakes",
+  "excerpt": "Fluffy pancakes with the crunch of poppy seeds, lemon zest and whole blueberries that caramelize in the pan.",
+  "imageAlt": "Fluffy pancakes with fresh blueberries, lemon zest and poppy seeds, freshly made in a skillet",
+  "ingredients": [
+    {
+      "text": "270 g all-purpose wheat flour (plain, without leavening)"
+    },
+    {
+      "text": "2 teaspoons baking powder"
+    },
+    {
+      "text": "100 g sugar"
+    },
+    {
+      "text": "1 teaspoon salt"
+    },
+    {
+      "text": "Zest of 1 lemon"
+    },
+    {
+      "text": "1 egg"
+    },
+    {
+      "text": "300 ml milk"
+    },
+    {
+      "text": "1/2 teaspoon vanilla extract"
+    },
+    {
+      "text": "10 g unsalted butter, melted"
+    },
+    {
+      "text": "100 g Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "2 teaspoons poppy seeds"
+    }
+  ],
+  "steps": [
+    "Combine the flour, salt, sugar, baking powder and zest. Make a well in the center (the volcano method).",
+    "Pour the milk, egg and vanilla into the center and mix from the inside out to avoid lumps.",
+    "Add the melted butter in a thin stream while mixing. Fold in the blueberries and poppy seeds with a spatula.",
+    "Cook in a non-stick skillet over medium-low heat. Flip only when bubbles appear on the surface."
+  ],
+  "tips": [
+    "If you use frozen blueberries, don’t thaw them: add them straight to the batter so they don’t stain it.",
+    "Place a few extra blueberries on each pancake right after pouring the batter into the pan; that way they are spread evenly."
+  ],
+  "imagenCredit": "Photo: Unsplash"
+}

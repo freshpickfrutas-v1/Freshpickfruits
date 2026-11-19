@@ -1,0 +1,38 @@
+{
+  "title": "Blueberry, Oat and Greek Yogurt Smoothie",
+  "excerpt": "A creamy, filling shake, ready in 5 minutes, with the intense color and flavor of high-mountain blueberries.",
+  "imageAlt": "Glass of purple blueberry smoothie with Greek yogurt and oats, decorated with fresh blueberries and rolled oats",
+  "ingredients": [
+    {
+      "text": "1 cup (150 g) Fresh Pick blueberries, fresh or frozen",
+      "freshPick": true
+    },
+    {
+      "text": "1 cup (240 g) plain Greek yogurt"
+    },
+    {
+      "text": "3 tablespoons rolled oats"
+    },
+    {
+      "text": "1 cup (240 ml) milk or plant-based drink"
+    },
+    {
+      "text": "1 tablespoon honey (optional)"
+    },
+    {
+      "text": "4 ice cubes (omit if using frozen blueberries)"
+    }
+  ],
+  "steps": [
+    "Put the milk and yogurt in the blender first; that way the blades spin easily.",
+    "Add the oats, blueberries, honey and ice.",
+    "Blend on high speed for 45–60 seconds, until no bits of oats remain.",
+    "Taste and adjust: more milk if you want it thinner, more honey if you prefer it sweeter.",
+    "Serve immediately and decorate with a few whole blueberries."
+  ],
+  "tips": [
+    "Freeze your Fresh Pick blueberries on a tray and then move them to a bag: the smoothie turns out thicker and colder without watering it down with ice.",
+    "If you soak the oats in the milk for 10 minutes before blending, the texture is silkier."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

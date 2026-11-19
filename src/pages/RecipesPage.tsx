@@ -7,7 +7,8 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
 import { ActiveFilters, LibraryApi, LibrarySearch, LibrarySidebar, Pagination, ResultsBar, describeFilters } from '../components/LibraryControls';
 import { visibleVideos } from '../data/featuredVideos';
-import { RECIPE_CATEGORIES } from '../data/recipes';
+import { recipeCategoriesFor } from '../data/recipes';
+import { useLang, useT, withLang } from '../lib/i18n';
 import { recipeIndex } from '../data/content';
 import { recipeEntries } from '../lib/libraryEntries';
 import {
@@ -27,33 +28,36 @@ import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 const BASE = '/recetas';
 
 export default function RecipesPage() {
+  const t = useT();
+  const lang = useLang();
+  const RECIPE_CATEGORIES = recipeCategoriesFor(lang);
   const lib = useLibraryState(BASE);
   const { state } = lib;
   const index = recipeIndex();
   const RECIPE_ENTRIES = recipeEntries(index);
 
   const facets = useMemo(() => computeFacets(RECIPE_ENTRIES, state), [state, RECIPE_ENTRIES]);
-  const results = useMemo(() => sortEntries(filterEntries(RECIPE_ENTRIES, state), state), [state, RECIPE_ENTRIES]);
+  const results = useMemo(() => sortEntries(filterEntries(RECIPE_ENTRIES, state), state, lang), [state, RECIPE_ENTRIES, lang]);
   const page = paginate<LibraryEntry>(results, state.pagina);
   const bySlug = new Map(index.map(r => [r.slug, r]));
   const recipes = page.items.map(e => bySlug.get(e.slug)!).filter(Boolean);
 
   const categoryName = (id: string) => RECIPE_CATEGORIES.find(c => c.id === id)?.name;
   const category = state.categoria ? RECIPE_CATEGORIES.find(c => c.id === state.categoria) : undefined;
-  const filterParts = describeFilters(state, categoryName);
+  const filterParts = describeFilters(state, categoryName, lang);
   const isDefault = activeFilterCount(state) === 0 && state.orden === 'recientes';
-  const heading = state.q.trim() ? `Resultados para “${state.q.trim()}”` : filterParts.join(' · ') || 'Todas las recetas';
+  const heading = state.q.trim() ? t(`Resultados para “${state.q.trim()}”`, `Results for “${state.q.trim()}”`) : filterParts.join(' · ') || t('Todas las recetas', 'All recipes');
 
   const indexable = isIndexable(state, results.length);
   const canonical = indexable ? { ...state, pagina: page.page } : canonicalState(state);
-  const pageSuffix = page.page > 1 ? ` (página ${page.page})` : '';
+  const pageSuffix = page.page > 1 ? t(` (página ${page.page})`, ` (page ${page.page})`) : '';
   usePageMeta({
     title: isDefault && page.page === 1
-      ? 'Recetas con Arándanos Frescos | Fresh Pick - Arándanos de Alta Montaña'
-      : `${heading} – Recetas con Arándanos${pageSuffix} | Fresh Pick`,
+      ? t('Recetas con Arándanos Frescos | Fresh Pick - Arándanos de Alta Montaña', 'Fresh Blueberry Recipes | Fresh Pick - High-Mountain Blueberries')
+      : `${heading} – ${t('Recetas con Arándanos', 'Blueberry Recipes')}${pageSuffix} | Fresh Pick`,
     description: filterParts.length === 0 || !indexable
-      ? 'Recetas fáciles y saludables con arándanos frescos: smoothies, desayunos, postres saludables, snacks, ensaladas, bebidas y conservas. Paso a paso con arándanos Fresh Pick.'
-      : `Archivo de recetas con arándanos: ${filterParts.join(', ').toLowerCase()}. ${results.length} recetas fáciles y saludables paso a paso con arándanos Fresh Pick.`,
+      ? t('Recetas fáciles y saludables con arándanos frescos: smoothies, desayunos, postres saludables, snacks, ensaladas, bebidas y conservas. Paso a paso con arándanos Fresh Pick.', 'Easy, healthy recipes with fresh blueberries: smoothies, breakfasts, healthy desserts, snacks, salads, drinks and preserves. Step by step with Fresh Pick blueberries.')
+      : t(`Archivo de recetas con arándanos: ${filterParts.join(', ').toLowerCase()}. ${results.length} recetas fáciles y saludables paso a paso con arándanos Fresh Pick.`, `Blueberry recipe archive: ${filterParts.join(', ').toLowerCase()}. ${results.length} easy, healthy step-by-step recipes with Fresh Pick blueberries.`),
     path: serializeLibraryUrl(BASE, canonical),
     noindex: !indexable
   });
@@ -62,9 +66,9 @@ export default function RecipesPage() {
 
   const hasFilter = filterParts.length > 0 || state.q.trim() !== '' || !!state.tiempo || !!state.dificultad;
   const crumbs = [
-    { label: 'Inicio', href: '/' },
-    hasFilter ? { label: 'Recetas', href: BASE } : { label: 'Recetas' },
-    ...(hasFilter ? [{ label: filterParts.join(' · ') || 'Búsqueda' }] : [])
+    { label: t('Inicio', 'Home'), href: '/' },
+    hasFilter ? { label: t('Recetas', 'Recipes'), href: BASE } : { label: t('Recetas', 'Recipes') },
+    ...(hasFilter ? [{ label: filterParts.join(' · ') || t('Búsqueda', 'Search') }] : [])
   ];
 
   return (
@@ -76,23 +80,22 @@ export default function RecipesPage() {
           <div className="max-w-3xl mt-6">
             <div className="fp-pill text-xs shadow-sm">
               <BookOpen className="w-3.5 h-3.5 text-[#7B4382]" />
-              <span>Biblioteca de recetas · {RECIPE_ENTRIES.length} recetas</span>
+              <span>{t(`Biblioteca de recetas · ${RECIPE_ENTRIES.length} recetas`, `Recipe library · ${RECIPE_ENTRIES.length} recipes`)}</span>
             </div>
             <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display leading-tight">
-              Recetas con arándanos frescos
+              {t('Recetas con arándanos frescos', 'Fresh blueberry recipes')}
             </h1>
             <p className="mt-3 text-base sm:text-lg text-stone-700 leading-relaxed">
-              Ideas fáciles y deliciosas donde el arándano Fresh Pick es el protagonista. Busca por ingrediente o
-              explora por categoría, tiempo, dificultad y fecha: todas las recetas siguen aquí.
+              {t('Ideas fáciles y deliciosas donde el arándano Fresh Pick es el protagonista. Busca por ingrediente o explora por categoría, tiempo, dificultad y fecha: todas las recetas siguen aquí.', 'Easy, delicious ideas where the Fresh Pick blueberry is the star. Search by ingredient or browse by category, time, difficulty and date: every recipe is still here.')}
             </p>
           </div>
 
           <div className="mt-6 max-w-3xl">
-            <LibrarySearch lib={lib} label="Buscar recetas" placeholder="Busca por receta o ingrediente: avena, limón, yogur…" />
+            <LibrarySearch lib={lib} label={t('Buscar recetas', 'Search recipes')} placeholder={t('Busca por receta o ingrediente: avena, limón, yogur…', 'Search by recipe or ingredient: oats, lemon, yogurt…')} />
           </div>
 
-          <div className="mt-5 flex gap-2" role="tablist" aria-label="Contenido de recetas">
-            <TabLink href={BASE} active={state.vista !== 'videos'} label="🍽️ Recetas" count={RECIPE_ENTRIES.length} lib={lib} />
+          <div className="mt-5 flex gap-2" role="tablist" aria-label={t('Contenido de recetas', 'Recipe content')}>
+            <TabLink href={BASE} active={state.vista !== 'videos'} label={t('🍽️ Recetas', '🍽️ Recipes')} count={RECIPE_ENTRIES.length} lib={lib} />
             <TabLink href={`${BASE}?vista=videos`} active={state.vista === 'videos'} label="🎬 Videos" count={visibleVideos('recetas').length} lib={lib} video />
           </div>
         </div>
@@ -112,11 +115,11 @@ export default function RecipesPage() {
                   <p className="text-sm text-stone-600 mt-1">
                     {category && !state.q.trim() && filterParts.length === 1
                       ? category.description
-                      : 'Explora todas nuestras recetas con arándanos frescos de alta montaña.'}
+                      : t('Explora todas nuestras recetas con arándanos frescos de alta montaña.', 'Explore all our recipes with fresh high-mountain blueberries.')}
                   </p>
                 </div>
                 <ActiveFilters lib={lib} categories={RECIPE_CATEGORIES} />
-                <ResultsBar lib={lib} page={page} noun="recetas" />
+                <ResultsBar lib={lib} page={page} noun={t('recetas', 'recipes')} />
 
                 {recipes.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
@@ -125,14 +128,14 @@ export default function RecipesPage() {
                 ) : (
                   <div className="rounded-2xl border border-dashed border-[#DFCEE6] bg-white/70 p-10 text-center">
                     <p className="text-3xl" aria-hidden="true">{category?.emoji ?? '🔎'}</p>
-                    <p className="mt-2 font-semibold text-[#2F183C]">No encontramos recetas con esos filtros.</p>
-                    <p className="text-sm text-stone-600 mt-1">Prueba con otro ingrediente o quita algún filtro.</p>
+                    <p className="mt-2 font-semibold text-[#2F183C]">{t('No encontramos recetas con esos filtros.', 'We found no recipes with those filters.')}</p>
+                    <p className="text-sm text-stone-600 mt-1">{t('Prueba con otro ingrediente o quita algún filtro.', 'Try another ingredient or remove a filter.')}</p>
                     <a
                       href={BASE}
                       onClick={e => { e.preventDefault(); lib.update({ q: '', categoria: undefined, etiqueta: undefined, anio: undefined, mes: undefined, tiempo: undefined, dificultad: undefined, orden: 'recientes' }); }}
                       className="mt-3 inline-block text-sm font-bold text-[#7B4382] hover:text-[#2F183C]"
                     >
-                      Ver todas las recetas
+                      {t('Ver todas las recetas', 'See all recipes')}
                     </a>
                   </div>
                 )}
@@ -150,8 +153,8 @@ export default function RecipesPage() {
 
           <div className="mt-12 sm:mt-16">
             <OrderCta
-              title="¿Listo para cocinar? Pide tus arándanos Fresh Pick"
-              whatsappMessage="Hola Fresh Pick, vi sus recetas y quiero pedir arándanos frescos"
+              title={t('¿Listo para cocinar? Pide tus arándanos Fresh Pick', 'Ready to cook? Order your Fresh Pick blueberries')}
+              whatsappMessage={t('Hola Fresh Pick, vi sus recetas y quiero pedir arándanos frescos', 'Hello Fresh Pick, I saw your recipes and would like to order fresh blueberries')}
             />
           </div>
         </div>
@@ -161,11 +164,11 @@ export default function RecipesPage() {
         data={{
           '@context': 'https://schema.org',
           '@type': 'ItemList',
-          name: 'Recetas con arándanos frescos Fresh Pick',
+          name: t('Recetas con arándanos frescos Fresh Pick', 'Fresh Pick fresh blueberry recipes'),
           itemListElement: recipes.map((r, i) => ({
             '@type': 'ListItem',
             position: page.from + i,
-            url: `${SITE_URL}/recetas/${r.slug}`
+            url: `${SITE_URL}${withLang(`/recetas/${r.slug}`, lang)}`
           }))
         }}
       />

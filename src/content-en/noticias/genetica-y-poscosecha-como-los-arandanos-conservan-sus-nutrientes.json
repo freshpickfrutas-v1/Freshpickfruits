@@ -1,0 +1,83 @@
+{
+  "title": "Genetics and Post-Harvest: How Blueberries Keep Their Nutrients",
+  "metaDescription": "Discover how genetics influences the preservation of blueberry nutrients during cold storage, according to a recent study.",
+  "excerpt": "A genomic study reveals that the ability of blueberries to keep their antioxidants and bioactive compounds during refrigerated storage depends largely on their genetics.",
+  "imageAlt": "Refrigerated fresh blueberries showing their quality and natural bloom intact",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "1. Introduction: why does blueberry stability after harvest matter?"
+    },
+    {
+      "type": "p",
+      "text": "Blueberries are recognized worldwide for their valuable nutritional properties and their content of bioactive compounds, such as flavonoids and phenolic acids. These plant metabolites have been associated with various benefits for human well-being. However, little is said about what happens to these nutrients once the fruit is harvested and kept refrigerated for days or weeks before reaching the consumer’s table."
+    },
+    {
+      "type": "p",
+      "text": "The stability of these compounds during cold storage is a determining factor in the real quality of the food. Understanding the genetic variables that make a fruit better preserve its nutritional value allows agricultural science to develop hardier, more nutritious varieties for the market."
+    },
+    {
+      "type": "h2",
+      "text": "2. What the source says: genome, cold storage and bioactive compounds"
+    },
+    {
+      "type": "p",
+      "text": "Research published in the scientific journal The Plant Genome analyzed the post-harvest dynamics of 32 individual metabolites, belonging to flavonoids and phenolic acids, in a broad population of 165 blueberry genotypes and advanced selections."
+    },
+    {
+      "type": "p",
+      "text": "The researchers evaluated the fruit after one and seven weeks of cold storage at 1°C. Using longitudinal mixed models combined with genomic information, the scientific team was able to measure the heritability of these traits and identify interactions between genotype and storage time."
+    },
+    {
+      "type": "p",
+      "text": "Among the main findings of the study are:"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "There is substantial variation among genotypes, both in the amount and in the composition of the bioactive compounds evaluated.",
+        "Moderate to high heritability estimates were observed, which indicates strong genetic control over metabolite retention during the post-harvest period.",
+        "Significant interactions between genotype and storage time were recorded: while some blueberry lines kept their nutritional levels stable after seven weeks at 1°C, others suffered more marked degradation.",
+        "Genomic prediction models showed promising ability to guide decisions in breeding programs focused on nutritional quality."
+      ]
+    },
+    {
+      "type": "p",
+      "text": "As a limitation of the source, it is worth noting that this is an agronomic and metabolomic study carried out in the laboratory under controlled storage conditions (1°C for up to 7 weeks), and not an evaluation in consumers or a clinical trial on the digestive absorption of these compounds."
+    },
+    {
+      "type": "h2",
+      "text": "3. Context: agricultural science aimed at more functional foods"
+    },
+    {
+      "type": "p",
+      "text": "Traditionally, fruit breeding programs have focused on visible or commercial parameters, such as crop yield, fruit size, firmness or color. However, this scientific work shows a relevant shift in modern research toward nutrition and functional components."
+    },
+    {
+      "type": "p",
+      "text": "The evidence supports that blueberries are an important source of natural antioxidants. Confirming that the preservation of flavonoids depends largely on the genetic profile opens the door to selecting varieties that not only withstand long periods of refrigeration and transport but also keep their nutritional contribution intact for the end consumer."
+    },
+    {
+      "type": "h2",
+      "text": "4. What it means for you: from scientific theory to daily consumption"
+    },
+    {
+      "type": "p",
+      "text": "For the everyday consumer, this research highlights the importance of freshness and proper cold handling. Although genomic selection will make it easier to develop hardier blueberries in the future, for now the golden rule is still to eat fresh fruit that has kept a constant cold chain and careful handling."
+    },
+    {
+      "type": "p",
+      "text": "Keeping blueberries refrigerated at home helps slow the natural loss of their beneficial compounds. Including fresh blueberries in your daily diet, whether at breakfast, in smoothies or in salads, is a simple way to take advantage of the richness of flavonoids that nature and agricultural research seek to protect."
+    },
+    {
+      "type": "h2",
+      "text": "5. Conclusion"
+    },
+    {
+      "type": "p",
+      "text": "Understanding the genetic control behind bioactive compounds marks a milestone toward offering high-quality fruit with sustained nutritional value. At Fresh Pick we are proud to celebrate these scientific advances that reaffirm the importance of growing blueberries with dedication, guaranteeing natural, well-cared-for fruit from the very origin."
+    }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative image generated with AI"
+}

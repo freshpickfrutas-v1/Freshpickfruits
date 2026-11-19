@@ -1,5 +1,6 @@
 import { Recipe, RecipeCategory, RecipeCategoryId, RecipeSummary } from '../types';
 import { recipeCategoryIds, recipeTotalMinutes as totalMinutes } from '../lib/archive.mjs';
+import type { Lang } from '../lib/i18n';
 
 export const RECIPE_CATEGORIES: RecipeCategory[] = [
   {
@@ -52,6 +53,25 @@ export const RECIPE_CATEGORIES: RecipeCategory[] = [
   }
 ];
 
+const RECIPE_CATEGORIES_EN: Record<string, { name: string; description: string }> = {
+  'smoothies-batidos': { name: 'Smoothies and Shakes', description: 'Creamy, colorful shakes made with fresh high-mountain blueberries.' },
+  desayunos: { name: 'Breakfasts', description: 'Start the day with blueberries: bowls, pancakes, oatmeal and more.' },
+  'postres-saludables': { name: 'Healthy Desserts', description: 'Lighter sweets where the blueberry is the star.' },
+  'snacks-meriendas': { name: 'Snacks', description: 'Practical options for the lunchbox, the office or mid-afternoon.' },
+  'ensaladas-platos-frescos': { name: 'Salads and Fresh Dishes', description: 'The sweet and tangy touch of blueberries in savory, fresh dishes.' },
+  'bebidas-refrescos': { name: 'Drinks and Refreshers', description: 'Flavored waters, refreshers and cold drinks made easy.' },
+  'preparaciones-conservas': { name: 'Preparations and Preserves', description: 'Jams, compotes and sauces to enjoy blueberries all week.' },
+  'recetas-rapidas': { name: 'Quick Recipes (15 min or less)', description: 'Everything ready in 15 minutes or less, ideal for everyday life.' }
+};
+
+/** Categoría con nombre y descripción en el idioma pedido. */
+export function localizeCategory(category: RecipeCategory, lang: Lang): RecipeCategory {
+  const en = RECIPE_CATEGORIES_EN[category.id];
+  return lang === 'en' && en ? { ...category, ...en } : category;
+}
+
+export const recipeCategoriesFor = (lang: Lang): RecipeCategory[] => RECIPE_CATEGORIES.map(c => localizeCategory(c, lang));
+
 /** Total time including rest; a recipe is "rápida" when this is 15 minutes or less. */
 export function recipeTotalMinutes(recipe: Pick<Recipe, 'prepMinutes' | 'cookMinutes' | 'restMinutes'>): number {
   return totalMinutes(recipe);
@@ -68,6 +88,11 @@ export function formatMinutes(minutes: number) {
   return m ? `${h} h ${m} min` : `${h} h`;
 }
 
-export function getRecipeCategory(id: RecipeCategoryId) {
-  return RECIPE_CATEGORIES.find(c => c.id === id)!;
+export function getRecipeCategory(id: RecipeCategoryId, lang: Lang = 'es') {
+  return localizeCategory(RECIPE_CATEGORIES.find(c => c.id === id)!, lang);
 }
+
+const DIFFICULTY_EN: Record<string, string> = { 'Fácil': 'Easy', Intermedio: 'Intermediate', Avanzado: 'Advanced' };
+/** Dificultad guardada en español (se usa también como filtro); se muestra en el idioma activo. */
+export const difficultyLabel = (difficulty: string | undefined, lang: Lang) =>
+  (lang === 'en' && difficulty ? DIFFICULTY_EN[difficulty] : undefined) ?? difficulty ?? '';

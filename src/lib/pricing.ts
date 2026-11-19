@@ -47,6 +47,6 @@ export function deliveryOptions(count = 8, from: Date = new Date()): string[] {
   return out;
 }
 
-export function formatDeliveryDay(isoDay: string): string {
-  return new Date(isoDay + 'T12:00:00').toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
+export function formatDeliveryDay(isoDay: string, lang: 'es' | 'en' = 'es'): string {
+  return new Date(isoDay + 'T12:00:00').toLocaleDateString(lang === 'en' ? 'en-US' : 'es-CO', { weekday: 'long', day: 'numeric', month: 'long' });
 }

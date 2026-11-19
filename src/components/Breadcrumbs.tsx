@@ -1,6 +1,7 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { JsonLd, SITE_URL } from '../lib/seo';
+import { useLang, useT, withLang } from '../lib/i18n';
 
 export interface Crumb {
   label: string;
@@ -8,8 +9,11 @@ export interface Crumb {
 }
 
 /** Visible breadcrumb trail plus BreadcrumbList structured data. */
-export const Breadcrumbs: React.FC<{ items: Crumb[] }> = ({ items }) => (
-  <nav aria-label="Ruta de navegación" className="text-xs text-stone-500">
+export const Breadcrumbs: React.FC<{ items: Crumb[] }> = ({ items }) => {
+  const t = useT();
+  const lang = useLang();
+  return (
+  <nav aria-label={t('Ruta de navegación', 'Breadcrumb')} className="text-xs text-stone-500">
     <ol className="flex flex-wrap items-center gap-1">
       {items.map((item, i) => (
         <li key={i} className="flex items-center gap-1 min-w-0">
@@ -30,9 +34,10 @@ export const Breadcrumbs: React.FC<{ items: Crumb[] }> = ({ items }) => (
           '@type': 'ListItem',
           position: i + 1,
           name: item.label,
-          ...(item.href ? { item: `${SITE_URL}${item.href}` } : {})
+          ...(item.href ? { item: `${SITE_URL}${withLang(item.href, lang)}` } : {})
         }))
       }}
     />
   </nav>
-);
+  );
+};

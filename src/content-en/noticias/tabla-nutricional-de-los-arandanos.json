@@ -1,0 +1,112 @@
+{
+  "title": "Blueberry Nutrition Facts: Calories, Vitamins and Minerals per 100 g",
+  "metaDescription": "Complete nutrition table for fresh blueberries per 100 g: calories, carbohydrates, fiber, sugars, vitamin C, vitamin K, manganese and more.",
+  "excerpt": "Everything in a serving of fresh blueberries, explained clearly and with international reference data.",
+  "imageAlt": "Fresh blueberries in a white bowl and on a kitchen scale, illustrating the nutrition information per serving",
+  "blocks": [
+    {
+      "type": "p",
+      "text": "If you count calories, follow an eating plan or simply want to know what you are eating, here is the nutrition information for fresh blueberries, with reference values from the United States Department of Agriculture database (USDA FoodData Central)."
+    },
+    {
+      "type": "h2",
+      "text": "Nutrition information per 100 g of fresh blueberries"
+    },
+    {
+      "type": "table",
+      "caption": "Approximate values for raw blueberries. % DV calculated on a 2,000 kcal diet.",
+      "headers": [
+        "Nutrient",
+        "Amount",
+        "% Daily Value"
+      ],
+      "rows": [
+        [
+          "Energy",
+          "57 kcal",
+          "3%"
+        ],
+        [
+          "Water",
+          "84 g",
+          "—"
+        ],
+        [
+          "Carbohydrates",
+          "14.5 g",
+          "5%"
+        ],
+        [
+          "Dietary fiber",
+          "2.4 g",
+          "9%"
+        ],
+        [
+          "Natural sugars",
+          "10 g",
+          "—"
+        ],
+        [
+          "Protein",
+          "0.7 g",
+          "1%"
+        ],
+        [
+          "Total fat",
+          "0.3 g",
+          "0%"
+        ],
+        [
+          "Vitamin C",
+          "9.7 mg",
+          "11%"
+        ],
+        [
+          "Vitamin K",
+          "19.3 µg",
+          "16%"
+        ],
+        [
+          "Manganese",
+          "0.34 mg",
+          "15%"
+        ],
+        [
+          "Potassium",
+          "77 mg",
+          "2%"
+        ]
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "How to read this table"
+    },
+    {
+      "type": "ul",
+      "items": [
+        "The sugars in blueberries are natural to the fruit, not added sugars.",
+        "One cup (about 150 g) provides roughly 1.5 times the values in the table.",
+        "Values may vary depending on the variety, degree of ripeness and growing conditions."
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Fresh or frozen?"
+    },
+    {
+      "type": "p",
+      "text": "Frozen blueberries with no added sugar keep a nutritional profile very similar to fresh ones. Freezing your Fresh Pick blueberries is an excellent way to always have them available for smoothies and preparations."
+    },
+    {
+      "type": "h2",
+      "text": "And dried ones?"
+    },
+    {
+      "type": "p",
+      "text": "When they lose water, nutrients and sugars become concentrated, and many commercial versions have added sugar. That is why, in equal portions, dried blueberries have many more calories than fresh ones."
+    }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative image generated with AI"
+}

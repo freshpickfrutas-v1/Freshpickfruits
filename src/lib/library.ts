@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { normalize } from './tagging.mjs';
 import { MIN_TAG_PAGE_ITEMS, PAGE_SIZE } from './archive.mjs';
 import { readLocation } from './router';
+import { Lang, splitLang, useLang, withLang } from './i18n';
 
 export { MIN_TAG_PAGE_ITEMS, PAGE_SIZE };
 
@@ -43,8 +44,13 @@ export const MONTH_NAMES = [
   'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
 ];
 
-export function monthLabel(month: number) {
-  const name = MONTH_NAMES[month - 1] ?? '';
+const MONTH_NAMES_EN = [
+  'january', 'february', 'march', 'april', 'may', 'june',
+  'july', 'august', 'september', 'october', 'november', 'december'
+];
+
+export function monthLabel(month: number, lang: Lang = 'es') {
+  const name = (lang === 'en' ? MONTH_NAMES_EN : MONTH_NAMES)[month - 1] ?? '';
   return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
@@ -189,12 +195,12 @@ function relevance(e: LibraryEntry, terms: string[]) {
   return score;
 }
 
-export function sortEntries(entries: LibraryEntry[], s: LibraryState): LibraryEntry[] {
+export function sortEntries(entries: LibraryEntry[], s: LibraryState, lang: Lang = 'es'): LibraryEntry[] {
   const indexed = entries.map((e, i) => ({ e, i }));
   const newest = (a: { e: LibraryEntry; i: number }, b: { e: LibraryEntry; i: number }) =>
     b.e.date.localeCompare(a.e.date) || a.i - b.i;
   if (s.orden === 'antiguos') indexed.sort((a, b) => -newest(a, b));
-  else if (s.orden === 'az') indexed.sort((a, b) => a.e.title.localeCompare(b.e.title, 'es'));
+  else if (s.orden === 'az') indexed.sort((a, b) => a.e.title.localeCompare(b.e.title, lang));
   else if (s.orden === 'relevancia' && s.q.trim()) {
     const terms = searchTerms(s.q);
     indexed.sort((a, b) => relevance(b.e, terms) - relevance(a.e, terms) || newest(a, b));
@@ -294,9 +300,10 @@ export function canonicalState(s: LibraryState): LibraryState {
  * los cambios hacen pushState (el botón "atrás" funciona) y la escritura en la búsqueda usa replaceState.
  */
 export function useLibraryState(basePath: string) {
+  const lang = useLang();
   const read = useCallback(() => {
     const { pathname, search } = readLocation();
-    return parseLibraryUrl(basePath, pathname, search);
+    return parseLibraryUrl(basePath, splitLang(pathname).path, search);
   }, [basePath]);
   const [state, setState] = useState<LibraryState>(read);
 
@@ -307,19 +314,19 @@ export function useLibraryState(basePath: string) {
   }, [read]);
 
   const hrefFor = useCallback(
-    (patch: Partial<LibraryState>) => serializeLibraryUrl(basePath, applyPatch(state, patch)),
-    [basePath, state]
+    (patch: Partial<LibraryState>) => withLang(serializeLibraryUrl(basePath, applyPatch(state, patch)), lang),
+    [basePath, state, lang]
   );
 
   const update = useCallback(
     (patch: Partial<LibraryState>, options: { replace?: boolean } = {}) => {
       const next = applyPatch(state, patch);
-      const url = serializeLibraryUrl(basePath, next);
+      const url = withLang(serializeLibraryUrl(basePath, next), lang);
       const current = window.location.pathname + window.location.search;
       if (url !== current) window.history[options.replace ? 'replaceState' : 'pushState']({}, '', url);
       setState(next);
     },
-    [basePath, state]
+    [basePath, state, lang]
   );
 
   return { state, update, hrefFor };

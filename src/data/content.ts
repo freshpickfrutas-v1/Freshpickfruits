@@ -7,6 +7,7 @@
 import { useEffect, useState } from 'react';
 import { ArticleSummary, BlogArticle, Recipe, RecipeSummary } from '../types';
 import { ContentKind, hiddenVersion, isHidden } from '../lib/hiddenContent';
+import type { Lang } from '../lib/i18n';
 
 interface Store {
   recetasIndex?: RecipeSummary[];
@@ -15,7 +16,15 @@ interface Store {
   articles: Map<string, BlogArticle | null>;
 }
 
-const store: Store = { recipes: new Map(), articles: new Map() };
+const stores: Record<Lang, Store> = {
+  es: { recipes: new Map(), articles: new Map() },
+  en: { recipes: new Map(), articles: new Map() }
+};
+// Idioma que leen las páginas; lo fija App con la ruta que se está mostrando.
+let current: Lang = 'es';
+export const setContentLang = (lang: Lang) => { current = lang; };
+const store = new Proxy({} as Store, { get: (_, key) => stores[current][key as keyof Store] , set: (_, key, value) => { (stores[current] as any)[key] = value; return true; } });
+const dataDir = (lang: Lang) => (lang === 'en' ? '/data/en' : '/data');
 const inflight = new Map<string, Promise<unknown>>();
 
 async function fetchJson<T>(url: string): Promise<T | null> {
@@ -37,17 +46,17 @@ function once<T>(url: string, apply: (data: T | null) => void): Promise<void> {
   return request;
 }
 
-export const loadRecipeIndex = () =>
-  store.recetasIndex ? Promise.resolve() : once<RecipeSummary[]>('/data/recetas-index.json', d => { if (d) store.recetasIndex = d; });
+export const loadRecipeIndex = (lang: Lang = current) =>
+  stores[lang].recetasIndex ? Promise.resolve() : once<RecipeSummary[]>(`${dataDir(lang)}/recetas-index.json`, d => { if (d) stores[lang].recetasIndex = d; });
 
-export const loadArticleIndex = () =>
-  store.noticiasIndex ? Promise.resolve() : once<ArticleSummary[]>('/data/noticias-index.json', d => { if (d) store.noticiasIndex = d; });
+export const loadArticleIndex = (lang: Lang = current) =>
+  stores[lang].noticiasIndex ? Promise.resolve() : once<ArticleSummary[]>(`${dataDir(lang)}/noticias-index.json`, d => { if (d) stores[lang].noticiasIndex = d; });
 
-export const loadRecipe = (slug: string) =>
-  store.recipes.has(slug) ? Promise.resolve() : once<Recipe>(`/data/recetas/${encodeURIComponent(slug)}.json`, d => { store.recipes.set(slug, d); });
+export const loadRecipe = (slug: string, lang: Lang = current) =>
+  stores[lang].recipes.has(slug) ? Promise.resolve() : once<Recipe>(`${dataDir(lang)}/recetas/${encodeURIComponent(slug)}.json`, d => { stores[lang].recipes.set(slug, d); });
 
-export const loadArticle = (slug: string) =>
-  store.articles.has(slug) ? Promise.resolve() : once<BlogArticle>(`/data/noticias/${encodeURIComponent(slug)}.json`, d => { store.articles.set(slug, d); });
+export const loadArticle = (slug: string, lang: Lang = current) =>
+  stores[lang].articles.has(slug) ? Promise.resolve() : once<BlogArticle>(`${dataDir(lang)}/noticias/${encodeURIComponent(slug)}.json`, d => { stores[lang].articles.set(slug, d); });
 
 // El admin puede ocultar recetas y noticias (lib/hiddenContent.ts): el sitio no las muestra, pero siguen en la biblioteca.
 const visibleCache = new WeakMap<object, { v: number; list: unknown[] }>();
@@ -71,17 +80,18 @@ export const getArticle = (slug: string): BlogArticle | undefined => (isHidden('
 export const getRecipeSummary = (slug: string) => recipeIndex().find(r => r.slug === slug);
 
 /** Llena el almacén sin pasar por la red (prerender en el build). */
-export function seedContent(data: { recetas: Recipe[]; noticias: BlogArticle[]; recetasIndex: RecipeSummary[]; noticiasIndex: ArticleSummary[] }) {
-  store.recetasIndex = data.recetasIndex;
-  store.noticiasIndex = data.noticiasIndex;
-  data.recetas.forEach(r => store.recipes.set(r.slug, r));
-  data.noticias.forEach(a => store.articles.set(a.slug, a));
+export function seedContent(data: { recetas: Recipe[]; noticias: BlogArticle[]; recetasIndex: RecipeSummary[]; noticiasIndex: ArticleSummary[] }, lang: Lang = 'es') {
+  const target = stores[lang];
+  target.recetasIndex = data.recetasIndex;
+  target.noticiasIndex = data.noticiasIndex;
+  data.recetas.forEach(r => target.recipes.set(r.slug, r));
+  data.noticias.forEach(a => target.articles.set(a.slug, a));
 }
 
-function useIndex<T>(read: () => T[], load: () => Promise<void>, loaded: () => boolean): T[] | null {
+function useIndex<T>(read: () => T[], load: (lang: Lang) => Promise<void>, loaded: () => boolean): T[] | null {
   const [, force] = useState(0);
   useEffect(() => {
-    if (!loaded()) load().then(() => force(n => n + 1));
+    if (!loaded()) load(current).then(() => force(n => n + 1));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return loaded() ? read() : null;

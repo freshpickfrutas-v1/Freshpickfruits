@@ -7,16 +7,19 @@ import { OrderCta } from '../components/OrderCta';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RecipeCard } from '../components/RecipeCard';
 import { NotFoundContent } from './NotFoundContent';
-import { formatMinutes, getRecipeCategory, recipeCategories, recipeTotalMinutes } from '../data/recipes';
+import { difficultyLabel, formatMinutes, getRecipeCategory, recipeCategories, recipeTotalMinutes } from '../data/recipes';
+import { useLang, useT, withLang } from '../lib/i18n';
 import { getRecipe, recipeIndex } from '../data/content';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 
 export default function RecipeDetailPage({ slug }: { slug: string }) {
+  const t = useT();
+  const lang = useLang();
   const recipe = getRecipe(slug);
 
   usePageMeta({
-    title: recipe ? `${recipe.title} | Recetas Fresh Pick` : 'Receta no encontrada | Fresh Pick',
-    description: recipe?.excerpt ?? 'Esta receta no existe o fue movida. Explora todas nuestras recetas con arándanos frescos.',
+    title: recipe ? `${recipe.title} | ${t('Recetas Fresh Pick', 'Fresh Pick Recipes')}` : t('Receta no encontrada | Fresh Pick', 'Recipe not found | Fresh Pick'),
+    description: recipe?.excerpt ?? t('Esta receta no existe o fue movida. Explora todas nuestras recetas con arándanos frescos.', 'This recipe does not exist or was moved. Explore all our fresh blueberry recipes.'),
     path: `/recetas/${slug}`,
     image: recipe?.image,
     type: 'article'
@@ -26,16 +29,16 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
     return (
       <SiteShell>
         <NotFoundContent
-          title="No encontramos esta receta"
-          text="Puede que haya cambiado de nombre. Mira todas nuestras recetas con arándanos."
+          title={t('No encontramos esta receta', 'We could not find this recipe')}
+          text={t('Puede que haya cambiado de nombre. Mira todas nuestras recetas con arándanos.', 'It may have been renamed. See all our blueberry recipes.')}
           href="/recetas"
-          linkLabel="Ver todas las recetas"
+          linkLabel={t('Ver todas las recetas', 'See all recipes')}
         />
       </SiteShell>
     );
   }
 
-  const category = getRecipeCategory(recipe.category);
+  const category = getRecipeCategory(recipe.category, lang);
   const total = recipeTotalMinutes(recipe);
   const related = recipeIndex().filter(r => r.slug !== recipe.slug && recipeCategories(r).some(c => recipeCategories(recipe).includes(c))).slice(0, 3);
 
@@ -46,8 +49,8 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10 sm:pb-14">
             <Breadcrumbs
               items={[
-                { label: 'Inicio', href: '/' },
-                { label: 'Recetas', href: '/recetas' },
+                { label: t('Inicio', 'Home'), href: '/' },
+                { label: t('Recetas', 'Recipes'), href: '/recetas' },
                 { label: category.name, href: `/recetas/categoria/${category.id}` },
                 { label: recipe.title }
               ]}
@@ -67,10 +70,10 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
                 <p className="mt-3 text-base text-stone-700 leading-relaxed">{recipe.excerpt}</p>
 
                 <dl className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <Stat icon={<Clock className="w-4 h-4" />} label="Preparación" value={formatMinutes(recipe.prepMinutes)} />
-                  <Stat icon={<Timer className="w-4 h-4" />} label="Tiempo total" value={formatMinutes(total)} />
-                  <Stat icon={<ChefHat className="w-4 h-4" />} label="Dificultad" value={recipe.difficulty} />
-                  <Stat icon={<Users className="w-4 h-4" />} label="Porciones" value={String(recipe.servings)} />
+                  <Stat icon={<Clock className="w-4 h-4" />} label={t('Preparación', 'Prep time')} value={formatMinutes(recipe.prepMinutes)} />
+                  <Stat icon={<Timer className="w-4 h-4" />} label={t('Tiempo total', 'Total time')} value={formatMinutes(total)} />
+                  <Stat icon={<ChefHat className="w-4 h-4" />} label={t('Dificultad', 'Difficulty')} value={difficultyLabel(recipe.difficulty, lang)} />
+                  <Stat icon={<Users className="w-4 h-4" />} label={t('Porciones', 'Servings')} value={String(recipe.servings)} />
                 </dl>
               </div>
 
@@ -91,9 +94,9 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
               <div className="bg-white rounded-2xl border border-[#EADBEE] p-5 sm:p-6 shadow-sm lg:sticky lg:top-28">
                 <h2 className="flex items-center gap-2 text-lg font-bold font-display">
                   <Utensils className="w-5 h-5 text-[#7B4382]" />
-                  Ingredientes
+                  {t('Ingredientes', 'Ingredients')}
                 </h2>
-                <p className="text-xs text-stone-500 mt-1">Para {recipe.servings} {recipe.servings === 1 ? 'porción' : 'porciones'}</p>
+                <p className="text-xs text-stone-500 mt-1">{t(`Para ${recipe.servings} ${recipe.servings === 1 ? 'porción' : 'porciones'}`, `Serves ${recipe.servings}`)}</p>
                 <ul className="mt-4 space-y-2.5 text-sm">
                   {recipe.ingredients.map((ing, i) => (
                     <li
@@ -109,7 +112,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
                         {ing.text}
                         {ing.freshPick && (
                           <a href="/#pedidos-personalizados" className="block text-xs font-bold text-[#7B4382] hover:text-[#2F183C] mt-0.5">
-                            Pedir arándanos Fresh Pick →
+                            {t('Pedir arándanos Fresh Pick →', 'Order Fresh Pick blueberries →')}
                           </a>
                         )}
                       </span>
@@ -119,9 +122,9 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
                 <div className="mt-5">
                   <OrderCta
                     compact
-                    title="¿Te faltan arándanos?"
-                    text="Recíbelos frescos en tu casa los martes y miércoles."
-                    whatsappMessage={`Hola Fresh Pick, quiero pedir arándanos para preparar: ${recipe.title}`}
+                    title={t('¿Te faltan arándanos?', 'Out of blueberries?')}
+                    text={t('Recíbelos frescos en tu casa los martes y miércoles.', 'Get them fresh at your door on Tuesdays and Wednesdays.')}
+                    whatsappMessage={t(`Hola Fresh Pick, quiero pedir arándanos para preparar: ${recipe.title}`, `Hello Fresh Pick, I would like to order blueberries to make: ${recipe.title}`)}
                   />
                 </div>
               </div>
@@ -132,7 +135,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
               <section>
                 <h2 className="flex items-center gap-2 text-xl font-bold font-display">
                   <ListOrdered className="w-5 h-5 text-[#7B4382]" />
-                  Paso a paso
+                  {t('Paso a paso', 'Step by step')}
                 </h2>
                 <ol className="mt-5 space-y-4">
                   {recipe.steps.map((step, i) => (
@@ -150,7 +153,7 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
                 <section className="rounded-2xl bg-[#FAF2DF] border border-[#EED7A1] p-5 sm:p-6">
                   <h2 className="flex items-center gap-2 text-lg font-bold font-display">
                     <Lightbulb className="w-5 h-5 text-[#C59328]" />
-                    Tips Fresh Pick
+                    {t('Tips Fresh Pick', 'Fresh Pick Tips')}
                   </h2>
                   <ul className="mt-3 space-y-2.5">
                     {recipe.tips.map((tip, i) => (
@@ -164,15 +167,15 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
               )}
 
               <OrderCta
-                title="Prepara esta receta con arándanos de alta montaña"
-                whatsappMessage={`Hola Fresh Pick, quiero pedir arándanos para preparar: ${recipe.title}`}
+                title={t('Prepara esta receta con arándanos de alta montaña', 'Make this recipe with high-mountain blueberries')}
+                whatsappMessage={t(`Hola Fresh Pick, quiero pedir arándanos para preparar: ${recipe.title}`, `Hello Fresh Pick, I would like to order blueberries to make: ${recipe.title}`)}
               />
             </div>
           </div>
 
           {related.length > 0 && (
             <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
-              <h2 className="text-xl sm:text-2xl font-bold font-display mb-6">También te puede gustar</h2>
+              <h2 className="text-xl sm:text-2xl font-bold font-display mb-6">{t('También te puede gustar', 'You may also like')}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {related.map(r => <RecipeCard key={r.slug} recipe={r} />)}
               </div>
@@ -190,15 +193,15 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
           ...(recipe.image ? { image: [recipe.image.startsWith('http') ? recipe.image : `${SITE_URL}${recipe.image}`] } : {}),
           author: { '@type': 'Organization', name: 'Fresh Pick' },
           recipeCategory: category.name,
-          recipeCuisine: 'Colombiana',
-          keywords: `arándanos, receta con arándanos, ${category.name.toLowerCase()}`,
+          recipeCuisine: t('Colombiana', 'Colombian'),
+          keywords: t(`arándanos, receta con arándanos, ${category.name.toLowerCase()}`, `blueberries, blueberry recipe, ${category.name.toLowerCase()}`),
           prepTime: `PT${recipe.prepMinutes}M`,
           cookTime: `PT${recipe.cookMinutes}M`,
           totalTime: `PT${total}M`,
-          recipeYield: `${recipe.servings} porciones`,
+          recipeYield: t(`${recipe.servings} porciones`, `${recipe.servings} servings`),
           recipeIngredient: recipe.ingredients.map(i => i.text),
           recipeInstructions: recipe.steps.map((text, i) => ({ '@type': 'HowToStep', position: i + 1, text })),
-          url: `${SITE_URL}/recetas/${recipe.slug}`
+          url: `${SITE_URL}${withLang(`/recetas/${recipe.slug}`, lang)}`
         }}
       />
     </SiteShell>

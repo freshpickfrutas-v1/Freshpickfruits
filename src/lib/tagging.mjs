@@ -22,47 +22,52 @@ export function slugify(value) {
 
 // Cada regla se prueba sobre texto ya normalizado (sin tildes, en minúsculas).
 const RECIPE_RULES = [
-  { id: 'avena', label: 'Avena', pattern: /\bavena\b/ },
-  { id: 'canela', label: 'Canela', pattern: /\bcanela\b/ },
-  { id: 'chia', label: 'Chía', pattern: /\bchia\b/ },
-  { id: 'miel', label: 'Miel', pattern: /\bmiel\b/ },
-  { id: 'limon', label: 'Limón', pattern: /\blimon(es)?\b/ },
-  { id: 'yogur', label: 'Yogur', pattern: /\byogur(t)?\b|\bkumis\b/ },
-  { id: 'queso', label: 'Queso', pattern: /\bqueso\b/ },
-  { id: 'pollo', label: 'Pollo', pattern: /\bpollo\b|\bpechuga/ },
-  { id: 'platano', label: 'Plátano', pattern: /\bplatano\b|\bbanano\b/ },
-  { id: 'espinaca', label: 'Espinaca', pattern: /\bespinaca\b/ },
-  { id: 'frutos-secos', label: 'Frutos secos', pattern: /\bnueces\b|\balmendras?\b|\bmani\b/ },
-  { id: 'granola', label: 'Granola', pattern: /\bgranola\b/ },
-  { id: 'menta', label: 'Menta y hierbabuena', pattern: /\bmenta\b|\bhierbabuena\b/ },
-  { id: 'huevo', label: 'Huevo', pattern: /\bhuevos?\b|\bclaras? de huevo\b/ },
-  { id: 'vainilla', label: 'Vainilla', pattern: /\bvainilla\b/ },
-  { id: 'panela', label: 'Panela', pattern: /\bpanela\b/ },
-  { id: 'aguacate', label: 'Aguacate', pattern: /\baguacate\b/ },
-  { id: 'harina', label: 'Harina', pattern: /\bharina\b/ },
-  { id: 'mantequilla', label: 'Mantequilla', pattern: /\bmantequilla\b/ }
+  { id: 'avena', label: 'Avena', labelEn: 'Oats', pattern: /\bavena\b/ },
+  { id: 'canela', label: 'Canela', labelEn: 'Cinnamon', pattern: /\bcanela\b/ },
+  { id: 'chia', label: 'Chía', labelEn: 'Chia', pattern: /\bchia\b/ },
+  { id: 'miel', label: 'Miel', labelEn: 'Honey', pattern: /\bmiel\b/ },
+  { id: 'limon', label: 'Limón', labelEn: 'Lemon', pattern: /\blimon(es)?\b/ },
+  { id: 'yogur', label: 'Yogur', labelEn: 'Yogurt', pattern: /\byogur(t)?\b|\bkumis\b/ },
+  { id: 'queso', label: 'Queso', labelEn: 'Cheese', pattern: /\bqueso\b/ },
+  { id: 'pollo', label: 'Pollo', labelEn: 'Chicken', pattern: /\bpollo\b|\bpechuga/ },
+  { id: 'platano', label: 'Plátano', labelEn: 'Banana', pattern: /\bplatano\b|\bbanano\b/ },
+  { id: 'espinaca', label: 'Espinaca', labelEn: 'Spinach', pattern: /\bespinaca\b/ },
+  { id: 'frutos-secos', label: 'Frutos secos', labelEn: 'Nuts', pattern: /\bnueces\b|\balmendras?\b|\bmani\b/ },
+  { id: 'granola', label: 'Granola', labelEn: 'Granola', pattern: /\bgranola\b/ },
+  { id: 'menta', label: 'Menta y hierbabuena', labelEn: 'Mint', pattern: /\bmenta\b|\bhierbabuena\b/ },
+  { id: 'huevo', label: 'Huevo', labelEn: 'Egg', pattern: /\bhuevos?\b|\bclaras? de huevo\b/ },
+  { id: 'vainilla', label: 'Vainilla', labelEn: 'Vanilla', pattern: /\bvainilla\b/ },
+  { id: 'panela', label: 'Panela', labelEn: 'Panela', pattern: /\bpanela\b/ },
+  { id: 'aguacate', label: 'Aguacate', labelEn: 'Avocado', pattern: /\baguacate\b/ },
+  { id: 'harina', label: 'Harina', labelEn: 'Flour', pattern: /\bharina\b/ },
+  { id: 'mantequilla', label: 'Mantequilla', labelEn: 'Butter', pattern: /\bmantequilla\b/ }
 ];
 
 const NEWS_RULES = [
-  { id: 'salud-cardiovascular', label: 'Salud cardiovascular', aliases: 'corazon corazón cardiaca', pattern: /cardiovascular|corazon|cardiac|presion arterial/ },
-  { id: 'cerebro-y-memoria', label: 'Cerebro y memoria', aliases: 'cognitivo mente', pattern: /cerebro|cognitiv|memoria|neuro/ },
-  { id: 'salud-digestiva', label: 'Salud digestiva', aliases: 'digestion estomago intestino', pattern: /digestiv|intestin|\bfibra\b|microbiota/ },
-  { id: 'antioxidantes', label: 'Antioxidantes', pattern: /antioxidante|antocianina|polifenol|flavonoide/ },
-  { id: 'vitaminas-y-minerales', label: 'Vitaminas y minerales', pattern: /vitamina|mineral|nutricional|calorias|nutrientes/ },
-  { id: 'poscosecha', label: 'Poscosecha', aliases: 'conservacion frescura', pattern: /poscosecha|almacenamiento|conservan|conservacion|vida util/ },
-  { id: 'maduracion', label: 'Maduración', pattern: /madurac|madurez/ },
-  { id: 'genetica', label: 'Genética', pattern: /genetic|\bgen\b|vcpif/ },
-  { id: 'procesamiento', label: 'Procesamiento', pattern: /procesamiento|termic|alta presion/ },
-  { id: 'ejercicio', label: 'Ejercicio y deporte', aliases: 'entrenamiento atletas', pattern: /ejercicio|deporte|actividad fisica|oxidacion de grasas/ },
-  { id: 'cultivo', label: 'Cultivo', pattern: /cultivo|cultivar|cosecha|finca|riego|poda|crecimiento|firmeza/ },
-  { id: 'guasca', label: 'Guasca y alta montaña', pattern: /guasca|alta montana|2\.?800/ },
-  { id: 'estudios', label: 'Estudios científicos', pattern: /estudio|ensayo|investigacion|cientific|ciencia/ },
-  { id: 'habitos', label: 'Hábitos saludables', pattern: /rutina|habito|dia a dia|incluir|alimentacion diaria/ }
+  { id: 'salud-cardiovascular', label: 'Salud cardiovascular', labelEn: 'Heart health', aliases: 'corazon corazón cardiaca', pattern: /cardiovascular|corazon|cardiac|presion arterial/ },
+  { id: 'cerebro-y-memoria', label: 'Cerebro y memoria', labelEn: 'Brain and memory', aliases: 'cognitivo mente', pattern: /cerebro|cognitiv|memoria|neuro/ },
+  { id: 'salud-digestiva', label: 'Salud digestiva', labelEn: 'Digestive health', aliases: 'digestion estomago intestino', pattern: /digestiv|intestin|\bfibra\b|microbiota/ },
+  { id: 'antioxidantes', label: 'Antioxidantes', labelEn: 'Antioxidants', pattern: /antioxidante|antocianina|polifenol|flavonoide/ },
+  { id: 'vitaminas-y-minerales', label: 'Vitaminas y minerales', labelEn: 'Vitamins and minerals', pattern: /vitamina|mineral|nutricional|calorias|nutrientes/ },
+  { id: 'poscosecha', label: 'Poscosecha', labelEn: 'Post-harvest', aliases: 'conservacion frescura', pattern: /poscosecha|almacenamiento|conservan|conservacion|vida util/ },
+  { id: 'maduracion', label: 'Maduración', labelEn: 'Ripening', pattern: /madurac|madurez/ },
+  { id: 'genetica', label: 'Genética', labelEn: 'Genetics', pattern: /genetic|\bgen\b|vcpif/ },
+  { id: 'procesamiento', label: 'Procesamiento', labelEn: 'Processing', pattern: /procesamiento|termic|alta presion/ },
+  { id: 'ejercicio', label: 'Ejercicio y deporte', labelEn: 'Exercise and sport', aliases: 'entrenamiento atletas', pattern: /ejercicio|deporte|actividad fisica|oxidacion de grasas/ },
+  { id: 'cultivo', label: 'Cultivo', labelEn: 'Growing', pattern: /cultivo|cultivar|cosecha|finca|riego|poda|crecimiento|firmeza/ },
+  { id: 'guasca', label: 'Guasca y alta montaña', labelEn: 'Guasca and high mountain', pattern: /guasca|alta montana|2\.?800/ },
+  { id: 'estudios', label: 'Estudios científicos', labelEn: 'Scientific studies', pattern: /estudio|ensayo|investigacion|cientific|ciencia/ },
+  { id: 'habitos', label: 'Hábitos saludables', labelEn: 'Healthy habits', pattern: /rutina|habito|dia a dia|incluir|alimentacion diaria/ }
 ];
 
 const RECIPE_LABELS = Object.fromEntries(RECIPE_RULES.map(r => [r.id, r.label]));
 const NEWS_LABELS = Object.fromEntries(NEWS_RULES.map(r => [r.id, r.label]));
 const DERIVED_LABELS = { 'sin-coccion': 'Sin cocción', 'al-horno': 'Al horno' };
+const EN_LABELS = {
+  ...Object.fromEntries([...RECIPE_RULES, ...NEWS_RULES].map(r => [r.id, r.labelEn])),
+  'sin-coccion': 'No cooking',
+  'al-horno': 'Baked'
+};
 
 function match(rules, text) {
   return rules.filter(rule => rule.pattern.test(text)).map(rule => rule.id);
@@ -94,12 +99,13 @@ export function articleTagIds(article) {
 const ALIASES = Object.fromEntries([...RECIPE_RULES, ...NEWS_RULES].filter(r => r.aliases).map(r => [r.id, r.aliases]));
 
 /** Texto que se suma a la búsqueda por cada etiqueta: su nombre y sinónimos (p. ej. "corazón" para salud cardiovascular). */
-export function tagSearchText(id) {
-  return [tagLabel(id), ALIASES[id]].filter(Boolean).join(' ');
+export function tagSearchText(id, lang = 'es') {
+  return [tagLabel(id, lang), ALIASES[id]].filter(Boolean).join(' ');
 }
 
 /** Nombre legible de una etiqueta; las manuales sin regla se muestran con la primera letra en mayúscula. */
-export function tagLabel(id) {
+export function tagLabel(id, lang = 'es') {
+  if (lang === 'en' && EN_LABELS[id]) return EN_LABELS[id];
   const known = RECIPE_LABELS[id] ?? NEWS_LABELS[id] ?? DERIVED_LABELS[id];
   if (known) return known;
   const plain = id.replace(/-/g, ' ');

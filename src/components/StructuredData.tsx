@@ -1,6 +1,8 @@
 import React from 'react';
 import { JsonLd } from '../lib/seo';
 import { FRUITS_DATA, FAQ_DATA, TESTIMONIALS_DATA } from '../data/mockData';
+import { FAQ_EN, FRUITS_EN, localizeList } from '../data/mockData.en';
+import { Lang, useLang } from '../lib/i18n';
 
 // Inyecta datos estructurados JSON-LD (Schema.org) en <head> para SEO clásico
 // y GEO (Generative Engine Optimization): ayuda a que Google, y también
@@ -24,16 +26,18 @@ function absoluteImage(url: string) {
   return `${SITE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
 }
 
-function buildOrganizationSchema() {
+function buildOrganizationSchema(lang: Lang) {
+  const en = lang === 'en';
   return {
     '@context': 'https://schema.org',
     '@type': 'GroceryStore',
     '@id': `${SITE_URL}/#organization`,
     name: 'Fresh Pick',
     legalName: 'ANDEAN FRUIT COMPANY SAS',
-    alternateName: 'Fresh Pick Arándanos de Alta Montaña',
-    description:
-      'Fresh Pick cultiva y vende arándanos premium de alta montaña (más de 2.800 m.s.n.m.) en Guasca, Cundinamarca, Colombia, con polinización 100% natural, cosecha manual selectiva y cero residualidad química. Entrega a domicilio en la zona de cobertura con pedidos por WhatsApp o pedido personalizado en línea.',
+    alternateName: en ? 'Fresh Pick High-Mountain Blueberries' : 'Fresh Pick Arándanos de Alta Montaña',
+    description: en
+      ? 'Fresh Pick grows and sells premium high-mountain blueberries (above 2,800 m) in Guasca, Cundinamarca, Colombia, with 100% natural pollination, selective hand harvesting and zero chemical residues. Home delivery in the coverage area with orders by WhatsApp or a custom order online. Wholesale supply for Colombia and export.'
+      : 'Fresh Pick cultiva y vende arándanos premium de alta montaña (más de 2.800 m.s.n.m.) en Guasca, Cundinamarca, Colombia, con polinización 100% natural, cosecha manual selectiva y cero residualidad química. Entrega a domicilio en la zona de cobertura con pedidos por WhatsApp o pedido personalizado en línea.',
     url: SITE_URL,
     logo: LOGO_URL,
     image: LOGO_URL,
@@ -83,11 +87,13 @@ function buildOrganizationSchema() {
 
 const REAL_TESTIMONIALS = TESTIMONIALS_DATA.filter(t => !t.pendiente);
 
-function buildProductSchemas() {
+function buildProductSchemas(lang: Lang) {
+  const fruits = localizeList(FRUITS_DATA, FRUITS_EN, lang);
+  const en = lang === 'en';
   const avgRating =
     REAL_TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / (REAL_TESTIMONIALS.length || 1);
 
-  return FRUITS_DATA.map(f => ({
+  return fruits.map(f => ({
     '@context': 'https://schema.org',
     '@type': 'Product',
     '@id': `${SITE_URL}/#product-${f.id}`,
@@ -95,12 +101,12 @@ function buildProductSchemas() {
     description: `${f.tagline}. ${f.description}`,
     image: absoluteImage(f.imageUrl),
     brand: { '@type': 'Brand', name: 'Fresh Pick' },
-    category: 'Arándanos frescos / Blueberries',
+    category: en ? 'Fresh blueberries' : 'Arándanos frescos / Blueberries',
     sku: f.id,
     additionalProperty: [
-      { '@type': 'PropertyValue', name: 'Grados Brix', value: f.brix },
-      { '@type': 'PropertyValue', name: 'Altitud de cultivo', value: f.altitude },
-      { '@type': 'PropertyValue', name: 'Vida útil', value: f.shelfLife },
+      { '@type': 'PropertyValue', name: en ? 'Brix degrees' : 'Grados Brix', value: f.brix },
+      { '@type': 'PropertyValue', name: en ? 'Growing altitude' : 'Altitud de cultivo', value: f.altitude },
+      { '@type': 'PropertyValue', name: en ? 'Shelf life' : 'Vida útil', value: f.shelfLife },
     ],
     offers: {
       '@type': 'Offer',
@@ -139,11 +145,12 @@ function buildProductSchemas() {
   }));
 }
 
-function buildFaqSchema() {
+function buildFaqSchema(lang: Lang) {
+  const faqs = localizeList(FAQ_DATA, FAQ_EN, lang);
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: FAQ_DATA.map(item => ({
+    mainEntity: faqs.map(item => ({
       '@type': 'Question',
       name: item.question,
       acceptedAnswer: {
@@ -165,27 +172,30 @@ function buildReviewSchemas() {
   }));
 }
 
-function buildWebSiteSchema() {
+function buildWebSiteSchema(lang: Lang) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
     url: SITE_URL,
     name: 'Fresh Pick',
-    inLanguage: 'es-CO',
+    inLanguage: lang === 'en' ? 'en' : 'es-CO',
     publisher: { '@id': `${SITE_URL}/#organization` },
   };
 }
 
 // Se pinta como <script> dentro de la página (no con un efecto del navegador) para que también salga en el HTML prerenderizado.
-export const StructuredData: React.FC = () => (
-  <>
-    {[
-      buildOrganizationSchema(),
-      buildWebSiteSchema(),
-      ...buildProductSchemas(),
-      buildFaqSchema(),
-      ...buildReviewSchemas(),
-    ].map((schema, i) => <JsonLd key={i} data={schema} />)}
-  </>
-);
+export const StructuredData: React.FC = () => {
+  const lang = useLang();
+  return (
+    <>
+      {[
+        buildOrganizationSchema(lang),
+        buildWebSiteSchema(lang),
+        ...buildProductSchemas(lang),
+        buildFaqSchema(lang),
+        ...buildReviewSchemas(),
+      ].map((schema, i) => <JsonLd key={i} data={schema} />)}
+    </>
+  );
+};

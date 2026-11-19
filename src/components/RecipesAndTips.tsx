@@ -1,11 +1,14 @@
 import React from 'react';
 import { BookOpen, ArrowRight, Newspaper } from 'lucide-react';
-import { RECIPE_CATEGORIES } from '../data/recipes';
+import { recipeCategoriesFor } from '../data/recipes';
+import { useLang, useT } from '../lib/i18n';
 import { useRecipeIndex } from '../data/content';
 import { RecipeCard } from './RecipeCard';
 
 /** Home page teaser: featured recipes with links to the full Recetas and Blog pages. */
 export const RecipesAndTips: React.FC = () => {
+  const t = useT();
+  const lang = useLang();
   const featured = (useRecipeIndex() ?? []).filter(r => r.featured).slice(0, 3);
 
   return (
@@ -16,19 +19,19 @@ export const RecipesAndTips: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">
             <BookOpen className="w-3.5 h-3.5 text-[#7B4382]" />
-            <span>Recetas con Arándanos de Alta Montaña</span>
+            <span>{t('Recetas con Arándanos de Alta Montaña', 'High-Mountain Blueberry Recipes')}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2F183C] tracking-tight font-display">
-            Recetas fáciles con arándanos Fresh Pick
+            {t('Recetas fáciles con arándanos Fresh Pick', 'Easy recipes with Fresh Pick blueberries')}
           </h2>
           <p className="mt-3 text-base sm:text-lg text-stone-700">
-            Smoothies, desayunos, postres saludables, ensaladas y más: ideas para disfrutar tus arándanos todos los días.
+            {t('Smoothies, desayunos, postres saludables, ensaladas y más: ideas para disfrutar tus arándanos todos los días.', 'Smoothies, breakfasts, healthy desserts, salads and more: ideas to enjoy your blueberries every day.')}
           </p>
         </div>
 
         {/* Category shortcuts */}
         <div className="flex gap-2 mb-8 overflow-x-auto pb-2 -mx-4 px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:mx-0 sm:px-0 sm:overflow-visible">
-          {RECIPE_CATEGORIES.map(c => (
+          {recipeCategoriesFor(lang).map(c => (
             <a
               key={c.id}
               href={`/recetas/categoria/${c.id}`}
@@ -54,7 +57,7 @@ export const RecipesAndTips: React.FC = () => {
             href="/recetas"
             className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 fp-btn-primary text-sm"
           >
-            <span>Ver todas las recetas</span>
+            <span>{t('Ver todas las recetas', 'See all recipes')}</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
           <a
@@ -62,7 +65,7 @@ export const RecipesAndTips: React.FC = () => {
             className="inline-flex items-center justify-center gap-2 px-6 py-3.5 fp-btn-secondary text-sm"
           >
             <Newspaper className="w-4 h-4" />
-            <span>Ver noticias de arándanos</span>
+            <span>{t('Ver noticias de arándanos', 'See blueberry news')}</span>
           </a>
         </div>
 

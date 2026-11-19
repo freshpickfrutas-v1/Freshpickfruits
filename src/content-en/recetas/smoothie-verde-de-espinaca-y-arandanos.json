@@ -1,0 +1,38 @@
+{
+  "title": "Green Spinach and Blueberry Smoothie",
+  "excerpt": "A creamy, flavorful green shake that combines the freshness of spinach with the natural sweetness of our high-mountain blueberries. Perfect to renew your mornings.",
+  "imageAlt": "Crystal glass with a bright green smoothie decorated with whole fresh blueberries and spinach leaves on a wooden table.",
+  "ingredients": [
+    {
+      "text": "1 cup Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1.5 cups well-washed fresh spinach leaves"
+    },
+    {
+      "text": "1 cup coconut water or almond milk"
+    },
+    {
+      "text": "1 teaspoon lemon juice"
+    },
+    {
+      "text": "1 tablespoon chia seeds"
+    },
+    {
+      "text": "1/2 cup ice cubes"
+    }
+  ],
+  "steps": [
+    "Place the coconut water, spinach leaves and the teaspoon of lemon juice in the blender.",
+    "Blend on high speed for 30 seconds until the spinach breaks down completely and the liquid is evenly green.",
+    "Add the Fresh Pick blueberries, patiently grown in the mountains of Guasca, along with the chia seeds and the ice.",
+    "Blend everything for 45 more seconds until you get a smooth, even, creamy mixture.",
+    "Serve immediately in two cold glasses and enjoy right away."
+  ],
+  "tips": [
+    "If you like a frappé-style texture, freeze the Fresh Pick blueberries about 30 minutes before making your smoothie.",
+    "To keep the freshness and natural bloom of your blueberries at home, store them in the refrigerator in a container with paper towel, unwashed, until you are ready to use them."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

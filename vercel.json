@@ -9,6 +9,16 @@
       "source": "/blog/:path*",
       "destination": "/noticias/:path*",
       "permanent": true
+    },
+    {
+      "source": "/en/blog",
+      "destination": "/en/noticias",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/:path*",
+      "destination": "/en/noticias/:path*",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -62,6 +72,62 @@
     },
     {
       "source": "/noticias/(.*)",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/panel",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/panel/(.*)",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/gracias",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/privacidad",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/terminos",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/cookies",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/recetas",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/recetas/(.*)",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/noticias",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/noticias/(.*)",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/mayoristas",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/mayoristas/(.*)",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/mayoristas",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/mayoristas/(.*)",
       "destination": "/app-shell.html"
     }
   ],

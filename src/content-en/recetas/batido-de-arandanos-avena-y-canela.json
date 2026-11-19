@@ -1,0 +1,36 @@
+{
+  "title": "Blueberry, Oat and Cinnamon Smoothie",
+  "excerpt": "Enjoy a creamy smoothie with high-mountain blueberries, oats and a hint of cinnamon. A delicious, quick option that is perfect for starting the day.",
+  "imageAlt": "Glass cup with a creamy violet smoothie garnished with fresh blueberries and a touch of ground cinnamon on a wooden table.",
+  "ingredients": [
+    {
+      "text": "2 cups Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1 cup almond milk or whole milk"
+    },
+    {
+      "text": "1/2 cup traditional rolled oats"
+    },
+    {
+      "text": "1/2 teaspoon ground cinnamon"
+    },
+    {
+      "text": "1 teaspoon bee honey, to taste"
+    }
+  ],
+  "steps": [
+    "Put the rolled oats in the blender and process them for a few seconds until you get a fine powder.",
+    "Add the Fresh Pick blueberries, carefully grown in the cold of Guasca.",
+    "Pour in the almond milk or the milk of your choice along with the ground cinnamon.",
+    "Add the honey if you want an extra touch of sweetness.",
+    "Blend on high speed for two minutes until the mixture is completely smooth and creamy.",
+    "Serve immediately in cold glasses and garnish with a few whole blueberries on top."
+  ],
+  "tips": [
+    "If you prefer a colder, thicker texture, you can freeze the blueberries beforehand.",
+    "Store your blueberries in the fridge unwashed and eat them soon to enjoy their natural bloom and flavor to the fullest."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

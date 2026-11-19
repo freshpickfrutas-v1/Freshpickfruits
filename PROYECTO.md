@@ -82,6 +82,13 @@ Cualquier otra dirección muestra hoy la página de inicio (no hay página 404 r
 
 ---
 
+### Idioma (español / inglés) y sección mayorista
+
+- **Rutas:** español en la raíz (`/recetas`), inglés bajo `/en` (`/en/recetas`). El idioma sale de la URL; el selector **ES | EN** (barra y pie) cambia a la misma página en el otro idioma. La lógica está en `src/lib/i18n.tsx`; los textos se escriben junto a su traducción: `t('Hola', 'Hello')`.
+- **Recetas y noticias en inglés:** `src/content-en/<recetas|noticias>/<slug>.json` (solo los campos traducidos). `scripts/generar-contenido.mjs` los une al original y publica `public/data/en/`. Una pieza nueva sin traducción se muestra en español y el build lo avisa. Catálogo, planes y preguntas frecuentes: `src/data/mockData.en.ts`.
+- **SEO:** `hreflang`, canonical por idioma, prerender y sitemap incluyen `/en/...`. Los videos no se traducen. El panel `/admin` sigue en español.
+- **Mayoristas:** `/mayoristas` (portada), `/mayoristas/colombia` (**Al por mayor Colombia**) y `/mayoristas/mundo` (**Wholesale World**). Pedido mínimo de 1 pallet (aprox. 360 kg) y solo por correo a `gerenciaandean@gmail.com` y `gerencia@naugroupsas.com` (`src/lib/contact.ts`).
+
 ### Biblioteca de recetas y noticias
 
 Nada se borra: todo lo publicado se acumula en `src/content/` y sigue disponible. Para que escale, los listados paginan de 12 en 12 (más recientes primero) y tienen búsqueda, filtros por año > mes, categoría, etiqueta (y, en recetas, tiempo y dificultad) y orden.

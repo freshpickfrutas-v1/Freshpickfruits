@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { LANG_STORAGE_KEY, splitLang, withLang } from './i18n';
 
 const NAVIGATE_EVENT = 'fp:navigate';
 
@@ -24,7 +25,9 @@ export function readLocation(): AppLocation {
 }
 
 /** Client-side navigation: updates the URL and notifies useAppLocation subscribers. */
-export function navigate(href: string) {
+export function navigate(href: string, opts: { raw?: boolean } = {}) {
+  // En inglés los enlaces internos mantienen el prefijo /en (salvo el selector de idioma, que va "raw").
+  if (!opts.raw) href = withLang(href, splitLang(window.location.pathname).lang);
   const url = new URL(href, window.location.origin);
   const current = window.location.pathname + window.location.search + window.location.hash;
   const next = url.pathname + url.search + url.hash;
@@ -102,7 +105,10 @@ export function useInternalLinkInterception() {
         rememberReturnTo();
       }
       e.preventDefault();
-      navigate(href);
+      navigate(href, { raw: anchor.hasAttribute('data-lang-switch') });
+      if (anchor.hasAttribute('data-lang-switch')) {
+        try { localStorage.setItem(LANG_STORAGE_KEY, splitLang(href).lang); } catch { /* ignore */ }
+      }
     };
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);

@@ -1,0 +1,50 @@
+{
+  "title": "Super Moist Lemon and Blueberry Loaf Cake",
+  "excerpt": "A very moist loaf cake thanks to Greek yogurt and olive oil, with fresh blueberries and a lemon glaze.",
+  "imageAlt": "Freshly baked moist glazed lemon and fresh blueberry loaf cake",
+  "ingredients": [
+    {
+      "text": "2 cups wheat flour (set aside 2 tablespoons for the blueberries)"
+    },
+    {
+      "text": "3/4 cup (150 g) sugar"
+    },
+    {
+      "text": "1 cup Greek yogurt"
+    },
+    {
+      "text": "2/3 cup olive oil"
+    },
+    {
+      "text": "2 eggs"
+    },
+    {
+      "text": "2 teaspoons baking powder"
+    },
+    {
+      "text": "1 pinch of salt"
+    },
+    {
+      "text": "1 cup Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "Zest of 2 lemons"
+    },
+    {
+      "text": "Glaze: 1 cup powdered sugar + 2–3 tablespoons lemon juice"
+    }
+  ],
+  "steps": [
+    "Beat the yogurt, oil and eggs. Add the sugar and the zest (only the green part, to avoid bitterness).",
+    "Sift the flour with the baking powder and salt. Coat the blueberries with the 2 reserved tablespoons of flour.",
+    "Combine the mixtures with a spatula, without overmixing so the gluten doesn’t develop. Add the blueberries.",
+    "Bake in a 20 x 10 cm (8 x 4 in) loaf pan at 180°C (350°F) for 55 minutes.",
+    "For the glaze, mix the powdered sugar with the lemon until smooth and thick. Pour it only when the cake is completely cold."
+  ],
+  "tips": [
+    "If the cake browns too quickly, cover it with aluminum foil from minute 35.",
+    "It is even moister the next day: wrap it in plastic wrap once cold."
+  ],
+  "imagenCredit": "Photo: Unsplash"
+}

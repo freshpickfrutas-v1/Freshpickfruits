@@ -3,6 +3,9 @@ import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, Leaf, BookOpen } f
 import { scrollToId, useAppLocation } from '../lib/router';
 import { useAuth } from '../context/AuthContext';
 import { AccountMenu } from './AccountMenu';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { splitLang, useT } from '../lib/i18n';
+import { waLink } from '../lib/contact';
 
 interface NavbarProps {
   cartItemCount: number;
@@ -15,6 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenCart,
   onNavigateToCustomOrder
 }) => {
+  const t = useT();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isStaff, signOut } = useAuth();
@@ -31,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const { pathname } = useAppLocation();
+  const { path: pathname } = splitLang(useAppLocation().pathname);
   const isActive = (path: string) => pathname === path || pathname.startsWith(`${path}/`);
 
   const navLinkClass = (active: boolean) =>
@@ -57,13 +61,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="max-w-7xl mx-auto flex items-center justify-center sm:justify-between">
           <div className="hidden sm:flex items-center gap-2 truncate">
             <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-[#DDA83A] animate-pulse"></span>
-            <span className="font-medium">Arándanos frescos listos para pedidos</span>
-            <span className="hidden sm:inline text-[#DFCEE6]">· Cosecha del día en Guasca, Cundinamarca</span>
+            <span className="font-medium">{t('Arándanos frescos listos para pedidos', 'Fresh blueberries ready to order')}</span>
+            <span className="hidden sm:inline text-[#DFCEE6]">{t('· Cosecha del día en Guasca, Cundinamarca', '· Picked today in Guasca, Cundinamarca')}</span>
           </div>
           <div className="flex items-center gap-4 text-xs shrink-0">
-            <span className="hidden md:inline text-[#DFCEE6]">🌱 Cuidamos tu alimento, a quien lo cultiva y nuestro planeta</span>
+            <span className="hidden md:inline text-[#DFCEE6]">{t('🌱 Cuidamos tu alimento, a quien lo cultiva y nuestro planeta', '🌱 We care for your food, the people who grow it and our planet')}</span>
             <a
-              href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20hacer%20un%20pedido%20de%20ar%C3%A1ndanos%20frescos"
+              href={waLink(t('Hola Fresh Pick, quiero hacer un pedido de arándanos frescos', 'Hello Fresh Pick, I would like to order fresh blueberries'))}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white flex items-center gap-1 font-semibold text-[#DDA83A] hover:underline"
@@ -89,12 +93,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             href="/"
             className="flex items-center gap-2 sm:gap-3.5 text-left group min-w-0 sm:shrink-0"
             id="nav-logo-btn"
-            aria-label="Fresh Pick - Ir al inicio"
+            aria-label={t('Fresh Pick - Ir al inicio', 'Fresh Pick - Go to home page')}
           >
             <div className="h-12 sm:h-16 md:h-18 w-16 sm:w-28 md:w-32 shrink-0 rounded-xl bg-white p-1 sm:p-1.5 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
               <img
                 src="/logo.jpg"
-                alt="Fresh Pick - Logotipo de arándanos frescos de alta montaña y agricultura responsable"
+                alt={t('Fresh Pick - Logotipo de arándanos frescos de alta montaña y agricultura responsable', 'Fresh Pick - Logo: fresh high-mountain blueberries and responsible farming')}
                 className="w-full h-full object-contain"
                 referrerPolicy="no-referrer"
               />
@@ -106,24 +110,27 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </span>
                 {/* Hidden on desktop so the full menu fits next to the logo */}
                 <span className="hidden sm:inline xl:hidden text-xs sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
-                  Arándanos
+                  {t('Arándanos', 'Blueberries')}
                 </span>
               </div>
               <p className="text-xs sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5 leading-tight">
-                Arándanos de Alta Montaña
+                {t('Arándanos de Alta Montaña', 'High-Mountain Blueberries')}
               </p>
             </div>
           </a>
 
           {/* Desktop Navigation Links */}
           {/* "Inicio" lives on the logo here so the menu fits at 1280px. */}
-          <nav className="hidden xl:flex items-center gap-3 2xl:gap-4 text-[13px] font-semibold text-[#2F183C] shrink-0" aria-label="Menú principal">
-            <a href="/#variedades" className={navLinkClass(false)}>Nuestros Arándanos</a>
-            <a href="/#planes-mensuales" className={navLinkClass(false)}>Planes Mensuales</a>
-            <a href="/#sostenibilidad" className={navLinkClass(false)}>Sostenibilidad</a>
-            <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas</a>
-            <a href="/noticias" className={navLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>Noticias de Arándanos</a>
-            <a href="/#faq" className={navLinkClass(false)}>Preguntas</a>
+          <nav className="hidden xl:flex items-center gap-3 2xl:gap-4 text-[13px] font-semibold text-[#2F183C] shrink-0" aria-label={t('Menú principal', 'Main menu')}>
+            <a href="/#variedades" className={navLinkClass(false)}>{t('Nuestros Arándanos', 'Our Blueberries')}</a>
+            <a href="/#planes-mensuales" className={navLinkClass(false)}>{t('Planes Mensuales', 'Monthly Plans')}</a>
+            <a href="/#sostenibilidad" className={`${navLinkClass(false)} hidden 2xl:inline`}>{t('Sostenibilidad', 'Sustainability')}</a>
+            <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>{t('Recetas', 'Recipes')}</a>
+            <a href="/noticias" className={navLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>{t('Noticias de Arándanos', 'Blueberry News')}</a>
+            <a href="/#faq" className={`${navLinkClass(false)} hidden 2xl:inline`}>{t('Preguntas', 'FAQ')}</a>
+            <span className="h-4 w-px bg-[#DFCEE6]" aria-hidden="true" />
+            <a href="/mayoristas/colombia" className={navLinkClass(isActive('/mayoristas/colombia'))} aria-current={isActive('/mayoristas/colombia') ? 'page' : undefined}>{t('Al por mayor Colombia', 'Wholesale Colombia')}</a>
+            <a href="/mayoristas/mundo" className={navLinkClass(isActive('/mayoristas/mundo'))} aria-current={isActive('/mayoristas/mundo') ? 'page' : undefined}>Wholesale World</a>
           </nav>
 
           {/* Action CTAs & Cart */}
@@ -134,9 +141,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="hidden sm:flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-white bg-[#2F183C] hover:bg-[#432356] active:scale-95 transition-all px-4 py-2.5 rounded-xl shadow-xs cursor-pointer whitespace-nowrap"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#DDA83A]" />
-              <span>Armar Pedido</span>
+              <span>{t('Armar Pedido', 'Build Your Order')}</span>
               <ChevronRight className="w-4 h-4" />
             </button>}
+
+            <LanguageSwitcher className="shrink-0" />
 
             <AccountMenu />
 
@@ -144,7 +153,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="header-cart-btn"
               onClick={onOpenCart}
               className="relative p-2.5 rounded-lg text-[#2F183C] hover:text-[#7B4382] hover:bg-[#F5ECF9] transition-colors"
-              aria-label="Ver carrito"
+              aria-label={t('Ver carrito', 'View cart')}
             >
               <ShoppingBag className="w-5 h-5" />
               {cartItemCount > 0 && (
@@ -158,7 +167,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="mobile-menu-toggle-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="xl:hidden p-2 rounded-lg text-[#2F183C] hover:bg-[#F5ECF9]"
-              aria-label="Abrir menú de navegación"
+              aria-label={t('Abrir menú de navegación', 'Open navigation menu')}
               aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -172,9 +181,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="mb-4 rounded-xl border border-[#EADBEE] bg-[#FAF7F0] p-3 space-y-1">
                 <p className="text-xs text-stone-500 truncate">{user.email}</p>
                 {isStaff
-                  ? <a href="/admin" onClick={closeMenu} className={mobileLinkClass(false)}>Panel del equipo</a>
-                  : <a href="/panel" onClick={closeMenu} className={mobileLinkClass(false)}>Mi cuenta y pedidos</a>}
-                <button onClick={() => { closeMenu(); signOut(); }} className={mobileLinkClass(false)}>Cerrar sesión</button>
+                  ? <a href="/admin" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Panel del equipo', 'Team panel')}</a>
+                  : <a href="/panel" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Mi cuenta y pedidos', 'My account and orders')}</a>}
+                <button onClick={() => { closeMenu(); signOut(); }} className={mobileLinkClass(false)}>{t('Cerrar sesión', 'Sign out')}</button>
               </div>
             ) : (
               <a
@@ -182,7 +191,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={closeMenu}
                 className="mb-3 flex items-center justify-center gap-2 w-full py-3 rounded-xl border-2 border-[#2F183C] text-[#2F183C] font-bold"
               >
-                Ingresar o crear cuenta
+                {t('Ingresar o crear cuenta', 'Sign in or create an account')}
               </a>
             )}
             {!isStaff && <button
@@ -191,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[#DDA83A]" />
-                <span>Armar Pedido de Arándanos</span>
+                <span>{t('Armar Pedido de Arándanos', 'Build Your Blueberry Order')}</span>
               </div>
               <ChevronRight className="w-4 h-4 text-[#DDA83A]" />
             </button>}
@@ -199,40 +208,42 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Three groups: one column on phones, three side by side on tablets */}
             <div className="grid gap-5 md:grid-cols-3 md:gap-6">
               <div>
-                <p className={groupTitleClass}><ShoppingBag className="w-3.5 h-3.5" /> Comprar</p>
+                <p className={groupTitleClass}><ShoppingBag className="w-3.5 h-3.5" /> {t('Comprar', 'Shop')}</p>
                 <div className="space-y-1">
-                  <a href="/#variedades" onClick={closeMenu} className={mobileLinkClass(false)}>Nuestros Arándanos</a>
-                  <a href="/#pedidos-personalizados" onClick={closeMenu} className={mobileLinkClass(false)}>Armar Pedido</a>
-                  <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>Planes Mensuales</a>
+                  <a href="/#variedades" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Nuestros Arándanos', 'Our Blueberries')}</a>
+                  <a href="/#pedidos-personalizados" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Armar Pedido', 'Build Your Order')}</a>
+                  <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Planes Mensuales', 'Monthly Plans')}</a>
+                  <a href="/mayoristas/colombia" onClick={closeMenu} className={mobileLinkClass(isActive('/mayoristas/colombia'))}>{t('Al por mayor Colombia', 'Wholesale Colombia')}</a>
+                  <a href="/mayoristas/mundo" onClick={closeMenu} className={mobileLinkClass(isActive('/mayoristas/mundo'))}>Wholesale World</a>
                 </div>
               </div>
               <div>
-                <p className={groupTitleClass}><BookOpen className="w-3.5 h-3.5" /> Aprender</p>
+                <p className={groupTitleClass}><BookOpen className="w-3.5 h-3.5" /> {t('Aprender', 'Learn')}</p>
                 <div className="space-y-1">
-                  <a href="/recetas" onClick={closeMenu} className={mobileLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>Recetas con Arándanos</a>
-                  <a href="/noticias" onClick={closeMenu} className={mobileLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>Noticias de Arándanos</a>
-                  <a href="/#faq" onClick={closeMenu} className={mobileLinkClass(false)}>Preguntas Frecuentes</a>
+                  <a href="/recetas" onClick={closeMenu} className={mobileLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>{t('Recetas con Arándanos', 'Blueberry Recipes')}</a>
+                  <a href="/noticias" onClick={closeMenu} className={mobileLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>{t('Noticias de Arándanos', 'Blueberry News')}</a>
+                  <a href="/#faq" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Preguntas Frecuentes', 'Frequently Asked Questions')}</a>
                 </div>
               </div>
               <div>
-                <p className={groupTitleClass}><Leaf className="w-3.5 h-3.5" /> Nosotros</p>
+                <p className={groupTitleClass}><Leaf className="w-3.5 h-3.5" /> {t('Nosotros', 'About us')}</p>
                 <div className="space-y-1">
-                  <a href="/" onClick={closeMenu} className={mobileLinkClass(false)}>Inicio</a>
-                  <a href="/#sostenibilidad" onClick={closeMenu} className={mobileLinkClass(false)}>Sostenibilidad & Finca</a>
-                  <button onClick={goToContact} className={mobileLinkClass(false)}>Contacto & Finca</button>
+                  <a href="/" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Inicio', 'Home')}</a>
+                  <a href="/#sostenibilidad" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Sostenibilidad & Finca', 'Sustainability & Farm')}</a>
+                  <button onClick={goToContact} className={mobileLinkClass(false)}>{t('Contacto & Finca', 'Contact & Farm')}</button>
                 </div>
               </div>
             </div>
 
             <div className="mt-5 pt-4 border-t border-[#EADBEE]">
               <a
-                href="https://wa.me/573178931026?text=Hola%20Fresh%20Pick,%20quiero%20hacer%20un%20pedido%20de%20ar%C3%A1ndanos%20frescos"
+                href={waLink(t('Hola Fresh Pick, quiero hacer un pedido de arándanos frescos', 'Hello Fresh Pick, I would like to order fresh blueberries'))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full text-center py-2.5 rounded-lg bg-[#2F183C] text-white font-bold flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4 text-[#DDA83A]" />
-                <span>Hablar por WhatsApp</span>
+                <span>{t('Hablar por WhatsApp', 'Chat on WhatsApp')}</span>
               </a>
             </div>
           </div>

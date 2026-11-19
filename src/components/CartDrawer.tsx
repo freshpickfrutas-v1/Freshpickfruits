@@ -1,6 +1,8 @@
 import React from 'react';
 import { FruitItem } from '../types';
 import { SHIPPING_FEE } from '../lib/pricing';
+import { dateLocale, useLang, useT } from '../lib/i18n';
+import { waLink } from '../lib/contact';
 import { CreditCard, X, Plus, Minus, Trash2, ShoppingBag, Sparkles, ArrowRight, AlertCircle, CheckCircle2, MessageCircle } from 'lucide-react';
 
 export interface CartItem {
@@ -28,6 +30,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onGoToCustomOrder,
   onCheckoutOnline
 }) => {
+  const t = useT();
+  const loc = dateLocale(useLang());
   if (!isOpen) return null;
 
   const subtotal = items.reduce((acc, item) => acc + (item.fruit.standardPrice * item.quantity), 0);
@@ -44,28 +48,24 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
   const handleWhatsAppCheckout = () => {
     if (!meetsMinOrder) {
-      alert(`El pedido mínimo total son 500g. Llevas ${totalGrams}g (faltan ${500 - totalGrams}g para completar el mínimo).`);
+      alert(t(`El pedido mínimo total son 500g. Llevas ${totalGrams}g (faltan ${500 - totalGrams}g para completar el mínimo).`, `The minimum order is 500 g in total. You have ${totalGrams} g (${500 - totalGrams} g short of the minimum).`));
       return;
     }
     if (hasPackingError) {
-      alert('Por favor ajusta los estuches de 125g y 250g a múltiplos de 2 unidades para poder empacar tu envío.');
+      alert(t('Por favor ajusta los estuches de 125g y 250g a múltiplos de 2 unidades para poder empacar tu envío.', 'Please adjust the 125 g and 250 g boxes to multiples of 2 so we can pack your order.'));
       return;
     }
 
     const list = items.map(item => {
       const g = (item.fruit.defaultGramUnit || 125) * item.quantity;
-      return `• ${item.fruit.name} (${item.fruit.presentation}) x${item.quantity} [${g}g]: $${(item.fruit.standardPrice * item.quantity).toLocaleString('es-CO')} COP`;
-    }).join('%0A');
+      return `• ${item.fruit.name} (${item.fruit.presentation}) x${item.quantity} [${g}g]: $${(item.fruit.standardPrice * item.quantity).toLocaleString(loc)} COP`;
+    }).join('\n');
 
-    const msg = `*PEDIDO DIRECTO - FRESH PICK ARÁNDANOS*%0A%0A` +
-      `*Productos (${totalGrams}g totales):*%0A${list}%0A%0A` +
-      `*Subtotal:* $${subtotal.toLocaleString('es-CO')} COP%0A` +
-      `*Envío:* $${SHIPPING_FEE.toLocaleString('es-CO')} COP%0A` +
-      `*TOTAL:* $${total.toLocaleString('es-CO')} COP%0A%0A` +
-      `Nota: Cumple condición de despacho (mínimo total 500g y múltiplos de 2 para estuches de 125g y 250g).%0A` +
-      `Hola! Deseo confirmar este pedido de arándanos frescos para despacho a domicilio.`;
-    
-    window.open(`https://wa.me/573178931026?text=${msg}`, '_blank');
+    const msg = t(
+      `*PEDIDO DIRECTO - FRESH PICK ARÁNDANOS*\n\n*Productos (${totalGrams}g totales):*\n${list}\n\n*Subtotal:* $${subtotal.toLocaleString(loc)} COP\n*Envío:* $${SHIPPING_FEE.toLocaleString(loc)} COP\n*TOTAL:* $${total.toLocaleString(loc)} COP\n\nNota: Cumple condición de despacho (mínimo total 500g y múltiplos de 2 para estuches de 125g y 250g).\nHola! Deseo confirmar este pedido de arándanos frescos para despacho a domicilio.`,
+      `*DIRECT ORDER - FRESH PICK BLUEBERRIES*\n\n*Products (${totalGrams} g total):*\n${list}\n\n*Subtotal:* COP $${subtotal.toLocaleString(loc)}\n*Shipping:* COP $${SHIPPING_FEE.toLocaleString(loc)}\n*TOTAL:* COP $${total.toLocaleString(loc)}\n\nNote: Meets dispatch rules (500 g minimum in total and multiples of 2 for 125 g and 250 g boxes).\nHello! I would like to confirm this order of fresh blueberries for home delivery.`
+    );
+    window.open(waLink(msg), '_blank');
   };
 
   return (
@@ -77,7 +77,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <div className="flex items-center gap-2">
             <ShoppingBag className="w-5 h-5 text-blue-800" />
             <h3 className="text-lg font-bold text-stone-900 font-display">
-              Tu Carrito de Cosecha
+              {t('Tu Carrito de Cosecha', 'Your Harvest Cart')}
             </h3>
             <span className="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full">
               {items.reduce((sum, i) => sum + i.quantity, 0)}
@@ -87,7 +87,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <button
             onClick={onClose}
             className="p-1.5 rounded-lg text-stone-500 hover:bg-stone-200/60 transition-colors cursor-pointer"
-            aria-label="Cerrar carrito"
+            aria-label={t('Cerrar carrito', 'Close cart')}
           >
             <X className="w-5 h-5" />
           </button>
@@ -100,21 +100,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <div className="p-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 text-amber-700" />
                 <span>
-                  <strong>Pedido mín. total: 500g</strong> (Faltan <strong>{500 - totalGrams}g</strong> para completar el mínimo)
+                  {t(<><strong>Pedido mín. total: 500g</strong> (Faltan <strong>{500 - totalGrams}g</strong> para completar el mínimo)</>, <><strong>Minimum order: 500 g total</strong> (<strong>{500 - totalGrams} g</strong> short of the minimum)</>)}
                 </span>
               </div>
             ) : (
               <div className="p-2 rounded-xl bg-[#F5ECF9] border border-[#DFCEE6] text-[#2F183C] text-xs flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0 text-[#7B4382]" />
                 <span>
-                  <strong>✓ Pedido mínimo completado</strong> ({totalGrams}g en total)
+                  {t(<><strong>✓ Pedido mínimo completado</strong> ({totalGrams}g en total)</>, <><strong>✓ Minimum order reached</strong> ({totalGrams} g in total)</>)}
                 </span>
               </div>
             )}
             {hasPackingError && (
               <div className="p-2 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0 text-red-700" />
-                <span>Ajusta a múltiplos de 2 unidades para 125g y 250g.</span>
+                <span>{t('Ajusta a múltiplos de 2 unidades para 125g y 250g.', 'Adjust to multiples of 2 units for 125 g and 250 g boxes.')}</span>
               </div>
             )}
           </div>
@@ -128,9 +128,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 🧺
               </div>
               <div>
-                <h4 className="font-bold text-stone-800 text-base">Tu canasta está vacía</h4>
+                <h4 className="font-bold text-stone-800 text-base">{t('Tu canasta está vacía', 'Your basket is empty')}</h4>
                 <p className="text-stone-500 text-xs mt-1 max-w-xs">
-                  Añade arándanos frescos desde nuestro catálogo o arma tu caja personalizada.
+                  {t('Añade arándanos frescos desde nuestro catálogo o arma tu caja personalizada.', 'Add fresh blueberries from our catalog or build your own custom box.')}
                 </p>
               </div>
 
@@ -139,7 +139,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#2F183C] text-white text-xs font-bold hover:bg-[#432356] transition-colors cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#DDA83A]" />
-                <span>Armar Pedido de Arándanos</span>
+                <span>{t('Armar Pedido de Arándanos', 'Build Your Blueberry Order')}</span>
               </button>
             </div>
           ) : (
@@ -161,7 +161,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   <div className="flex items-center justify-between gap-3">
                     <img
                       src={item.fruit.imageUrl}
-                      alt={item.fruit.imageAlt || `${item.fruit.name} (${item.fruit.presentation}) - Arándanos frescos de alta montaña cultivados con agricultura responsable`}
+                      alt={item.fruit.imageAlt || `${item.fruit.name} (${item.fruit.presentation}) - ${t('Arándanos frescos de alta montaña cultivados con agricultura responsable', 'Fresh high-mountain blueberries grown with responsible farming')}`}
                       className="w-14 h-14 rounded-lg object-cover border border-stone-200 shrink-0"
                     />
 
@@ -170,10 +170,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         {item.fruit.name}
                       </h4>
                       <p className="text-xs text-stone-500">
-                        {item.fruit.presentation} · ${item.fruit.standardPrice.toLocaleString('es-CO')}
+                        {item.fruit.presentation} · ${item.fruit.standardPrice.toLocaleString(loc)}
                       </p>
                       <p className="text-xs font-extrabold text-[#2F183C] mt-0.5">
-                        ${(item.fruit.standardPrice * item.quantity).toLocaleString('es-CO')} COP ({step * item.quantity}g)
+                        ${(item.fruit.standardPrice * item.quantity).toLocaleString(loc)} COP ({step * item.quantity}g)
                       </p>
                     </div>
 
@@ -188,7 +188,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           }
                         }}
                         className="w-6 h-6 rounded flex items-center justify-center text-stone-600 hover:bg-stone-100 cursor-pointer"
-                        aria-label="Disminuir unidades"
+                        aria-label={t('Disminuir unidades', 'Decrease quantity')}
                       >
                         <Minus className="w-3 h-3" />
                       </button>
@@ -201,7 +201,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           onUpdateQuantity(item.fruit.id, isMultiOfTwo && nextQty % 2 !== 0 ? Math.ceil(nextQty / 2) * 2 : nextQty);
                         }}
                         className="w-6 h-6 rounded flex items-center justify-center text-stone-600 hover:bg-stone-100 cursor-pointer"
-                        aria-label="Aumentar unidades"
+                        aria-label={t('Aumentar unidades', 'Increase quantity')}
                       >
                         <Plus className="w-3 h-3" />
                       </button>
@@ -210,7 +210,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <button
                       onClick={() => onRemoveItem(item.fruit.id)}
                       className="p-1.5 text-stone-400 hover:text-red-600 transition-colors cursor-pointer"
-                      aria-label="Eliminar producto"
+                      aria-label={t('Eliminar producto', 'Remove product')}
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -218,18 +218,18 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                   <div className="text-xs text-stone-600 pt-1 border-t border-stone-200/60">
                     {step === 500 ? (
-                      <span className="text-[#7B4382] font-medium">✨ ¡Con 1 solo estuche completas el pedido mínimo total!</span>
+                      <span className="text-[#7B4382] font-medium">{t('✨ ¡Con 1 solo estuche completas el pedido mínimo total!', '✨ A single box completes the minimum order!')}</span>
                     ) : (
-                      <span className="text-amber-800 font-medium">⚠️ Nota de empaque: Solo disponible en múltiplos de 2 unidades.</span>
+                      <span className="text-amber-800 font-medium">{t('⚠️ Nota de empaque: Solo disponible en múltiplos de 2 unidades.', '⚠️ Packing note: only available in multiples of 2 units.')}</span>
                     )}
                     {isOdd && (
                       <div className="mt-1 flex items-center justify-between gap-2 text-red-700 bg-red-100/80 p-1.5 rounded-md">
-                        <span>(Por favor, ajusta a {item.quantity < 2 ? 2 : item.quantity + 1} unidades para poder empacar tu envío)</span>
+                        <span>{t(`(Por favor, ajusta a ${item.quantity < 2 ? 2 : item.quantity + 1} unidades para poder empacar tu envío)`, `(Please adjust to ${item.quantity < 2 ? 2 : item.quantity + 1} units so we can pack your order)`)}</span>
                         <button
                           onClick={() => onUpdateQuantity(item.fruit.id, item.quantity < 2 ? 2 : item.quantity + 1)}
                           className="px-2 py-0.5 bg-red-700 text-white rounded font-bold text-xs cursor-pointer"
                         >
-                          Ajustar
+                          {t('Ajustar', 'Adjust')}
                         </button>
                       </div>
                     )}
@@ -246,21 +246,21 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             <div className="space-y-1 text-xs text-stone-600">
               <div className="flex justify-between">
                 <span>Subtotal:</span>
-                <span className="font-semibold text-[#2F183C]">${subtotal.toLocaleString('es-CO')} COP</span>
+                <span className="font-semibold text-[#2F183C]">${subtotal.toLocaleString(loc)} COP</span>
               </div>
               <div className="flex justify-between items-center">
-                <span>Envío:</span>
-                <span className="font-semibold text-stone-800">${deliveryFee.toLocaleString('es-CO')} COP</span>
+                <span>{t('Envío:', 'Shipping:')}</span>
+                <span className="font-semibold text-stone-800">${deliveryFee.toLocaleString(loc)} COP</span>
               </div>
               <p className="text-xs text-stone-400">
-                Si pagas en línea se suma la comisión de la pasarela (5%).
+                {t('Si pagas en línea se suma la comisión de la pasarela (5%).', 'If you pay online, the payment gateway fee (5%) is added.')}
               </p>
             </div>
 
             <div className="pt-2 border-t border-stone-200 flex justify-between items-baseline">
               <span className="text-xs font-bold text-[#2F183C] uppercase">Total:</span>
               <span className="text-xl font-black text-[#2F183C] font-display">
-                ${total.toLocaleString('es-CO')} COP
+                ${total.toLocaleString(loc)} COP
               </span>
             </div>
 
@@ -270,7 +270,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               className="w-full py-3 px-4 rounded-xl bg-[#DDA83A] disabled:bg-stone-300 disabled:cursor-not-allowed text-[#2F183C] font-bold text-xs sm:text-sm hover:brightness-95 transition flex items-center justify-center gap-2 shadow-xs cursor-pointer"
             >
               <CreditCard className="w-4 h-4" />
-              <span>Continuar y pagar en línea</span>
+              <span>{t('Continuar y pagar en línea', 'Continue and pay online')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
@@ -280,7 +280,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               className="w-full py-3 px-4 rounded-xl bg-[#2F183C] disabled:bg-stone-300 disabled:cursor-not-allowed text-white font-bold text-xs sm:text-sm hover:bg-[#432356] transition-colors flex items-center justify-center gap-2 shadow-xs cursor-pointer"
             >
               <MessageCircle className="w-4 h-4 text-[#DDA83A]" />
-              <span>Completar Pedido por WhatsApp</span>
+              <span>{t('Completar Pedido por WhatsApp', 'Complete Order on WhatsApp')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

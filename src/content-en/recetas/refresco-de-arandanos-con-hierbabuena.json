@@ -1,0 +1,37 @@
+{
+  "title": "Blueberry Mint Sparkling Refresher",
+  "excerpt": "A bubbly, natural, lightly sweet drink, perfect for hot days or for entertaining guests.",
+  "imageAlt": "Glasses of blueberry sparkling refresher with fresh blueberries and sprigs of mint",
+  "ingredients": [
+    {
+      "text": "1 cup (150 g) Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "10 mint leaves, plus a few more for garnish"
+    },
+    {
+      "text": "2 tablespoons honey or grated panela"
+    },
+    {
+      "text": "Juice of 1/2 lemon"
+    },
+    {
+      "text": "1 liter very cold sparkling water"
+    },
+    {
+      "text": "Ice, to taste"
+    }
+  ],
+  "steps": [
+    "In a pitcher, muddle the blueberries with the mint and honey until they release their juice.",
+    "Add the lemon juice and stir.",
+    "Fill the pitcher with ice and top with the sparkling water.",
+    "Stir gently and serve with whole blueberries and mint leaves."
+  ],
+  "tips": [
+    "For a still version, use cold water and let the pitcher rest for 30 minutes in the fridge so the flavor intensifies.",
+    "Freeze blueberries inside ice cubes: they decorate and chill without watering down the drink."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

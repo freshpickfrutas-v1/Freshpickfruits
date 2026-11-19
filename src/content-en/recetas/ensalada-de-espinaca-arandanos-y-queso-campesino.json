@@ -1,0 +1,38 @@
+{
+  "title": "Spinach, Blueberry and Farmer’s Cheese Salad",
+  "excerpt": "A fresh, colorful salad with the sweet-and-tart contrast of blueberries, farmer’s cheese and toasted walnuts.",
+  "imageAlt": "Baby spinach salad with fresh blueberries, cubes of farmer’s cheese, toasted walnuts and red onion",
+  "ingredients": [
+    {
+      "text": "3/4 cup (100 g) Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "3 cups washed baby spinach"
+    },
+    {
+      "text": "100 g farmer’s cheese (queso campesino), cubed"
+    },
+    {
+      "text": "1/4 cup walnuts"
+    },
+    {
+      "text": "1/4 red onion, cut into thin slivers"
+    },
+    {
+      "text": "Vinaigrette: 3 tablespoons olive oil, 1 tablespoon balsamic vinegar, 1 teaspoon honey, 1 teaspoon mustard, salt and pepper"
+    }
+  ],
+  "steps": [
+    "Toast the walnuts in a dry skillet over medium heat for 2–3 minutes, stirring so they don’t burn.",
+    "Make the vinaigrette by shaking all its ingredients in a jar with a lid.",
+    "In a large bowl, mix the spinach with the red onion.",
+    "Add the cheese, the blueberries and the toasted walnuts.",
+    "Dress right before serving and toss gently."
+  ],
+  "tips": [
+    "Crush 5 or 6 blueberries into the vinaigrette: they add color and a very special fruity flavor.",
+    "If you make the salad ahead of time, keep the vinaigrette separate so the spinach doesn’t wilt."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

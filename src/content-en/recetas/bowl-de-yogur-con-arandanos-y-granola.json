@@ -1,0 +1,34 @@
+{
+  "title": "Yogurt Bowl with Blueberries, Granola and Honey",
+  "excerpt": "The fastest and most complete breakfast: layers of yogurt, crunchy granola and freshly washed blueberries.",
+  "imageAlt": "Bowl of plain yogurt with crunchy granola, fresh blueberries, chia seeds and a drizzle of honey",
+  "ingredients": [
+    {
+      "text": "3/4 cup (100 g) Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1 cup (240 g) plain or Greek yogurt"
+    },
+    {
+      "text": "1/3 cup granola"
+    },
+    {
+      "text": "1 tablespoon chia or flax seeds"
+    },
+    {
+      "text": "1 teaspoon honey"
+    }
+  ],
+  "steps": [
+    "Wash the blueberries right before serving and gently pat them dry with paper towels.",
+    "Serve the yogurt in a bowl and smooth it with the back of a spoon.",
+    "Arrange the granola on one side and the blueberries on the other.",
+    "Sprinkle with the seeds and finish with the drizzle of honey."
+  ],
+  "tips": [
+    "Wash the blueberries only before eating them: the bloom (the natural whitish coating) protects them, and they keep better unwashed in the fridge.",
+    "To take it to the office, assemble the bowl in a jar and keep the granola separate so it doesn’t get soggy."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

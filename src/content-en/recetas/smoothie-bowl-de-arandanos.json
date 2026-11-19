@@ -1,0 +1,48 @@
+{
+  "title": "Blueberry Smoothie Bowl with Homemade Granola",
+  "excerpt": "A creamy, intense bowl full of frozen blueberries, served with a crunchy homemade granola baked on the spot. Perfect to start the morning with flavor and freshness.",
+  "imageAlt": "Thick violet smoothie bowl topped with fresh blueberries, crunchy granola and chia seeds.",
+  "ingredients": [
+    {
+      "text": "2 1/2 cups Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1 cup plain Greek yogurt"
+    },
+    {
+      "text": "1 teaspoon lemon juice"
+    },
+    {
+      "text": "1 cup rolled oats"
+    },
+    {
+      "text": "2 tablespoons chopped almonds"
+    },
+    {
+      "text": "2 tablespoons bee honey"
+    },
+    {
+      "text": "1 tablespoon melted coconut oil"
+    },
+    {
+      "text": "1/2 teaspoon ground cinnamon"
+    },
+    {
+      "text": "1 tablespoon chia seeds"
+    }
+  ],
+  "steps": [
+    "For the granola, preheat the oven to 160°C (320°F). In a bowl, mix the oats, almonds, honey, coconut oil and cinnamon until everything is well combined.",
+    "Spread the mixture on a tray lined with baking paper and bake for 12 to 15 minutes, stirring halfway, until golden and crisp. Let cool.",
+    "For the smoothie, blend 2 cups of the Fresh Pick blueberries (previously frozen) with the Greek yogurt and the lemon juice until you get a creamy, firm texture.",
+    "Divide the frozen blueberry cream between two deep bowls.",
+    "Top with the cooled homemade granola, the remaining half cup of fresh blueberries and the chia right before serving."
+  ],
+  "tips": [
+    "We use Fresh Pick blueberries grown in the high mountains of Guasca, whose natural sweetness perfectly balances the freshness of the smoothie without adding any sugar.",
+    "To get the creamy, dense texture typical of a smoothie bowl, freeze the blueberries at least 4 hours before blending them.",
+    "You can keep leftover homemade granola in a tightly closed airtight glass jar so it stays crunchy for up to two weeks."
+  ],
+  "imagenCredit": "Illustrative image generated with AI"
+}

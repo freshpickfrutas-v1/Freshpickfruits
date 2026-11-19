@@ -8,17 +8,20 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { RecipeCard } from '../components/RecipeCard';
 import { ArticleCard } from '../components/ArticleCard';
 import { NotFoundContent } from './NotFoundContent';
-import { formatArticleDate, getBlogCategory } from '../data/blog';
+import { formatArticleDate, blogCategoriesFor } from '../data/blog';
+import { useLang, useT, withLang } from '../lib/i18n';
 import { articleIndex, getArticle, getRecipeSummary } from '../data/content';
 import { BlogBlock, ContentSource, RecipeSummary } from '../types';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
 
 export default function BlogArticlePage({ slug }: { slug: string }) {
+  const t = useT();
+  const lang = useLang();
   const article = getArticle(slug);
 
   usePageMeta({
-    title: article ? `${article.title} | Noticias de Arándanos Fresh Pick` : 'Artículo no encontrado | Fresh Pick',
-    description: article?.metaDescription ?? 'Este artículo no existe o fue movido. Explora las noticias de arándanos de Fresh Pick.',
+    title: article ? `${article.title} | ${t('Noticias de Arándanos Fresh Pick', 'Fresh Pick Blueberry News')}` : t('Artículo no encontrado | Fresh Pick', 'Article not found | Fresh Pick'),
+    description: article?.metaDescription ?? t('Este artículo no existe o fue movido. Explora las noticias de arándanos de Fresh Pick.', 'This article does not exist or was moved. Explore Fresh Pick blueberry news.'),
     path: `/noticias/${slug}`,
     image: article?.image,
     type: 'article'
@@ -28,16 +31,16 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
     return (
       <SiteShell>
         <NotFoundContent
-          title="No encontramos este artículo"
-          text="Puede que haya cambiado de nombre. Explora todas las noticias de arándanos."
+          title={t('No encontramos este artículo', 'We could not find this article')}
+          text={t('Puede que haya cambiado de nombre. Explora todas las noticias de arándanos.', 'It may have been renamed. Explore all blueberry news.')}
           href="/noticias"
-          linkLabel="Ver noticias de arándanos"
+          linkLabel={t('Ver noticias de arándanos', 'See blueberry news')}
         />
       </SiteShell>
     );
   }
 
-  const category = getBlogCategory(article.category);
+  const category = blogCategoriesFor(lang).find(c => c.id === article.category)!;
   const relatedRecipes = (article.relatedRecipes ?? [])
     .map(getRecipeSummary)
     .filter((r): r is RecipeSummary => Boolean(r));
@@ -51,8 +54,8 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-10">
             <Breadcrumbs
               items={[
-                { label: 'Inicio', href: '/' },
-                { label: 'Noticias de Arándanos', href: '/noticias' },
+                { label: t('Inicio', 'Home'), href: '/' },
+                { label: t('Noticias de Arándanos', 'Blueberry News'), href: '/noticias' },
                 { label: category.name, href: `/noticias/categoria/${category.id}` },
                 { label: article.title }
               ]}
@@ -71,11 +74,11 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
               <span className="font-semibold text-[#2F183C]">{article.author}</span>
               <span className="flex items-center gap-1.5">
                 <CalendarDays className="w-4 h-4 text-[#7B4382]" />
-                <time dateTime={article.date}>{formatArticleDate(article.date)}</time>
+                <time dateTime={article.date}>{formatArticleDate(article.date, lang)}</time>
               </span>
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-[#7B4382]" />
-                {article.readMinutes} min de lectura
+                {t(`${article.readMinutes} min de lectura`, `${article.readMinutes} min read`)}
               </span>
             </div>
           </div>
@@ -97,7 +100,7 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
                     <Block block={block} />
                     {i === Math.min(3, article.blocks.length - 2) && article.blocks.length > 6 && (
                       <div className="mt-8">
-                        <OrderCta compact title="Pruébalos tú mismo" text="Arándanos de alta montaña cosechados a mano. Entregas martes y miércoles." whatsappMessage={`Hola Fresh Pick, leí "${article.title}" y quiero pedir arándanos frescos`} />
+                        <OrderCta compact title={t('Pruébalos tú mismo', 'Try them yourself')} text={t('Arándanos de alta montaña cosechados a mano. Entregas martes y miércoles.', 'Hand-picked high-mountain blueberries. Deliveries on Tuesdays and Wednesdays.')} whatsappMessage={t(`Hola Fresh Pick, leí "${article.title}" y quiero pedir arándanos frescos`, `Hello Fresh Pick, I read "${article.title}" and would like to order fresh blueberries`)} />
                       </div>
                     )}
                   </React.Fragment>
@@ -106,23 +109,23 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
                 {article.fuentes && article.fuentes.length > 0 && <Sources sources={article.fuentes} />}
 
                 <p className="mt-10 pt-5 border-t border-[#EADBEE] text-xs text-stone-500 leading-relaxed">
-                  Este contenido es informativo y no reemplaza la consulta con un profesional de la salud.
+                  {t('Este contenido es informativo y no reemplaza la consulta con un profesional de la salud.', 'This content is for information only and does not replace consultation with a health professional.')}
                 </p>
               </div>
             </div>
 
             <div className="mt-10" id="cta-final">
               <OrderCta
-                title="Disfruta los beneficios con arándanos Fresh Pick"
-                text="Cosechados a mano en su punto exacto de madurez, sin ceras artificiales y con su pruina natural intacta. Entregas martes y miércoles."
-                whatsappMessage={`Hola Fresh Pick, leí "${article.title}" y quiero pedir arándanos frescos`}
+                title={t('Disfruta los beneficios con arándanos Fresh Pick', 'Enjoy the benefits with Fresh Pick blueberries')}
+                text={t('Cosechados a mano en su punto exacto de madurez, sin ceras artificiales y con su pruina natural intacta. Entregas martes y miércoles.', 'Hand-picked at exactly the right ripeness, with no artificial waxes and their natural bloom intact. Deliveries on Tuesdays and Wednesdays.')}
+                whatsappMessage={t(`Hola Fresh Pick, leí "${article.title}" y quiero pedir arándanos frescos`, `Hello Fresh Pick, I read "${article.title}" and would like to order fresh blueberries`)}
               />
             </div>
           </div>
 
           {relatedRecipes.length > 0 && (
             <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-              <h2 className="text-xl sm:text-2xl font-bold font-display mb-6">Recetas para ponerlo en práctica</h2>
+              <h2 className="text-xl sm:text-2xl font-bold font-display mb-6">{t('Recetas para ponerlo en práctica', 'Recipes to put it into practice')}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedRecipes.map(r => <RecipeCard key={r.slug} recipe={r} />)}
               </div>
@@ -131,7 +134,7 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
 
           {moreArticles.length > 0 && (
             <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
-              <h2 className="text-xl sm:text-2xl font-bold font-display mb-6">Sigue leyendo</h2>
+              <h2 className="text-xl sm:text-2xl font-bold font-display mb-6">{t('Sigue leyendo', 'Keep reading')}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {moreArticles.map(a => <ArticleCard key={a.slug} article={a} />)}
               </div>
@@ -156,18 +159,21 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
             name: 'Fresh Pick',
             logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.jpg` }
           },
-          mainEntityOfPage: `${SITE_URL}/noticias/${article.slug}`
+          mainEntityOfPage: `${SITE_URL}${withLang(`/noticias/${article.slug}`, lang)}`
         }}
       />
     </SiteShell>
   );
 }
 
-const Sources: React.FC<{ sources: ContentSource[] }> = ({ sources }) => (
+const Sources: React.FC<{ sources: ContentSource[] }> = ({ sources }) => {
+  const t = useT();
+  const lang = useLang();
+  return (
   <section className="mt-10 pt-6 border-t border-[#EADBEE]" aria-labelledby="fuentes-titulo">
     <h2 id="fuentes-titulo" className="flex items-center gap-2 text-lg font-bold font-display">
       <BookMarked className="w-5 h-5 text-[#7B4382]" />
-      Fuentes
+      {t('Fuentes', 'Sources')}
     </h2>
     <ol className="mt-3 space-y-2.5 text-sm text-stone-700">
       {sources.map((s, i) => (
@@ -184,15 +190,16 @@ const Sources: React.FC<{ sources: ContentSource[] }> = ({ sources }) => (
             </a>
             <span className="text-stone-500">
               {' '}· {s.medio}
-              {s.fecha && <> · <time dateTime={s.fecha}>{formatArticleDate(s.fecha)}</time></>}
-              {s.idioma === 'en' && ' · (en inglés)'}
+              {s.fecha && <> · <time dateTime={s.fecha}>{formatArticleDate(s.fecha, lang)}</time></>}
+              {s.idioma === 'en' && lang === 'es' && ' · (en inglés)'}
             </span>
           </span>
         </li>
       ))}
     </ol>
   </section>
-);
+  );
+};
 
 const Block: React.FC<{ block: BlogBlock }> = ({ block }) => {
   switch (block.type) {

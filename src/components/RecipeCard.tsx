@@ -1,11 +1,14 @@
 import React from 'react';
 import { Clock, Users, ChevronRight } from 'lucide-react';
 import { RecipeSummary } from '../types';
-import { formatMinutes, getRecipeCategory, recipeTotalMinutes } from '../data/recipes';
+import { difficultyLabel, formatMinutes, getRecipeCategory, recipeTotalMinutes } from '../data/recipes';
+import { useLang, useT } from '../lib/i18n';
 import { ContentImage } from './ContentImage';
 
 export const RecipeCard: React.FC<{ recipe: RecipeSummary }> = ({ recipe }) => {
-  const category = getRecipeCategory(recipe.category);
+  const t = useT();
+  const lang = useLang();
+  const category = getRecipeCategory(recipe.category, lang);
 
   return (
     <a
@@ -41,14 +44,14 @@ export const RecipeCard: React.FC<{ recipe: RecipeSummary }> = ({ recipe }) => {
 
         <div className="pt-3 border-t border-[#EADBEE] flex items-center justify-between gap-2 text-xs text-stone-500">
           <div className="flex items-center gap-3">
-            <span>{recipe.difficulty}</span>
+            <span>{difficultyLabel(recipe.difficulty, lang)}</span>
             <span className="flex items-center gap-1">
               <Users className="w-3.5 h-3.5" />
               {recipe.servings}
             </span>
           </div>
           <span className="font-bold text-[#7B4382] group-hover:text-[#2F183C] flex items-center gap-0.5">
-            Ver receta
+            {t('Ver receta', 'View recipe')}
             <ChevronRight className="w-3.5 h-3.5" />
           </span>
         </div>

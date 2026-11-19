@@ -7,7 +7,8 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { YouTubeFeed } from '../components/YouTubeFeed';
 import { ActiveFilters, LibraryApi, LibrarySearch, LibrarySidebar, Pagination, ResultsBar, describeFilters } from '../components/LibraryControls';
 import { visibleVideos } from '../data/featuredVideos';
-import { BLOG_CATEGORIES } from '../data/blog';
+import { blogCategoriesFor } from '../data/blog';
+import { useLang, useT } from '../lib/i18n';
 import { articleIndex } from '../data/content';
 import { articleEntries } from '../lib/libraryEntries';
 import {
@@ -27,33 +28,36 @@ import { usePageMeta } from '../lib/seo';
 const BASE = '/noticias';
 
 export default function BlogPage() {
+  const t = useT();
+  const lang = useLang();
+  const BLOG_CATEGORIES = blogCategoriesFor(lang);
   const lib = useLibraryState(BASE);
   const { state } = lib;
   const index = articleIndex();
   const ARTICLE_ENTRIES = articleEntries(index);
 
   const facets = useMemo(() => computeFacets(ARTICLE_ENTRIES, state), [state, ARTICLE_ENTRIES]);
-  const results = useMemo(() => sortEntries(filterEntries(ARTICLE_ENTRIES, state), state), [state, ARTICLE_ENTRIES]);
+  const results = useMemo(() => sortEntries(filterEntries(ARTICLE_ENTRIES, state), state, lang), [state, ARTICLE_ENTRIES, lang]);
   const page = paginate<LibraryEntry>(results, state.pagina);
   const bySlug = new Map(index.map(a => [a.slug, a]));
   const articles = page.items.map(e => bySlug.get(e.slug)!).filter(Boolean);
 
   const categoryName = (id: string) => BLOG_CATEGORIES.find(c => c.id === id)?.name;
   const category = state.categoria ? BLOG_CATEGORIES.find(c => c.id === state.categoria) : undefined;
-  const filterParts = describeFilters(state, categoryName);
+  const filterParts = describeFilters(state, categoryName, lang);
   const isDefault = activeFilterCount(state) === 0 && state.orden === 'recientes';
-  const heading = state.q.trim() ? `Resultados para “${state.q.trim()}”` : filterParts.join(' · ') || 'Todos los artículos';
+  const heading = state.q.trim() ? t(`Resultados para “${state.q.trim()}”`, `Results for “${state.q.trim()}”`) : filterParts.join(' · ') || t('Todos los artículos', 'All articles');
 
   const indexable = isIndexable(state, results.length);
   const canonical = indexable ? { ...state, pagina: page.page } : canonicalState(state);
-  const pageSuffix = page.page > 1 ? ` (página ${page.page})` : '';
+  const pageSuffix = page.page > 1 ? t(` (página ${page.page})`, ` (page ${page.page})`) : '';
   usePageMeta({
     title: isDefault && page.page === 1
-      ? 'Noticias de Arándanos | Fresh Pick'
-      : `${heading} – Noticias de Arándanos${pageSuffix} | Fresh Pick`,
+      ? t('Noticias de Arándanos | Fresh Pick', 'Blueberry News | Fresh Pick')
+      : `${heading} – ${t('Noticias de Arándanos', 'Blueberry News')}${pageSuffix} | Fresh Pick`,
     description: filterParts.length === 0 || !indexable
-      ? 'Noticias de arándanos al día: nuevos estudios de salud y nutrición, cosechas, mercado y exportación, y el cultivo de arándanos de alta montaña en Guasca, Colombia.'
-      : `Archivo de noticias de arándanos sobre ${filterParts.join(', ').toLowerCase()}: ${results.length} artículos de salud, nutrición y cultivo de alta montaña en Guasca, Colombia.`,
+      ? t('Noticias de arándanos al día: nuevos estudios de salud y nutrición, cosechas, mercado y exportación, y el cultivo de arándanos de alta montaña en Guasca, Colombia.', 'Up-to-date blueberry news: new health and nutrition studies, harvests, markets and export, and high-mountain blueberry growing in Guasca, Colombia.')
+      : t(`Archivo de noticias de arándanos sobre ${filterParts.join(', ').toLowerCase()}: ${results.length} artículos de salud, nutrición y cultivo de alta montaña en Guasca, Colombia.`, `Blueberry news archive on ${filterParts.join(', ').toLowerCase()}: ${results.length} articles on health, nutrition and high-mountain growing in Guasca, Colombia.`),
     path: serializeLibraryUrl(BASE, canonical),
     noindex: !indexable
   });
@@ -65,9 +69,9 @@ export default function BlogPage() {
 
   const hasFilter = filterParts.length > 0 || state.q.trim() !== '';
   const crumbs = [
-    { label: 'Inicio', href: '/' },
-    hasFilter ? { label: 'Noticias de Arándanos', href: BASE } : { label: 'Noticias de Arándanos' },
-    ...(hasFilter ? [{ label: filterParts.join(' · ') || 'Búsqueda' }] : [])
+    { label: t('Inicio', 'Home'), href: '/' },
+    hasFilter ? { label: t('Noticias de Arándanos', 'Blueberry News'), href: BASE } : { label: t('Noticias de Arándanos', 'Blueberry News') },
+    ...(hasFilter ? [{ label: filterParts.join(' · ') || t('Búsqueda', 'Search') }] : [])
   ];
 
   return (
@@ -79,22 +83,22 @@ export default function BlogPage() {
           <div className="max-w-3xl mt-6">
             <div className="fp-pill text-xs shadow-sm">
               <Newspaper className="w-3.5 h-3.5 text-[#7B4382]" />
-              <span>Biblioteca de noticias · {ARTICLE_ENTRIES.length} artículos</span>
+              <span>{t(`Biblioteca de noticias · ${ARTICLE_ENTRIES.length} artículos`, `News library · ${ARTICLE_ENTRIES.length} articles`)}</span>
             </div>
             <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display leading-tight">
-              Salud, nutrición y todo sobre los arándanos
+              {t('Salud, nutrición y todo sobre los arándanos', 'Health, nutrition and everything about blueberries')}
             </h1>
             <p className="mt-3 text-base sm:text-lg text-stone-700 leading-relaxed">
-              Todo lo que hemos publicado, siempre disponible. Busca por tema o explora por fecha, categoría y etiquetas.
+              {t('Todo lo que hemos publicado, siempre disponible. Busca por tema o explora por fecha, categoría y etiquetas.', 'Everything we have published, always available. Search by topic or browse by date, category and tags.')}
             </p>
           </div>
 
           <div className="mt-6 max-w-3xl">
-            <LibrarySearch lib={lib} label="Buscar en las noticias" placeholder="Busca por tema: corazón, antioxidantes, cosecha…" />
+            <LibrarySearch lib={lib} label={t('Buscar en las noticias', 'Search the news')} placeholder={t('Busca por tema: corazón, antioxidantes, cosecha…', 'Search by topic: heart, antioxidants, harvest…')} />
           </div>
 
-          <div className="mt-5 flex gap-2" role="tablist" aria-label="Contenido de noticias">
-            <TabLink href={BASE} active={state.vista !== 'videos'} label="📰 Artículos" count={ARTICLE_ENTRIES.length} lib={lib} />
+          <div className="mt-5 flex gap-2" role="tablist" aria-label={t('Contenido de noticias', 'News content')}>
+            <TabLink href={BASE} active={state.vista !== 'videos'} label={t('📰 Artículos', '📰 Articles')} count={ARTICLE_ENTRIES.length} lib={lib} />
             <TabLink href={`${BASE}?vista=videos`} active={state.vista === 'videos'} label="🎬 Videos" count={visibleVideos('noticias').length} lib={lib} video />
           </div>
         </div>
@@ -116,7 +120,7 @@ export default function BlogPage() {
                   )}
                 </div>
                 <ActiveFilters lib={lib} categories={BLOG_CATEGORIES} />
-                <ResultsBar lib={lib} page={page} noun="artículos" />
+                <ResultsBar lib={lib} page={page} noun={t('artículos', 'articles')} />
 
                 {articles.length > 0 ? (
                   <div className="space-y-6 sm:space-y-8">
@@ -129,14 +133,14 @@ export default function BlogPage() {
                   </div>
                 ) : (
                   <div className="rounded-2xl border border-dashed border-[#DFCEE6] bg-white/70 p-10 text-center">
-                    <p className="font-semibold text-[#2F183C]">No encontramos artículos con esos filtros.</p>
-                    <p className="text-sm text-stone-600 mt-1">Prueba con otra palabra o quita algún filtro.</p>
+                    <p className="font-semibold text-[#2F183C]">{t('No encontramos artículos con esos filtros.', 'We found no articles with those filters.')}</p>
+                    <p className="text-sm text-stone-600 mt-1">{t('Prueba con otra palabra o quita algún filtro.', 'Try another word or remove a filter.')}</p>
                     <a
                       href={BASE}
                       onClick={e => { e.preventDefault(); lib.update({ q: '', categoria: undefined, etiqueta: undefined, anio: undefined, mes: undefined, orden: 'recientes' }); }}
                       className="mt-3 inline-block text-sm font-bold text-[#7B4382] hover:text-[#2F183C]"
                     >
-                      Ver todos los artículos
+                      {t('Ver todos los artículos', 'See all articles')}
                     </a>
                   </div>
                 )}
@@ -153,7 +157,7 @@ export default function BlogPage() {
           )}
 
           <div className="mt-12 sm:mt-16">
-            <OrderCta whatsappMessage="Hola Fresh Pick, leí sus noticias de arándanos y quiero pedir arándanos frescos" />
+            <OrderCta whatsappMessage={t('Hola Fresh Pick, leí sus noticias de arándanos y quiero pedir arándanos frescos', 'Hello Fresh Pick, I read your blueberry news and would like to order fresh blueberries')} />
           </div>
         </div>
       </section>

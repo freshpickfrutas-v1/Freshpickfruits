@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FruitItem } from '../types';
 import { Plus, Minus, Check, Info, Sparkles, X, Shield, SunMedium, Compass, Heart } from 'lucide-react';
+import { dateLocale, useLang, useT } from '../lib/i18n';
 
 interface FruitCatalogProps {
   fruits: FruitItem[];
@@ -13,6 +14,8 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
   onAddToCart,
   onCustomizeWithFruit
 }) => {
+  const t = useT();
+  const loc = dateLocale(useLang());
   const [activeModalFruit, setActiveModalFruit] = useState<FruitItem | null>(null);
   const [addedIds, setAddedIds] = useState<Record<string, boolean>>({});
 
@@ -41,13 +44,13 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">
-            <span>Nuestra Cosecha de Arándanos</span>
+            <span>{t('Nuestra Cosecha de Arándanos', 'Our Blueberry Harvest')}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2F183C] tracking-tight font-display">
-            Arándanos Premium de Alta Montaña
+            {t('Arándanos Premium de Alta Montaña', 'Premium High-Mountain Blueberries')}
           </h2>
           <p className="mt-3 text-base sm:text-lg text-stone-700">
-            Vaccinium corymbosum cultivado a más de 2.800 m.s.n.m. en Guasca, Cundinamarca. Polinización 100% natural con 7 colmenas de Abeja Melífera, cosecha manual selectiva, libre de ceras artificiales y sin residuos químicos.
+            {t('Vaccinium corymbosum cultivado a más de 2.800 m.s.n.m. en Guasca, Cundinamarca. Polinización 100% natural con 7 colmenas de Abeja Melífera, cosecha manual selectiva, libre de ceras artificiales y sin residuos químicos.', 'Vaccinium corymbosum grown above 2,800 m in Guasca, Cundinamarca. 100% natural pollination with 7 honey bee hives, selective hand harvesting, free of artificial waxes and with no chemical residues.')}
           </p>
         </div>
 
@@ -65,7 +68,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                 <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                   <img
                     src={fruit.imageUrl}
-                    alt={fruit.imageAlt || `${fruit.name} (${fruit.presentation}) - Arándanos frescos de alta montaña cultivados con agricultura responsable y limpia`}
+                    alt={fruit.imageAlt || `${fruit.name} (${fruit.presentation}) - ${t('Arándanos frescos de alta montaña cultivados con agricultura responsable y limpia', 'Fresh high-mountain blueberries grown with responsible, clean farming')}`}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
@@ -78,7 +81,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                       {fruit.popular && (
                         <span className="px-2 py-0.5 rounded-full bg-[#7B4382] text-white text-xs font-bold flex items-center gap-1 whitespace-nowrap">
                           <Sparkles className="w-3 h-3 text-[#DDA83A]" />
-                          <span>Más pedido</span>
+                          <span>{t('Más pedido', 'Best seller')}</span>
                         </span>
                       )}
                       <span className="px-2 py-0.5 rounded-full bg-[#2F183C] text-[#DDA83A] text-xs font-bold whitespace-nowrap">
@@ -119,21 +122,21 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <span className="text-xs text-stone-500 block font-medium">
-                          Presentación: {fruit.presentation}
+                          {t('Presentación', 'Size')}: {fruit.presentation}
                         </span>
                         <div className="flex items-baseline gap-1">
                           <span className="text-lg font-black text-[#2F183C] font-display">
-                            ${fruit.standardPrice.toLocaleString('es-CO')}
+                            ${fruit.standardPrice.toLocaleString(loc)}
                           </span>
-                          <span className="text-xs text-stone-500 font-medium">COP c/u</span>
+                          <span className="text-xs text-stone-500 font-medium">{t('COP c/u', 'COP each')}</span>
                         </div>
                         {stepOf(fruit) === 2 ? (
                           <span className="text-xs text-[#785412] font-semibold block">
-                            ⚠️ Se piden de 2 en 2 estuches
+                            {t('⚠️ Se piden de 2 en 2 estuches', '⚠️ Ordered in multiples of 2 boxes')}
                           </span>
                         ) : (
                           <span className="text-xs text-[#7B4382] font-semibold block">
-                            ✨ Mínimo con 1 ud.
+                            {t('✨ Mínimo con 1 ud.', '✨ Minimum: 1 unit')}
                           </span>
                         )}
                       </div>
@@ -142,8 +145,8 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                       <button
                         onClick={() => setActiveModalFruit(fruit)}
                         className="p-2 rounded-lg text-[#2F183C] hover:text-[#7B4382] hover:bg-[#F5ECF9] transition-colors cursor-pointer"
-                        title="Ver ficha agronómica completa"
-                        aria-label={`Ver detalles de ${fruit.name}`}
+                        title={t('Ver ficha agronómica completa', 'View the full agronomic sheet')}
+                        aria-label={t(`Ver detalles de ${fruit.name}`, `View details of ${fruit.name}`)}
                       >
                         <Info className="w-4 h-4" />
                       </button>
@@ -157,16 +160,16 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                           onClick={() => changeQty(fruit, -1)}
                           disabled={qtyOf(fruit) <= stepOf(fruit) || fruit.inStock === false}
                           className="w-8 h-8 rounded-md border border-stone-200 flex items-center justify-center text-stone-700 hover:bg-stone-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-                          aria-label={`Quitar estuches de ${fruit.name}`}
+                          aria-label={t(`Quitar estuches de ${fruit.name}`, `Remove boxes of ${fruit.name}`)}
                         >
                           <Minus className="w-3.5 h-3.5" />
                         </button>
                         <div className="min-w-[4.5rem] px-1 text-center">
                           <span className="text-sm font-black text-[#2F183C] block leading-tight">
-                            {qtyOf(fruit)} {qtyOf(fruit) === 1 ? 'estuche' : 'estuches'}
+                            {qtyOf(fruit)} {qtyOf(fruit) === 1 ? t('estuche', 'box') : t('estuches', 'boxes')}
                           </span>
                           <span className="text-xs text-[#7B4382] font-semibold block leading-tight">
-                            {qtyOf(fruit) * (fruit.defaultGramUnit || 0)}g · ${(qtyOf(fruit) * fruit.standardPrice).toLocaleString('es-CO')}
+                            {qtyOf(fruit) * (fruit.defaultGramUnit || 0)}g · ${(qtyOf(fruit) * fruit.standardPrice).toLocaleString(loc)}
                           </span>
                         </div>
                         <button
@@ -174,7 +177,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                           onClick={() => changeQty(fruit, 1)}
                           disabled={fruit.inStock === false}
                           className="w-8 h-8 rounded-md bg-[#2F183C] text-white flex items-center justify-center hover:bg-[#432356] disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
-                          aria-label={`Agregar más estuches de ${fruit.name}`}
+                          aria-label={t(`Agregar más estuches de ${fruit.name}`, `Add more boxes of ${fruit.name}`)}
                         >
                           <Plus className="w-3.5 h-3.5" />
                         </button>
@@ -191,16 +194,16 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                         }`}
                       >
                         {fruit.inStock === false ? (
-                          <span>Agotado</span>
+                          <span>{t('Agotado', 'Sold out')}</span>
                         ) : isAdded ? (
                           <>
                             <Check className="w-3.5 h-3.5 text-[#DDA83A]" />
-                            <span>¡Agregado!</span>
+                            <span>{t('¡Agregado!', 'Added!')}</span>
                           </>
                         ) : (
                           <>
                             <Plus className="w-3.5 h-3.5 text-[#DDA83A]" />
-                            <span>Agregar</span>
+                            <span>{t('Agregar', 'Add')}</span>
                           </>
                         )}
                       </button>
@@ -209,12 +212,12 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
 
                   {/* Quick Custom Builder link */}
                   <div className="bg-[#F5ECF9] p-2 rounded-lg border border-[#DFCEE6] flex items-center justify-between text-xs">
-                    <span className="text-[#2F183C] font-medium">¿Necesitas otra cantidad?</span>
+                    <span className="text-[#2F183C] font-medium">{t('¿Necesitas otra cantidad?', 'Need a different amount?')}</span>
                     <button
                       onClick={() => onCustomizeWithFruit(fruit.id)}
                       className="text-[#7B4382] font-bold hover:text-[#2F183C] hover:underline flex items-center gap-0.5 cursor-pointer"
                     >
-                      <span>Personalizar</span>
+                      <span>{t('Personalizar', 'Customize')}</span>
                       <Sparkles className="w-3 h-3 text-[#DDA83A]" />
                     </button>
                   </div>
@@ -236,7 +239,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
             <div className="relative aspect-[16/8] bg-[#1E0E27]">
               <img
                 src={activeModalFruit.imageUrl}
-                alt={activeModalFruit.imageAlt || `Ficha agronómica de ${activeModalFruit.name} (${activeModalFruit.presentation}) - Arándanos de alta montaña y agricultura responsable`}
+                alt={activeModalFruit.imageAlt || t(`Ficha agronómica de ${activeModalFruit.name} (${activeModalFruit.presentation}) - Arándanos de alta montaña y agricultura responsable`, `Agronomic sheet for ${activeModalFruit.name} (${activeModalFruit.presentation}) - High-mountain blueberries and responsible farming`)}
                 className="w-full h-full object-cover opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1E0E27] via-transparent to-transparent" />
@@ -244,14 +247,14 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
               <button
                 onClick={() => setActiveModalFruit(null)}
                 className="absolute top-3 right-3 p-2 rounded-full bg-black/40 text-white hover:bg-black/70 transition-colors"
-                aria-label="Cerrar ventana"
+                aria-label={t('Cerrar ventana', 'Close window')}
               >
                 <X className="w-5 h-5" />
               </button>
 
               <div className="absolute bottom-3 left-4 right-4 text-white">
                 <span className="text-xs uppercase tracking-wider text-[#DDA83A] font-bold">
-                  Ficha Técnica Agronómica
+                  {t('Ficha Técnica Agronómica', 'Agronomic Fact Sheet')}
                 </span>
                 <h3 className="text-2xl font-black font-display">{activeModalFruit.name}</h3>
                 <p className="text-xs text-[#DFCEE6] italic">{activeModalFruit.scientificName} · {activeModalFruit.variety}</p>
@@ -269,7 +272,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                 <div>
                   <div className="flex items-center justify-center gap-1 text-xs text-stone-600 font-medium">
                     <SunMedium className="w-3.5 h-3.5 text-[#DDA83A]" />
-                    <span>Dulzor</span>
+                    <span>{t('Dulzor', 'Sweetness')}</span>
                   </div>
                   <div className="text-sm font-bold text-[#2F183C] mt-1">{activeModalFruit.brix}</div>
                 </div>
@@ -277,7 +280,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                 <div>
                   <div className="flex items-center justify-center gap-1 text-xs text-stone-600 font-medium">
                     <Compass className="w-3.5 h-3.5 text-[#7B4382]" />
-                    <span>Altitud</span>
+                    <span>{t('Altitud', 'Altitude')}</span>
                   </div>
                   <div className="text-sm font-bold text-[#2F183C] mt-1">{activeModalFruit.altitude}</div>
                 </div>
@@ -285,7 +288,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                 <div>
                   <div className="flex items-center justify-center gap-1 text-xs text-stone-600 font-medium">
                     <Shield className="w-3.5 h-3.5 text-[#7B4382]" />
-                    <span>Vida Útil</span>
+                    <span>{t('Vida Útil', 'Shelf life')}</span>
                   </div>
                   <div className="text-sm font-bold text-[#2F183C] mt-1">{activeModalFruit.shelfLife}</div>
                 </div>
@@ -295,7 +298,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-[#2F183C] mb-2 flex items-center gap-1.5">
                   <Heart className="w-4 h-4 text-[#7B4382]" />
-                  <span>Beneficios & Compromisos</span>
+                  <span>{t('Beneficios & Compromisos', 'Benefits & Commitments')}</span>
                 </h4>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   {activeModalFruit.benefits.map((b, i) => (
@@ -309,9 +312,9 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
 
               {/* Freshness Guarantee */}
               <div className="bg-[#FAF2DF] p-3.5 rounded-xl border border-[#EED7A1] text-xs text-[#785412] space-y-1">
-                <span className="font-bold block text-[#2F183C]">🫐 Garantía de Frescura Fresh Pick:</span>
+                <span className="font-bold block text-[#2F183C]">{t('🫐 Garantía de Frescura Fresh Pick:', '🫐 Fresh Pick Freshness Guarantee:')}</span>
                 <p>
-                  Garantizamos arándanos frescos o te los reemplazamos. No laves la fruta antes de guardarla. Mantenla refrigerada entre 2°C y 4°C en su empaque original para conservar su pruina protectora natural.
+                  {t('Garantizamos arándanos frescos o te los reemplazamos. No laves la fruta antes de guardarla. Mantenla refrigerada entre 2°C y 4°C en su empaque original para conservar su pruina protectora natural.', 'We guarantee fresh blueberries or we replace them. Do not wash the fruit before storing it. Keep it refrigerated between 2°C and 4°C in its original packaging to preserve its natural protective bloom.')}
                 </p>
               </div>
 
@@ -320,9 +323,9 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
             {/* Modal Footer */}
             <div className="p-4 border-t border-[#EADBEE] bg-[#FAF7F0] flex items-center justify-between gap-3">
               <div>
-                <span className="text-xs text-stone-500 block">Precio regular</span>
+                <span className="text-xs text-stone-500 block">{t('Precio regular', 'Regular price')}</span>
                 <span className="text-xl font-black text-[#2F183C] font-display">
-                  ${activeModalFruit.standardPrice.toLocaleString('es-CO')} COP c/u
+                  ${activeModalFruit.standardPrice.toLocaleString(loc)} COP {t('c/u', 'each')}
                 </span>
               </div>
 
@@ -335,7 +338,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                   }}
                   className="px-3.5 py-2.5 rounded-xl bg-white border border-[#DFCEE6] text-[#2F183C] text-xs font-bold hover:bg-[#F5ECF9] transition-colors"
                 >
-                  Personalizar Gramos
+                  {t('Personalizar Gramos', 'Customize Grams')}
                 </button>
                 <button
                   onClick={() => {
@@ -344,7 +347,7 @@ export const FruitCatalog: React.FC<FruitCatalogProps> = ({
                   }}
                   className="px-4 py-2.5 rounded-xl bg-[#2F183C] text-white text-xs font-bold hover:bg-[#432356] transition-colors shadow-xs"
                 >
-                  Añadir al Carrito
+                  {t('Añadir al Carrito', 'Add to Cart')}
                 </button>
               </div>
             </div>

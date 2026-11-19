@@ -1,0 +1,54 @@
+{
+  "title": "Impact of Drying Methods on the Quality of Blueberry Pomace",
+  "metaDescription": "A study evaluates how different drying methods influence the preservation of antioxidants and properties of blueberry pomace.",
+  "excerpt": "Researchers analyzed eight drying techniques on blueberry pomace, finding that methods such as freeze-drying and steam explosion better preserve its functional properties.",
+  "imageAlt": "Nutritional powder obtained from dried blueberry pomace next to fresh fruit",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introduction: adding value to blueberry pomace for nutrition"
+    },
+    {
+      "type": "p",
+      "text": "During the processing of blueberries to obtain juices or extracts, a solid residue known as pomace is generated. Despite being considered a by-product, this material keeps an important concentration of bioactive compounds. However, its high moisture content makes its storage and stability over time difficult, making drying processes indispensable. The way this water is removed directly affects the preservation of the fruit’s antioxidants, aroma and functional properties. Understanding which drying techniques best preserve these phytochemicals is key to developing new ingredients and food products."
+    },
+    {
+      "type": "h2",
+      "text": "What the source says: comparison of eight laboratory drying techniques"
+    },
+    {
+      "type": "p",
+      "text": "A scientific study published in the journal Food Chemistry: X comprehensively evaluated the impact of eight drying methods on the physicochemical properties, bioactive compounds, aroma profile and alpha-glucosidase enzyme inhibition activity of blueberry pomace powder. The techniques analyzed in this laboratory research included natural sun drying (ND-S), natural shade drying (ND-NS), hot-air drying at 45 °C and 160 °C (HAD45 and HAD160), microwave drying (MD), vacuum freeze-drying (VFD), and combined drying using steam explosion with hot air or freeze-drying (SE-HAD and SE-VFD)."
+    },
+    {
+      "type": "p",
+      "text": "The researchers observed that microwave drying (MD) and high-temperature hot-air drying (HAD160) caused severe browning and significant losses of bioactive compounds. In contrast, vacuum freeze-drying (VFD) was the technique that best preserved anthocyanins. For its part, the combination of steam explosion with freeze-drying (SE-VFD) recorded the highest contents of total phenols and flavonoids, reaching 96.37% inhibition of alpha-glucosidase. Metabolomic analysis revealed that steam explosion contributes to the enrichment of metabolites associated with flavonoid biosynthesis pathways, while molecular docking models showed that procyanidins B1 and B3 interact strongly with alpha-glucosidase through hydrogen bonds and van der Waals forces. Finally, entropy analysis ranked SE-VFD first in overall functional quality, followed by HAD45, VFD and SE-HAD, suggesting that SE-VFD is very promising for functional products, while HAD45 emerges as a convenient candidate for industrial production."
+    },
+    {
+      "type": "h2",
+      "text": "Context: preserving antioxidants against heat"
+    },
+    {
+      "type": "p",
+      "text": "The results are consistent with prior knowledge about the heat sensitivity of the phytonutrients in fruit. Blueberry anthocyanins and flavonoids are sensitive to high temperatures, so intense heat treatments tend to degrade the structure of these antioxidants. Using cold technologies such as freeze-drying, or integrating physical processes such as steam explosion, makes it possible to modify the cellular matrix of the ingredient, helping retain its active substances. The finding that specific procyanidins interact with key enzymes in in vitro assays shows the potential fruit by-products have when properly processed."
+    },
+    {
+      "type": "h2",
+      "text": "What it means for you: full use and food technology"
+    },
+    {
+      "type": "p",
+      "text": "For the consumer and the industry, this evidence highlights the importance of technology in food transformation. The possibility of turning blueberry pomace into a high-quality functional powder opens the door to its inclusion in supplements, cereal bars or fortified foods. Likewise, the fact that hot-air drying at 45 °C (HAD45) offers outstanding performance represents a viable and accessible alternative on an industrial scale, enabling more efficient and sustainable processes."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusion: progress toward getting the most out of the blueberry"
+    },
+    {
+      "type": "p",
+      "text": "The research shows that the choice of drying method is decisive for preserving the nutritional and functional value of blueberry pomace. At Fresh Pick we celebrate these scientific advances that highlight the virtues of this fruit, which we carefully grow above 2,800 m in Guasca, Cundinamarca, guaranteeing a hand harvest that keeps its natural properties intact."
+    }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative image generated with AI"
+}

@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { TESTIMONIALS_DATA, FAQ_DATA } from '../data/mockData';
 import { Star, ChevronDown, ChevronUp, HelpCircle, MessageSquareQuote, CheckCircle } from 'lucide-react';
+import { useLang, useT } from '../lib/i18n';
+import { FAQ_EN, localizeList } from '../data/mockData.en';
 
 export const TestimonialsAndFaq: React.FC = () => {
+  const tr = useT();
+  const lang = useLang();
+  const faqs = localizeList(FAQ_DATA, FAQ_EN, lang);
   const [openFaqId, setOpenFaqId] = useState<string | null>(FAQ_DATA[0].id);
 
   const toggleFaq = (id: string) => {
@@ -18,13 +23,13 @@ export const TestimonialsAndFaq: React.FC = () => {
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-3">
               <MessageSquareQuote className="w-3.5 h-3.5 text-[#7B4382]" />
-              <span>Experiencias de Nuestros Clientes</span>
+              <span>{tr('Experiencias de Nuestros Clientes', 'Our Customers’ Experiences')}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2F183C] tracking-tight font-display">
-              La Calidad Fresh Pick Habla por Sí Sola
+              {tr('La Calidad Fresh Pick Habla por Sí Sola', 'Fresh Pick Quality Speaks for Itself')}
             </h2>
             <p className="mt-3 text-base sm:text-lg text-stone-700">
-              Chefs de repostería, profesionales de la salud y familias que priorizan la nutrición limpia eligen nuestros arándanos de alta montaña.
+              {tr('Chefs de repostería, profesionales de la salud y familias que priorizan la nutrición limpia eligen nuestros arándanos de alta montaña.', 'Pastry chefs, health professionals and families who put clean nutrition first choose our high-mountain blueberries.')}
             </p>
           </div>
 
@@ -43,7 +48,7 @@ export const TestimonialsAndFaq: React.FC = () => {
                   </div>
 
                   <p className={`text-xs sm:text-sm leading-relaxed italic ${t.pendiente ? 'text-stone-400' : 'text-stone-700'}`}>
-                    "{t.comment}"
+                    "{lang === 'en' && t.pendiente ? 'A real Fresh Pick customer testimonial will go here.' : t.comment}"
                   </p>
                 </div>
 
@@ -51,18 +56,18 @@ export const TestimonialsAndFaq: React.FC = () => {
                   {t.avatar ? (
                     <img
                       src={t.avatar}
-                      alt={t.imageAlt || `Cliente de arándanos de alta montaña Fresh Pick: ${t.name}, en ${t.city}`}
+                      alt={t.imageAlt || tr(`Cliente de arándanos de alta montaña Fresh Pick: ${t.name}, en ${t.city}`, `Fresh Pick high-mountain blueberry customer: ${t.name}, in ${t.city}`)}
                       className="w-10 h-10 rounded-full object-cover border-2 border-[#DFCEE6]"
                     />
                   ) : (
                     <div aria-hidden="true" className="w-10 h-10 rounded-full bg-[#F5ECF9] border-2 border-[#DFCEE6] shrink-0" />
                   )}
                   <div>
-                    <h4 className="text-xs font-bold text-[#2F183C]">{t.name}</h4>
-                    <p className="text-xs text-stone-500">{t.role} · {t.city}</p>
+                    <h4 className="text-xs font-bold text-[#2F183C]">{lang === 'en' && t.pendiente ? 'Customer name' : t.name}</h4>
+                    <p className="text-xs text-stone-500">{lang === 'en' && t.pendiente ? 'Job title · City' : `${t.role} · ${t.city}`}</p>
                     <span className="text-xs text-[#7B4382] font-semibold flex items-center gap-0.5 mt-0.5">
                       <CheckCircle className="w-3 h-3 text-[#7B4382]" />
-                      <span>{t.verifiedOrder}</span>
+                      <span>{lang === 'en' && t.pendiente ? 'Order or plan type' : t.verifiedOrder}</span>
                     </span>
                   </div>
                 </div>
@@ -76,18 +81,18 @@ export const TestimonialsAndFaq: React.FC = () => {
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider mb-2">
               <HelpCircle className="w-3.5 h-3.5 text-[#7B4382]" />
-              <span>Resuelve tus Dudas</span>
+              <span>{tr('Resuelve tus Dudas', 'Get Your Questions Answered')}</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-[#2F183C] font-display">
-              Preguntas Frecuentes
+              {tr('Preguntas Frecuentes', 'Frequently Asked Questions')}
             </h3>
             <p className="text-stone-700 text-xs sm:text-sm mt-1">
-              Todo lo que necesitas saber sobre nuestros pedidos, entregas (martes y miércoles) y garantía de frescura.
+              {tr('Todo lo que necesitas saber sobre nuestros pedidos, entregas (martes y miércoles) y garantía de frescura.', 'Everything you need to know about our orders, deliveries (Tuesdays and Wednesdays) and freshness guarantee.')}
             </p>
           </div>
 
           <div className="space-y-3">
-            {FAQ_DATA.map((faq) => {
+            {faqs.map((faq) => {
               const isOpen = openFaqId === faq.id;
 
               return (

@@ -1,8 +1,12 @@
 import React from 'react';
 import { CERTIFICATIONS_LIST } from '../data/mockData';
 import { Leaf, Award, Recycle, Sun, Mountain, Users, HeartHandshake } from 'lucide-react';
+import { useLang, useT } from '../lib/i18n';
+import { CERTIFICATIONS_EN, localizeList } from '../data/mockData.en';
 
 export const AboutAndSustainability: React.FC = () => {
+  const t = useT();
+  const lang = useLang();
   return (
     <section id="sostenibilidad" className="py-12 sm:py-16 bg-[#EEF4E8]/90 backdrop-blur-[2px] border-b border-[#D5E3C8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,7 +19,7 @@ export const AboutAndSustainability: React.FC = () => {
             <div className="rounded-3xl overflow-hidden shadow-xl aspect-[4/3] bg-stone-100 border-4 border-white">
               <img
                 src="/assets/finca/finca-arandanos-invernadero-3.jpg"
-                alt="Cultivo de arándanos Fresh Pick a más de 2.800 msnm en la Vereda Santa Bárbara, Guasca, Cundinamarca, con agricultura responsable y polinización natural"
+                alt={t('Cultivo de arándanos Fresh Pick a más de 2.800 msnm en la Vereda Santa Bárbara, Guasca, Cundinamarca, con agricultura responsable y polinización natural', 'Fresh Pick blueberry crop above 2,800 m in the Santa Bárbara hamlet, Guasca, Cundinamarca, with responsible farming and natural pollination')}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -23,13 +27,13 @@ export const AboutAndSustainability: React.FC = () => {
             {/* Caption below image */}
             <div className="mt-5 px-1">
               <span className="text-xs uppercase font-bold tracking-wider text-[#C59328]">
-                Nuestra Finca Andina
+                {t('Nuestra Finca Andina', 'Our Andean Farm')}
               </span>
               <h3 className="text-xl font-bold font-display text-[#2F183C]">
-                Vereda Santa Bárbara · Guasca, Cundinamarca
+                {t('Vereda Santa Bárbara · Guasca, Cundinamarca', 'Santa Bárbara hamlet · Guasca, Cundinamarca')}
               </h3>
               <p className="text-xs text-stone-600">
-                A más de 2.800 m.s.n.m., con agua de manantial y tierra negra de 2 m de profundidad
+                {t('A más de 2.800 m.s.n.m., con agua de manantial y tierra negra de 2 m de profundidad', 'Above 2,800 m, with spring water and black soil 2 m deep')}
               </p>
             </div>
 
@@ -40,8 +44,8 @@ export const AboutAndSustainability: React.FC = () => {
                   <Recycle className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold">Agua 100% de Manantial</div>
-                  <div className="text-xs text-[#DFCEE6]">Y agua lluvia para todo el cultivo</div>
+                  <div className="text-xs font-bold">{t('Agua 100% de Manantial', '100% Spring Water')}</div>
+                  <div className="text-xs text-[#DFCEE6]">{t('Y agua lluvia para todo el cultivo', 'And rainwater for the whole crop')}</div>
                 </div>
               </div>
             </div>
@@ -51,45 +55,45 @@ export const AboutAndSustainability: React.FC = () => {
           <div className="lg:col-span-6 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6] text-xs font-bold uppercase tracking-wider">
               <Mountain className="w-3.5 h-3.5 text-[#7B4382]" />
-              <span>Nuestra Finca & Compromiso</span>
+              <span>{t('Nuestra Finca & Compromiso', 'Our Farm & Commitment')}</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2F183C] tracking-tight font-display">
-              Cuidamos tu alimento, a quien lo cultiva y nuestro planeta
+              {t('Cuidamos tu alimento, a quien lo cultiva y nuestro planeta', 'We care for your food, the people who grow it and our planet')}
             </h2>
 
             <p className="text-stone-700 text-sm sm:text-base leading-relaxed">
-              <strong className="text-[#2F183C] font-bold">Fresh Pick</strong> cultiva arándanos premium de alta montaña en la Vereda Santa Bárbara (Guasca, Cundinamarca), a más de 2.800 metros sobre el nivel del mar. Trabajamos con polinización 100% natural y procesos estrictos para entregar un producto libre de ceras artificiales, sin residuo alguno de productos químicos y con la pruina natural intacta.
+              {t(<><strong className="text-[#2F183C] font-bold">Fresh Pick</strong> cultiva arándanos premium de alta montaña en la Vereda Santa Bárbara (Guasca, Cundinamarca), a más de 2.800 metros sobre el nivel del mar. Trabajamos con polinización 100% natural y procesos estrictos para entregar un producto libre de ceras artificiales, sin residuo alguno de productos químicos y con la pruina natural intacta.</>, <><strong className="text-[#2F183C] font-bold">Fresh Pick</strong> grows premium high-mountain blueberries in the Santa Bárbara hamlet (Guasca, Cundinamarca), more than 2,800 meters above sea level. We work with 100% natural pollination and strict processes to deliver a product free of artificial waxes, with no chemical residues and with its natural bloom intact.</>)}
             </p>
 
             <p className="text-stone-700 text-sm sm:text-base leading-relaxed">
-              Cada arándano que llega a tu mesa es el resultado de una dedicación artesanal y una rigurosa cosecha manual selectiva, realizada justo en su punto óptimo de madurez para preservar sus propiedades antioxidantes y su sabor genuino.
+              {t('Cada arándano que llega a tu mesa es el resultado de una dedicación artesanal y una rigurosa cosecha manual selectiva, realizada justo en su punto óptimo de madurez para preservar sus propiedades antioxidantes y su sabor genuino.', 'Every blueberry that reaches your table is the result of artisanal dedication and a rigorous selective hand harvest, done at the exact point of ripeness to preserve its antioxidant properties and genuine flavor.')}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="p-4 rounded-xl bg-[#FAF7F0] border border-[#EADBEE]">
                 <div className="flex items-center gap-2 text-[#7B4382] font-bold text-xs uppercase mb-1">
                   <Sun className="w-4 h-4 text-[#DDA83A]" />
-                  <span>El Efecto Altura</span>
+                  <span>{t('El Efecto Altura', 'The Altitude Effect')}</span>
                 </div>
                 <p className="text-xs text-stone-600">
-                  La radiación solar de montaña y las noches frías concentran azúcares naturales y producen bayas más firmes y crocantes.
+                  {t('La radiación solar de montaña y las noches frías concentran azúcares naturales y producen bayas más firmes y crocantes.', 'Mountain sunlight and cold nights concentrate natural sugars and produce firmer, crunchier berries.')}
                 </p>
               </div>
 
               <div className="p-4 rounded-xl bg-[#FAF7F0] border border-[#EADBEE]">
                 <div className="flex items-center gap-2 text-[#7B4382] font-bold text-xs uppercase mb-1">
                   <Users className="w-4 h-4 text-[#7B4382]" />
-                  <span>Cosecha Manual & GRASP</span>
+                  <span>{t('Cosecha Manual & GRASP', 'Hand Harvest & GRASP')}</span>
                 </div>
                 <p className="text-xs text-stone-600">
-                  Cosechamos a mano únicamente los frutos en su punto óptimo de madurez. Orgánicos y biológicos para protección, fertilizantes balanceados para el sabor más intenso.
+                  {t('Cosechamos a mano únicamente los frutos en su punto óptimo de madurez. Orgánicos y biológicos para protección, fertilizantes balanceados para el sabor más intenso.', 'We hand-pick only the fruit at its peak ripeness. Organic and biological products for protection, balanced fertilizers for the most intense flavor.')}
                 </p>
               </div>
             </div>
 
             <p className="text-xs text-[#7B4382] italic font-semibold">
-              "Cuidamos tu alimento, cuidamos a quien lo cultiva y cuidamos nuestro planeta."
+              {t('"Cuidamos tu alimento, cuidamos a quien lo cultiva y cuidamos nuestro planeta."', '"We care for your food, we care for the people who grow it and we care for our planet."')}
             </p>
 
           </div>
@@ -100,17 +104,17 @@ export const AboutAndSustainability: React.FC = () => {
         <div className="mb-14">
           <div className="text-center max-w-2xl mx-auto mb-8">
             <h3 className="text-2xl font-bold font-display text-[#2F183C]">
-              Directo desde nuestros invernaderos
+              {t('Directo desde nuestros invernaderos', 'Straight from our greenhouses')}
             </h3>
             <p className="text-xs sm:text-sm text-stone-600 mt-1">
-              Así se ve la cosecha real en la Vereda Santa Bárbara, día a día.
+              {t('Así se ve la cosecha real en la Vereda Santa Bárbara, día a día.', 'This is what the real harvest looks like in Santa Bárbara, day by day.')}
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/5] border-4 border-white">
               <img
                 src="/assets/finca/finca-arandanos-mano-2.jpg"
-                alt="Arándanos maduros recién cosechados a mano en la finca Fresh Pick"
+                alt={t('Arándanos maduros recién cosechados a mano en la finca Fresh Pick', 'Ripe blueberries freshly hand-picked at the Fresh Pick farm')}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
@@ -118,7 +122,7 @@ export const AboutAndSustainability: React.FC = () => {
             <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/5] border-4 border-white">
               <img
                 src="/assets/finca/finca-arandanos-invernadero-1.jpg"
-                alt="Racimos de arándanos madurando bajo invernadero en Fresh Pick"
+                alt={t('Racimos de arándanos madurando bajo invernadero en Fresh Pick', 'Clusters of blueberries ripening in a Fresh Pick greenhouse')}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
@@ -126,7 +130,7 @@ export const AboutAndSustainability: React.FC = () => {
             <div className="rounded-2xl overflow-hidden shadow-lg aspect-[4/5] border-4 border-white">
               <img
                 src="/assets/finca/finca-arandanos-invernadero-2.jpg"
-                alt="Cultivo de arándanos en distintas etapas de maduración en los invernaderos de Fresh Pick"
+                alt={t('Cultivo de arándanos en distintas etapas de maduración en los invernaderos de Fresh Pick', 'Blueberry plants at different ripening stages in the Fresh Pick greenhouses')}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 loading="lazy"
               />
@@ -138,15 +142,15 @@ export const AboutAndSustainability: React.FC = () => {
         <div className="pt-12 border-t border-[#EADBEE]">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <h3 className="text-2xl font-bold font-display text-[#2F183C]">
-              Certificaciones & Prácticas Verificadas
+              {t('Certificaciones & Prácticas Verificadas', 'Certifications & Verified Practices')}
             </h3>
             <p className="text-xs sm:text-sm text-stone-600 mt-1">
-              Estándares nacionales e internacionales que respaldan nuestra calidad e inocuidad alimentaria.
+              {t('Estándares nacionales e internacionales que respaldan nuestra calidad e inocuidad alimentaria.', 'National and international standards that back our quality and food safety.')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {CERTIFICATIONS_LIST.map((cert) => (
+            {localizeList(CERTIFICATIONS_LIST, CERTIFICATIONS_EN as any, lang).map((cert) => (
               <div
                 key={cert.id}
                 className="bg-white p-5 rounded-2xl border border-[#EADBEE] hover:border-[#DFCEE6] transition-colors flex flex-col justify-between shadow-xs"

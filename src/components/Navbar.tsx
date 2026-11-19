@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, ChevronDown, Leaf, BookOpen } from 'lucide-react';
+import { ShoppingBag, Menu, X, Phone, Sparkles, ChevronRight, Leaf, BookOpen } from 'lucide-react';
 import { scrollToId, useAppLocation } from '../lib/router';
 import { useAuth } from '../context/AuthContext';
 import { AccountMenu } from './AccountMenu';
@@ -127,23 +127,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>{t('Recetas', 'Recipes')}</a>
             <a href="/noticias" className={navLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>{t('Noticias', 'News')}</a>
             <span className="h-4 w-px bg-[#DFCEE6]" aria-hidden="true" />
-            <div className="relative group">
-              <a
-                href="/mayoristas"
-                className={`${navLinkClass(isActive('/mayoristas'))} inline-flex items-center gap-1 whitespace-nowrap`}
-                aria-haspopup="true"
-              >
-                {t('Mayoristas', 'Wholesale')}
-                <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" aria-hidden="true" />
-              </a>
-              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-opacity absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50">
-                <div className="min-w-[13rem] rounded-xl border border-[#EADBEE] bg-white shadow-xl py-1.5 text-[13px]">
-                  <a href="/mayoristas/colombia" className="block px-4 py-2.5 whitespace-nowrap hover:bg-[#F5ECF9] hover:text-[#7B4382]" aria-current={isActive('/mayoristas/colombia') ? 'page' : undefined}>{t('Al por mayor Colombia', 'Wholesale Colombia')}</a>
-                  <a href="/mayoristas/mundo" className="block px-4 py-2.5 whitespace-nowrap hover:bg-[#F5ECF9] hover:text-[#7B4382]" aria-current={isActive('/mayoristas/mundo') ? 'page' : undefined}>Wholesale World</a>
-                  <a href="/#faq" className="block px-4 py-2.5 whitespace-nowrap border-t border-[#EADBEE] hover:bg-[#F5ECF9] hover:text-[#7B4382]">{t('Preguntas Frecuentes', 'FAQ')}</a>
-                </div>
-              </div>
-            </div>
+            <a href="/mayoristas" className={`${navLinkClass(isActive('/mayoristas'))} whitespace-nowrap`} aria-current={isActive('/mayoristas') ? 'page' : undefined}>{t('Al por mayor Colombia', 'Wholesale World')}</a>
           </nav>
 
           {/* Action CTAs & Cart */}
@@ -226,8 +210,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <a href="/#variedades" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Nuestros Arándanos', 'Our Blueberries')}</a>
                   <a href="/#pedidos-personalizados" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Armar Pedido', 'Build Your Order')}</a>
                   <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Planes Mensuales', 'Monthly Plans')}</a>
-                  <a href="/mayoristas/colombia" onClick={closeMenu} className={mobileLinkClass(isActive('/mayoristas/colombia'))}>{t('Al por mayor Colombia', 'Wholesale Colombia')}</a>
-                  <a href="/mayoristas/mundo" onClick={closeMenu} className={mobileLinkClass(isActive('/mayoristas/mundo'))}>Wholesale World</a>
+                  <a href="/mayoristas" onClick={closeMenu} className={mobileLinkClass(isActive('/mayoristas'))}>{t('Al por mayor Colombia', 'Wholesale World')}</a>
                 </div>
               </div>
               <div>

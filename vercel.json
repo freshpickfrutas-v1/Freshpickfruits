@@ -19,6 +19,26 @@
       "source": "/en/blog/:path*",
       "destination": "/en/noticias/:path*",
       "permanent": true
+    },
+    {
+      "source": "/mayoristas/colombia",
+      "destination": "/mayoristas",
+      "permanent": true
+    },
+    {
+      "source": "/mayoristas/mundo",
+      "destination": "/en/mayoristas",
+      "permanent": true
+    },
+    {
+      "source": "/en/mayoristas/colombia",
+      "destination": "/en/mayoristas",
+      "permanent": true
+    },
+    {
+      "source": "/en/mayoristas/mundo",
+      "destination": "/en/mayoristas",
+      "permanent": true
     }
   ],
   "rewrites": [

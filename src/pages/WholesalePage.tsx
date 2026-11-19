@@ -1,57 +1,38 @@
 import React, { useState } from 'react';
-import { ArrowRight, Building2, Globe2, Mail, ShieldCheck, Snowflake, Sprout, ClipboardList, Truck } from 'lucide-react';
+import { Mail, ShieldCheck, Snowflake, Sprout, ClipboardList, Truck } from 'lucide-react';
 import { SiteShell } from '../components/SiteShell';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { BlueberryIcon } from '../components/BlueberryIcon';
 import { usePageMeta } from '../lib/seo';
-import { useT } from '../lib/i18n';
+import { useLang, useT } from '../lib/i18n';
 import { WHOLESALE_EMAILS, WHOLESALE_CONTACTS } from '../lib/contact';
-
-export type WholesaleVariant = 'hub' | 'colombia' | 'world';
 
 const field =
   'w-full border border-stone-300 rounded-xl px-3 py-2.5 text-sm bg-white focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none';
 
-/** Sección de ventas al por mayor: portada con las dos puertas, Colombia y exportación. */
-export default function WholesalePage({ variant }: { variant: WholesaleVariant }) {
+/**
+ * Sección mayorista única (/mayoristas). El idioma decide el mercado:
+ * en español, ventas al por mayor a nivel nacional (Al por mayor Colombia);
+ * en inglés, ventas al por mayor internacionales (Wholesale World).
+ */
+export default function WholesalePage() {
   const t = useT();
+  const world = useLang() === 'en';
+  const variant: 'colombia' | 'world' = world ? 'world' : 'colombia';
 
-  const meta = {
-    hub: {
-      title: t('Venta al por mayor de arándanos | Fresh Pick', 'Wholesale Blueberries | Fresh Pick'),
-      description: t(
-        'Arándanos frescos de alta montaña cultivados en Guasca, Colombia, para restaurantes, hoteles, tiendas, distribuidores e importadores. Elige Al por mayor Colombia o Wholesale World.',
-        'Fresh high-mountain blueberries grown in Guasca, Colombia, for restaurants, hotels, stores, distributors and importers. Choose Wholesale Colombia or Wholesale World.'
-      ),
-      path: '/mayoristas'
-    },
-    colombia: {
-      title: t('Al por mayor Colombia | Arándanos frescos Fresh Pick', 'Wholesale Colombia | Fresh Pick Blueberries'),
-      description: t(
-        'Arándanos frescos de alta montaña al por mayor para todas las ciudades de Colombia. Pedido mínimo: 1 pallet (aprox. 360 kg). Pedidos únicamente por correo.',
-        'Wholesale fresh high-mountain blueberries for every city in Colombia. Minimum order: 1 pallet (about 360 kg). Orders by email only.'
-      ),
-      path: '/mayoristas/colombia'
-    },
-    world: {
-      title: t('Wholesale World | Arándanos de Colombia para importadores', 'Wholesale World | Colombian Blueberries for Importers'),
-      description: t(
-        'Arándanos frescos de alta montaña de Colombia para importadores y distribuidores internacionales. Finca registrada ante el ICA para exportación, GLOBALG.A.P. y GRASP.',
-        'Fresh high-mountain blueberries from Colombia for importers and international distributors. ICA-registered export farm, GLOBALG.A.P. and GRASP certified.'
-      ),
-      path: '/mayoristas/mundo'
-    }
-  }[variant];
-
-  usePageMeta({ ...meta });
+  usePageMeta({
+    title: world
+      ? 'Wholesale World | Colombian Blueberries for Importers'
+      : 'Al por mayor Colombia | Arándanos frescos Fresh Pick',
+    description: world
+      ? 'Fresh high-mountain blueberries from Colombia for importers and international distributors. Minimum order of 1 pallet (about 360 kg). ICA-registered export farm, GLOBALG.A.P. and GRASP certified.'
+      : 'Arándanos frescos de alta montaña al por mayor para todas las ciudades de Colombia. Pedido mínimo: 1 pallet (aprox. 360 kg). Pedidos únicamente por correo.',
+    path: '/mayoristas'
+  });
 
   const crumbs = [
     { label: t('Inicio', 'Home'), href: '/' },
-    variant === 'hub'
-      ? { label: t('Mayoristas', 'Wholesale') }
-      : { label: t('Mayoristas', 'Wholesale'), href: '/mayoristas' },
-    ...(variant === 'colombia' ? [{ label: t('Al por mayor Colombia', 'Wholesale Colombia') }] : []),
-    ...(variant === 'world' ? [{ label: 'Wholesale World' }] : [])
+    { label: world ? 'Wholesale World' : 'Al por mayor Colombia' }
   ];
 
   return (
@@ -62,29 +43,15 @@ export default function WholesalePage({ variant }: { variant: WholesaleVariant }
           <div className="max-w-3xl mt-6">
             <div className="fp-pill text-xs shadow-sm">
               <BlueberryIcon className="w-4 h-4" />
-              <span>{t('Venta mayorista', 'Wholesale')}</span>
+              <span>{world ? 'Wholesale' : 'Venta mayorista nacional'}</span>
             </div>
             <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight font-display leading-tight">
-              {variant === 'hub' && t('Arándanos de alta montaña para tu negocio', 'High-mountain blueberries for your business')}
-              {variant === 'colombia' && t('Al por mayor Colombia', 'Wholesale Colombia')}
-              {variant === 'world' && 'Wholesale World'}
+              {world ? 'Wholesale World' : 'Al por mayor Colombia'}
             </h1>
             <p className="mt-3 text-base sm:text-lg text-stone-700 leading-relaxed">
-              {variant === 'hub' &&
-                t(
-                  'Cosechados a mano a más de 2.800 m.s.n.m. en Guasca, Cundinamarca. Elige tu mercado: pedido mínimo de 1 pallet (aprox. 360 kg), únicamente por correo.',
-                  'Hand-picked above 2,800 m in Guasca, Cundinamarca. Choose your market: minimum order of 1 pallet (about 360 kg), by email only.'
-                )}
-              {variant === 'colombia' &&
-                t(
-                  'Venta al por mayor en todas las ciudades de Colombia. Pedido mínimo de 1 pallet (aprox. 360 kg). Los pedidos se hacen únicamente por correo.',
-                  'Wholesale sales to every city in Colombia. Minimum order of 1 pallet (about 360 kg). Orders are placed by email only.'
-                )}
-              {variant === 'world' &&
-                t(
-                  'Arándanos frescos de Colombia para importadores y distribuidores internacionales. Pedido mínimo de 1 pallet (aprox. 360 kg). Las condiciones de exportación se establecen en la negociación.',
-                  'Fresh blueberries from Colombia for importers and international distributors. Minimum order of 1 pallet (about 360 kg). Export terms are set in the negotiation.'
-                )}
+              {world
+                ? 'Fresh blueberries from Colombia for importers and international distributors. Minimum order of 1 pallet (about 360 kg). Export terms are set in the negotiation.'
+                : 'Venta al por mayor en todas las ciudades de Colombia. Pedido mínimo de 1 pallet (aprox. 360 kg). Los pedidos se hacen únicamente por correo.'}
             </p>
           </div>
         </div>
@@ -92,10 +59,8 @@ export default function WholesalePage({ variant }: { variant: WholesaleVariant }
 
       <section className="bg-[#F7F5F0]/90 py-10 sm:py-14">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          {variant === 'hub' && <Hub />}
-          {variant === 'colombia' && <ColombiaInfo />}
-          {variant === 'world' && <WorldInfo />}
-          {variant !== 'hub' && <QuoteForm variant={variant} />}
+          {world ? <WorldInfo /> : <ColombiaInfo />}
+          <QuoteForm variant={variant} />
           <TrustStrip />
           <p className="text-center text-sm text-stone-700">
             {t('Más información comercial en', 'More commercial information at')}{' '}
@@ -106,51 +71,6 @@ export default function WholesalePage({ variant }: { variant: WholesaleVariant }
     </SiteShell>
   );
 }
-
-const Hub: React.FC = () => {
-  const t = useT();
-  return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <a
-        href="/mayoristas/colombia"
-        className="group rounded-3xl bg-white border border-[#EADBEE] shadow-sm p-6 sm:p-8 hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-col"
-      >
-        <span className="w-12 h-12 rounded-xl bg-[#F5ECF9] text-[#7B4382] border border-[#DFCEE6] flex items-center justify-center">
-          <Building2 className="w-6 h-6" />
-        </span>
-        <span className="mt-4 inline-block self-start text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">Colombia</span>
-        <h2 className="mt-3 text-2xl font-black font-display">{t('Al por mayor Colombia', 'Wholesale Colombia')}</h2>
-        <ul className="mt-3 space-y-1.5 text-sm text-stone-700">
-          <li>• {t('Venta al por mayor en todas las ciudades de Colombia', 'Wholesale to every city in Colombia')}</li>
-          <li>• {t('Mínimo 1 pallet (aprox. 360 kg)', 'Minimum 1 pallet (about 360 kg)')}</li>
-          <li>• {t('Pedidos únicamente por correo', 'Orders by email only')}</li>
-        </ul>
-        <span className="mt-6 inline-flex items-center gap-2 font-bold text-[#7B4382] group-hover:text-[#2F183C]">
-          {t('Cotizar en Colombia', 'Request a quote in Colombia')} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </span>
-      </a>
-
-      <a
-        href="/mayoristas/mundo"
-        className="group rounded-3xl bg-[#2F183C] text-white border border-[#7B4382]/60 shadow-sm p-6 sm:p-8 hover:shadow-lg hover:-translate-y-0.5 transition-all flex flex-col"
-      >
-        <span className="w-12 h-12 rounded-xl bg-[#432356] text-[#DDA83A] border border-[#7B4382] flex items-center justify-center">
-          <Globe2 className="w-6 h-6" />
-        </span>
-        <span className="mt-4 inline-block self-start text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#432356] text-[#DDA83A] border border-[#7B4382]">Export</span>
-        <h2 className="mt-3 text-2xl font-black font-display !text-[#DDA83A]">Wholesale World</h2>
-        <ul className="mt-3 space-y-1.5 text-sm text-[#DFCEE6]">
-          <li>• {t('Importadores y distribuidores internacionales', 'Importers and international distributors')}</li>
-          <li>• {t('Mínimo 1 pallet (aprox. 360 kg)', 'Minimum 1 pallet (about 360 kg)')}</li>
-          <li>• {t('Condiciones definidas en la negociación', 'Terms set in the negotiation')}</li>
-        </ul>
-        <span className="mt-6 inline-flex items-center gap-2 font-bold text-[#DDA83A]">
-          {t('Solicitar cotización de exportación', 'Request an export quote')} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-        </span>
-      </a>
-    </div>
-  );
-};
 
 const Feature: React.FC<{ icon: React.ReactNode; title: string; text: string }> = ({ icon, title, text }) => (
   <div className="rounded-2xl bg-white border border-[#EADBEE] p-5 shadow-xs">

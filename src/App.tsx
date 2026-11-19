@@ -29,9 +29,8 @@ function renderRoute(pathname: string) {
   if (pathname === '/terminos') return <LegalPage kind="terminos" />;
   if (pathname === '/cookies') return <LegalPage kind="cookies" />;
   if (pathname === '/gracias') return <ThankYouPage />;
-  if (pathname === '/mayoristas') return <WholesalePage variant="hub" />;
-  if (pathname === '/mayoristas/colombia') return <WholesalePage variant="colombia" />;
-  if (pathname === '/mayoristas/mundo') return <WholesalePage variant="world" />;
+  // Una sola sección: en español es la venta nacional y en inglés la internacional. Las rutas viejas siguen mostrándola.
+  if (pathname === '/mayoristas' || pathname.startsWith('/mayoristas/')) return <WholesalePage />;
 
   const route = matchContentRoute(pathname);
   switch (route?.type) {

@@ -100,13 +100,8 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/mayoristas/colombia" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Al por mayor Colombia', 'Wholesale Colombia')}
-                </a>
-              </li>
-              <li>
-                <a href="/mayoristas/mundo" className="hover:text-[#DDA83A] transition-colors">
-                  Wholesale World
+                <a href="/mayoristas" className="hover:text-[#DDA83A] transition-colors">
+                  {t('Al por mayor Colombia', 'Wholesale World')}
                 </a>
               </li>
             </ul>

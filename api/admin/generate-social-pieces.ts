@@ -98,11 +98,18 @@ URL canónica: ${url || `https://www.freshpickfruits.com/${basePath}/${slug || '
 
   try {
     const ai = new GoogleGenAI({ apiKey });
-    const model =
-      process.env.GEMINI_MODELO_TEXTO ||
-      process.env.GEMINI_MODELO_MODERACION ||
-      'gemini-2.0-flash';
-    const result = await ai.models.generateContent({
+    // Google retira modelos con el tiempo (gemini-2.0-flash ya da 404): se prueban varios en orden.
+    const modelos = [
+      process.env.GEMINI_MODELO_TEXTO,
+      process.env.GEMINI_MODELO_MODERACION,
+      'gemini-3.5-flash',
+      'gemini-3.5-flash-lite',
+    ].filter((m, i, a): m is string => !!m && a.indexOf(m) === i);
+    let result: Awaited<ReturnType<typeof ai.models.generateContent>> | undefined;
+    let ultimoError: unknown;
+    for (const model of modelos) {
+      try {
+        result = await ai.models.generateContent({
       model,
       contents: userPrompt,
       config: {
@@ -134,7 +141,14 @@ URL canónica: ${url || `https://www.freshpickfruits.com/${basePath}/${slug || '
           required: ['instagram', 'facebook', 'x'],
         },
       },
-    });
+        });
+        break;
+      } catch (e) {
+        ultimoError = e; // modelo retirado, saturado o sin cuota: se prueba el siguiente
+        console.error('generate-social-pieces modelo', model, (e as Error)?.message?.slice(0, 160));
+      }
+    }
+    if (!result) throw ultimoError ?? new Error('Ningún modelo respondió');
 
     const texto = result.text;
     if (!texto) throw new Error('Respuesta vacía de Gemini');

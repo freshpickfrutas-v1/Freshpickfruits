@@ -91,31 +91,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Brand Logo */}
           <a
             href="/"
-            className="flex items-center gap-2 sm:gap-3.5 text-left group min-w-0 sm:shrink-0"
+            className="flex items-center text-left group min-w-0 shrink-0"
             id="nav-logo-btn"
             aria-label={t('Fresh Pick - Ir al inicio', 'Fresh Pick - Go to home page')}
           >
-            <div className="h-12 sm:h-16 md:h-18 w-16 sm:w-28 md:w-32 shrink-0 rounded-xl bg-white p-1 sm:p-1.5 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform shrink-0 overflow-hidden">
+            <div className="h-12 sm:h-[4.25rem] shrink-0 rounded-xl bg-white px-2.5 sm:px-3 border border-[#EADBEE] shadow-xs flex items-center justify-center group-hover:scale-[1.03] transition-transform overflow-hidden">
               <img
-                src="/logo.jpg"
+                src="/logo-nav.webp"
+                width={369}
+                height={252}
                 alt={t('Fresh Pick - Logotipo de arándanos frescos de alta montaña y agricultura responsable', 'Fresh Pick - Logo: fresh high-mountain blueberries and responsible farming')}
-                className="w-full h-full object-contain"
+                className="h-full w-auto object-contain py-1"
                 referrerPolicy="no-referrer"
+                fetchPriority="high"
               />
-            </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="text-lg sm:text-2xl font-black tracking-tight text-[#2F183C] font-display">
-                  Fresh Pick
-                </span>
-                {/* Hidden on desktop so the full menu fits next to the logo */}
-                <span className="hidden sm:inline xl:hidden text-xs sm:text-xs font-bold uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-md bg-[#F5ECF9] text-[#2F183C] border border-[#DFCEE6]">
-                  {t('Arándanos', 'Blueberries')}
-                </span>
-              </div>
-              <p className="text-xs sm:text-xs text-[#7B4382] font-semibold tracking-wide mt-0.5 leading-tight xl:hidden">
-                {t('Arándanos de Alta Montaña', 'High-Mountain Blueberries')}
-              </p>
             </div>
           </a>
 

@@ -31,11 +31,16 @@ async function esAdmin(req: any): Promise<boolean> {
   return snap.exists && snap.data()?.role === 'admin';
 }
 
+/** El token pegado en Vercel a veces trae espacios, saltos de línea, comillas o el prefijo "Bearer ": se limpia antes de usarlo. */
+function tokenGithub(): string {
+  return (process.env.GITHUB_TOKEN_REVISION ?? '').replace(/\s+/g, '').replace(/^["']+|["']+$/g, '').replace(/^Bearer/i, '');
+}
+
 async function github(ruta: string, { method = 'GET', body, raw = false }: { method?: string; body?: unknown; raw?: boolean } = {}) {
   const res = await fetch(`https://api.github.com/repos/${REPO}${ruta}`, {
     method,
     headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN_REVISION}`,
+      Authorization: `Bearer ${tokenGithub()}`,
       Accept: raw ? 'application/vnd.github.raw+json' : 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
       ...(body ? { 'Content-Type': 'application/json' } : {})
@@ -47,6 +52,7 @@ async function github(ruta: string, { method = 'GET', body, raw = false }: { met
     return res.text();
   }
   const data = await res.json().catch(() => ({}));
+  if (res.status === 401) throw new Error('GitHub rechazó el token GITHUB_TOKEN_REVISION (401): venció, fue revocado o está mal pegado en Vercel. Crea uno nuevo, guárdalo en Vercel y vuelve a desplegar.');
   if (!res.ok) throw new Error(`GitHub ${method} ${ruta}: ${res.status} ${data.message ?? ''}`);
   return data;
 }
@@ -97,7 +103,7 @@ export default async function handler(req: any, res: any) {
     console.error('admin/revision auth', err);
     return res.status(401).json({ error: 'Sesión no válida', detalle: err instanceof Error ? err.message.slice(0, 160) : undefined });
   }
-  if (!process.env.GITHUB_TOKEN_REVISION) return res.status(200).json({ error: 'no_configurado' });
+  if (!tokenGithub()) return res.status(200).json({ error: 'no_configurado' });
 
   try {
     if (req.method === 'GET') {

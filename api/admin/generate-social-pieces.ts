@@ -1,0 +1,142 @@
+// POST /api/admin/generate-social-pieces
+// Genera copys listos para Instagram, Facebook y X a partir de un contenido (receta, noticia o video).
+// Solo administradores. Usa GEMINI_API_KEY (la misma que la automatización de contenido).
+import { GoogleGenAI } from '@google/genai';
+import { adminDb } from '../_lib/admin.js';
+import firebaseConfig from '../../firebase-applet-config.json' with { type: 'json' };
+
+const BOOTSTRAP_ADMINS = ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
+
+const SYSTEM_PROMPT = `Eres el copywriter senior de Fresh Pick Fruits (marca: Fresh Pick / FreshPick Fruits).
+Marca: arándanos premium de alta montaña (Vereda Santa Bárbara, Guasca, Cundinamarca, Colombia, >2.800 m.s.n.m.).
+Tono: cercano, optimista, natural, ligeramente juguetón, sensorial (frescura, sabor, color, energía). Nunca corporativo ni frío.
+Máximo 2-3 emojis por pieza y solo si aportan. Incluye siempre #FreshPickFruits cuando haya hashtags.
+
+Debes devolver ÚNICAMENTE un JSON válido con esta forma exacta:
+{
+  "instagram": { "copy": "...", "hashtags": ["#tag1", "#tag2"] },
+  "facebook":  { "copy": "..." },
+  "x":         { "copy": "..." }
+}
+
+Reglas por red:
+- Instagram: gancho fuerte en las 1-2 primeras líneas → valor/beneficio → CTA (guarda, comparte, enlace en perfil). 8-12 hashtags relevantes. Longitud ideal 1200-1800 caracteres con saltos de línea.
+- Facebook: tono conversacional y cercano, contexto breve, invitación a comentar/compartir, enlace natural al final. 300-700 caracteres.
+- X: mensaje directo y breve (máx. 260 caracteres recomendados, nunca >280). Gancho + beneficio + enlace + 2-4 hashtags máximo.
+
+Adaptaciones por tipo:
+- receta: facilidad, tiempo, sabor, beneficio saludable, "ideal para…".
+- noticia: relevancia, "qué significa para ti", actualidad.
+- video: lo visual, la emoción, "mira cómo…", "descubre en el video…".
+
+Responde SOLO el JSON. Sin texto antes ni después.`;
+
+async function esAdmin(req: any): Promise<boolean> {
+  const header = String(req.headers?.authorization ?? '');
+  const token = header.startsWith('Bearer ') ? header.slice(7) : '';
+  if (!token) return false;
+
+  const res = await fetch(
+    `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${(firebaseConfig as { apiKey: string }).apiKey}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken: token }),
+    }
+  );
+  if (!res.ok) return false;
+  const user = (await res.json()).users?.[0];
+  if (!user?.localId) return false;
+  if (user.emailVerified && BOOTSTRAP_ADMINS.includes(user.email ?? '')) return true;
+
+  const snap = await adminDb().collection('users').doc(user.localId).get();
+  return snap.exists && snap.data()?.role === 'admin';
+}
+
+export default async function handler(req: any, res: any) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Método no permitido' });
+  }
+
+  try {
+    if (!(await esAdmin(req))) {
+      return res.status(403).json({ error: 'Solo administradores' });
+    }
+  } catch (err) {
+    console.error('generate-social-pieces auth', err);
+    return res.status(401).json({ error: 'Sesión no válida' });
+  }
+
+  if (!process.env.GEMINI_API_KEY) {
+    return res.status(500).json({ error: 'Falta GEMINI_API_KEY en el servidor' });
+  }
+
+  const { tipo, title, excerpt, body, url, slug } = req.body ?? {};
+  if (!tipo || !['receta', 'noticia', 'video'].includes(tipo) || !title) {
+    return res.status(400).json({ error: 'Faltan tipo o title' });
+  }
+
+  const basePath =
+    tipo === 'receta' ? 'recetas' : tipo === 'noticia' ? 'noticias' : 'videos';
+  const userPrompt = `
+Tipo de contenido: ${tipo}
+Título: ${title}
+Extracto / meta: ${excerpt || 'N/A'}
+Cuerpo / descripción (resumen): ${(body || '').slice(0, 2800) || 'N/A'}
+URL canónica: ${url || `https://www.freshpickfruits.com/${basePath}/${slug || ''}`}
+`;
+
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const result = await ai.models.generateContent({
+      model: 'gemini-2.0-flash',
+      contents: userPrompt,
+      config: {
+        systemInstruction: SYSTEM_PROMPT,
+        temperature: 0.75,
+        responseMimeType: 'application/json',
+        responseJsonSchema: {
+          type: 'object',
+          properties: {
+            instagram: {
+              type: 'object',
+              properties: {
+                copy: { type: 'string' },
+                hashtags: { type: 'array', items: { type: 'string' } },
+              },
+              required: ['copy', 'hashtags'],
+            },
+            facebook: {
+              type: 'object',
+              properties: { copy: { type: 'string' } },
+              required: ['copy'],
+            },
+            x: {
+              type: 'object',
+              properties: { copy: { type: 'string' } },
+              required: ['copy'],
+            },
+          },
+          required: ['instagram', 'facebook', 'x'],
+        },
+      },
+    });
+
+    const texto = result.text;
+    if (!texto) throw new Error('Respuesta vacía de Gemini');
+
+    const pieces = JSON.parse(texto);
+
+    if (!pieces?.instagram?.copy || !pieces?.facebook?.copy || !pieces?.x?.copy) {
+      throw new Error('JSON incompleto de la IA');
+    }
+
+    return res.status(200).json({ success: true, pieces });
+  } catch (err: any) {
+    console.error('generate-social-pieces', err);
+    return res.status(500).json({
+      error: 'Error al generar las piezas',
+      message: err?.message?.slice(0, 200),
+    });
+  }
+}

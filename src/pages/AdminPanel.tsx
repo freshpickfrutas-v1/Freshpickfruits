@@ -20,6 +20,7 @@ import { FRUITS_DATA } from '../data/mockData';
 import { useFullArticleIndex, useFullRecipeIndex } from '../data/content';
 import { FEATURED_VIDEOS } from '../data/featuredVideos';
 import { ContentKind, hideContent, restoreContent, isHidden, useHiddenContent, allCustomVideos, addCustomVideo, youtubeIdFrom } from '../lib/hiddenContent';
+import { GenerateSocialPieces, type SocialContentInput } from '../components/GenerateSocialPieces';
 
 function isToday(iso: string) {
   if (!iso) return false;
@@ -321,6 +322,7 @@ function ContentTab() {
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
   const [view, setView] = useState<ContentKind>('noticia');
+  const [socialTarget, setSocialTarget] = useState<SocialContentInput | null>(null);
 
   const articles = useFullArticleIndex() ?? [];
   const recipes = useFullRecipeIndex() ?? [];
@@ -451,17 +453,45 @@ function ContentTab() {
                   )}
                 </p>
               </div>
-              <button
-                disabled={busy === item.slug}
-                onClick={() => toggle(item.slug, item.title, !off)}
-                className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer disabled:opacity-50 ${off ? 'border border-[#DFCEE6] text-[#2F183C]' : 'bg-red-600 text-white hover:bg-red-700'}`}
-              >
-                {busy === item.slug ? '...' : off ? 'Restaurar' : 'Eliminar'}
-              </button>
+              <div className="flex items-center gap-2 shrink-0">
+                {!off && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const path =
+                        view === 'noticia' ? 'noticias' : view === 'receta' ? 'recetas' : 'videos';
+                      setSocialTarget({
+                        tipo: view,
+                        title: item.title,
+                        excerpt: item.date,
+                        slug: item.slug,
+                        url:
+                          view === 'video'
+                            ? `https://www.youtube.com/watch?v=${item.slug}`
+                            : `https://www.freshpickfruits.com/${path}/${item.slug}`,
+                      });
+                    }}
+                    className="px-3 py-1.5 rounded-lg text-xs font-bold border border-[#DFCEE6] text-[#7B4382] hover:bg-[#F5ECF9] cursor-pointer"
+                  >
+                    Piezas IA
+                  </button>
+                )}
+                <button
+                  disabled={busy === item.slug}
+                  onClick={() => toggle(item.slug, item.title, !off)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer disabled:opacity-50 ${off ? 'border border-[#DFCEE6] text-[#2F183C]' : 'bg-red-600 text-white hover:bg-red-700'}`}
+                >
+                  {busy === item.slug ? '...' : off ? 'Restaurar' : 'Eliminar'}
+                </button>
+              </div>
             </div>
           );
         })}
       </div>
+
+      {socialTarget && (
+        <GenerateSocialPieces content={socialTarget} onClose={() => setSocialTarget(null)} />
+      )}
     </div>
   );
 }

@@ -49,7 +49,10 @@
     "https://pubmed.ncbi.nlm.nih.gov/42958533/",
     "https://pubmed.ncbi.nlm.nih.gov/42969403/",
     "https://pubmed.ncbi.nlm.nih.gov/43038098/",
-    "https://pubmed.ncbi.nlm.nih.gov/43030321/"
+    "https://pubmed.ncbi.nlm.nih.gov/43030321/",
+    "https://pubmed.ncbi.nlm.nih.gov/43042499/",
+    "https://pubmed.ncbi.nlm.nih.gov/43029128/",
+    "https://pubmed.ncbi.nlm.nih.gov/43034575/"
   ],
   "historial": [
     {
@@ -500,6 +503,18 @@
       "fecha": "2026-11-19",
       "tipo": "noticia",
       "slug": "estudio-evalua-la-viabilidad-de-incluir-arandanos-en-adultos-mayores-con",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-19",
+      "tipo": "noticia",
+      "slug": "composicion-fenolica-y-capacidad-antioxidante-de-los-arandanos-silvestres-de",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-19",
+      "tipo": "noticia",
+      "slug": "estabilizan-antocianinas-de-arandanos-con-gelatina-de-pescado-glicada",
       "modo": "revision"
     }
   ]

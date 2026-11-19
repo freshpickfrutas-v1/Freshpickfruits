@@ -5,7 +5,7 @@ import { Breadcrumbs } from '../components/Breadcrumbs';
 import { BlueberryIcon } from '../components/BlueberryIcon';
 import { usePageMeta } from '../lib/seo';
 import { useLang, useT } from '../lib/i18n';
-import { WHOLESALE_EMAILS, WHOLESALE_CONTACTS } from '../lib/contact';
+import { WHOLESALE_CONTACTS } from '../lib/contact';
 
 const field =
   'w-full border border-stone-300 rounded-xl px-3 py-2.5 text-sm bg-white focus:border-[#7B4382] focus:ring-1 focus:ring-[#7B4382] outline-none';
@@ -175,7 +175,7 @@ const QuoteForm: React.FC<{ variant: 'colombia' | 'world' }> = ({ variant }) => 
   // Los pedidos al por mayor se hacen solo por correo y deben llegar a los dos buzones.
   const send = () => {
     if (missing) { setShowErrors(true); return; }
-    window.location.href = `mailto:${WHOLESALE_EMAILS.join(',')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    window.location.href = `mailto:${WHOLESALE_CONTACTS[variant].emails.join(',')}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
   };
 
   const kinds = world
@@ -202,11 +202,14 @@ const QuoteForm: React.FC<{ variant: 'colombia' | 'world' }> = ({ variant }) => 
           </p>
           <p className="font-bold text-[#2F183C] pt-1">{world ? 'Questions? Contact us' : t('¿Dudas? Escríbenos', 'Questions? Contact us')}</p>
           <ul className="space-y-1.5">
-            {contacts.map(c => (
-              <li key={c.display + c.email}>
-                <a className="font-semibold text-[#7B4382] underline" href={`https://wa.me/${c.phone.replace('+', '')}`} target="_blank" rel="noopener noreferrer">WhatsApp {c.display}</a>
-                {' · '}
-                <a className="text-[#7B4382] underline break-all" href={`mailto:${c.email}`}>{c.email}</a>
+            {contacts.whatsapps.map(w => (
+              <li key={w.phone}>
+                <a className="font-semibold text-[#7B4382] underline" href={`https://wa.me/${w.phone}`} target="_blank" rel="noopener noreferrer">WhatsApp {w.display}</a>
+              </li>
+            ))}
+            {contacts.emails.map(e => (
+              <li key={e}>
+                <a className="text-[#7B4382] underline break-all" href={`mailto:${e}`}>{e}</a>
               </li>
             ))}
           </ul>

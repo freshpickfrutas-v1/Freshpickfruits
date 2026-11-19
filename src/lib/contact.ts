@@ -5,16 +5,23 @@ export const CONTACT_EMAIL = 'info@freshpickfruits.com';
 
 export const waLink = (message: string) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
-/** Ventas al por mayor: los pedidos se hacen solo por correo y deben llegar a ambos buzones. */
-export const WHOLESALE_EMAILS = ['gerenciaandean@gmail.com', 'gerencia@naugroupsas.com'];
-
+/**
+ * Ventas al por mayor: los pedidos se hacen solo por correo y el mensaje llega a los dos correos del mercado.
+ * En español (ventas nacionales) y en inglés (International Wholesale) los destinatarios y WhatsApp son distintos.
+ */
 export const WHOLESALE_CONTACTS = {
-  colombia: [
-    { phone: '+573015256929', display: '+57 301 525 6929', email: 'comercialzona2@naugroupsas.com' },
-    { phone: '+573002135078', display: '+57 300 213 5078', email: 'gerencia@naugroupsas.com' }
-  ],
-  world: [
-    { phone: '+573002135078', display: '+57 300 213 5078', email: 'gerencia@naugroupsas.com' },
-    { phone: '+573002135078', display: '+57 300 213 5078', email: 'gerenciaandean@gmail.com' }
-  ]
+  colombia: {
+    emails: ['gerencia@naugroupsas.com', 'comercialzona2@naugroupsas.com'],
+    whatsapps: [
+      { phone: '573002135078', display: '+57 300 213 5078' },
+      { phone: '573015256929', display: '+57 301 525 6929' }
+    ]
+  },
+  world: {
+    emails: ['gerencia@naugroupsas.com', 'gerenciaandean@gmail.com'],
+    whatsapps: [
+      { phone: '573002135078', display: '+57 300 213 5078' },
+      { phone: '573143305110', display: '+57 314 330 5110' }
+    ]
+  }
 };

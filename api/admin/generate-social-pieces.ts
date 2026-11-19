@@ -3,6 +3,7 @@
 // Solo administradores. Usa GEMINI_API_KEY (la misma que la automatización de contenido).
 import { GoogleGenAI } from '@google/genai';
 import { adminDb } from '../_lib/admin.js';
+import { geminiKey } from '../_lib/youtube.js';
 import firebaseConfig from '../../firebase-applet-config.json' with { type: 'json' };
 
 const BOOTSTRAP_ADMINS = ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
@@ -67,8 +68,12 @@ export default async function handler(req: any, res: any) {
     return res.status(401).json({ error: 'Sesión no válida' });
   }
 
-  if (!process.env.GEMINI_API_KEY) {
-    return res.status(500).json({ error: 'Falta GEMINI_API_KEY en el servidor' });
+  const apiKey = geminiKey();
+  if (!apiKey) {
+    return res.status(500).json({
+      error:
+        'Falta GEMINI_API_KEY (o GEMINI_API_KEY2) en Vercel → Settings → Environment Variables (Production). Añádela y redespliega.',
+    });
   }
 
   const { tipo, title, excerpt, body, url, slug } = req.body ?? {};
@@ -87,9 +92,13 @@ URL canónica: ${url || `https://www.freshpickfruits.com/${basePath}/${slug || '
 `;
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const ai = new GoogleGenAI({ apiKey });
+    const model =
+      process.env.GEMINI_MODELO_TEXTO ||
+      process.env.GEMINI_MODELO_MODERACION ||
+      'gemini-2.0-flash';
     const result = await ai.models.generateContent({
-      model: 'gemini-2.0-flash',
+      model,
       contents: userPrompt,
       config: {
         systemInstruction: SYSTEM_PROMPT,

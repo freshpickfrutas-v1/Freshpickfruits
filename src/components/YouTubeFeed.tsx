@@ -3,6 +3,7 @@ import { Play } from 'lucide-react';
 import { visibleVideos } from '../data/featuredVideos';
 import { isHidden } from '../lib/hiddenContent';
 import { CachedVideo, readCache, writeCache } from '../lib/youtubeCache';
+import { ShareButtons } from './ShareButtons';
 
 interface Props {
   seccion: 'recetas' | 'noticias';
@@ -85,6 +86,13 @@ export const YouTubeFeed: React.FC<Props> = ({ seccion, categoria }) => {
             <figcaption className="p-4">
               <p className="text-sm font-semibold leading-snug text-[#2F183C]">{v.title}</p>
               <p className="mt-1 text-xs text-stone-500">{v.channel}</p>
+              <ShareButtons
+                className="mt-3"
+                variant="compact"
+                url={`https://www.youtube.com/watch?v=${v.id}`}
+                title={v.title}
+                text={v.title}
+              />
             </figcaption>
           </figure>
         ))}

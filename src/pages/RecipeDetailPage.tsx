@@ -11,6 +11,7 @@ import { difficultyLabel, formatMinutes, getRecipeCategory, recipeCategories, re
 import { useLang, useT, withLang } from '../lib/i18n';
 import { getRecipe, recipeIndex } from '../data/content';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
+import { ShareButtons } from '../components/ShareButtons';
 
 export default function RecipeDetailPage({ slug }: { slug: string }) {
   const t = useT();
@@ -75,6 +76,13 @@ export default function RecipeDetailPage({ slug }: { slug: string }) {
                   <Stat icon={<ChefHat className="w-4 h-4" />} label={t('Dificultad', 'Difficulty')} value={difficultyLabel(recipe.difficulty, lang)} />
                   <Stat icon={<Users className="w-4 h-4" />} label={t('Porciones', 'Servings')} value={String(recipe.servings)} />
                 </dl>
+
+                <ShareButtons
+                  className="mt-6"
+                  url={`/recetas/${recipe.slug}`}
+                  title={recipe.title}
+                  text={recipe.excerpt}
+                />
               </div>
 
               <figure>

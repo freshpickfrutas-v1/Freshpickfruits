@@ -13,6 +13,7 @@ import { useLang, useT, withLang } from '../lib/i18n';
 import { articleIndex, getArticle, getRecipeSummary } from '../data/content';
 import { BlogBlock, ContentSource, RecipeSummary } from '../types';
 import { JsonLd, SITE_URL, usePageMeta } from '../lib/seo';
+import { ShareButtons } from '../components/ShareButtons';
 
 export default function BlogArticlePage({ slug }: { slug: string }) {
   const t = useT();
@@ -81,6 +82,13 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
                 {t(`${article.readMinutes} min de lectura`, `${article.readMinutes} min read`)}
               </span>
             </div>
+
+            <ShareButtons
+              className="mt-5"
+              url={`/noticias/${article.slug}`}
+              title={article.title}
+              text={article.excerpt}
+            />
           </div>
         </header>
 

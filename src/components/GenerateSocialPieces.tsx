@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, RefreshCw, Loader2, Check, X } from 'lucide-react';
+import { Copy, RefreshCw, Loader2, Check, X, ExternalLink } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -105,6 +105,38 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
     setTimeout(() => setCopied(null), 1800);
   }
 
+  const contentUrl =
+    content.url ||
+    (content.slug
+      ? `https://www.freshpickfruits.com/${
+          content.tipo === 'receta' ? 'recetas' : content.tipo === 'noticia' ? 'noticias' : 'videos'
+        }/${content.slug}`
+      : 'https://www.freshpickfruits.com');
+
+  function openX(copy: string) {
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(copy)}`,
+      '_blank',
+      'noopener,noreferrer,width=600,height=560'
+    );
+  }
+
+  function openFacebook() {
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(contentUrl)}`,
+      '_blank',
+      'noopener,noreferrer,width=600,height=560'
+    );
+  }
+
+  async function openInstagram(copy: string) {
+    await navigator.clipboard.writeText(copy);
+    setCopied('instagram-share');
+    setTimeout(() => setCopied(null), 2500);
+    // Instagram no permite publicar en feed desde web; abrimos el sitio para pegar en la app.
+    window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
+  }
+
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4" onClick={onClose}>
       <div
@@ -200,6 +232,16 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
                 }
               />
               <p className="text-xs text-stone-500 leading-relaxed">{pieces.instagram.hashtags.join(' ')}</p>
+              <button
+                type="button"
+                onClick={() =>
+                  openInstagram(`${pieces.instagram.copy}\n\n${pieces.instagram.hashtags.join(' ')}`)
+                }
+                className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#833AB4] via-[#E1306C] to-[#F77737] text-white"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                {copied === 'instagram-share' ? 'Copiado · Abre Instagram y pega' : 'Copiar y abrir Instagram'}
+              </button>
             </div>
 
             <div className="border border-[#EADBEE] rounded-2xl p-4 space-y-3">
@@ -223,6 +265,22 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
                 value={pieces.facebook.copy}
                 onChange={e => setPieces({ ...pieces, facebook: { copy: e.target.value } })}
               />
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => copyText(pieces.facebook.copy, 'facebook')}
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border border-[#EADBEE] text-[#2F183C]"
+                >
+                  <Copy className="w-3.5 h-3.5" /> Copiar texto
+                </button>
+                <button
+                  type="button"
+                  onClick={openFacebook}
+                  className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-[#1877F2] text-white"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" /> Abrir Facebook
+                </button>
+              </div>
             </div>
 
             <div className="border border-[#EADBEE] rounded-2xl p-4 space-y-3">
@@ -243,6 +301,13 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
                 onChange={e => setPieces({ ...pieces, x: { copy: e.target.value } })}
               />
               <p className="text-xs text-stone-500">{pieces.x.copy.length}/280</p>
+              <button
+                type="button"
+                onClick={() => openX(pieces.x.copy)}
+                className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-black text-white"
+              >
+                <ExternalLink className="w-3.5 h-3.5" /> Publicar en X
+              </button>
             </div>
           </div>
         )}

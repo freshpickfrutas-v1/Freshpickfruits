@@ -110,19 +110,27 @@ export function faltanVariablesMeta(fb: boolean, ig: boolean): string[] {
   return f;
 }
 
-async function graph(ruta: string, params: Record<string, string>) {
+async function graph(ruta: string, params: Record<string, string>, token = limpio(process.env.META_PAGE_TOKEN)) {
   const res = await fetch(`${GRAPH}${ruta}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ ...params, access_token: limpio(process.env.META_PAGE_TOKEN) }),
+    body: new URLSearchParams({ ...params, access_token: token }),
   });
   const data: any = await res.json().catch(() => ({}));
   if (!res.ok || data.error) throw new Error(data.error?.message ?? `Meta ${res.status}`);
   return data;
 }
 
+/** Con un token de usuario del sistema, Facebook exige publicar con el token de la propia Página: se le pide a Meta con ese mismo token. */
+async function tokenDePagina(): Promise<string> {
+  const base = limpio(process.env.META_PAGE_TOKEN);
+  const qs = new URLSearchParams({ fields: 'access_token', access_token: base });
+  const r: any = await fetch(`${GRAPH}/${limpio(process.env.META_PAGE_ID)}?${qs}`).then(x => x.json()).catch(() => ({}));
+  return typeof r.access_token === 'string' && r.access_token ? r.access_token : base;
+}
+
 export async function publicarFacebook(message: string, link?: string): Promise<{ id: string }> {
-  const r = await graph(`/${limpio(process.env.META_PAGE_ID)}/feed`, { message, ...(link ? { link } : {}) });
+  const r = await graph(`/${limpio(process.env.META_PAGE_ID)}/feed`, { message, ...(link ? { link } : {}) }, await tokenDePagina());
   return { id: String(r.id) };
 }
 

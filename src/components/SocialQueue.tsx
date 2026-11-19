@@ -26,6 +26,7 @@ export function SocialQueue() {
   const [items, setItems] = useState<QueueItem[] | null>(null);
   const [error, setError] = useState('');
   const [msg, setMsg] = useState('');
+  const [msgOk, setMsgOk] = useState(true);
   const [busy, setBusy] = useState('');
   const [edits, setEdits] = useState<Record<string, SocialPieces>>({});
   const [copied, setCopied] = useState('');
@@ -56,7 +57,7 @@ export function SocialQueue() {
   useEffect(() => { void load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, []);
 
   async function generar() {
-    setBusy('generar'); setError(''); setMsg('');
+    setBusy('generar'); setError(''); setMsg(''); setMsgOk(true);
     try {
       const r = await call({ accion: 'generar' });
       setMsg(r.creados?.length ? `Listo: ${r.creados.length} borrador(es) nuevo(s).` : 'No hay contenido nuevo (de los últimos 14 días) sin borrador.');
@@ -78,6 +79,7 @@ export function SocialQueue() {
       const r = await call({ accion: 'publicar', id: it.id, pieces: piezasDe(it) });
       const partes = Object.entries(r.resultados as Record<string, Resultado>).map(([k, v]) => `${REDES[k as keyof typeof REDES] ?? k}: ${v.ok ? 'publicado' : `falló (${v.error})`}`);
       setMsg(partes.join(' · '));
+      setMsgOk(Object.values(r.resultados as Record<string, Resultado>).every(v => v.ok));
       await load();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'No se pudo publicar.');
@@ -114,7 +116,7 @@ export function SocialQueue() {
       </div>
 
       {error && <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl px-3 py-2">{error}</p>}
-      {msg && <p className="text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2">{msg}</p>}
+      {msg && <p className={`text-sm rounded-xl px-3 py-2 border ${msgOk ? 'text-emerald-800 bg-emerald-50 border-emerald-200' : 'text-red-700 bg-red-50 border-red-200'}`}>{msg}</p>}
       {items === null && <p className="text-sm text-stone-500 flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Cargando…</p>}
       {items && pendientes.length === 0 && <p className="text-sm text-stone-500">No hay borradores pendientes.</p>}
 

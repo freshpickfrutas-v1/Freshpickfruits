@@ -52,7 +52,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/43030321/",
     "https://pubmed.ncbi.nlm.nih.gov/43042499/",
     "https://pubmed.ncbi.nlm.nih.gov/43029128/",
-    "https://pubmed.ncbi.nlm.nih.gov/43034575/"
+    "https://pubmed.ncbi.nlm.nih.gov/43034575/",
+    "https://pubmed.ncbi.nlm.nih.gov/43058442/"
   ],
   "historial": [
     {
@@ -516,6 +517,12 @@
       "tipo": "noticia",
       "slug": "estabilizan-antocianinas-de-arandanos-con-gelatina-de-pescado-glicada",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-20",
+      "tipo": "receta",
+      "slug": "cuajada-con-salsa-de-arandanos",
+      "modo": "automatico"
     }
   ]
 }

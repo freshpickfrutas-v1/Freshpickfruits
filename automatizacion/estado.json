@@ -523,6 +523,12 @@
       "tipo": "receta",
       "slug": "cuajada-con-salsa-de-arandanos",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-21",
+      "tipo": "receta",
+      "slug": "mocktail-de-arandanos-y-romero",
+      "modo": "automatico"
     }
   ]
 }

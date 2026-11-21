@@ -1,0 +1,55 @@
+{
+  "slug": "mocktail-de-arandanos-y-romero",
+  "title": "Mocktail de Arándanos y Romero",
+  "excerpt": "Sorprende a tus invitados con este refinado mocktail de arándanos y romero. Una bebida refrescante y elegante con el toque perfecto entre dulce, herbal y cítrico.",
+  "imageAlt": "Copas de mocktail de arándanos y romero helado decoradas con ramitas frescas y arándanos flotando.",
+  "category": "bebidas-refrescos",
+  "prepMinutes": 10,
+  "cookMinutes": 5,
+  "restMinutes": 15,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "2 ramitas de romero fresco"
+    },
+    {
+      "text": "2 cucharadas de miel o panela en polvo"
+    },
+    {
+      "text": "1/2 taza de agua"
+    },
+    {
+      "text": "2 cucharadas de jugo de limón"
+    },
+    {
+      "text": "1 1/2 tazas de agua con gas"
+    },
+    {
+      "text": "Hielo al gusto"
+    }
+  ],
+  "steps": [
+    "En una olla pequeña a fuego medio, combina media taza de arándanos Fresh Pick, el agua, la miel y una ramita de romero fresco.",
+    "Cocina durante 5 minutos presionando suavemente los arándanos con una cuchara de madera para que liberen todo su jugo y aroma.",
+    "Retira del fuego, retira la ramita de romero y deja enfriar el jarabe a temperatura ambiente durante 15 minutos.",
+    "En una jarra o coctelera, mezcla el jarabe frío, el jugo de limón y los arándanos enteros restantes, cultivados con esmero en la alta montaña de Guasca.",
+    "Llena dos vasos altos con abundante hielo y distribuye la mezcla concentrada de arándanos entre ambos.",
+    "Completa cada vaso con el agua con gas fría, revuelve despacio para integrar los sabores y decora con la ramita de romero restante."
+  ],
+  "tips": [
+    "Para un toque aromático espectacular, pasa la ramita de romero decorativa muy cerca de una llama unos segundos antes de servir.",
+    "Puedes preparar el jarabe de arándanos y romero con anticipación y conservarlo en un frasco cerrado en la nevera hasta por 5 días."
+  ],
+  "date": "2026-11-21",
+  "publicadoEn": "2026-11-21T20:19:42.715Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/mocktail-de-arandanos-y-romero.jpg"
+}

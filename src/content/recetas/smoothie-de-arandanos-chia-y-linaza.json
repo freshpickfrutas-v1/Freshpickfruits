@@ -1,0 +1,59 @@
+{
+  "slug": "smoothie-de-arandanos-chia-y-linaza",
+  "title": "Smoothie de Arándanos con Chía y Linaza",
+  "excerpt": "Disfruta un smoothie cremoso y refrescante que combina arándanos frescos con chía y linaza. Una opción deliciosa y fácil de preparar para empezar tus mañanas.",
+  "imageAlt": "Vaso alto con smoothie de arándanos, chía y linaza, decorado con arándanos frescos encima.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "restMinutes": 5,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 cucharada de semillas de chía"
+    },
+    {
+      "text": "1 cucharada de linaza molida"
+    },
+    {
+      "text": "1 1/2 tazas de leche de almendras"
+    },
+    {
+      "text": "1/2 cucharadita de extracto de vainilla"
+    },
+    {
+      "text": "1 cucharada de miel de abejas"
+    },
+    {
+      "text": "4 cubos de hielo"
+    }
+  ],
+  "steps": [
+    "En un recipiente pequeño, remoja las semillas de chía y la linaza molida en 4 cucharadas de agua o leche durante 5 minutos para que se hidraten.",
+    "Lleva a la licuadora los arándanos Fresh Pick, cultivados en las frías montañas de Guasca a más de 2.800 metros de altitud para garantizar su dulzor natural.",
+    "Agrega las semillas de chía y linaza hidratadas junto con la leche de almendras, la miel y el extracto de vainilla.",
+    "Incorpora los cubos de hielo para aportarle frescura y cuerpo a la preparación.",
+    "Licúa a velocidad alta durante 1 a 2 minutos hasta conseguir una textura cremosa y uniforme.",
+    "Sirve de inmediato en dos vasos altos y disfruta de una bebida deliciosa."
+  ],
+  "tips": [
+    "Puedes congelar previamente los arándanos Fresh Pick lavados y secos para lograr un smoothie mucho más espeso sin necesidad de agregar extra hielo.",
+    "Utilizar linaza molida en lugar de entera permite que el smoothie mantenga una consistencia suave y sedosa al beber."
+  ],
+  "date": "2026-11-22",
+  "publicadoEn": "2026-11-22T20:31:39.436Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/smoothie-de-arandanos-chia-y-linaza.jpg"
+}

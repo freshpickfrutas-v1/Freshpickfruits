@@ -53,7 +53,10 @@
     "https://pubmed.ncbi.nlm.nih.gov/43042499/",
     "https://pubmed.ncbi.nlm.nih.gov/43029128/",
     "https://pubmed.ncbi.nlm.nih.gov/43034575/",
-    "https://pubmed.ncbi.nlm.nih.gov/43058442/"
+    "https://pubmed.ncbi.nlm.nih.gov/43058442/",
+    "https://pubmed.ncbi.nlm.nih.gov/43049189/",
+    "https://pubmed.ncbi.nlm.nih.gov/43039272/",
+    "https://pubmed.ncbi.nlm.nih.gov/43033717/"
   ],
   "historial": [
     {
@@ -529,6 +532,24 @@
       "tipo": "receta",
       "slug": "mocktail-de-arandanos-y-romero",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-22",
+      "tipo": "receta",
+      "slug": "smoothie-de-arandanos-chia-y-linaza",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-22",
+      "tipo": "noticia",
+      "slug": "biopeliculas-inteligentes-nueva-tecnologia-para-prolongar-la-frescura-de-los",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-22",
+      "tipo": "noticia",
+      "slug": "pelicula-comestible-con-acido-citrico-mejora-la-conservacion-de-arandanos",
+      "modo": "revision"
     }
   ]
 }

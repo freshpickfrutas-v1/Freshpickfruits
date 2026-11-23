@@ -1,0 +1,55 @@
+{
+  "slug": "cuajada-con-salsa-de-arandanos",
+  "title": "Cuajada con Salsa de Arándanos",
+  "excerpt": "Disfrute un clásico colombiano con un toque único: cuajada fresca servida con una suave salsa casera de arándanos de alta montaña. Un postre tradicional, ligero y delicioso.",
+  "imageAlt": "Porción de cuajada fresca bañada con salsa tibia de arándanos enteros servida en un plato tradicional de cerámica.",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 10,
+  "cookMinutes": 12,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "400 g de cuajada fresca"
+    },
+    {
+      "text": "3 cucharadas de panela rallada"
+    },
+    {
+      "text": "1/4 de taza de agua"
+    },
+    {
+      "text": "1 astilla pequeña de canela"
+    },
+    {
+      "text": "1 cucharadita de jugo de limón"
+    }
+  ],
+  "steps": [
+    "Corte la cuajada en cuatro porciones o tajadas gruesas y colóquelas en los platos de servir a temperatura ambiente.",
+    "En una olla pequeña a fuego medio, combine el agua con la panela rallada y la astilla de canela hasta que la panela se disuelva por completo.",
+    "Agregue los arándanos Fresh Pick, cultivados en las altas montañas de Guasca, junto con la cucharadita de jugo de limón.",
+    "Cocine a fuego medio-bajo durante 8 a 10 minutos, revolviendo suavemente con cuchara de madera para que las bayas libere sus jugos natural sin deshacerse del todo.",
+    "Retire la astilla de canela y apague el fuego. Deje reposar la salsa durante 3 minutos para que espese ligeramente.",
+    "Bañe cada tajada de cuajada generosamente con la salsa de arándanos tibia y sirva de inmediato."
+  ],
+  "tips": [
+    "Si prefiere un contraste de temperaturas, conserve la cuajada fría en la nevera hasta el momento exacto de servir la salsa tibia por encima.",
+    "Para conservar los arándanos Fresh Pick en casa antes de cocinar, manténgalos refrigerados en su empaque original sin lavarlos hasta el momento de su consumo."
+  ],
+  "date": "2026-11-20",
+  "publicadoEn": "2026-11-20T21:38:53.611Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/cuajada-con-salsa-de-arandanos.jpg"
+}

@@ -1,0 +1,57 @@
+{
+  "slug": "tostadas-de-ricotta-arandanos-y-miel",
+  "title": "Tostadas de Ricotta, Arándanos y Miel",
+  "excerpt": "Disfruta un desayuno rápido y sofisticado con estas tostadas de pan artesanal, queso ricotta cremoso, miel de abejas y la frescura natural de nuestros arándanos de alta montaña.",
+  "imageAlt": "Tostadas de pan artesanal cubiertas con queso ricotta cremoso, arándanos enteros y un hilo de miel brillante.",
+  "category": "desayunos",
+  "extraCategories": [
+    "snacks-meriendas",
+    "postres-saludables"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 5,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "4 tajadas de pan artesanal (masa madre o de granos)"
+    },
+    {
+      "text": "1 taza de queso ricotta fresco"
+    },
+    {
+      "text": "2 cucharadas de miel de abejas pura"
+    },
+    {
+      "text": "1/2 cucharadita de ralladura de limón"
+    },
+    {
+      "text": "1 pizca de sal marina"
+    },
+    {
+      "text": "Hojas de menta fresca para decorar (opcional)"
+    }
+  ],
+  "steps": [
+    "Tuesta las tajadas de pan artesanal en una sartén a fuego medio o en tostadora hasta que queden doraditas y crocantes.",
+    "En un tazón pequeño, mezcla el queso ricotta con la ralladura de limón y una pizca de sal marina hasta lograr una crema suave.",
+    "Esparce una capa generosa de la mezcla de ricotta sobre cada tajada de pan bien caliente.",
+    "Añade encima los arándanos Fresh Pick. Cultivados a más de 2.800 metros de altura en Guasca, su dulzor natural contrasta increíblemente con la suave acidez de la ricotta.",
+    "Finaliza bañando las tostadas con un hilo de miel de abejas pura y decorando con hojitas de menta fresca justo antes de servir."
+  ],
+  "tips": [
+    "No laves los arándanos Fresh Pick sino hasta el momento exacto en que vas a armar las tostadas; así conservarás intacta su pruina natural y su frescura por más tiempo.",
+    "Si prefieres una textura más tibia, pasa los arándanos por una sartén con unas gotas de miel a fuego bajo durante 1 minuto antes de ponerlos sobre la ricotta."
+  ],
+  "date": "2026-11-24",
+  "publicadoEn": "2026-11-24T23:20:40.119Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/tostadas-de-ricotta-arandanos-y-miel.jpg"
+}

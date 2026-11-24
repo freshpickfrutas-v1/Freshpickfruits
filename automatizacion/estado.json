@@ -550,6 +550,12 @@
       "tipo": "noticia",
       "slug": "pelicula-comestible-con-acido-citrico-mejora-la-conservacion-de-arandanos",
       "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-23",
+      "tipo": "receta",
+      "slug": "lomo-de-cerdo-con-reduccion-de-arandanos",
+      "modo": "automatico"
     }
   ]
 }

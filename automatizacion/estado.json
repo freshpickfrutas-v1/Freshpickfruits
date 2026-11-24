@@ -56,7 +56,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/43058442/",
     "https://pubmed.ncbi.nlm.nih.gov/43049189/",
     "https://pubmed.ncbi.nlm.nih.gov/43039272/",
-    "https://pubmed.ncbi.nlm.nih.gov/43033717/"
+    "https://pubmed.ncbi.nlm.nih.gov/43033717/",
+    "https://www.sciencedaily.com/releases/2026/10/261017230028.htm"
   ],
   "historial": [
     {
@@ -556,6 +557,18 @@
       "tipo": "receta",
       "slug": "lomo-de-cerdo-con-reduccion-de-arandanos",
       "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-24",
+      "tipo": "receta",
+      "slug": "tostadas-de-ricotta-arandanos-y-miel",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-24",
+      "tipo": "noticia",
+      "slug": "arandanos-microbiota-y-estado-de-animo-lo-que-revela-un-nuevo-estudio-piloto",
+      "modo": "revision"
     }
   ]
 }

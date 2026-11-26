@@ -100,6 +100,15 @@ async function deSitio(seccion, fecha, desplazamiento = 0) {
   return (data.videos ?? []).filter(v => v.id).map(v => ({ id: v.id, title: String(v.title ?? ''), description: '', channel: String(v.channel ?? '') }));
 }
 
+async function buscarEnElSitio(seccion, fecha, usados) {
+  const total = Object.keys(QUERIES[seccion]).filter(k => k !== '_default').length;
+  for (let k = 0; k < total; k++) {
+    const c = (await deSitio(seccion, fecha, k)).find(v => !usados.has(v.id));
+    if (c) return c;
+  }
+  return null;
+}
+
 async function deBusqueda(seccion, fecha, { soloCC = false } = {}) {
   const todas = Object.values(QUERIES[seccion]).flat();
   const dia = Math.floor(Date.parse(fecha) / 86_400_000);
@@ -147,12 +156,10 @@ export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
   const sinClave = !(process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY);
   if (sinClave) {
     log('   Sin YOUTUBE_API_KEY en GitHub: se usa la búsqueda del sitio (sin preferencia por licencia CC).');
-    const total = Object.keys(QUERIES[seccion]).filter(k => k !== '_default').length;
-    for (let k = 0; k < total && !elegido; k++) {
-      elegido = (await deSitio(seccion, fecha, k)).find(c => !usados.has(c.id)) ?? null;
-    }
+    elegido = await buscarEnElSitio(seccion, fecha, usados);
   }
 
+  try {
   // 1) Preferencia: videos Creative Commons (CC BY), que luego se pueden republicar en redes citando al autor.
   const conCC = sinClave ? [] : (await deBusqueda(seccion, fecha, { soloCC: true })).filter(c => !usados.has(c.id)).slice(0, MAX_CANDIDATOS);
   for (const c of conCC) {
@@ -180,6 +187,20 @@ export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
         elegido = c;
         break;
       }
+    }
+  }
+  } catch (err) {
+    if (err.fatal) throw err;
+    log(`   La búsqueda con la clave de GitHub falló (${err.message}).`);
+  }
+
+  // 4) Respaldo: si con la clave de GitHub no salió ninguno aprobado (o falló), se prueba la búsqueda del sitio.
+  if (!elegido && !sinClave) {
+    log('   Con la clave de GitHub no salió un video aprobado: se prueba la búsqueda del sitio.');
+    try {
+      elegido = await buscarEnElSitio(seccion, fecha, usados);
+    } catch (err) {
+      log(`   (búsqueda del sitio no disponible: ${err.message})`);
     }
   }
   if (!elegido) return null;

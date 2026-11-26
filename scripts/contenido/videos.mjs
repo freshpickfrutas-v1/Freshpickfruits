@@ -9,6 +9,7 @@ import { CANALES_DE_CONFIANZA, QUERIES, SENALES_COMERCIALES, SYSTEM_PROMPT } fro
 
 export const CARPETA_VIDEOS = path.join(ROOT, 'src', 'content', 'videos');
 const MAX_CANDIDATOS = 8;
+const SITIO = 'https://www.freshpickfruits.com';
 
 const ESQUEMA = {
   type: 'object',
@@ -85,6 +86,20 @@ async function deCanalesDeConfianza() {
   return out;
 }
 
+/**
+ * Respaldo sin clave de YouTube en GitHub: pide los videos ya aprobados a la búsqueda del propio sitio
+ * (api/youtube/search, que usa la clave de Vercel y el filtro de Gemini). No sabe de licencias CC.
+ */
+async function deSitio(seccion, fecha, desplazamiento = 0) {
+  const categorias = Object.keys(QUERIES[seccion]).filter(k => k !== '_default');
+  const dia = Math.floor(Date.parse(fecha) / 86_400_000);
+  const categoria = categorias[(dia + desplazamiento) % categorias.length];
+  const res = await fetch(`${SITIO}/api/youtube/search?seccion=${seccion}&categoria=${encodeURIComponent(categoria)}`);
+  if (!res.ok) throw new Error(`búsqueda del sitio: HTTP ${res.status}`);
+  const data = await res.json();
+  return (data.videos ?? []).filter(v => v.id).map(v => ({ id: v.id, title: String(v.title ?? ''), description: '', channel: String(v.channel ?? '') }));
+}
+
 async function deBusqueda(seccion, fecha, { soloCC = false } = {}) {
   const todas = Object.values(QUERIES[seccion]).flat();
   const dia = Math.floor(Date.parse(fecha) / 86_400_000);
@@ -120,10 +135,6 @@ async function aprobado(c) {
  * Primero los canales de confianza (Dr. Carlos Jaramillo); luego la búsqueda, con filtro de Gemini.
  */
 export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
-  if (!(process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY)) {
-    log('   Sin YOUTUBE_API_KEY: no se puede buscar un video de relleno.');
-    return null;
-  }
   const ruta = path.join('src', 'content', 'videos', `${fecha}-${seccion}.json`);
   if (hayVideoHoy(fecha)) return null; // ya hay uno hoy (un solo video por día)
 
@@ -132,8 +143,18 @@ export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
   let elegido = null;
   let licencia = 'youtube-estandar';
 
+  // Sin clave de YouTube en GitHub: se usa la búsqueda del sitio (usa la clave de Vercel; sin preferencia por licencia CC).
+  const sinClave = !(process.env.YOUTUBE_API_KEY_2 || process.env.YOUTUBE_API_KEY);
+  if (sinClave) {
+    log('   Sin YOUTUBE_API_KEY en GitHub: se usa la búsqueda del sitio (sin preferencia por licencia CC).');
+    const total = Object.keys(QUERIES[seccion]).filter(k => k !== '_default').length;
+    for (let k = 0; k < total && !elegido; k++) {
+      elegido = (await deSitio(seccion, fecha, k)).find(c => !usados.has(c.id)) ?? null;
+    }
+  }
+
   // 1) Preferencia: videos Creative Commons (CC BY), que luego se pueden republicar en redes citando al autor.
-  const conCC = (await deBusqueda(seccion, fecha, { soloCC: true })).filter(c => !usados.has(c.id)).slice(0, MAX_CANDIDATOS);
+  const conCC = sinClave ? [] : (await deBusqueda(seccion, fecha, { soloCC: true })).filter(c => !usados.has(c.id)).slice(0, MAX_CANDIDATOS);
   for (const c of conCC) {
     if ((await aprobado(c)) && (await esCreativeCommons(c.id))) {
       elegido = c;
@@ -143,7 +164,7 @@ export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
   }
 
   // 2) Canales de confianza (solo noticias).
-  if (!elegido && seccion === 'noticias') {
+  if (!sinClave && !elegido && seccion === 'noticias') {
     const confianza = (await deCanalesDeConfianza()).filter(c => !usados.has(c.id));
     if (confianza.length) {
       elegido = confianza[0];
@@ -152,7 +173,7 @@ export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
   }
 
   // 3) Búsqueda normal (se incrusta en el sitio; no se puede republicar sin permiso).
-  if (!elegido) {
+  if (!sinClave && !elegido) {
     const candidatos = (await deBusqueda(seccion, fecha)).filter(c => !usados.has(c.id)).slice(0, MAX_CANDIDATOS);
     for (const c of candidatos) {
       if (await aprobado(c)) {

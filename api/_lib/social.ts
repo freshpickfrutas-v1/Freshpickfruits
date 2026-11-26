@@ -47,7 +47,7 @@ Devuelve ÚNICAMENTE un JSON: { "instagram": { "copy": "...", "hashtags": ["#tag
 
 - Instagram: gancho fuerte en las 1-2 primeras líneas, luego valor o beneficio y cierre con llamado a guardar, compartir o ir al enlace del perfil. Sin URL en el copy. 8-12 hashtags en "hashtags". Copy de 800-1500 caracteres con saltos de línea.
 - Facebook: conversacional y cercano, contexto breve, invitación a comentar o compartir. No incluyas el enlace (se añade aparte). 300-700 caracteres.
-- X: directo y ágil, máximo 230 caracteres, con 2-4 hashtags dentro del copy. No incluyas el enlace.
+- X: directo y ágil, MÁXIMO 150 caracteres en total (cuenta hashtags y emoji), con 2-3 hashtags dentro del copy y como mucho 1 emoji. No incluyas el enlace.
 - receta: facilidad, tiempo, sabor, beneficio saludable. noticia: relevancia y "qué significa para ti". video: lo visual y la emoción.`;
 
 const SCHEMA = {
@@ -75,6 +75,31 @@ export function validarPiezas(p: any): Piezas {
   };
 }
 
+/** Peso de un texto en X (plan gratis: 280). Latinos pesan 1; emojis, CJK y otros pesan 2; un enlace pesa 23. */
+const RANGOS_PESO_1: [number, number][] = [[0, 4351], [8192, 8205], [8208, 8223], [8242, 8247]];
+export function pesoX(texto: string): number {
+  let total = 0;
+  for (const c of texto) {
+    const cp = c.codePointAt(0)!;
+    total += RANGOS_PESO_1.some(([a, b]) => cp >= a && cp <= b) ? 1 : 2;
+  }
+  return total;
+}
+/** Máximo del texto de X: 280 menos el enlace más largo posible sin acortar (117) y el espacio. Así cabe aunque la herramienta no acorte el enlace. */
+export const MAX_TEXTO_X = 160;
+
+/** Garantiza que el texto de X quepa: quita hashtags del final y, si hace falta, corta en una palabra completa. */
+export function ajustarX(copy: string): string {
+  let t = copy.replace(/\s+/g, ' ').trim();
+  while (pesoX(t) > MAX_TEXTO_X && /\s#\S+$/.test(t)) t = t.replace(/\s#\S+$/, '');
+  if (pesoX(t) > MAX_TEXTO_X) {
+    const palabras = t.split(' ');
+    while (palabras.length > 1 && pesoX(palabras.join(' ') + '…') > MAX_TEXTO_X) palabras.pop();
+    t = palabras.join(' ').replace(/[\s,;:]+$/, '') + '…';
+  }
+  return t;
+}
+
 export async function generarPiezas(input: { tipo: string; title: string; excerpt?: string; url: string }): Promise<Piezas> {
   const key = geminiKey();
   if (!key) throw new Error('Falta GEMINI_API_KEY en Vercel');
@@ -90,7 +115,9 @@ export async function generarPiezas(input: { tipo: string; title: string; excerp
         config: { systemInstruction: SYSTEM_PROMPT, temperature: 0.8, responseMimeType: 'application/json', responseJsonSchema: SCHEMA },
       });
       if (!r.text) throw new Error('Respuesta vacía');
-      return validarPiezas(JSON.parse(r.text));
+      const piezas = validarPiezas(JSON.parse(r.text));
+      piezas.x.copy = ajustarX(piezas.x.copy);
+      return piezas;
     } catch (e) {
       ultimo = e; // modelo retirado, saturado o JSON inválido: se prueba el siguiente
     }

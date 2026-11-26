@@ -18,6 +18,9 @@ interface QueueItem {
 }
 
 const fmt = (iso?: string) => (iso ? new Date(iso).toLocaleString('es-CO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—');
+/** Peso en X (plan gratis: 280): latinos 1, emojis y otros 2, enlace 23. */
+const RANGOS_X: [number, number][] = [[0, 4351], [8192, 8205], [8208, 8223], [8242, 8247]];
+const pesoX = (t: string) => [...t].reduce((n, c) => { const cp = c.codePointAt(0)!; return n + (RANGOS_X.some(([a, b]) => cp >= a && cp <= b) ? 1 : 2); }, 0);
 const REDES = { facebook: 'Facebook', instagram: 'Instagram' } as const;
 
 /** Borradores de redes sociales: se revisan, se editan y se aprueban (publican en Facebook e Instagram) o se rechazan. */
@@ -157,7 +160,7 @@ export function SocialQueue() {
                   <button type="button" onClick={() => copiar(`${p.x.copy} ${it.url}`, it.id)} className="inline-flex items-center gap-1 text-[#7B4382] cursor-pointer"><Copy className="w-3 h-3" />{copied === it.id ? 'Copiado' : 'Copiar'}</button>
                 </span>
                 <textarea className="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm min-h-[140px] resize-y" value={p.x.copy} onChange={e => editar(it, { x: { copy: e.target.value } })} />
-                <span className="block text-xs text-stone-500">{p.x.copy.length}/230 + enlace</span>
+                <span className={`block text-xs ${pesoX(p.x.copy) + 24 > 280 ? 'text-red-700 font-bold' : 'text-stone-500'}`}>{pesoX(p.x.copy) + 24}/280 (incluye el enlace)</span>
               </div>
             </div>
 

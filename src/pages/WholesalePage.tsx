@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, ShieldCheck, Snowflake, Sprout, ClipboardList, Truck } from 'lucide-react';
+import { Mail, ShieldCheck, Snowflake, Sprout, ClipboardList, Truck, ExternalLink } from 'lucide-react';
 import { SiteShell } from '../components/SiteShell';
 import { Breadcrumbs } from '../components/Breadcrumbs';
 import { BlueberryIcon } from '../components/BlueberryIcon';
@@ -62,10 +62,31 @@ export default function WholesalePage() {
           {world ? <WorldInfo /> : <ColombiaInfo />}
           <QuoteForm variant={variant} />
           <TrustStrip />
-          <p className="text-center text-sm text-stone-700">
-            {t('Más información comercial en', 'More commercial information at')}{' '}
-            <a href="https://naugroupsas.com/" target="_blank" rel="noopener noreferrer" className="font-bold text-[#7B4382] underline hover:text-[#2F183C]">naugroupsas.com</a>
-          </p>
+          <div className="flex justify-center">
+            <a
+              href="https://naugroupsas.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t('Visitar Nau Blueberries (se abre en una pestaña nueva)', 'Visit Nau Blueberries (opens in a new tab)')}
+              className="group flex flex-col sm:flex-row items-center gap-5 sm:gap-8 rounded-2xl bg-white border-2 border-[#DFCEE6] hover:border-[#7B4382] px-6 py-5 sm:px-10 sm:py-6 shadow-sm hover:shadow-lg transition w-full sm:w-auto"
+            >
+              <img
+                src="/assets/aliados/nau-blueberries.png"
+                alt="Nau Blueberries"
+                width={1120}
+                height={424}
+                loading="lazy"
+                className="h-20 sm:h-24 w-auto"
+              />
+              <span className="text-center sm:text-left">
+                <span className="block text-xs font-semibold uppercase tracking-wide text-stone-500">{t('Más información comercial', 'More commercial information')}</span>
+                <span className="block text-2xl sm:text-3xl font-black font-display text-[#2F183C]">Nau Blueberries</span>
+                <span className="mt-1 inline-flex items-center gap-1.5 text-base font-bold text-[#7B4382] group-hover:underline">
+                  naugroupsas.com <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                </span>
+              </span>
+            </a>
+          </div>
         </div>
       </section>
     </SiteShell>

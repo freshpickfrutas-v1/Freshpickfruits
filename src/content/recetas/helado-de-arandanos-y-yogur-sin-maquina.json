@@ -1,0 +1,55 @@
+{
+  "slug": "helado-de-arandanos-y-yogur-sin-maquina",
+  "title": "Helado de Arándanos y Yogur sin Máquina",
+  "excerpt": "Prepara en casa un cremoso helado de arándanos y yogur sin necesidad de máquina. Una opción fresca, suave y llena del dulzor natural de nuestros frutos.",
+  "imageAlt": "Cucharadas de helado cremoso de arándanos y yogur servidas en un tazón con arándanos frescos encima",
+  "category": "postres-saludables",
+  "extraCategories": [
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 5,
+  "restMinutes": 240,
+  "difficulty": "Fácil",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "2 tazas de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de yogur griego natural"
+    },
+    {
+      "text": "1 taza de crema de leche bien fría"
+    },
+    {
+      "text": "1/2 taza de miel de abejas"
+    },
+    {
+      "text": "1 cucharada de jugo de limón"
+    },
+    {
+      "text": "1 cucharadita de esencia de vainilla"
+    }
+  ],
+  "steps": [
+    "En una olla pequeña a fuego medio, cocina una taza y media de arándanos Fresh Pick con la miel y el jugo de limón durante 5 minutos hasta que soltando su jugo se ablanden.",
+    "Retira la mezcla del fuego, tritura levemente los frutos con un tenedor y deja enfriar a temperatura ambiente.",
+    "En un recipiente hondo, bate la crema de leche bien fría con la esencia de vainilla hasta que forme picos suaves.",
+    "Agrega el yogur griego e incorpóralo a la crema de leche batida realizando movimientos envolventes.",
+    "Vierte la compota fría de arándanos y la media taza restante de arándanos enteros sobre la crema, mezclando suavemente para crear un bonito veteado.",
+    "Pasa la preparación a un recipiente apto para congelador, cubre con tapa y congela durante al menos 4 horas antes de disfrutar."
+  ],
+  "tips": [
+    "Nuestros arándanos Fresh Pick son cultivados a más de 2.800 m.s.n.m. en Guasca; su pruina natural y firmeza hacen que los trozos enteros aporten una textura increíble en cada bocado.",
+    "Para lograr la mejor textura al servir, saca el helado del congelador unos 10 minutos antes para poder formar las bolas fácilmente."
+  ],
+  "date": "2026-11-25",
+  "publicadoEn": "2026-11-25T22:53:05.676Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/helado-de-arandanos-y-yogur-sin-maquina.jpg"
+}

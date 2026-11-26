@@ -42,6 +42,8 @@ Reglas obligatorias:
 - Menciona de forma natural (en un paso o en un tip, no en todos) que son arándanos de alta montaña cultivados en Guasca.
 - NO incluyas teléfono, WhatsApp, horarios de entrega ni llamados a comprar: el botón de compra ya aparece en la página.
 - Cero afirmaciones médicas o de salud: nada de "cura", "previene", "desintoxica", "adelgaza", "quema grasa" ni similares.
+- Endulzantes (azúcar, panela, miel, endulzante, stevia): los arándanos Fresh Pick tienen más azúcar natural (13° a 15° Brix) que los arándanos comunes. Cuando los arándanos se procesen (se cocinan, machacan, maceran o licúan) y la receta necesite endulzante, usa la MITAD de lo habitual. Dilo al lector con naturalidad en el paso donde entra el endulzante ("Usamos la mitad del endulzante habitual porque los arándanos Fresh Pick tienen más azúcar natural.") y también en un consejo.
+- Excepciones a la regla del endulzante: si el endulzante es el cuerpo de una salsa, sirope o glaseado (por ejemplo un melao de panela), NO lo reduzcas y usa la cantidad que pida la receta. Si el arándano va fresco y entero como adorno y el endulzante es aparte (un hilo de miel, un aderezo), tampoco se reduce.
 - Tiempos realistas y en minutos enteros. Receta que realmente funcione.`;
 
 /** Returns { ok, pieza, archivos, problemas } for one queue item. */

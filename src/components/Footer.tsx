@@ -1,5 +1,5 @@
 import React from 'react';
-import { Leaf, Phone, Mail, MapPin, ShieldCheck, FileText, Heart, Instagram, Facebook, Music2 } from 'lucide-react';
+import { Leaf, Phone, Mail, MapPin, ShieldCheck, FileText, Heart, Instagram, Facebook, Music2, Truck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { openCookieSettings } from './CookieBanner';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -15,8 +15,8 @@ export const Footer: React.FC = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-[#432356]">
           
-          <div className="lg:col-span-5 space-y-4">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
+          <div className="lg:col-span-4 space-y-4">
+            <div className="flex flex-col xl:flex-row items-start xl:items-center gap-4 xl:gap-5">
               <div className="h-16 sm:h-20 w-28 sm:w-36 rounded-xl bg-white p-2 border-2 border-[#7B4382] shadow-xl flex items-center justify-center shrink-0 overflow-hidden">
                 <img
                   src="/logo.jpg"
@@ -25,8 +25,8 @@ export const Footer: React.FC = () => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div>
-                <div className="flex items-center gap-2">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="text-2xl sm:text-3xl font-black tracking-tight text-white font-display">
                     Fresh Pick
                   </span>
@@ -78,42 +78,27 @@ export const Footer: React.FC = () => {
 
           <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              {t('Nuestros Arándanos', 'Our Blueberries')}
+              {t('Comprar', 'Shop')}
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="/#variedades" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Estuche 125g', '125 g box')}
+                <a href="/#pedidos-personalizados" className="text-[#DDA83A] font-semibold hover:underline">
+                  {t('★ Armar pedido en línea', '★ Build your order online')}
                 </a>
               </li>
               <li>
                 <a href="/#variedades" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Estuche 250g', '250 g box')}
-                </a>
-              </li>
-              <li>
-                <a href="/#variedades" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Estuche 500g', '500 g box')}
-                </a>
-              </li>
-              <li>
-                <a href="/#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Planes Mensuales', 'Monthly Plans')}
-                </a>
-              </li>
-              <li>
-                <a href="/recetas" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Recetas con Arándanos', 'Blueberry Recipes')}
-                </a>
-              </li>
-              <li>
-                <a href="/noticias" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Noticias de Arándanos', 'Blueberry News')}
+                  {t('Estuches de 125, 250 y 500 g', '125, 250 and 500 g boxes')}
                 </a>
               </li>
               <li>
                 <a href="/arandanos-a-domicilio-bogota" className="hover:text-[#DDA83A] transition-colors">
                   {t('Arándanos a domicilio en Bogotá', 'Blueberries delivered in Bogotá')}
+                </a>
+              </li>
+              <li>
+                <a href="/#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
+                  {t('Planes mensuales', 'Monthly plans')}
                 </a>
               </li>
               <li>
@@ -124,24 +109,34 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          <div className="lg:col-span-3 space-y-3">
+          <div className="lg:col-span-2 space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-              {t('Servicios & Pedidos', 'Services & Orders')}
+              {t('Descubre', 'Discover')}
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <a href="/#pedidos-personalizados" className="text-[#DDA83A] font-semibold hover:underline">
-                  {t('★ Armar Pedido Personalizado en Línea', '★ Build a Custom Order Online')}
+                <a href="/recetas" className="hover:text-[#DDA83A] transition-colors">
+                  {t('Recetas con arándanos', 'Blueberry recipes')}
                 </a>
               </li>
               <li>
-                <a href="/#planes-mensuales" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Planes Mensuales Familiares', 'Monthly Family Plans')}
+                <a href="/noticias" className="hover:text-[#DDA83A] transition-colors">
+                  {t('Noticias de arándanos', 'Blueberry news')}
+                </a>
+              </li>
+              <li>
+                <a href="/#sostenibilidad" className="hover:text-[#DDA83A] transition-colors">
+                  {t('Nuestra finca y polinización', 'Our farm & pollination')}
+                </a>
+              </li>
+              <li>
+                <a href="/#faq" className="hover:text-[#DDA83A] transition-colors">
+                  {t('Preguntas frecuentes y envíos', 'FAQ & shipping')}
                 </a>
               </li>
               <li>
                 <a href="/panel" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Mi cuenta / Panel usuario', 'My account / Customer panel')}
+                  {t('Mi cuenta y pedidos', 'My account & orders')}
                 </a>
               </li>
               {isStaff && (
@@ -151,20 +146,10 @@ export const Footer: React.FC = () => {
                   </a>
                 </li>
               )}
-              <li>
-                <a href="/#sostenibilidad" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Nuestra Biofábrica & Polinización', 'Our Bio-factory & Pollination')}
-                </a>
-              </li>
-              <li>
-                <a href="/#faq" className="hover:text-[#DDA83A] transition-colors">
-                  {t('Preguntas Frecuentes y Envíos', 'FAQ & Shipping')}
-                </a>
-              </li>
             </ul>
           </div>
 
-          <div className="lg:col-span-3 space-y-3 text-xs">
+          <div className="lg:col-span-4 space-y-3 text-xs">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white">
               {t('Atención & Despachos', 'Support & Dispatch')}
             </h4>
@@ -187,12 +172,19 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-2.5">
+                <Truck className="w-4 h-4 text-[#DDA83A] shrink-0 mt-0.5" />
+                <div>
+                  <span className="block text-white font-medium">{t('Entregas en Bogotá:', 'Delivery in Bogotá:')}</span>
+                  <span>{t('Martes y miércoles · 8:00 a.m. – 3:00 p.m.', 'Tuesdays and Wednesdays · 8:00 a.m. – 3:00 p.m.')}</span>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#DDA83A] shrink-0 mt-0.5" />
                 <div>
-                  <span className="block text-white font-medium">{t('Ubicación de Cultivos:', 'Farm location:')}</span>
+                  <span className="block text-white font-medium">{t('Nuestra finca:', 'Our farm:')}</span>
                   <span>{t('Vereda Santa Bárbara · Guasca, Cundinamarca', 'Santa Bárbara hamlet · Guasca, Cundinamarca')}</span>
                   <span className="block text-xs text-stone-500">{t('Más de 2.800 m.s.n.m.', 'Over 2,800 m above sea level')}</span>
-                  <span className="block text-xs text-stone-500">{t('Entregas: martes y miércoles · 8:00 a.m. – 3:00 p.m.', 'Deliveries: Tuesdays and Wednesdays · 8:00 a.m. – 3:00 p.m.')}</span>
                 </div>
               </div>
             </div>
@@ -205,28 +197,6 @@ export const Footer: React.FC = () => {
                     {c}
                   </span>
                 ))}
-              </div>
-            </div>
-
-            <div className="pt-4 space-y-3">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-                {t('Políticas & Términos', 'Policies & Terms')}
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                <a
-                  href="/privacidad"
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-xs text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#DDA83A]" />
-                  <span>{t('Política de Privacidad', 'Privacy Policy')}</span>
-                </a>
-                <a
-                  href="/terminos"
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2F183C] border border-[#7B4382] text-xs text-[#DFCEE6] hover:border-[#DDA83A] hover:text-white transition-colors"
-                >
-                  <FileText className="w-3.5 h-3.5 text-[#DDA83A]" />
-                  <span>{t('Términos y Condiciones', 'Terms & Conditions')}</span>
-                </a>
               </div>
             </div>
           </div>

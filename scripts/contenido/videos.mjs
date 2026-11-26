@@ -39,6 +39,25 @@ function idsUsados() {
   return usados;
 }
 
+/** Un solo video por día, de cualquier sección. */
+function hayVideoHoy(fecha) {
+  try {
+    return fs.readdirSync(CARPETA_VIDEOS).some(f => f.startsWith(`${fecha}-`) && f.endsWith('.json'));
+  } catch {
+    return false;
+  }
+}
+
+/** YouTube marca como 'creativeCommon' (CC BY) los videos que se pueden reutilizar citando al autor. */
+async function esCreativeCommons(id) {
+  try {
+    const d = await youtube('videos', { part: 'status', id });
+    return d.items?.[0]?.status?.license === 'creativeCommon';
+  } catch {
+    return false;
+  }
+}
+
 const aCandidato = i => ({
   id: i.id?.videoId,
   title: String(i.snippet?.title ?? ''),
@@ -66,13 +85,13 @@ async function deCanalesDeConfianza() {
   return out;
 }
 
-async function deBusqueda(seccion, fecha) {
+async function deBusqueda(seccion, fecha, { soloCC = false } = {}) {
   const todas = Object.values(QUERIES[seccion]).flat();
   const dia = Math.floor(Date.parse(fecha) / 86_400_000);
   const q = todas[dia % todas.length]; // cambia de búsqueda cada día
   const data = await youtube('search', {
     part: 'snippet', q, type: 'video', videoEmbeddable: 'true', relevanceLanguage: 'es', regionCode: 'CO',
-    safeSearch: 'strict', maxResults: '15'
+    safeSearch: 'strict', maxResults: '15', ...(soloCC ? { videoLicense: 'creativeCommon' } : {})
   });
   return (data.items ?? []).map(aCandidato).filter(c => c.id && !SENALES_COMERCIALES.test(`${c.channel} ${c.title} ${c.description.slice(0, 600)}`));
 }
@@ -106,15 +125,33 @@ export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
     return null;
   }
   const ruta = path.join('src', 'content', 'videos', `${fecha}-${seccion}.json`);
-  if (fs.existsSync(path.join(ROOT, ruta))) return null; // ya hay uno hoy
+  if (hayVideoHoy(fecha)) return null; // ya hay uno hoy (un solo video por día)
 
   const usados = idsUsados();
   for (const id of yaEnRevision) usados.add(id);
   let elegido = null;
+  let licencia = 'youtube-estandar';
 
-  const confianza = (await deCanalesDeConfianza()).filter(c => !usados.has(c.id));
-  if (seccion === 'noticias' && confianza.length) elegido = confianza[0];
+  // 1) Preferencia: videos Creative Commons (CC BY), que luego se pueden republicar en redes citando al autor.
+  const conCC = (await deBusqueda(seccion, fecha, { soloCC: true })).filter(c => !usados.has(c.id)).slice(0, MAX_CANDIDATOS);
+  for (const c of conCC) {
+    if ((await aprobado(c)) && (await esCreativeCommons(c.id))) {
+      elegido = c;
+      licencia = 'cc-by';
+      break;
+    }
+  }
 
+  // 2) Canales de confianza (solo noticias).
+  if (!elegido && seccion === 'noticias') {
+    const confianza = (await deCanalesDeConfianza()).filter(c => !usados.has(c.id));
+    if (confianza.length) {
+      elegido = confianza[0];
+      licencia = 'canal-de-confianza';
+    }
+  }
+
+  // 3) Búsqueda normal (se incrusta en el sitio; no se puede republicar sin permiso).
   if (!elegido) {
     const candidatos = (await deBusqueda(seccion, fecha)).filter(c => !usados.has(c.id)).slice(0, MAX_CANDIDATOS);
     for (const c of candidatos) {
@@ -126,6 +163,6 @@ export async function crearVideoRelleno(seccion, { fecha, yaEnRevision = [] }) {
   }
   if (!elegido) return null;
 
-  const pieza = { seccion, id: elegido.id, title: elegido.title, channel: elegido.channel, date: fecha, motivo: 'relleno' };
+  const pieza = { seccion, id: elegido.id, title: elegido.title, channel: elegido.channel, date: fecha, motivo: 'relleno', licencia, republicable: licencia === 'cc-by' };
   return { pieza, archivos: [{ ruta, contenido: JSON.stringify(pieza, null, 2) + '\n' }] };
 }

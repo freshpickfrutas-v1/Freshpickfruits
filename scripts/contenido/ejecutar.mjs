@@ -212,7 +212,7 @@ async function main() {
   const recetas = args.solo === 'noticias' ? [] : await hacerRecetas(cola);
   const noticias = args.solo === 'recetas' ? [] : await hacerNoticias(estado);
 
-  // One approved YouTube video per section per day, so the video library keeps growing (nothing is ever deleted automatically).
+  // One approved YouTube video per day (news or recipes, alternating), so the video library keeps growing (nothing is ever deleted automatically).
   const videos = [];
   // Videos que ya esperan aprobación: no se proponen otra vez.
   let videosEnRevision = [];
@@ -224,7 +224,10 @@ async function main() {
       log(`⚠️  No se pudieron consultar los videos pendientes de aprobación: ${err.message}`);
     }
   }
-  for (const seccion of ['recetas', 'noticias']) {
+  // Un solo video por día: se alternan noticias y recetas; si la primera sección no tiene candidato, se prueba la otra.
+  const ordenVideos = Math.floor(Date.parse(hoy.fecha) / 86_400_000) % 2 === 0 ? ['noticias', 'recetas'] : ['recetas', 'noticias'];
+  for (const seccion of ordenVideos) {
+    if (videos.length >= 1) break;
     if (args.solo === (seccion === 'recetas' ? 'noticias' : 'recetas')) continue;
     try {
       const v = await crearVideoRelleno(seccion, { fecha: hoy.fecha, yaEnRevision: videosEnRevision });

@@ -27,6 +27,9 @@ const FIJOS: Record<'recetas' | 'noticias', FeaturedVideo[]> = {
 interface VideoDelDia extends FeaturedVideo {
   seccion: 'recetas' | 'noticias';
   date: string;
+  /** 'cc-by' (Creative Commons: se puede republicar citando al autor), 'canal-de-confianza' o 'youtube-estandar'. */
+  licencia?: string;
+  republicable?: boolean;
 }
 const delDia = Object.values(import.meta.glob<VideoDelDia>('../content/videos/*.json', { eager: true, import: 'default' }))
   .sort((a, b) => b.date.localeCompare(a.date));

@@ -433,7 +433,8 @@
     "titulo": "Mocktail de Arándanos y Romero",
     "categoria": "bebidas-refrescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-11-21"
   },
   {
     "orden": 49,
@@ -450,7 +451,8 @@
     "titulo": "Lomo de Cerdo con Reducción de Arándanos",
     "categoria": "ensaladas-platos-frescos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-11-23"
   },
   {
     "orden": 51,
@@ -458,7 +460,8 @@
     "titulo": "Tostadas de Ricotta, Arándanos y Miel",
     "categoria": "desayunos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-11-24"
   },
   {
     "orden": 52,
@@ -466,7 +469,8 @@
     "titulo": "Helado de Arándanos y Yogur sin Máquina",
     "categoria": "postres-saludables",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-11-25"
   },
   {
     "orden": 53,
@@ -474,7 +478,9 @@
     "titulo": "Chutney de Arándanos y Cebolla",
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "pendiente",
+    "intentos": 1,
+    "ultimoError": "usa otras frutas como ingrediente: manzana"
   },
   {
     "orden": 54,

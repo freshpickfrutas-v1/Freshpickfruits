@@ -58,7 +58,10 @@
     "https://pubmed.ncbi.nlm.nih.gov/43039272/",
     "https://pubmed.ncbi.nlm.nih.gov/43033717/",
     "https://www.sciencedaily.com/releases/2026/10/261017230028.htm",
-    "https://pubmed.ncbi.nlm.nih.gov/43078450/"
+    "https://pubmed.ncbi.nlm.nih.gov/43078450/",
+    "https://pubmed.ncbi.nlm.nih.gov/43094297/",
+    "https://pubmed.ncbi.nlm.nih.gov/43089131/",
+    "https://pubmed.ncbi.nlm.nih.gov/43093531/"
   ],
   "historial": [
     {
@@ -581,6 +584,24 @@
       "fecha": "2026-11-25",
       "tipo": "noticia",
       "slug": "arandanos-y-salud-cardiovascular-hallazgos-de-un-ensayo-clinico-de-12-semanas",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-26",
+      "tipo": "receta",
+      "slug": "malteada-saludable-de-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-26",
+      "tipo": "noticia",
+      "slug": "radiacion-uv-b-poscosecha-y-su-efecto-en-la-maduracion-de-los-arandanos",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-26",
+      "tipo": "noticia",
+      "slug": "fitoformonas-y-antioxidantes-como-el-aba-y-el-meja-modulan-los-arandanos-en",
       "modo": "revision"
     }
   ]

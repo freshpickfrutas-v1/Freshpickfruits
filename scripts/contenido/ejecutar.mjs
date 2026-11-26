@@ -16,6 +16,7 @@ import { crearReceta } from './recetas.mjs';
 import { candidatasPorBusqueda, reunirCandidatas } from './fuentes-noticias.mjs';
 import { crearNoticia, elegirNoticias } from './noticias.mjs';
 import { crearVideoRelleno } from './videos.mjs';
+import { traducirPieza, traducirPendientes } from './traducir.mjs';
 import {
   PREFIJO_RAMA_REVISION, comentarIssue, commitYPush, crearPrRevision, escribirArchivos, prsDeRevisionAbiertosDesde, tipoDePieza
 } from './publicar.mjs';
@@ -239,6 +240,17 @@ async function main() {
     }
   }
 
+  // Versión en inglés de cada pieza nueva: viaja en el mismo borrador (o commit) que la pieza en español.
+  // Si la traducción falla, la pieza se publica igual y se muestra en español hasta que se traduzca.
+  for (const r of [...recetas, ...noticias]) {
+    try {
+      r.archivos.push(await traducirPieza(tipoDePieza(r), r.pieza));
+    } catch (err) {
+      if (err.fatal) throw err;
+      anotar('aviso', `Sin traducción al inglés de "${r.pieza.title}": ${err.message}`);
+    }
+  }
+
   // --todo-a-revision (safe manual test): everything goes to a Pull Request, nothing straight to main.
   // --rama=<nombre> (preview test): everything is committed to that branch so its Vercel preview shows it.
   const todoARevision = Boolean(args['todo-a-revision']);
@@ -261,6 +273,15 @@ async function main() {
     // In the safe test (--todo-a-revision) nothing goes straight to main, replacement videos included.
     const videosAPublicar = todoALaRama ? videos : [];
     for (const r of [...automaticas, ...videosAPublicar]) escribirArchivos(r.archivos);
+    // Piezas ya publicadas que aún no tienen versión en inglés (hasta 3 por día): se traducen y van directo a main.
+    let traducciones = [];
+    try {
+      traducciones = await traducirPendientes(3);
+    } catch (err) {
+      anotar('aviso', `No se pudieron traducir piezas pendientes: ${err.message}`);
+    }
+    escribirArchivos(traducciones);
+    if (traducciones.length) anotar('ok', `Traducidas al inglés ${traducciones.length} piezas pendientes.`);
     for (const r of [...automaticas, ...enRevision]) {
       const tipo = tipoDePieza(r);
       estado.historial.push({ fecha: hoy.fecha, tipo: tipo === 'recetas' ? 'receta' : tipo === 'videos' ? 'video' : 'noticia', slug: r.pieza.slug ?? r.pieza.id, modo: r.pieza.modo ?? 'revision' });
@@ -270,7 +291,7 @@ async function main() {
     escribirJson(PATHS.cola, cola);
     escribirJson(PATHS.estado, estado);
     for (const v of videosAPublicar) estado.historial.push({ fecha: hoy.fecha, tipo: 'video', slug: v.pieza.id, modo: 'automatico' });
-    const rutas = [...[...automaticas, ...videosAPublicar].flatMap(r => r.archivos.map(a => a.ruta)), 'cola-recetas.json', 'automatizacion/estado.json'];
+    const rutas = [...[...automaticas, ...videosAPublicar].flatMap(r => r.archivos.map(a => a.ruta)), ...traducciones.map(a => a.ruta), 'cola-recetas.json', 'automatizacion/estado.json'];
     const titulos = [...automaticas, ...videosAPublicar].map(r => r.pieza.title).join(' · ') || 'actualización de estado';
     commitYPush(rutas, `contenido ${hoy.fecha}: ${titulos}`, rama);
     for (const v of videosAPublicar) anotar('ok', `Video en lugar de ${v.pieza.seccion === 'recetas' ? 'la receta' : 'la noticia'} de hoy: ${v.pieza.title} (${v.pieza.channel})`);

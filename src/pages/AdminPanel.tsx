@@ -398,6 +398,7 @@ function ContentTab() {
           </button>
         ))}
       </div>
+      {view === 'video' && <PendingVideos />}
       {view === 'video' && (
         <div className="bg-white rounded-2xl border border-[#EADBEE] p-4 space-y-3">
           <p className="text-sm font-bold text-[#2F183C]">Agregar un video con su enlace de YouTube</p>
@@ -497,6 +498,99 @@ function ContentTab() {
       {socialTarget && (
         <GenerateSocialPieces content={socialTarget} onClose={() => setSocialTarget(null)} />
       )}
+    </div>
+  );
+}
+
+/** Videos que propone la automatización: esperan aquí su aprobación (son los mismos borradores de la pestaña Aprobaciones). */
+function PendingVideos() {
+  const { user } = useAuth();
+  const [items, setItems] = useState<ReviewItem[] | null>(null);
+  const [state, setState] = useState<'cargando' | 'ok' | 'no_configurado' | 'error'>('cargando');
+  const [error, setError] = useState('');
+  const [msg, setMsg] = useState('');
+  const [busy, setBusy] = useState<number | null>(null);
+
+  const call = async (init?: RequestInit) => {
+    const token = await user?.getIdToken();
+    const res = await fetch('/api/admin/revision', { ...init, headers: { Authorization: `Bearer ${token}`, ...(init?.body ? { 'Content-Type': 'application/json' } : {}) } });
+    const json = await res.json().catch(() => ({}));
+    if (json.error === 'no_configurado') { setState('no_configurado'); return null; }
+    if (!res.ok) throw new Error(json.error || `Error ${res.status}`);
+    return json;
+  };
+
+  const load = async () => {
+    try {
+      setError('');
+      const json = await call();
+      if (json) { setItems((json.pendientes as ReviewItem[]).filter(i => i.tipo === 'video')); setState('ok'); }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo cargar.');
+      setState('error');
+    }
+  };
+  useEffect(() => { void load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, []);
+
+  const resolve = async (item: ReviewItem, accion: 'aprobar' | 'rechazar') => {
+    const pregunta = accion === 'aprobar'
+      ? `¿Aprobar y publicar el video "${item.title}"? Saldrá en el sitio en unos minutos.`
+      : `¿Rechazar el video "${item.title}"? No se publicará.`;
+    if (!window.confirm(pregunta)) return;
+    setBusy(item.number);
+    setError('');
+    setMsg('');
+    try {
+      await call({ method: 'POST', body: JSON.stringify({ accion, number: item.number }) });
+      setMsg(accion === 'aprobar' ? 'Video aprobado: saldrá en el sitio y aquí abajo en unos minutos.' : 'Video rechazado: no se publicará.');
+      await load();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo completar.');
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  if (state === 'no_configurado') {
+    return (
+      <p className="text-sm bg-amber-50 text-amber-900 border border-amber-200 rounded-xl px-3 py-2">
+        Falta conectar las aprobaciones con GitHub (variable <code>GITHUB_TOKEN_REVISION</code> en Vercel). Mientras tanto no se pueden aprobar videos desde aquí.
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-sm font-bold text-[#2F183C]">Videos pendientes de aprobar{items ? ` (${items.length})` : ''}</p>
+        <button type="button" onClick={() => void load()} className="shrink-0 px-3 py-1.5 rounded-lg border border-[#DFCEE6] text-xs font-bold text-[#2F183C] cursor-pointer">Actualizar</button>
+      </div>
+      {error && <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl px-3 py-2">{error}</p>}
+      {msg && <p className="text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2">{msg}</p>}
+      {state === 'cargando' && <p className="text-xs text-stone-500">Cargando…</p>}
+      {state === 'ok' && items && items.length === 0 && (
+        <p className="text-xs text-stone-500">No hay videos pendientes. La automatización propone un video por día y aparecerá aquí para que lo apruebes o lo rechaces.</p>
+      )}
+      {items?.map(it => {
+        const v = it.preview;
+        return (
+          <div key={it.number} className="bg-white rounded-2xl border-2 border-[#DDA83A] p-4 grid gap-4 sm:grid-cols-[minmax(0,300px)_1fr]">
+            {v?.videoId
+              ? <div className="aspect-video rounded-xl overflow-hidden bg-black"><iframe className="h-full w-full" src={`https://www.youtube-nocookie.com/embed/${v.videoId}`} title={it.title} allowFullScreen /></div>
+              : <p className="text-xs text-stone-500">Sin vista previa. <a className="underline text-[#7B4382]" href={it.url} target="_blank" rel="noopener noreferrer">Ver en GitHub</a></p>}
+            <div className="space-y-2">
+              <p className="text-xs font-bold uppercase text-[#7B4382]">Pendiente · va en {v?.seccion === 'recetas' ? 'Recetas' : 'Noticias'} · propuesto {fmtDate(it.subidoEn)}</p>
+              <p className="font-bold text-[#2F183C]">{it.title}</p>
+              {v?.channel && <p className="text-xs text-stone-600">Canal: {v.channel}</p>}
+              {v?.videoId && <a className="text-xs font-semibold text-[#7B4382] underline" href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer">Ver en YouTube</a>}
+              <div className="flex flex-wrap gap-2 pt-1">
+                <button type="button" disabled={busy === it.number} onClick={() => void resolve(it, 'aprobar')} className="px-4 py-2 rounded-xl bg-[#2F183C] text-white text-sm font-bold disabled:opacity-50 cursor-pointer">{busy === it.number ? 'Un momento…' : 'Aprobar y publicar'}</button>
+                <button type="button" disabled={busy === it.number} onClick={() => void resolve(it, 'rechazar')} className="px-4 py-2 rounded-xl border border-[#DFCEE6] text-sm font-semibold text-[#2F183C] disabled:opacity-50 cursor-pointer">Rechazar</button>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

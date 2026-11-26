@@ -1,0 +1,29 @@
+{
+  "title": "Pork Loin with Blueberry Reduction",
+  "excerpt": "Enjoy a juicy pork loin seared in a skillet and glazed with a smooth, savory and sweet-and-sour reduction made with fresh blueberries. An exquisite, easy and flavorful dish to impress at home.",
+  "imageAlt": "Seared pork loin medallions glazed with a glossy reduction of whole blueberries, garnished with fresh rosemary.",
+  "ingredients": [
+    { "text": "600 g pork loin, cut into thick medallions" },
+    { "text": "1 cup Fresh Pick blueberries", "freshPick": true },
+    { "text": "1 tablespoon olive oil" },
+    { "text": "1/2 cup beef broth" },
+    { "text": "2 tablespoons balsamic vinegar" },
+    { "text": "1 teaspoon honey" },
+    { "text": "1 sprig of fresh rosemary" },
+    { "text": "Salt and freshly ground black pepper, to taste" }
+  ],
+  "steps": [
+    "Season the pork loin medallions on both sides with salt, pepper and a little finely chopped fresh rosemary.",
+    "Heat the olive oil in a large skillet over medium-high heat. Sear the medallions for 3 to 4 minutes per side until well browned on the outside. Remove them from the skillet and keep them covered.",
+    "In the same skillet over medium heat, pour in the balsamic vinegar to deglaze, gently scraping up the browned bits from the bottom with a wooden spoon.",
+    "Add the beef broth, the honey and the Fresh Pick blueberries, grown in the mountains of Guasca more than 2,800 meters above sea level, whose sweet and tart balance is ideal for savory sauces.",
+    "Cook the mixture for 6 to 8 minutes until the liquid reduces by half and the blueberries begin to release their juices but still keep some of their shape.",
+    "Return the pork medallions to the skillet along with any juices they released, coating them with the sauce for 2 minutes so they take on all the flavor.",
+    "Serve immediately, topping each medallion with a generous spoonful of the blueberry reduction."
+  ],
+  "tips": [
+    "Wash the Fresh Pick blueberries right before adding them to the skillet to keep their natural bloom intact and preserve the firmness of the fruit while cooking.",
+    "To make sure the pork loin stays juicy, let the meat rest covered for 5 minutes before giving it the final touch with the hot sauce."
+  ],
+  "imagenCredit": "Illustrative AI-generated image"
+}

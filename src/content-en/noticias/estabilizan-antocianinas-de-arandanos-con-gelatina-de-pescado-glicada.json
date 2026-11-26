@@ -1,0 +1,34 @@
+{
+  "title": "Blueberry Anthocyanins Stabilized with Glycated Fish Gelatin",
+  "metaDescription": "A study analyzes how glycated fish gelatin protects blueberry anthocyanins against heat, UV light and digestion.",
+  "excerpt": "Researchers evaluated the interaction between glycated fish gelatin and blueberry anthocyanins, showing a notable improvement in pigment stability under stress factors.",
+  "imageAlt": "Fresh blueberries next to lab preparations in glass bowls",
+  "blocks": [
+    { "type": "h2", "text": "Introduction: the fragility and value of anthocyanins" },
+    { "type": "p", "text": "Anthocyanins are the natural compounds responsible for the characteristic color of blueberries and are among the most studied components in food science. However, these molecules face a constant challenge: they are highly sensitive to environmental factors such as light, temperature, pH changes and the presence of certain acids. When exposed to these conditions during processing or storage, they tend to degrade easily, which reduces how much of their original properties is retained in preparations." },
+    { "type": "p", "text": "Faced with this limitation, food technology continually looks for ways to protect and stabilize anthocyanins through molecular complexes. A recent study published in the scientific journal Food Chemistry: X explored a novel alternative: using fish gelatin modified through a glycation process to form a protective complex around the anthocyanins extracted from blueberries. Understanding how these elements interact makes it possible to move forward in preserving the fruit's natural pigments." },
+    { "type": "h2", "text": "What the source says: molecular preservation using glycated gelatin" },
+    { "type": "p", "text": "The main goal of the study was to investigate the interaction between glycated fish gelatin and blueberry anthocyanins, measuring their binding capacity and the direct impact on pigment stability. To do so, the researchers glycated fish gelatin with fructose and inulin for different lengths of time. Spectroscopic analyses confirmed that glycation strengthened the ability to bind anthocyanins through non-covalent interactions, with the fructose-glycated gelatin treated for 60 minutes (identified as FG-Fru-60 min) reaching the highest binding capacity, at 169.11 mg per 100 g." },
+    { "type": "p", "text": "The anthocyanin complexes were then subjected to various physical and chemical stress tests to evaluate their retention percentage compared with free anthocyanins, non-glycated fish gelatin and inulin-glycated gelatin. In the FG-Fru-60 min complex, the retention results were as follows:" },
+    { "type": "ul", "items": [
+      "Heating at 100 °C for 2 hours: 35.31% retention.",
+      "Ultraviolet (UV) light irradiation for 120 hours: 38.49% retention.",
+      "Exposure to ascorbic acid for 144 hours: 46.38% retention.",
+      "Alkaline environment at pH 9 for 10 days: 36.40% retention.",
+      "Simulated digestion conditions: 40.19% retention.",
+      "Storage in the dark at 25 °C for 70 days: 42.30% retention."
+    ] },
+    { "type": "p", "text": "It is important to note that this work is a lab (in vitro) study focused on food physical chemistry. It did not involve people or animal models, so the limitations of the study mean that the retention rates observed describe how these complexes behave under controlled lab simulations and not directly how they are absorbed during digestion in a living organism." },
+    { "type": "h2", "text": "Context: the technical challenge of stability in food" },
+    { "type": "p", "text": "In food science it has long been known that the structure of anthocyanins is susceptible to degradation under high temperature and drastic changes in acidity. For this reason, using protein or carbohydrate matrices as protective layers has been a recurring line of development." },
+    { "type": "p", "text": "This finding fits with research that seeks to extend the shelf life of natural ingredients without resorting to synthetic additives. By showing that fructose-glycated fish gelatin offers significantly better protection than non-glycated gelatin or inulin-glycated gelatin, it confirms that the specific choice of sugars and reaction times changes the protein's structure in a way that favors retaining delicate blueberry compounds." },
+    { "type": "h2", "text": "What it means for you: from the lab to informed consumption" },
+    { "type": "p", "text": "For consumers interested in nutrition and food components, this kind of study shows the scientific effort being made to preserve the natural characteristics of fruit in industry. Although the research uses lab processes such as controlled glycation of fish gelatin, the knowledge generated can help design better ways to preserve natural extracts in processed products or supplements in the future." },
+    { "type": "p", "text": "In everyday life, this also highlights the value of eating fruit fresh and whole, where the blueberry's natural matrix protects its own components until the moment they are eaten, making the most of the food's quality just as it comes from the field." },
+    { "type": "h2", "text": "Conclusion" },
+    { "type": "p", "text": "The data provided by the research in Food Chemistry: X confirm that combining fructose-glycated fish gelatin is an effective strategy to improve the stability of anthocyanins against heat, light, alkaline pH and simulated digestion." },
+    { "type": "p", "text": "Understanding the delicate nature of these pigments motivates us at Fresh Pick to keep promoting rigorous knowledge about the virtues of fresh fruit." }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative AI-generated image"
+}

@@ -1,0 +1,31 @@
+{
+  "title": "Homemade Granola with Blueberries",
+  "excerpt": "Make a golden, crunchy granola baked at home and topped with the fresh, juicy touch of blueberries. The perfect breakfast to start the morning with energy.",
+  "imageAlt": "A bowl of golden, crunchy homemade granola served with whole fresh blueberries and chopped almonds.",
+  "ingredients": [
+    { "text": "1 cup Fresh Pick blueberries", "freshPick": true },
+    { "text": "2 cups whole rolled oats" },
+    { "text": "1/2 cup chopped almonds" },
+    { "text": "1/4 cup pumpkin seeds" },
+    { "text": "3 tablespoons honey" },
+    { "text": "2 tablespoons melted coconut oil" },
+    { "text": "1 teaspoon vanilla extract" },
+    { "text": "1/2 teaspoon ground cinnamon" },
+    { "text": "1 pinch of sea salt" }
+  ],
+  "steps": [
+    "Preheat the oven to 160 °C (320 °F) and line a baking tray with parchment paper.",
+    "In a large bowl, mix the whole oats, chopped almonds, pumpkin seeds, cinnamon and the pinch of sea salt.",
+    "In a small bowl, combine the honey, coconut oil and vanilla extract until well blended.",
+    "Pour the liquid mixture over the dry ingredients and stir with a spatula until everything is evenly coated.",
+    "Spread the granola evenly over the baking tray, pressing gently with the spatula.",
+    "Bake for 20 to 25 minutes, gently stirring the granola halfway through so it browns evenly.",
+    "Remove from the oven and let it cool for 15 minutes without moving it so it gets its crunchy texture.",
+    "Serve in bowls and top with fresh Fresh Pick blueberries. These high-mountain blueberries grown in Guasca add an incomparable juicy, naturally sweet contrast."
+  ],
+  "tips": [
+    "Store the baked granola base in an airtight glass jar for up to two weeks at room temperature. Add the Fresh Pick blueberries right when serving to keep the fruit fresh and the cereal crunchy.",
+    "For bigger, crunchier clusters, press the mixture firmly onto the tray before baking and do not move it too much while it cools."
+  ],
+  "imagenCredit": "Illustrative AI-generated image"
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Cuajada with Blueberry Sauce",
+  "excerpt": "Enjoy a Colombian classic with a unique twist: fresh cuajada (Colombian fresh cheese) served with a smooth homemade sauce of high-mountain blueberries. A traditional dessert, light and delicious.",
+  "imageAlt": "A portion of fresh cuajada topped with warm whole-blueberry sauce, served on a traditional ceramic plate.",
+  "ingredients": [
+    { "text": "2 cups Fresh Pick blueberries", "freshPick": true },
+    { "text": "400 g fresh cuajada (Colombian fresh cheese)" },
+    { "text": "3 tablespoons grated panela" },
+    { "text": "1/4 cup water" },
+    { "text": "1 small cinnamon stick" },
+    { "text": "1 teaspoon lemon juice" }
+  ],
+  "steps": [
+    "Cut the cuajada into four portions or thick slices and place them on the serving plates at room temperature.",
+    "In a small pot over medium heat, combine the water with the grated panela and the cinnamon stick until the panela dissolves completely.",
+    "Add the Fresh Pick blueberries, grown in the high mountains of Guasca, along with the teaspoon of lemon juice.",
+    "Cook over medium-low heat for 8 to 10 minutes, stirring gently with a wooden spoon so the berries release their natural juices without falling apart completely.",
+    "Remove the cinnamon stick and turn off the heat. Let the sauce rest for 3 minutes so it thickens slightly.",
+    "Spoon the warm blueberry sauce generously over each slice of cuajada and serve right away."
+  ],
+  "tips": [
+    "If you like a contrast of temperatures, keep the cuajada cold in the fridge until the moment you pour the warm sauce over it.",
+    "To store Fresh Pick blueberries at home before cooking, keep them refrigerated in their original packaging without washing them until you are ready to eat them."
+  ],
+  "imagenCredit": "Illustrative AI-generated image"
+}

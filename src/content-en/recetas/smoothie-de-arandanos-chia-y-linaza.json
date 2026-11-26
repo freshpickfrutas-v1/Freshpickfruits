@@ -1,0 +1,27 @@
+{
+  "title": "Blueberry Smoothie with Chia and Flaxseed",
+  "excerpt": "Enjoy a creamy, refreshing smoothie that combines fresh blueberries with chia and flaxseed. A delicious, easy-to-make option to start your mornings.",
+  "imageAlt": "A tall glass of blueberry, chia and flaxseed smoothie, topped with fresh blueberries.",
+  "ingredients": [
+    { "text": "1 cup Fresh Pick blueberries", "freshPick": true },
+    { "text": "1 tablespoon chia seeds" },
+    { "text": "1 tablespoon ground flaxseed" },
+    { "text": "1 1/2 cups almond milk" },
+    { "text": "1/2 teaspoon vanilla extract" },
+    { "text": "1 tablespoon honey" },
+    { "text": "4 ice cubes" }
+  ],
+  "steps": [
+    "In a small bowl, soak the chia seeds and ground flaxseed in 4 tablespoons of water or milk for 5 minutes so they hydrate.",
+    "Add the Fresh Pick blueberries to the blender, grown in the cold mountains of Guasca more than 2,800 meters above sea level to ensure their natural sweetness.",
+    "Add the hydrated chia and flaxseed along with the almond milk, honey and vanilla extract.",
+    "Add the ice cubes to give the mixture freshness and body.",
+    "Blend on high speed for 1 to 2 minutes until you get a creamy, even texture.",
+    "Serve right away in two tall glasses and enjoy a delicious drink."
+  ],
+  "tips": [
+    "You can freeze the washed and dried Fresh Pick blueberries beforehand to get a much thicker smoothie without adding extra ice.",
+    "Using ground flaxseed instead of whole seeds keeps the smoothie smooth and silky to drink."
+  ],
+  "imagenCredit": "Illustrative AI-generated image"
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Ricotta, Blueberry and Honey Toasts",
+  "excerpt": "Enjoy a quick, sophisticated breakfast with these artisan bread toasts, creamy ricotta cheese, honey and the natural freshness of our high-mountain blueberries.",
+  "imageAlt": "Artisan bread toasts topped with creamy ricotta cheese, whole blueberries and a glossy drizzle of honey.",
+  "ingredients": [
+    { "text": "1 cup Fresh Pick blueberries", "freshPick": true },
+    { "text": "4 slices of artisan bread (sourdough or multigrain)" },
+    { "text": "1 cup fresh ricotta cheese" },
+    { "text": "2 tablespoons pure honey" },
+    { "text": "1/2 teaspoon lemon zest" },
+    { "text": "1 pinch of sea salt" },
+    { "text": "Fresh mint leaves to garnish (optional)" }
+  ],
+  "steps": [
+    "Toast the artisan bread slices in a skillet over medium heat or in a toaster until they are golden and crunchy.",
+    "In a small bowl, mix the ricotta cheese with the lemon zest and a pinch of sea salt until you get a smooth cream.",
+    "Spread a generous layer of the ricotta mixture over each slice of hot bread.",
+    "Top with the Fresh Pick blueberries. Grown more than 2,800 meters above sea level in Guasca, their natural sweetness contrasts wonderfully with the mild tang of the ricotta.",
+    "Finish by drizzling the toasts with pure honey and garnishing with fresh mint leaves right before serving."
+  ],
+  "tips": [
+    "Do not wash the Fresh Pick blueberries until the exact moment you assemble the toasts; this keeps their natural bloom intact and their freshness for longer.",
+    "If you prefer a warmer texture, warm the blueberries in a skillet with a few drops of honey over low heat for 1 minute before placing them on the ricotta."
+  ],
+  "imagenCredit": "Illustrative AI-generated image"
+}

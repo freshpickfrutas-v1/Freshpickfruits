@@ -1,0 +1,27 @@
+{
+  "title": "Blueberry and Rosemary Mocktail",
+  "excerpt": "Surprise your guests with this refined blueberry and rosemary mocktail. A refreshing, elegant drink with the perfect balance of sweet, herbal and citrus.",
+  "imageAlt": "Glasses of iced blueberry and rosemary mocktail decorated with fresh sprigs and floating blueberries.",
+  "ingredients": [
+    { "text": "1 cup Fresh Pick blueberries", "freshPick": true },
+    { "text": "2 sprigs of fresh rosemary" },
+    { "text": "2 tablespoons honey or powdered panela" },
+    { "text": "1/2 cup water" },
+    { "text": "2 tablespoons lemon juice" },
+    { "text": "1 1/2 cups sparkling water" },
+    { "text": "Ice, to taste" }
+  ],
+  "steps": [
+    "In a small pot over medium heat, combine half a cup of Fresh Pick blueberries, the water, the honey and one sprig of fresh rosemary.",
+    "Cook for 5 minutes, gently pressing the blueberries with a wooden spoon so they release all their juice and aroma.",
+    "Remove from the heat, take out the rosemary sprig and let the syrup cool to room temperature for 15 minutes.",
+    "In a pitcher or cocktail shaker, mix the cold syrup, the lemon juice and the remaining whole blueberries, carefully grown in the high mountains of Guasca.",
+    "Fill two tall glasses with plenty of ice and divide the concentrated blueberry mixture between them.",
+    "Top each glass with cold sparkling water, stir slowly to blend the flavors and garnish with the remaining rosemary sprig."
+  ],
+  "tips": [
+    "For a spectacular aromatic touch, pass the decorative rosemary sprig close to a flame for a few seconds right before serving.",
+    "You can make the blueberry and rosemary syrup ahead of time and store it in a sealed jar in the fridge for up to 5 days."
+  ],
+  "imagenCredit": "Illustrative AI-generated image"
+}

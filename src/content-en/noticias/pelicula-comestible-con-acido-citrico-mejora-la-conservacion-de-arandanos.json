@@ -1,0 +1,33 @@
+{
+  "title": "Edible Film with Citric Acid Improves Blueberry Preservation",
+  "metaDescription": "Discover how a new biodegradable coating with citric acid preserves the firmness and freshness of blueberries against spoilage.",
+  "excerpt": "Researchers develop a biodegradable edible coating with citric acid that reduces weight loss and microbiological spoilage in blueberries.",
+  "imageAlt": "Fresh blueberries covered with a thin protective layer on a wooden table",
+  "blocks": [
+    { "type": "h2", "text": "Introduction: biodegradable innovation to protect fresh fruit" },
+    { "type": "p", "text": "Food waste and the widespread use of synthetic, petroleum-based packaging are two major challenges for the agri-food industry. In the transport and marketing of small fruits such as blueberries, keeping freshness, firmness and natural hydration without resorting to polluting plastics is a constant goal in the research of new materials." },
+    { "type": "p", "text": "Naturally derived biodegradable polymers are put forward as the main alternative to replace traditional packaging. However, many biofilms suffer from deformation, tearing or shrinkage because of their high affinity for ambient moisture. Faced with this challenge, a recent study published in the scientific journal Food Chemistry evaluated a technical strategy based on a quick citric acid treatment to stabilize functional coatings designed to preserve blueberries." },
+    { "type": "h2", "text": "What the study reveals about citric acid and the protective film" },
+    { "type": "p", "text": "The research analyzed films made from carboxymethyl chitosan (CMCS) and sodium alginate (SA), reinforced with polyvinyl alcohol (PVA) and made flexible with glycerol (GLY). Despite the ecological potential of these blends, their slow drying often causes cracking and deformation. To correct this problem, the authors applied a post-treatment of just 10 seconds with citric acid (CA) immediately after casting." },
+    { "type": "p", "text": "Lab tests determined that the blend called G6 (with a CMCS/SA:PVA:GLY ratio of 1:0.30:0.60 by weight) showed the best physicochemical and protective properties. The most notable quantitative findings of the study include the following:" },
+    { "type": "ul", "items": [
+      "Water vapor permeability: the formulation achieved a low permeability of 0.73 × 10⁻⁴ g·m⁻¹·h⁻¹·kPa⁻¹.",
+      "Moisture and contact angle: it had a moisture content of 14.7% and a water contact angle of 89.6°.",
+      "Mechanical strength: it reached a tensile strength of 6.10 MPa and an elongation at break of 191.35%.",
+      "Antibacterial capacity: it showed inhibition zones of 21.67 mm against Escherichia coli and 23.30 mm against Staphylococcus aureus.",
+      "Antioxidant activity: it showed free-radical scavenging capacity measured by the DPPH method."
+    ] },
+    { "type": "p", "text": "These characteristics were achieved thanks to the interaction of ionic and hydrogen bonds facilitated by the citric acid, together with the support of the PVA and the plasticizing effect of the glycerol. Applied as an edible coating, the G6 formulation reduced weight loss and the decay rate in the blueberries tested, while also helping to keep their firmness during lab storage." },
+    { "type": "h2", "text": "Context: the advance of edible coatings in the fruit industry" },
+    { "type": "p", "text": "The use of polysaccharides such as chitosan and alginate has been studied often because of their biocompatibility and their ability to form thin layers on food. However, their sensitivity to moisture limited their practical effectiveness unless they were combined with stabilizing agents." },
+    { "type": "p", "text": "The main innovation of this work lies in how brief the treatment is: a 10-second citric acid bath was enough to structure the polymer network. Citric acid also has a dual role, acting at the same time as a structural stabilizer and as an agent with antibacterial and antioxidant activity. This is in line with the current trend toward active packaging that aims not only to wrap the product but to interact chemically to slow down spoilage processes." },
+    { "type": "h2", "text": "What it means for you: implications for consumption and preservation" },
+    { "type": "p", "text": "Although this coating is still at the development and lab research stage, it shows how biotechnology applied to food seeks to offer fruit with a longer shelf life without generating persistent plastic waste. For consumers, these advances point to a future where food is protected with safe, natural coatings." },
+    { "type": "p", "text": "In daily life, keeping the firmness and quality of fresh berries still depends on proper handling at home: keep them constantly refrigerated, avoid washing them before storing them and try not to expose the fruit to sudden temperature changes." },
+    { "type": "h2", "text": "Conclusion: green innovation to protect fruit quality" },
+    { "type": "p", "text": "The evidence gathered in Food Chemistry suggests that simple treatments with natural ingredients such as citric acid can turn biodegradable films into effective tools against water loss and microbial attack in delicate fruit." },
+    { "type": "p", "text": "Preserving natural hydration and firmness is essential to enjoy fruit at its ideal point. At Fresh Pick we value how science looks for clean solutions that safeguard freshness and respect the environment." }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative AI-generated image"
+}

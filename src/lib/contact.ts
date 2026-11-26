@@ -4,6 +4,7 @@ export const WHATSAPP_DISPLAY = '+57 317 893 1026';
 export const SOCIAL_LINKS = {
   facebook: 'https://www.facebook.com/profile.php?id=61594545110187',
   instagram: 'https://www.instagram.com/fruitsfreshpick/',
+  x: 'https://x.com/freshpickfruits',
   tiktok: 'https://www.tiktok.com/@freshpick_fruits'
 };
 export const CONTACT_EMAIL = 'info@freshpickfruits.com';

@@ -478,8 +478,8 @@
     "titulo": "Chutney de Arándanos y Cebolla",
     "categoria": "preparaciones-conservas",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 2,
+    "estado": "borrador",
+    "intentos": 3,
     "ultimoError": "usa otras frutas como ingrediente: manzana"
   },
   {
@@ -497,8 +497,8 @@
     "categoria": "snacks-meriendas",
     "modo": "automatico",
     "estado": "pendiente",
-    "intentos": 1,
-    "ultimoError": "no se consiguió una imagen aprobada: intento 1: rechazada: La imagen presenta arándanos frescos en vez de deshidratados y contiene ligeras deformaciones por IA en los frutos secos. | intento 2: rechazada: La imagen presenta un aspecto claramente artificial en la textura de los frutos secos y combina arándanos frescos con deshidratados, no cumpliendo plenamente con el realismo fotográfico requerido. | intento 3: rechazada: Los arándanos mostrados en la mezcla son frescos en lugar de deshidratados, por lo que no corresponden al tema de la receta."
+    "intentos": 2,
+    "ultimoError": "no se consiguió una imagen aprobada: intento 1: rechazada: La imagen muestra arándanos frescos y jugosos en vez de deshidratados, además de presentar leves artefactos visuales típicos de la generación por inteligencia artificial. | intento 2: rechazada: Muestra arándanos frescos en lugar de deshidratados y presenta artefactos antinaturales en la mezcla de frutos secos. | intento 3: rechazada: Los arándanos mostrados en el tazón son frescos en lugar de deshidratados, no correspondiendo al tema de la receta."
   },
   {
     "orden": 56,

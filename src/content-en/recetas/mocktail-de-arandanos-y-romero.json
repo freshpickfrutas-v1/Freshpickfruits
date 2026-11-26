@@ -5,14 +5,14 @@
   "ingredients": [
     { "text": "1 cup Fresh Pick blueberries", "freshPick": true },
     { "text": "2 sprigs of fresh rosemary" },
-    { "text": "2 tablespoons honey or powdered panela" },
+    { "text": "1 tablespoon honey or powdered panela" },
     { "text": "1/2 cup water" },
     { "text": "2 tablespoons lemon juice" },
     { "text": "1 1/2 cups sparkling water" },
     { "text": "Ice, to taste" }
   ],
   "steps": [
-    "In a small pot over medium heat, combine half a cup of Fresh Pick blueberries, the water, the honey and one sprig of fresh rosemary.",
+    "In a small pot over medium heat, combine half a cup of Fresh Pick blueberries, the water, the honey and one sprig of fresh rosemary. We use half the usual sweetener because Fresh Pick blueberries have more natural sugar.",
     "Cook for 5 minutes, gently pressing the blueberries with a wooden spoon so they release all their juice and aroma.",
     "Remove from the heat, take out the rosemary sprig and let the syrup cool to room temperature for 15 minutes.",
     "In a pitcher or cocktail shaker, mix the cold syrup, the lemon juice and the remaining whole blueberries, carefully grown in the high mountains of Guasca.",
@@ -21,7 +21,8 @@
   ],
   "tips": [
     "For a spectacular aromatic touch, pass the decorative rosemary sprig close to a flame for a few seconds right before serving.",
-    "You can make the blueberry and rosemary syrup ahead of time and store it in a sealed jar in the fridge for up to 5 days."
+    "You can make the blueberry and rosemary syrup ahead of time and store it in a sealed jar in the fridge for up to 5 days.",
+    "This recipe uses half the usual sweetener: Fresh Pick blueberries have more natural sugar, so we cut it back. Taste it and, if you prefer it sweeter, add a little more."
   ],
   "imagenCredit": "Illustrative AI-generated image"
 }

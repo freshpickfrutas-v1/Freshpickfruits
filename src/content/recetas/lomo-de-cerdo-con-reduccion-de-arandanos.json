@@ -1,0 +1,62 @@
+{
+  "slug": "lomo-de-cerdo-con-reduccion-de-arandanos",
+  "title": "Lomo de Cerdo con Reducción de Arándanos",
+  "excerpt": "Disfruta un jugoso lomo de cerdo sellado al sartén y bañado en una suave reducción salada y agridulce con arándanos frescos. Un plato exquisito, fácil y lleno de sabor para sorprender en casa.",
+  "imageAlt": "Medallones de lomo de cerdo sellados bañados en una reducción brillante de arándanos enteros, decorados con romero fresco.",
+  "category": "ensaladas-platos-frescos",
+  "extraCategories": [
+    "preparaciones-conservas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 20,
+  "restMinutes": 5,
+  "difficulty": "Intermedio",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "600 g de lomo de cerdo cortado en medallones gruesos"
+    },
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 cucharada de aceite de oliva"
+    },
+    {
+      "text": "1/2 taza de caldo de carne"
+    },
+    {
+      "text": "2 cucharadas de vinagre balsámico"
+    },
+    {
+      "text": "1 cucharadita de miel de abejas"
+    },
+    {
+      "text": "1 ramita de romero fresco"
+    },
+    {
+      "text": "Sal y pimienta negra molida al gusto"
+    }
+  ],
+  "steps": [
+    "Sazona los medallones de lomo de cerdo por ambos lados con sal, pimienta y un poco de romero fresco picado finamente.",
+    "Calienta el aceite de oliva en una sartén grande a fuego medio-alto. Sella los medallones durante 3 a 4 minutos por lado hasta que estén bien dorados por fuera. Retíralos de la sartén y resérvalos tapados.",
+    "En la misma sartén a fuego medio, vierte el vinagre balsámico para desglasar, raspando suavemente con una cuchara de palo los jugos dorados que quedaron en el fondo.",
+    "Agrega el caldo de carne, la miel y los arándanos Fresh Pick, cultivados en las montañas de Guasca a más de 2.800 metros de altura, cuyo equilibrio dulce y ácido es ideal para salsas saladas.",
+    "Cocina la mezcla durante 6 a 8 minutos hasta que el líquido reduzca a la mitad y los arándanos comiencen a soltar sus jugos pero mantengan algo de su forma.",
+    "Regresa los medallones de cerdo a la sartén junto con los jugos que hayan soltado, bañándolos con la salsa durante 2 minutos para que se impregnen de todo el sabor.",
+    "Sirve de inmediato acompañando cada medallón con una porción generosa de la reducción de arándanos."
+  ],
+  "tips": [
+    "Lava los arándanos Fresh Pick justo antes de incorporarlos a la sartén para mantener intacta su pruina natural y conservar la firmeza de la fruta durante la cocción.",
+    "Para garantizar un lomo de cerdo jugoso, deja reposar la carne tapada durante 5 minutos antes de darle el toque final con la salsa caliente."
+  ],
+  "date": "2026-11-23",
+  "publicadoEn": "2026-11-24T01:25:57.937Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/lomo-de-cerdo-con-reduccion-de-arandanos.jpg"
+}

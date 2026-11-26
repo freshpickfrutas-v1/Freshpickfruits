@@ -1,0 +1,70 @@
+{
+  "title": "Phytohormones and Antioxidants: How ABA and MeJA Modulate Blueberries in Postharvest",
+  "metaDescription": "A study evaluated how abscisic acid and methyl jasmonate affect the synthesis of antioxidants and phenolic compounds in blueberries.",
+  "excerpt": "Researchers analyze the impact of applying phytohormones such as abscisic acid and methyl jasmonate in postharvest 'O'Neal' blueberries, observing significant increases in their antioxidant compounds.",
+  "imageAlt": "Fresh blueberries collected in an agricultural research laboratory evaluating their phytochemical quality.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introduction: the challenge of preserving blueberry nutrients"
+    },
+    {
+      "type": "p",
+      "text": "Blueberries (Vaccinium corymbosum L.) are globally recognized for their remarkable nutritional profile, particularly for their high concentration of phenolic compounds and flavonoids, substances associated with the antioxidant capacity of fruits. However, once the fruit is harvested, a natural process of ripening and senescence begins in which the synthesis and degradation of these phytochemicals changes significantly. In the field of agronomic science and food technology, understanding the biological mechanisms that occur during the postharvest stage is fundamental to optimizing the preservation of fruit quality."
+    },
+    {
+      "type": "p",
+      "text": "In this context, the application of phytohormones or plant growth regulators during postharvest has emerged as a promising line of research. Natural molecules such as abscisic acid (ABA) and methyl jasmonate (MeJA) play key roles in cellular signaling in plants, regulating responses to stress and stimulating secondary metabolic pathways. Understanding how these molecules can influence the genes responsible for antioxidant production in blueberries allows us to envision scientific strategies to maintain or even enhance their nutritional properties once harvested."
+    },
+    {
+      "type": "h2",
+      "text": "What the research reveals: findings on the application of ABA and MeJA"
+    },
+    {
+      "type": "p",
+      "text": "A study published in the scientific journal Molecules analyzed the effects of postharvest application of abscisic acid (ABA at a concentration of 1 mM) and methyl jasmonate (MeJA at 0.1 mM) on blueberry fruits of the 'O'Neal' variety. Researchers evaluated responses at 0, 1, 2, and 5 days post-treatment, focusing on the expression of nineteen genes involved in the phenylpropanoid and flavonoid biosynthesis pathways, total phenol content, phenolic compound profile, antioxidant capacity, and antioxidant enzyme activity."
+    },
+    {
+      "type": "p",
+      "text": "Among the main results, it was observed that both hormonal treatments generated distinct temporal responses. Abscisic acid triggered an early and transient transcriptional response, reaching peak induction levels at day 1 after treatment (with up to a 6.6-fold increase in the expression of the VcPAL2 gene). For its part, methyl jasmonate caused a lower-intensity and later response, mainly linked to the subsequent induction of genes such as VcDFR2 and VcOMT2."
+    },
+    {
+      "type": "p",
+      "text": "Likewise, the study showed that all fruits recorded an increase in total phenol, flavonoid, and anthocyanin contents as storage days progressed. However, fruits treated with ABA or MeJA exhibited an additional increase of between 25% and 50% in the accumulation of these compounds by the fifth day compared to the start of the experiment. Chromatographic analysis (HPLC-DAD) revealed specific and contrasting changes in the phenolic profile depending on the analyzed compound, while principal component analysis clearly differentiated the immediate genetic response from the metabolite accumulation process associated with storage. It is important to note that this is a postharvest laboratory trial conducted on a specific variety ('O'Neal'), so its findings do not represent direct medical recommendations, but rather advances in the physiological understanding of the fruit."
+    },
+    {
+      "type": "h2",
+      "text": "Context: secondary metabolism and flavonoid biosynthesis"
+    },
+    {
+      "type": "p",
+      "text": "These findings align with what scientific literature has previously documented regarding the secondary metabolism of small fruits. Flavonoids and anthocyanins are the natural pigments and antioxidants responsible for the blueberry's characteristic purplish-blue hue and part of its functional properties. The phenylpropanoid pathway is the main metabolic pathway through which the plant synthesizes these phytochemicals."
+    },
+    {
+      "type": "p",
+      "text": "Knowing that plant hormones such as ABA and MeJA act as modulators of this metabolic pathway confirms that harvested fruit is not an inert tissue, but a living organic system that continues to respond to external biochemical stimuli. The differentiation between a rapid response (such as that of ABA on the PAL enzyme) and a delayed response (such as that of MeJA) helps us understand how metabolite accumulation is regulated over storage time."
+    },
+    {
+      "type": "h2",
+      "text": "What it means for you: the science behind the nutritional value of fruit"
+    },
+    {
+      "type": "p",
+      "text": "For the everyday blueberry consumer, this research provides a valuable perspective on the scientific rigor that supports the study of fruit antioxidant content. Although direct applications of ABA and MeJA are postharvest management and research tools used at the agronomic and biotechnological levels, the essential message is that the blueberry is a dynamic fruit whose phenolic compounds and flavonoids remain active and can even evolve during the days following harvest."
+    },
+    {
+      "type": "p",
+      "text": "By choosing to include fresh blueberries in your daily diet, you are incorporating a fruit whose phytochemical richness is the subject of constant scientific interest. There is no need to look for special treatments or complex solutions at home: enjoying fresh fruit within a balanced diet is the best way to take advantage of the nutrients that nature and proper field and postharvest management manage to preserve."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusion: technology and nature at the service of the fruit"
+    },
+    {
+      "type": "p",
+      "text": "In conclusion, the study demonstrates that postharvest hormonal modulation with ABA and MeJA differently influences gene expression and enhances the accumulation of phenolic and antioxidant compounds in 'O'Neal' blueberries by 25% to 50% after 5 days of storage. At Fresh Pick, we cultivate our high-mountain blueberries with careful practices to naturally protect the freshness, flavor, and phytochemical value of each fruit from harvest."
+    }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative AI-generated image"
+}

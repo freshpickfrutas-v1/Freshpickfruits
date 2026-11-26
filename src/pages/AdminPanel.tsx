@@ -502,14 +502,20 @@ function ContentTab() {
   );
 }
 
-/** Videos que propone la automatización: esperan aquí su aprobación (son los mismos borradores de la pestaña Aprobaciones). */
+/** Video propuesto por Claude: se busca en la web (sin API de YouTube) y queda en public/videos-propuestos.json hasta que el admin lo aprueba. */
+interface VideoPropuesto { id: string; title: string; channel: string; seccion: 'recetas' | 'noticias'; propuestoEn: string }
+
+/** Videos pendientes de aprobar: los que busca Claude en la web y los borradores que crea la automatización (GitHub). */
 function PendingVideos() {
+  useHiddenContent();
   const { user } = useAuth();
   const [items, setItems] = useState<ReviewItem[] | null>(null);
+  const [propuestos, setPropuestos] = useState<VideoPropuesto[]>([]);
   const [state, setState] = useState<'cargando' | 'ok' | 'no_configurado' | 'error'>('cargando');
   const [error, setError] = useState('');
   const [msg, setMsg] = useState('');
   const [busy, setBusy] = useState<number | null>(null);
+  const [busyId, setBusyId] = useState('');
 
   const call = async (init?: RequestInit) => {
     const token = await user?.getIdToken();
@@ -532,6 +538,42 @@ function PendingVideos() {
   };
   useEffect(() => { void load(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, []);
 
+  const cargarPropuestos = () => {
+    fetch('/videos-propuestos.json', { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : []))
+      .then((d: unknown) => setPropuestos(Array.isArray(d) ? (d as VideoPropuesto[]) : []))
+      .catch(() => setPropuestos([]));
+  };
+  useEffect(() => { cargarPropuestos(); }, []);
+
+  // Una propuesta deja de estar pendiente cuando ya se aprobó (está en la biblioteca) o se rechazó (está oculta).
+  const yaEnBiblioteca = new Set<string>([
+    ...allCustomVideos().map(v => v.id),
+    ...FEATURED_VIDEOS.noticias.map(v => v.id),
+    ...FEATURED_VIDEOS.recetas.map(v => v.id),
+  ]);
+  const porAprobar = propuestos.filter(p => p.id && !yaEnBiblioteca.has(p.id) && !isHidden('video', p.id));
+  const total = porAprobar.length + (items?.length ?? 0);
+
+  const resolverPropuesta = async (v: VideoPropuesto, accion: 'aprobar' | 'rechazar') => {
+    const pregunta = accion === 'aprobar'
+      ? `¿Aprobar y publicar el video "${v.title}" en ${v.seccion === 'recetas' ? 'Recetas' : 'Noticias'}? Se verá en el sitio de inmediato.`
+      : `¿Rechazar el video "${v.title}"? No se publicará.`;
+    if (!window.confirm(pregunta)) return;
+    setBusyId(v.id);
+    setError('');
+    setMsg('');
+    try {
+      if (accion === 'aprobar') await addCustomVideo({ id: v.id, seccion: v.seccion, title: v.title, channel: v.channel });
+      else await hideContent('video', v.id, v.title);
+      setMsg(accion === 'aprobar' ? 'Video aprobado: ya se ve en el sitio.' : 'Video rechazado: no se publicará.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo completar.');
+    } finally {
+      setBusyId('');
+    }
+  };
+
   const resolve = async (item: ReviewItem, accion: 'aprobar' | 'rechazar') => {
     const pregunta = accion === 'aprobar'
       ? `¿Aprobar y publicar el video "${item.title}"? Saldrá en el sitio en unos minutos.`
@@ -551,26 +593,42 @@ function PendingVideos() {
     }
   };
 
-  if (state === 'no_configurado') {
-    return (
-      <p className="text-sm bg-amber-50 text-amber-900 border border-amber-200 rounded-xl px-3 py-2">
-        Falta conectar las aprobaciones con GitHub (variable <code>GITHUB_TOKEN_REVISION</code> en Vercel). Mientras tanto no se pueden aprobar videos desde aquí.
-      </p>
-    );
-  }
-
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-bold text-[#2F183C]">Videos pendientes de aprobar{items ? ` (${items.length})` : ''}</p>
-        <button type="button" onClick={() => void load()} className="shrink-0 px-3 py-1.5 rounded-lg border border-[#DFCEE6] text-xs font-bold text-[#2F183C] cursor-pointer">Actualizar</button>
+        <p className="text-sm font-bold text-[#2F183C]">Videos pendientes de aprobar ({total})</p>
+        <button type="button" onClick={() => { void load(); cargarPropuestos(); }} className="shrink-0 px-3 py-1.5 rounded-lg border border-[#DFCEE6] text-xs font-bold text-[#2F183C] cursor-pointer">Actualizar</button>
       </div>
+      {state === 'no_configurado' && (
+        <p className="text-xs bg-amber-50 text-amber-900 border border-amber-200 rounded-xl px-3 py-2">
+          Los borradores de la automatización no se ven aquí porque falta conectar las aprobaciones con GitHub (variable <code>GITHUB_TOKEN_REVISION</code> en Vercel). Los videos propuestos por Claude sí se pueden aprobar.
+        </p>
+      )}
       {error && <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl px-3 py-2">{error}</p>}
       {msg && <p className="text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2">{msg}</p>}
       {state === 'cargando' && <p className="text-xs text-stone-500">Cargando…</p>}
-      {state === 'ok' && items && items.length === 0 && (
-        <p className="text-xs text-stone-500">No hay videos pendientes. La automatización propone un video por día y aparecerá aquí para que lo apruebes o lo rechaces.</p>
+      {state !== 'cargando' && total === 0 && (
+        <p className="text-xs text-stone-500">No hay videos pendientes. Los nuevos aparecerán aquí para que los apruebes o los rechaces.</p>
       )}
+
+      {porAprobar.map(v => (
+        <div key={v.id} className="bg-white rounded-2xl border-2 border-[#DDA83A] p-4 grid gap-4 sm:grid-cols-[minmax(0,300px)_1fr]">
+          <div className="aspect-video rounded-xl overflow-hidden bg-black">
+            <iframe className="h-full w-full" src={`https://www.youtube-nocookie.com/embed/${v.id}`} title={v.title} allowFullScreen />
+          </div>
+          <div className="space-y-2">
+            <p className="text-xs font-bold uppercase text-[#7B4382]">Propuesto por Claude · va en {v.seccion === 'recetas' ? 'Recetas' : 'Noticias'}</p>
+            <p className="font-bold text-[#2F183C]">{v.title}</p>
+            <p className="text-xs text-stone-600">Canal: {v.channel}</p>
+            <a className="text-xs font-semibold text-[#7B4382] underline" href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener noreferrer">Ver en YouTube</a>
+            <div className="flex flex-wrap gap-2 pt-1">
+              <button type="button" disabled={busyId === v.id} onClick={() => void resolverPropuesta(v, 'aprobar')} className="px-4 py-2 rounded-xl bg-[#2F183C] text-white text-sm font-bold disabled:opacity-50 cursor-pointer">{busyId === v.id ? 'Un momento…' : 'Aprobar y publicar'}</button>
+              <button type="button" disabled={busyId === v.id} onClick={() => void resolverPropuesta(v, 'rechazar')} className="px-4 py-2 rounded-xl border border-[#DFCEE6] text-sm font-semibold text-[#2F183C] disabled:opacity-50 cursor-pointer">Rechazar</button>
+            </div>
+          </div>
+        </div>
+      ))}
+
       {items?.map(it => {
         const v = it.preview;
         return (
@@ -579,7 +637,7 @@ function PendingVideos() {
               ? <div className="aspect-video rounded-xl overflow-hidden bg-black"><iframe className="h-full w-full" src={`https://www.youtube-nocookie.com/embed/${v.videoId}`} title={it.title} allowFullScreen /></div>
               : <p className="text-xs text-stone-500">Sin vista previa. <a className="underline text-[#7B4382]" href={it.url} target="_blank" rel="noopener noreferrer">Ver en GitHub</a></p>}
             <div className="space-y-2">
-              <p className="text-xs font-bold uppercase text-[#7B4382]">Pendiente · va en {v?.seccion === 'recetas' ? 'Recetas' : 'Noticias'} · propuesto {fmtDate(it.subidoEn)}</p>
+              <p className="text-xs font-bold uppercase text-[#7B4382]">Propuesto por la automatización · va en {v?.seccion === 'recetas' ? 'Recetas' : 'Noticias'} · {fmtDate(it.subidoEn)}</p>
               <p className="font-bold text-[#2F183C]">{it.title}</p>
               {v?.channel && <p className="text-xs text-stone-600">Canal: {v.channel}</p>}
               {v?.videoId && <a className="text-xs font-semibold text-[#7B4382] underline" href={`https://www.youtube.com/watch?v=${v.videoId}`} target="_blank" rel="noopener noreferrer">Ver en YouTube</a>}

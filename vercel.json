@@ -167,6 +167,14 @@
       "destination": "/app-shell.html"
     },
     {
+      "source": "/arandanos-a-domicilio-bogota",
+      "destination": "/app-shell.html"
+    },
+    {
+      "source": "/en/arandanos-a-domicilio-bogota",
+      "destination": "/app-shell.html"
+    },
+    {
       "source": "/mayoristas",
       "destination": "/app-shell.html"
     },

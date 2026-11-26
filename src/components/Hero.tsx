@@ -30,7 +30,7 @@ export const Hero: React.FC<HeroProps> = ({ onGoToCustomOrder, onExploreFruits }
 
             {/* Main Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-[3.4rem] font-black text-[#2F183C] tracking-tight leading-[1.12] font-display">
-              {t('Arándanos frescos con', 'Fresh blueberries with')}{' '}
+              {t('Arándanos frescos a domicilio en Bogotá, con', 'Fresh blueberries delivered in Bogotá, with')}{' '}
               <span className="text-[#7B4382]">
                 {t('sabor intenso', 'intense flavor')}
               </span>{' '}

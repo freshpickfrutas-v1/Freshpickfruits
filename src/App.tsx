@@ -7,6 +7,7 @@ import BlogArticlePage from './pages/BlogArticlePage';
 import LegalPage from './pages/LegalPage';
 import ThankYouPage from './pages/ThankYouPage';
 import WholesalePage from './pages/WholesalePage';
+import BogotaPage, { BOGOTA_PATH } from './pages/BogotaPage';
 import { useHiddenContent } from './lib/hiddenContent';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
@@ -29,6 +30,7 @@ function renderRoute(pathname: string) {
   if (pathname === '/terminos') return <LegalPage kind="terminos" />;
   if (pathname === '/cookies') return <LegalPage kind="cookies" />;
   if (pathname === '/gracias') return <ThankYouPage />;
+  if (pathname === BOGOTA_PATH) return <BogotaPage />;
   // Una sola sección: en español es la venta nacional y en inglés la internacional. Las rutas viejas siguen mostrándola.
   if (pathname === '/mayoristas' || pathname.startsWith('/mayoristas/')) return <WholesalePage />;
 

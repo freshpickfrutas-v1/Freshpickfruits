@@ -3,7 +3,7 @@ import { Lang, useLang, withLang } from './i18n';
 
 export const SITE_URL = 'https://www.freshpickfruits.com';
 
-const DEFAULT_TITLE = 'Fresh Pick - Arándanos Premium de Alta Montaña | Guasca, Colombia';
+const DEFAULT_TITLE = 'Fresh Pick | Arándanos frescos a domicilio en Bogotá, de la finca';
 
 function setMeta(selector: string, attr: 'name' | 'property', key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(selector);

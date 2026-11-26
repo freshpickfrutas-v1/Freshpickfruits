@@ -262,7 +262,7 @@ export const FAQ_DATA: FaqItem[] = [
     id: 'faq-3',
     category: 'entregas',
     question: '¿Qué días y en qué horario entregan?',
-    answer: 'Realizamos entregas los martes y miércoles de 8:00 a.m. a 3:00 p.m. en la zona de cobertura. Para eventos o pedidos especiales coordinamos la fecha directamente contigo.'
+    answer: 'Entregamos solo en Bogotá D.C., los martes y miércoles de 8:00 a.m. a 3:00 p.m. La primera fecha disponible es 8 días después de hacer el pedido, según tu dirección y la ruta del domiciliario. Para eventos o pedidos especiales coordinamos la fecha directamente contigo.'
   },
   {
     id: 'faq-4',
@@ -293,5 +293,11 @@ export const FAQ_DATA: FaqItem[] = [
     category: 'pedidos',
     question: '¿Tienen planes mensuales o suscripciones?',
     answer: 'Sí, ofrecemos 4 planes mensuales de 2.000g al mes (Plan Mensual Fresco, Plan Mensual Salud, Plan Mensual Flexible Fresco y Plan Mensual Flexible Salud) con entregas semanales o quincenales. Puedes suscribirte desde la sección de Planes Mensuales.'
+  },
+  {
+    id: 'faq-9',
+    category: 'entregas',
+    question: '¿Entregan en mi barrio o en otras ciudades?',
+    answer: 'El domicilio es solo dentro de Bogotá D.C., de sur a norte desde la calle 13 hasta la calle 192 y de oriente a occidente desde la carrera 5 este hasta la carrera 85. No entregamos en municipios cercanos como Chía, Soacha o Cajicá. Escríbenos tu dirección por WhatsApp al +57 317 893 1026 y te confirmamos si llegamos. Para otras ciudades de Colombia ofrecemos venta al por mayor (pedido mínimo de 1 pallet).'
   }
 ];

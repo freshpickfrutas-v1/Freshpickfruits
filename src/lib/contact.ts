@@ -1,6 +1,11 @@
 /** WhatsApp de Fresh Pick y enlace con mensaje prellenado. */
 export const WHATSAPP_NUMBER = '573178931026';
 export const WHATSAPP_DISPLAY = '+57 317 893 1026';
+export const SOCIAL_LINKS = {
+  facebook: 'https://www.facebook.com/profile.php?id=61594545110187',
+  instagram: 'https://www.instagram.com/fruitsfreshpick/',
+  tiktok: 'https://www.tiktok.com/@freshpick_fruits'
+};
 export const CONTACT_EMAIL = 'info@freshpickfruits.com';
 
 export const waLink = (message: string) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

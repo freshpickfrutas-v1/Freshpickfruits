@@ -166,7 +166,7 @@ export const FAQ_EN: Overlay<import('../types').FaqItem> = {
   'faq-3': {
     question: 'Which days and hours do you deliver?',
     answer:
-      'We deliver on Tuesdays and Wednesdays from 8:00 a.m. to 3:00 p.m. within our coverage area. For events or special orders we agree on the date with you directly.'
+      'We deliver in Bogotá D.C. only, on Tuesdays and Wednesdays from 8:00 a.m. to 3:00 p.m. The first available date is 8 days after placing the order, depending on your address and the courier route. For events or special orders we agree on the date with you directly.'
   },
   'faq-4': {
     question: 'How much does shipping cost?',
@@ -190,6 +190,11 @@ export const FAQ_EN: Overlay<import('../types').FaqItem> = {
     question: 'Do you have monthly plans or subscriptions?',
     answer:
       'Yes, we offer 4 monthly plans of 2,000 g per month (Monthly Fresh Plan, Monthly Health Plan, Monthly Flexible Fresh Plan and Monthly Flexible Health Plan) with weekly or bi-weekly deliveries. You can subscribe from the Monthly Plans section.'
+  },
+  'faq-9': {
+    question: 'Do you deliver to my neighborhood or to other cities?',
+    answer:
+      'Home delivery is only within Bogotá D.C., from south to north between calle 13 and calle 192, and from east to west between carrera 5 este and carrera 85. We do not deliver to nearby towns such as Chía, Soacha or Cajicá. Message us your address on WhatsApp at +57 317 893 1026 and we will confirm. For other cities in Colombia we offer wholesale (minimum order of 1 pallet).'
   }
 };
 

@@ -21,7 +21,9 @@ if (!fs.existsSync(templatePath) || !fs.existsSync(ssrEntry)) {
 
 const template = fs.readFileSync(templatePath, 'utf8');
 // La portada se prerenderiza sobre dist/index.html; las rutas sin prerender (paneles, /gracias, filtros) usan esta base vacía.
-fs.writeFileSync(path.join(dist, 'app-shell.html'), template, 'utf8');
+// Esta base sirve rutas que no son páginas reales (paneles, /gracias, etiquetas o filtros que no existen): no se indexa.
+// Las páginas válidas tienen su propio HTML prerenderizado con 'index, follow'.
+fs.writeFileSync(path.join(dist, 'app-shell.html'), template.replace('<meta name="robots" content="index, follow" />', '<meta name="robots" content="noindex, follow" />'), 'utf8');
 const { render, seedContent, resolvePageMeta } = await import(pathToFileURL(ssrEntry).href);
 
 const content = loadContent();

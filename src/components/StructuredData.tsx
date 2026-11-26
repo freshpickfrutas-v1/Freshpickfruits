@@ -3,6 +3,7 @@ import { JsonLd } from '../lib/seo';
 import { FRUITS_DATA, FAQ_DATA, TESTIMONIALS_DATA } from '../data/mockData';
 import { FAQ_EN, FRUITS_EN, localizeList } from '../data/mockData.en';
 import { Lang, useLang } from '../lib/i18n';
+import { SOCIAL_LINKS } from '../lib/contact';
 
 // Inyecta datos estructurados JSON-LD (Schema.org) en <head> para SEO clásico
 // y GEO (Generative Engine Optimization): ayuda a que Google, y también
@@ -30,14 +31,14 @@ function buildOrganizationSchema(lang: Lang) {
   const en = lang === 'en';
   return {
     '@context': 'https://schema.org',
-    '@type': 'GroceryStore',
+    '@type': ['Organization', 'LocalBusiness'],
     '@id': `${SITE_URL}/#organization`,
     name: 'Fresh Pick',
     legalName: 'ANDEAN FRUIT COMPANY SAS',
     alternateName: en ? 'Fresh Pick High-Mountain Blueberries' : 'Fresh Pick Arándanos de Alta Montaña',
     description: en
-      ? 'Fresh Pick grows and sells premium high-mountain blueberries (above 2,800 m) in Guasca, Cundinamarca, Colombia, with 100% natural pollination, selective hand harvesting and zero chemical residues. Home delivery in the coverage area with orders by WhatsApp or a custom order online. Wholesale supply for Colombia and export.'
-      : 'Fresh Pick cultiva y vende arándanos premium de alta montaña (más de 2.800 m.s.n.m.) en Guasca, Cundinamarca, Colombia, con polinización 100% natural, cosecha manual selectiva y cero residualidad química. Entrega a domicilio en la zona de cobertura con pedidos por WhatsApp o pedido personalizado en línea.',
+      ? 'Fresh Pick grows and sells premium high-mountain blueberries (above 2,800 m) in Guasca, Cundinamarca, Colombia, with 100% natural pollination, selective hand harvesting and zero chemical residues. Home delivery in Bogotá D.C. only, on Tuesdays and Wednesdays (first available date 8 days after the order), with orders by WhatsApp or a custom order online. Wholesale supply for Colombia and export.'
+      : 'Fresh Pick cultiva y vende arándanos premium de alta montaña (más de 2.800 m.s.n.m.) en Guasca, Cundinamarca, Colombia, con polinización 100% natural, cosecha manual selectiva y cero residualidad química. Entrega a domicilio solo en Bogotá D.C., martes y miércoles (primera fecha disponible 8 días después del pedido), con pedidos por WhatsApp o pedido personalizado en línea.',
     url: SITE_URL,
     logo: LOGO_URL,
     image: LOGO_URL,
@@ -57,20 +58,9 @@ function buildOrganizationSchema(lang: Lang) {
       latitude: 4.8631,
       longitude: -73.8783,
     },
-    areaServed: {
-      '@type': 'GeoCircle',
-      geoMidpoint: { '@type': 'GeoCoordinates', latitude: 4.8631, longitude: -73.8783 },
-      geoRadius: '80000',
-    },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Tuesday', 'Wednesday'],
-        opens: '08:00',
-        closes: '15:00',
-      },
-    ],
-    sameAs: [],
+    // Negocio de área de servicio: se entrega solo en Bogotá D.C. (la finca no recibe público; el horario es de entregas, ver shippingDetails).
+    areaServed: { '@type': 'City', name: 'Bogotá', containedInPlace: { '@type': 'Country', name: 'Colombia' } },
+    sameAs: Object.values(SOCIAL_LINKS),
     hasCredential: ['GLOBALG.A.P.', 'GRASP', 'ICA'],
     makesOffer: FRUITS_DATA.map(f => ({ '@type': 'Offer', itemOffered: { '@id': `${SITE_URL}/#product-${f.id}` } })),
     potentialAction: {
@@ -110,7 +100,7 @@ function buildProductSchemas(lang: Lang) {
     ],
     offers: {
       '@type': 'Offer',
-      url: `${SITE_URL}/#variedades`,
+      url: `${SITE_URL}/arandanos-a-domicilio-bogota#${f.id}`,
       priceCurrency: 'COP',
       price: f.standardPrice,
       availability: f.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
@@ -122,13 +112,17 @@ function buildProductSchemas(lang: Lang) {
         shippingDestination: {
           '@type': 'DefinedRegion',
           addressCountry: 'CO',
-          addressRegion: 'Cundinamarca',
+          addressRegion: 'Bogotá D.C.',
         },
+        // Una sola regla de plazo: primera entrega 8 días después del pedido, solo martes y miércoles de 8:00 a 15:00.
         deliveryTime: {
           '@type': 'ShippingDeliveryTime',
+          handlingTime: { '@type': 'QuantitativeValue', minValue: 8, unitCode: 'DAY' },
           businessDays: {
             '@type': 'OpeningHoursSpecification',
             dayOfWeek: ['Tuesday', 'Wednesday'],
+            opens: '08:00',
+            closes: '15:00',
           },
         },
       },

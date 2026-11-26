@@ -1,10 +1,10 @@
 import React from 'react';
-import { Leaf, Phone, Mail, MapPin, ShieldCheck, FileText, Heart, Instagram, Facebook } from 'lucide-react';
+import { Leaf, Phone, Mail, MapPin, ShieldCheck, FileText, Heart, Instagram, Facebook, Music2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { openCookieSettings } from './CookieBanner';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { useT } from '../lib/i18n';
-import { waLink } from '../lib/contact';
+import { waLink, SOCIAL_LINKS } from '../lib/contact';
 
 export const Footer: React.FC = () => {
   const { isStaff } = useAuth();
@@ -61,6 +61,15 @@ export const Footer: React.FC = () => {
               >
                 <Mail className="w-4 h-4" />
               </a>
+              <a href={SOCIAL_LINKS.facebook} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-[#2F183C] border border-[#7B4382] flex items-center justify-center text-stone-300 hover:bg-[#DDA83A] hover:text-[#2F183C] transition-colors" aria-label="Facebook">
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-[#2F183C] border border-[#7B4382] flex items-center justify-center text-stone-300 hover:bg-[#DDA83A] hover:text-[#2F183C] transition-colors" aria-label="Instagram">
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a href={SOCIAL_LINKS.tiktok} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-lg bg-[#2F183C] border border-[#7B4382] flex items-center justify-center text-stone-300 hover:bg-[#DDA83A] hover:text-[#2F183C] transition-colors" aria-label="TikTok">
+                <Music2 className="w-4 h-4" />
+              </a>
             </div>
           </div>
 
@@ -97,6 +106,11 @@ export const Footer: React.FC = () => {
               <li>
                 <a href="/noticias" className="hover:text-[#DDA83A] transition-colors">
                   {t('Noticias de Arándanos', 'Blueberry News')}
+                </a>
+              </li>
+              <li>
+                <a href="/arandanos-a-domicilio-bogota" className="hover:text-[#DDA83A] transition-colors">
+                  {t('Arándanos a domicilio en Bogotá', 'Blueberries delivered in Bogotá')}
                 </a>
               </li>
               <li>

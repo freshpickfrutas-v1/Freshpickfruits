@@ -112,6 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* "Inicio" lives on the logo here so the menu fits at 1280px. */}
           <nav className="hidden xl:flex items-center gap-4 text-[13px] font-semibold text-[#2F183C] shrink-0 whitespace-nowrap" aria-label={t('Menú principal', 'Main menu')}>
             <a href="/#variedades" className={navLinkClass(false)}>{t('Arándanos', 'Blueberries')}</a>
+            <a href="/arandanos-a-domicilio-bogota" className={navLinkClass(isActive('/arandanos-a-domicilio-bogota'))} aria-current={isActive('/arandanos-a-domicilio-bogota') ? 'page' : undefined}>{t('Domicilio en Bogotá', 'Delivery in Bogotá')}</a>
             <a href="/#planes-mensuales" className={navLinkClass(false)}>{t('Planes', 'Plans')}</a>
             <a href="/recetas" className={navLinkClass(isActive('/recetas'))} aria-current={isActive('/recetas') ? 'page' : undefined}>{t('Recetas', 'Recipes')}</a>
             <a href="/noticias" className={navLinkClass(isActive('/noticias'))} aria-current={isActive('/noticias') ? 'page' : undefined}>{t('Noticias', 'News')}</a>
@@ -198,6 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="space-y-1">
                   <a href="/#variedades" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Nuestros Arándanos', 'Our Blueberries')}</a>
                   <a href="/#pedidos-personalizados" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Armar Pedido', 'Build Your Order')}</a>
+                  <a href="/arandanos-a-domicilio-bogota" onClick={closeMenu} className={mobileLinkClass(isActive('/arandanos-a-domicilio-bogota'))}>{t('Domicilio en Bogotá', 'Delivery in Bogotá')}</a>
                   <a href="/#planes-mensuales" onClick={closeMenu} className={mobileLinkClass(false)}>{t('Planes Mensuales', 'Monthly Plans')}</a>
                   <a href="/mayoristas" onClick={closeMenu} className={mobileLinkClass(isActive('/mayoristas'))}>{t('Ventas nacionales al por mayor', 'International Wholesale')}</a>
                 </div>

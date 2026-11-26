@@ -22,7 +22,7 @@ export default function PublicHome() {
   const t = useT();
   const lang = useLang();
   usePageMeta({
-    title: t('Fresh Pick - Arándanos Premium de Alta Montaña | Guasca, Colombia', 'Fresh Pick - Premium High-Mountain Blueberries | Guasca, Colombia'),
+    title: t('Fresh Pick | Arándanos frescos a domicilio en Bogotá, de la finca', 'Fresh Pick | Fresh blueberries delivered in Bogotá, from the farm'),
     description: t('Arándanos premium de alta montaña cultivados a más de 2.800 m.s.n.m. en Guasca, Cundinamarca. Polinización 100% natural, sin ceras, sin residuos químicos. Entrega a domicilio en Bogotá martes y miércoles. Pedidos por WhatsApp +57 317 893 1026.', 'Premium high-mountain blueberries grown above 2,800 m in Guasca, Cundinamarca, Colombia. 100% natural pollination, no waxes, no chemical residues. Home delivery in Bogotá on Tuesdays and Wednesdays. Orders on WhatsApp +57 317 893 1026. Wholesale and export available.'),
     path: '/',
   });

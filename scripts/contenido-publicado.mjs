@@ -8,6 +8,9 @@ import { articleTagIds, recipeTagIds } from '../src/lib/tagging.mjs';
 /** Sección mayorista única: en español es nacional (Colombia) y en inglés internacional (International Wholesale). */
 export const WHOLESALE_PATHS = ['/mayoristas'];
 
+/** Página de venta a domicilio en Bogotá (src/pages/BogotaPage.tsx). */
+export const BOGOTA_PATH = '/arandanos-a-domicilio-bogota';
+
 export const root = path.resolve(import.meta.dirname, '..');
 
 function readPublished(dir) {
@@ -84,6 +87,8 @@ export function prerenderPaths(content) {
   paths.push('/privacidad', '/terminos', '/cookies');
   // Páginas mayoristas.
   paths.push(...WHOLESALE_PATHS);
+  // Página de arándanos a domicilio en Bogotá.
+  paths.push(BOGOTA_PATH);
   // Mismas páginas en inglés bajo /en.
   return [...paths, ...paths.map(p => (p === '/' ? '/en' : `/en${p}`))];
 }

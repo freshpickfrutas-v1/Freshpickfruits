@@ -5,7 +5,7 @@
 // Uso manual: node scripts/generar-sitemap.mjs
 import fs from 'node:fs';
 import path from 'node:path';
-import { WHOLESALE_PATHS, hubsOf, loadContent, root, sinOcultas } from './contenido-publicado.mjs';
+import { BOGOTA_PATH, WHOLESALE_PATHS, hubsOf, loadContent, root, sinOcultas } from './contenido-publicado.mjs';
 
 const SITE = 'https://www.freshpickfruits.com';
 const HOME_LASTMOD = '2026-09-17';
@@ -20,6 +20,7 @@ const archiveUrls = hubsOf(content).map(h => ({ loc: h.path, lastmod: lastmodOf(
 
 const urls = [
   { loc: '/', lastmod: HOME_LASTMOD, changefreq: 'weekly', priority: '1.0' },
+  { loc: BOGOTA_PATH, lastmod: HOME_LASTMOD, changefreq: 'weekly', priority: '0.9' },
   { loc: '/recetas', lastmod: newest(recetas), changefreq: 'daily', priority: '0.8' },
   { loc: '/noticias', lastmod: newest(noticias), changefreq: 'daily', priority: '0.8' },
   { loc: '/privacidad', lastmod: HOME_LASTMOD, changefreq: 'yearly', priority: '0.3' },

@@ -4,6 +4,9 @@ import { readConsent } from '../components/CookieBanner';
 // (análisis → GA4, marketing → Meta) y si el ID está configurado en las variables de entorno de Vercel.
 const GA_ID = (import.meta.env.VITE_GA4_ID as string | undefined)?.trim();
 const PIXEL_ID = (import.meta.env.VITE_META_PIXEL_ID as string | undefined)?.trim();
+// Google Ads (opcional): ID de la cuenta (AW-123456789) y etiqueta de la conversión de compra (AbC_dEfGh...).
+const ADS_ID = (import.meta.env.VITE_GOOGLE_ADS_ID as string | undefined)?.trim();
+const ADS_PURCHASE_LABEL = (import.meta.env.VITE_GOOGLE_ADS_PURCHASE_LABEL as string | undefined)?.trim();
 
 type Win = Window & { dataLayer?: unknown[]; gtag?: (...a: unknown[]) => void; fbq?: (...a: unknown[]) => void; _fbq?: unknown };
 const w = () => window as Win;
@@ -25,6 +28,7 @@ function loadGa() {
   w().gtag = function () { (w().dataLayer as unknown[]).push(arguments); };
   w().gtag!('js', new Date());
   w().gtag!('config', GA_ID);
+  if (ADS_ID) w().gtag!('config', ADS_ID);
   loadScript(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_ID)}`);
 }
 
@@ -49,7 +53,7 @@ function applyConsent() {
 }
 
 /** Mide una acción. No hace nada si el visitante no aceptó cookies o no hay ID configurado. */
-export function track(event: 'add_to_cart' | 'whatsapp_click' | 'lead' | 'purchase', data: { value?: number; id?: string; name?: string } = {}) {
+export function track(event: 'add_to_cart' | 'begin_checkout' | 'whatsapp_click' | 'lead' | 'purchase', data: { value?: number; id?: string; name?: string } = {}) {
   if (typeof window === 'undefined') return;
   const value = data.value ?? 0;
   const ga = w().gtag;
@@ -57,12 +61,17 @@ export function track(event: 'add_to_cart' | 'whatsapp_click' | 'lead' | 'purcha
   if (ga) {
     if (event === 'whatsapp_click') ga('event', 'whatsapp_click');
     else if (event === 'lead') ga('event', 'generate_lead', { currency: 'COP', value });
+    else if (event === 'begin_checkout') ga('event', 'begin_checkout', { currency: 'COP', value });
     else if (event === 'add_to_cart') ga('event', 'add_to_cart', { currency: 'COP', value, items: data.id ? [{ item_id: data.id, item_name: data.name }] : undefined });
-    else ga('event', 'purchase', { currency: 'COP', value, transaction_id: data.id });
+    else {
+      ga('event', 'purchase', { currency: 'COP', value, transaction_id: data.id });
+      if (ADS_ID && ADS_PURCHASE_LABEL) ga('event', 'conversion', { send_to: `${ADS_ID}/${ADS_PURCHASE_LABEL}`, value, currency: 'COP', transaction_id: data.id });
+    }
   }
   if (fb) {
     if (event === 'whatsapp_click') fb('track', 'Contact');
     else if (event === 'lead') fb('track', 'Lead', { currency: 'COP', value });
+    else if (event === 'begin_checkout') fb('track', 'InitiateCheckout', { currency: 'COP', value });
     else if (event === 'add_to_cart') fb('track', 'AddToCart', { currency: 'COP', value, content_ids: data.id ? [data.id] : undefined });
     else fb('track', 'Purchase', { currency: 'COP', value });
   }

@@ -54,4 +54,37 @@ ${urls.flatMap(u => [entry(u.loc, u), entry(enPath(u.loc), u)]).join('\n')}
 `;
 
 fs.writeFileSync(path.join(root, 'public', 'sitemap.xml'), xml, 'utf8');
+// llms.txt: resumen para buscadores con IA (ChatGPT, Perplexity, Gemini, Claude). Se regenera con lo último publicado.
+const latest = (list, base) => list.slice(0, 15).map(i => `- [${i.title}](${SITE}${base}/${i.slug})`).join('\n');
+const llms = `# Fresh Pick
+
+> Arándanos premium de alta montaña cultivados a más de 2.800 m.s.n.m. en Guasca, Cundinamarca (Colombia). Venta con entrega a domicilio solo en Bogotá, martes y miércoles de 8:00 a.m. a 3:00 p.m. Empresa: ANDEAN FRUIT COMPANY SAS.
+
+## Datos clave (para citar)
+- Producto: arándanos frescos en estuches de 125 g, 250 g y 500 g; pedido mínimo de 500 g.
+- Cultivo: polinización 100% natural, sin ceras ni residuos químicos añadidos.
+- Cobertura de entrega: Bogotá (Colombia). Pedidos en línea o por WhatsApp.
+- Idiomas del sitio: español (principal) e inglés (/en).
+
+## Páginas principales
+- [Inicio y tienda](${SITE}/): catálogo y pedidos de arándanos frescos.
+- [Recetas](${SITE}/recetas): recetas con arándanos.
+- [Noticias](${SITE}/noticias): artículos sobre arándanos, nutrición y cultivo.
+- [Mayoristas](${SITE}/mayoristas): venta por volumen.
+- [Sitemap](${SITE}/sitemap.xml)
+
+## Últimas recetas
+${latest(recetas, '/recetas')}
+
+## Últimas noticias
+${latest(noticias, '/noticias')}
+
+## Contacto
+- info@freshpickfruits.com · WhatsApp +57 317 893 1026
+
+## Legal
+- [Privacidad](${SITE}/privacidad) · [Términos](${SITE}/terminos) · [Cookies](${SITE}/cookies)
+`;
+fs.writeFileSync(path.join(root, 'public', 'llms.txt'), llms, 'utf8');
+
 console.log(`sitemap.xml: ${urls.length * 2} URLs (es + en) (${recetas.length} recetas, ${noticias.length} noticias)`);

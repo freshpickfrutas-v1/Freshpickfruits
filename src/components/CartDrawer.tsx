@@ -1,3 +1,4 @@
+import { track } from '../lib/analytics';
 import React from 'react';
 import { FruitItem } from '../types';
 import { SHIPPING_FEE } from '../lib/pricing';
@@ -266,7 +267,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </div>
 
             <button
-              onClick={onCheckoutOnline}
+              onClick={() => { track('begin_checkout', { value: total }); onCheckoutOnline(); }}
               disabled={!meetsMinOrder || hasPackingError}
               className="w-full py-3 px-4 rounded-xl bg-[#DDA83A] disabled:bg-stone-300 disabled:cursor-not-allowed text-[#2F183C] font-bold text-xs sm:text-sm hover:brightness-95 transition flex items-center justify-center gap-2 shadow-xs cursor-pointer"
             >

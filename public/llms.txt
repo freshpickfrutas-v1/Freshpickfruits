@@ -1,11 +1,53 @@
 # Fresh Pick
 
-> Arándanos premium de alta montaña cultivados en Guasca, Cundinamarca (Colombia). Venta con entrega a domicilio solo en Bogotá, martes y miércoles de 8:00 a.m. a 3:00 p.m. Empresa: ANDEAN FRUIT COMPANY SAS.
+> Arándanos premium de alta montaña cultivados a más de 2.800 m.s.n.m. en Guasca, Cundinamarca (Colombia). Venta con entrega a domicilio solo en Bogotá, martes y miércoles de 8:00 a.m. a 3:00 p.m. Empresa: ANDEAN FRUIT COMPANY SAS.
+
+## Datos clave (para citar)
+- Producto: arándanos frescos en estuches de 125 g, 250 g y 500 g; pedido mínimo de 500 g.
+- Cultivo: polinización 100% natural, sin ceras ni residuos químicos añadidos.
+- Cobertura de entrega: Bogotá (Colombia). Pedidos en línea o por WhatsApp.
+- Idiomas del sitio: español (principal) e inglés (/en).
 
 ## Páginas principales
-- [Inicio y tienda](https://www.freshpickfruits.com/): catálogo y pedidos de arándanos frescos (estuches de 125 g, 250 g y 500 g).
+- [Inicio y tienda](https://www.freshpickfruits.com/): catálogo y pedidos de arándanos frescos.
 - [Recetas](https://www.freshpickfruits.com/recetas): recetas con arándanos.
 - [Noticias](https://www.freshpickfruits.com/noticias): artículos sobre arándanos, nutrición y cultivo.
+- [Mayoristas](https://www.freshpickfruits.com/mayoristas): venta por volumen.
+- [Sitemap](https://www.freshpickfruits.com/sitemap.xml)
+
+## Últimas recetas
+- [Smoothie de Arándanos con Chía y Linaza](https://www.freshpickfruits.com/recetas/smoothie-de-arandanos-chia-y-linaza)
+- [Cuajada con Salsa de Arándanos](https://www.freshpickfruits.com/recetas/cuajada-con-salsa-de-arandanos)
+- [Granola Casera con Arándanos](https://www.freshpickfruits.com/recetas/granola-casera-con-arandanos)
+- [Tortas de Arroz con Queso Crema y Arándanos](https://www.freshpickfruits.com/recetas/tortas-de-arroz-con-queso-crema-y-arandanos)
+- [Arroz con Leche con Arándanos](https://www.freshpickfruits.com/recetas/arroz-con-leche-y-arandanos)
+- [Panqueques de Avena y Arándanos sin Harina](https://www.freshpickfruits.com/recetas/panqueques-de-avena-y-arandanos-sin-harina)
+- [Batido de Arándanos y Cacao Amargo](https://www.freshpickfruits.com/recetas/batido-de-arandanos-y-cacao)
+- [Cómo Deshidratar Arándanos en el Horno](https://www.freshpickfruits.com/recetas/como-deshidratar-arandanos-en-el-horno)
+- [Ensalada de Rúcula, Arándanos y Queso de Cabra](https://www.freshpickfruits.com/recetas/ensalada-de-rucula-arandanos-y-queso-de-cabra)
+- [Jugo Natural de Arándanos (Sin Azúcar)](https://www.freshpickfruits.com/recetas/jugo-natural-de-arandanos)
+- [Bocaditos Congelados de Arándanos y Yogur](https://www.freshpickfruits.com/recetas/bocaditos-congelados-de-arandanos-y-yogur)
+- [Smoothie de Arándanos con Leche de Almendras (Sin Lácteos)](https://www.freshpickfruits.com/recetas/smoothie-de-arandanos-con-leche-de-almendras)
+- [Brownies de Cacao y Arándanos](https://www.freshpickfruits.com/recetas/brownies-de-cacao-y-arandanos)
+- [Crepes de Arándanos con Queso Crema](https://www.freshpickfruits.com/recetas/crepes-de-arandanos-y-queso-crema)
+- [Salmón con Glaseado de Arándanos y Balsámico](https://www.freshpickfruits.com/recetas/salmon-con-glaseado-de-arandanos)
+
+## Últimas noticias
+- [Estabilizan antocianinas de arándanos con gelatina de pescado glicada](https://www.freshpickfruits.com/noticias/estabilizan-antocianinas-de-arandanos-con-gelatina-de-pescado-glicada)
+- [Composición fenólica y capacidad antioxidante de los arándanos silvestres de alta montaña](https://www.freshpickfruits.com/noticias/composicion-fenolica-y-capacidad-antioxidante-de-los-arandanos-silvestres-de)
+- [Qué dice la ciencia sobre los arándanos y la investigación en la prevención del cáncer](https://www.freshpickfruits.com/noticias/que-dice-la-ciencia-sobre-los-arandanos-y-la-investigacion-en-la-prevencion-del)
+- [Cómo la genética y la maduración definen el perfil del arándano](https://www.freshpickfruits.com/noticias/como-la-genetica-y-la-maduracion-definen-el-perfil-del-arandano)
+- [Nuevas películas biodegradables con extractos naturales prometen alargar la frescura de los arándanos](https://www.freshpickfruits.com/noticias/nuevas-peliculas-biodegradables-con-extractos-naturales-prometen-alargar-la)
+- [La ciencia de la firmeza: ¿por qué algunos arándanos son más crujientes?](https://www.freshpickfruits.com/noticias/la-ciencia-de-la-firmeza-por-que-algunos-arandanos-son-mas-crujientes)
+- [Un nuevo recubrimiento biodegradable extiende la frescura del arándano un 60%](https://www.freshpickfruits.com/noticias/un-nuevo-recubrimiento-biodegradable-extiende-la-frescura-del-arandano-un-60)
+- [Tratamiento con alginato retrasa el ablandamiento de arándanos en poscosecha](https://www.freshpickfruits.com/noticias/tratamiento-con-alginato-retrasa-el-ablandamiento-de-arandanos-en-poscosecha)
+- [Impacto de los métodos de secado en la calidad del bagazo de arándano](https://www.freshpickfruits.com/noticias/impacto-de-los-metodos-de-secado-en-la-calidad-del-bagazo-de-arandano)
+- [Una película biológica prolonga la frescura y nutrientes de los arándanos en poscosecha](https://www.freshpickfruits.com/noticias/una-pelicula-biologica-prolonga-la-frescura-y-nutrientes-de-los-arandanos-en)
+- [Descubren el mecanismo molecular que activa el color de los arándanos mediante la luz](https://www.freshpickfruits.com/noticias/descubren-el-mecanismo-molecular-que-activa-el-color-de-los-arandanos-mediante)
+- [Cómo la Molienda Fina Optimiza los Antioxidantes y el Aroma del Bagazo de Arándano](https://www.freshpickfruits.com/noticias/como-la-molienda-fina-optimiza-los-antioxidantes-y-el-aroma-del-bagazo-de)
+- [Nuevos hallazgos sobre el consumo de arándanos y biomarcadores metabólicos](https://www.freshpickfruits.com/noticias/nuevos-hallazgos-sobre-el-consumo-de-arandanos-y-biomarcadores-metabolicos)
+- [Bacterias antárticas y arándanos: control biológico contra el moho gris](https://www.freshpickfruits.com/noticias/bacterias-antarticas-y-arandanos-control-biologico-contra-el-moho-gris)
+- [Innovación en el cultivo de arándanos: el impacto de la fertilización orgánica](https://www.freshpickfruits.com/noticias/innovacion-en-el-cultivo-de-arandanos-el-impacto-de-la-fertilizacion-organica)
 
 ## Contacto
 - info@freshpickfruits.com · WhatsApp +57 317 893 1026

@@ -315,6 +315,8 @@ Variables de entorno (ver `.env.example`):
 | Variable | Uso |
 |---|---|
 | `VITE_GOOGLE_MAPS_API_KEY` | Sugerencias de dirección (opcional) |
+| `VITE_GA4_ID`, `VITE_META_PIXEL_ID` | Analítica y píxel de Meta (solo cargan con consentimiento de cookies) |
+| `VITE_GOOGLE_ADS_ID`, `VITE_GOOGLE_ADS_PURCHASE_LABEL` | Google Ads (`AW-…`) y etiqueta de conversión de compra (opcional) |
 | `VITE_WOMPI_PUBLIC_KEY`, `WOMPI_INTEGRITY_SECRET`, `WOMPI_EVENTS_SECRET`, `FIREBASE_SERVICE_ACCOUNT` | Pagos con Wompi (ver sección 8) |
 | `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TEAM` | Correo de confirmación de pago (opcional) |
 

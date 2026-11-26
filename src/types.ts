@@ -211,6 +211,8 @@ export interface BlogArticle extends ContentWorkflow {
   author: string;
   image?: string;
   imageAlt: string;
+  /** Video propio de Fresh Pick (vertical, mp4) que se muestra arriba del artículo. Se guarda en public/videos/. */
+  video?: { src: string };
   blocks: BlogBlock[];
   /** Sources shown at the end of the article (required for health claims and news). */
   fuentes?: ContentSource[];

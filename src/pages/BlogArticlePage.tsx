@@ -101,6 +101,23 @@ export default function BlogArticlePage({ slug }: { slug: string }) {
               {article.image && article.imagenCredit && <ImageCredit text={article.imagenCredit} />}
             </figure>
 
+            {article.video?.src && (
+              <div className="mt-8 flex flex-col items-center">
+                <video
+                  controls
+                  playsInline
+                  preload="metadata"
+                  poster={article.image}
+                  aria-label={article.title}
+                  className="w-full max-w-xs sm:max-w-sm rounded-2xl shadow-xl shadow-[#2F183C]/15 border-4 border-white bg-black aspect-[9/16] object-cover"
+                >
+                  <source src={article.video.src} type="video/mp4" />
+                  {t('Tu navegador no puede reproducir este video.', 'Your browser cannot play this video.')}
+                </video>
+                <p className="mt-2 text-xs text-stone-500">{t('Mira el resumen en video', 'Watch the video summary')}</p>
+              </div>
+            )}
+
             <div className="mt-10 bg-white rounded-2xl border border-[#EADBEE] p-5 sm:p-10 shadow-sm">
               <div className="max-w-2xl mx-auto">
                 {article.blocks.map((block, i) => (

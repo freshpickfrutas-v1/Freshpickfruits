@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/social-drafts",
       "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/cron/video-diario",
+      "schedule": "0 17 * * *"
     }
   ],
   "functions": {
@@ -13,6 +17,9 @@
       "maxDuration": 60
     },
     "api/admin/publish-social.ts": {
+      "maxDuration": 60
+    },
+    "api/cron/video-diario.ts": {
       "maxDuration": 60
     }
   },

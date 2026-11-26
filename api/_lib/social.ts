@@ -179,6 +179,32 @@ export async function publicarInstagram(caption: string, imageUrl: string): Prom
   return { id: String(r.id) };
 }
 
+/** Facebook: publica un video en la Página; Meta lo descarga desde la dirección pública (file_url). */
+export async function publicarFacebookVideo(fileUrl: string, descripcion: string, titulo: string): Promise<{ id: string }> {
+  const r = await graph(`/${limpio(process.env.META_PAGE_ID)}/videos`, { file_url: fileUrl, description: descripcion, title: titulo }, await tokenDePagina());
+  return { id: String(r.id) };
+}
+
+/** Instagram: crea el contenedor de un Reel (video vertical). Devuelve su id; Meta procesa el video después. */
+export async function crearContenedorReel(videoUrl: string, caption: string): Promise<string> {
+  const r = await graph(`/${limpio(process.env.META_IG_USER_ID)}/media`, { media_type: 'REELS', video_url: videoUrl, caption, share_to_feed: 'true' });
+  return String(r.id);
+}
+
+/** Estado del contenedor: IN_PROGRESS, FINISHED, ERROR o EXPIRED. */
+export async function estadoContenedor(id: string): Promise<{ codigo: string; detalle?: string }> {
+  const qs = new URLSearchParams({ fields: 'status_code,status', access_token: limpio(process.env.META_PAGE_TOKEN) });
+  const r: any = await fetch(`${GRAPH}/${id}?${qs}`).then(x => x.json()).catch(() => ({}));
+  if (r.error) throw new Error(r.error.message ?? 'Meta no respondió');
+  return { codigo: String(r.status_code ?? 'IN_PROGRESS'), detalle: typeof r.status === 'string' ? r.status : undefined };
+}
+
+/** Instagram: publica un contenedor que ya terminó de procesarse. */
+export async function publicarContenedor(id: string): Promise<{ id: string }> {
+  const r = await graph(`/${limpio(process.env.META_IG_USER_ID)}/media_publish`, { creation_id: id });
+  return { id: String(r.id) };
+}
+
 export async function intentar(fn: () => Promise<{ id: string }>): Promise<Resultado> {
   try { return { ok: true, ...(await fn()) }; }
   catch (e: any) { console.error('social publicar', e); return { ok: false, error: String(e?.message ?? e).slice(0, 300) }; }

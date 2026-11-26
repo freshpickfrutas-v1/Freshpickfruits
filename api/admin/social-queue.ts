@@ -4,7 +4,7 @@
 // POST /api/admin/social-queue { accion: "rechazar", id }          → descarta el borrador
 // Solo administradores. Nada se publica sin pulsar "publicar" aquí.
 import { adminDb } from '../_lib/admin.js';
-import { esAdmin, crearBorradores, validarPiezas, faltanVariablesMeta, intentar, publicarFacebook, publicarInstagram, type Resultado } from '../_lib/social.js';
+import { esAdmin, contarPorPreparar, crearBorradores, validarPiezas, faltanVariablesMeta, intentar, publicarFacebook, publicarInstagram, type Resultado } from '../_lib/social.js';
 
 export default async function handler(req: any, res: any) {
   try {
@@ -16,15 +16,16 @@ export default async function handler(req: any, res: any) {
   const col = adminDb().collection('social_queue');
 
   if (req.method === 'GET') {
-    const snap = await col.orderBy('createdAt', 'desc').limit(40).get();
-    return res.status(200).json({ items: snap.docs.map(d => ({ id: d.id, ...d.data() })) });
+    const snap = await col.orderBy('createdAt', 'desc').limit(120).get();
+    const porPreparar = await contarPorPreparar().catch(() => null);
+    return res.status(200).json({ items: snap.docs.map(d => ({ id: d.id, ...d.data() })), porPreparar });
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido' });
 
   const { accion, id } = req.body ?? {};
 
   if (accion === 'generar') {
-    const r = await crearBorradores(2);
+    const r = await crearBorradores(3);
     return res.status(200).json(r);
   }
 

@@ -7,7 +7,7 @@ export default async function handler(req: any, res: any) {
   const secret = process.env.CRON_SECRET;
   if (!secret || req.headers?.authorization !== `Bearer ${secret}`) return res.status(401).json({ error: 'No autorizado' });
   try {
-    return res.status(200).json(await crearBorradores(2));
+    return res.status(200).json(await crearBorradores(3));
   } catch (err: any) {
     console.error('cron social-drafts', err);
     return res.status(500).json({ error: String(err?.message ?? err).slice(0, 200) });

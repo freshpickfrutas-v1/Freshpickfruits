@@ -26,6 +26,7 @@ const REDES = { facebook: 'Facebook', instagram: 'Instagram' } as const;
 export function SocialQueue() {
   const { user } = useAuth();
   const [items, setItems] = useState<QueueItem[] | null>(null);
+  const [porPreparar, setPorPreparar] = useState<number | null>(null);
   const [error, setError] = useState('');
   const [msg, setMsg] = useState('');
   const [msgOk, setMsgOk] = useState(true);
@@ -51,6 +52,7 @@ export function SocialQueue() {
       setError('');
       const json = await call();
       setItems(json.items as QueueItem[]);
+      setPorPreparar(typeof json.porPreparar === 'number' ? json.porPreparar : null);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'No se pudo cargar.');
       setItems([]);
@@ -62,7 +64,7 @@ export function SocialQueue() {
     setBusy('generar'); setError(''); setMsg(''); setMsgOk(true);
     try {
       const r = await call({ accion: 'generar' });
-      setMsg(r.creados?.length ? `Listo: ${r.creados.length} borrador(es) nuevo(s).` : 'No hay contenido nuevo (de los últimos 14 días) sin borrador.');
+      setMsg(r.creados?.length ? `Listo: ${r.creados.length} borrador(es) nuevo(s). Quedan ${r.quedan ?? 0} recetas y noticias por preparar.` : 'Todas las recetas y noticias del sitio ya tienen borrador.');
       if (r.errores?.length) setError(`Algunos fallaron: ${r.errores.join(' · ')}`);
       await load();
     } catch (err) {
@@ -109,14 +111,21 @@ export function SocialQueue() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-stone-600 max-w-2xl">
-          La IA prepara cada día un borrador para las noticias y recetas nuevas. Nada sale a las redes hasta que lo apruebes aquí.
+          La IA prepara borradores para todas las recetas y noticias del sitio, de las más nuevas a las más antiguas (3 por día, o 3 cada vez que pulses el botón). Nada sale a las redes hasta que lo apruebes aquí.
         </p>
         <button type="button" onClick={generar} disabled={busy === 'generar'} className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-[#EADBEE] text-sm font-semibold text-[#2F183C] hover:bg-[#F5ECF9] disabled:opacity-60 cursor-pointer">
           {busy === 'generar' && <Loader2 className="w-4 h-4 animate-spin" />}
-          Generar borradores ahora
+          Generar 3 borradores ahora
         </button>
       </div>
 
+      {porPreparar !== null && (
+        <p className="text-sm text-stone-700 bg-white border border-[#EADBEE] rounded-xl px-3 py-2">
+          {porPreparar > 0
+            ? `Faltan ${porPreparar} recetas y noticias del sitio por preparar. Se preparan 3 cada día (o 3 cada vez que pulses el botón), de las más nuevas a las más antiguas.`
+            : 'Todas las recetas y noticias del sitio ya tienen su borrador.'}
+        </p>
+      )}
       {error && <p className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl px-3 py-2">{error}</p>}
       {msg && <p className={`text-sm rounded-xl px-3 py-2 border ${msgOk ? 'text-emerald-800 bg-emerald-50 border-emerald-200' : 'text-red-700 bg-red-50 border-red-200'}`}>{msg}</p>}
       {items === null && <p className="text-sm text-stone-500 flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Cargando…</p>}

@@ -7,8 +7,6 @@ import firebaseConfig from '../../firebase-applet-config.json' with { type: 'jso
 export const SITIO = 'https://www.freshpickfruits.com';
 const BOOTSTRAP_ADMINS = ['info@freshpickfruits.com', 'freshpickfrutas@gmail.com'];
 const GRAPH = 'https://graph.facebook.com/v21.0';
-/** Solo se preparan borradores de contenido publicado en los últimos N días (la biblioteca vieja no se vuelca a las redes). */
-const DIAS_MAX = 14;
 
 export type Piezas = {
   instagram: { copy: string; hashtags: string[] };
@@ -197,25 +195,44 @@ async function leerIndice(nombre: string): Promise<any[]> {
   } catch { return []; }
 }
 
-/** Crea borradores (estado "pendiente") para el contenido reciente que aún no tiene uno. No publica nada. */
-export async function crearBorradores(max: number) {
-  const db = adminDb();
+/** Una receta o noticia publicada en el sitio. */
+type Candidato = { tipo: string; carpeta: string; slug: string; title: string; excerpt?: string; image?: string; date?: string };
+
+/** Todas las recetas y noticias publicadas en el sitio, las más nuevas primero. */
+async function candidatosDelSitio(): Promise<Candidato[]> {
   const [noticias, recetas] = await Promise.all([leerIndice('noticias-index'), leerIndice('recetas-index')]);
-  const desde = Date.now() - DIAS_MAX * 864e5;
-  const candidatos = [
+  return [
     ...noticias.map(a => ({ tipo: 'noticia', carpeta: 'noticias', ...a })),
     ...recetas.map(r => ({ tipo: 'receta', carpeta: 'recetas', ...r })),
   ]
-    .filter(c => c.slug && c.title && Date.parse(c.date) >= desde)
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    .filter((c: Candidato) => c.slug && c.title)
+    .sort((a: Candidato, b: Candidato) => String(b.date ?? '').localeCompare(String(a.date ?? '')));
+}
+
+/** Ids de lo que ya tiene borrador en la cola (pendiente, publicado o rechazado): no se vuelve a preparar. */
+async function idsEnCola(): Promise<Set<string>> {
+  const snap = await adminDb().collection('social_queue').select().get();
+  return new Set(snap.docs.map(d => d.id));
+}
+
+/** Cuántas recetas y noticias del sitio todavía no tienen borrador de redes. */
+export async function contarPorPreparar(): Promise<number> {
+  const [candidatos, ids] = await Promise.all([candidatosDelSitio(), idsEnCola()]);
+  return candidatos.filter(c => !ids.has(`${c.tipo}_${c.slug}`)).length;
+}
+
+/** Crea borradores (estado "pendiente") para recetas y noticias del sitio que aún no tienen uno, las más nuevas primero. No publica nada. */
+export async function crearBorradores(max: number) {
+  const db = adminDb();
+  const [candidatos, ids] = await Promise.all([candidatosDelSitio(), idsEnCola()]);
+  const pendientes = candidatos.filter(c => !ids.has(`${c.tipo}_${c.slug}`));
 
   const creados: string[] = [];
   const errores: string[] = [];
-  for (const c of candidatos) {
+  for (const c of pendientes) {
     if (creados.length >= max) break;
     const id = `${c.tipo}_${c.slug}`;
     const ref = db.collection('social_queue').doc(id);
-    if ((await ref.get()).exists) continue;
     const url = `${SITIO}/${c.carpeta}/${c.slug}`;
     try {
       const pieces = await generarPiezas({ tipo: c.tipo, title: c.title, excerpt: c.excerpt, url });
@@ -229,5 +246,5 @@ export async function crearBorradores(max: number) {
       errores.push(`${id}: ${String(e?.message ?? e).slice(0, 120)}`);
     }
   }
-  return { creados, errores };
+  return { creados, errores, quedan: Math.max(pendientes.length - creados.length, 0) };
 }

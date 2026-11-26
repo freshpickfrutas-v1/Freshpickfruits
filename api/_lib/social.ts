@@ -88,6 +88,11 @@ export function pesoX(texto: string): number {
 /** Máximo del texto de X: 280 menos el enlace más largo posible sin acortar (117) y el espacio. Así cabe aunque la herramienta no acorte el enlace. */
 export const MAX_TEXTO_X = 160;
 
+/** Quita cualquier enlace que la IA haya puesto en el texto de X: el enlace a la tienda se añade siempre aparte. */
+export function quitarEnlaces(texto: string): string {
+  return texto.replace(/https?:\/\/\S+/g, '').replace(/[ \t]+/g, ' ').replace(/\s+\n/g, '\n').trim();
+}
+
 /** Garantiza que el texto de X quepa: quita hashtags del final y, si hace falta, corta en una palabra completa. */
 export function ajustarX(copy: string): string {
   let t = copy.replace(/\s+/g, ' ').trim();
@@ -116,7 +121,7 @@ export async function generarPiezas(input: { tipo: string; title: string; excerp
       });
       if (!r.text) throw new Error('Respuesta vacía');
       const piezas = validarPiezas(JSON.parse(r.text));
-      piezas.x.copy = ajustarX(piezas.x.copy);
+      piezas.x.copy = ajustarX(quitarEnlaces(piezas.x.copy));
       return piezas;
     } catch (e) {
       ultimo = e; // modelo retirado, saturado o JSON inválido: se prueba el siguiente

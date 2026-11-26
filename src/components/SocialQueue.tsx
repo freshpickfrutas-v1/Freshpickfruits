@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Loader2, Copy, ExternalLink } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import type { SocialPieces } from './GenerateSocialPieces';
+import { enlaceTiendaX, intentX, pesoTotalX, textoXConEnlace } from '../lib/socialLinks';
 
 type Resultado = { ok: boolean; id?: string; error?: string };
 interface QueueItem {
@@ -9,6 +10,7 @@ interface QueueItem {
   tipo: 'noticia' | 'receta';
   title: string;
   url: string;
+  slug?: string;
   imageUrl?: string;
   pieces: SocialPieces;
   status: 'pendiente' | 'publicado' | 'rechazado';
@@ -18,9 +20,6 @@ interface QueueItem {
 }
 
 const fmt = (iso?: string) => (iso ? new Date(iso).toLocaleString('es-CO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—');
-/** Peso en X (plan gratis: 280): latinos 1, emojis y otros 2, enlace 23. */
-const RANGOS_X: [number, number][] = [[0, 4351], [8192, 8205], [8208, 8223], [8242, 8247]];
-const pesoX = (t: string) => [...t].reduce((n, c) => { const cp = c.codePointAt(0)!; return n + (RANGOS_X.some(([a, b]) => cp >= a && cp <= b) ? 1 : 2); }, 0);
 const REDES = { facebook: 'Facebook', instagram: 'Instagram' } as const;
 
 /** Borradores de redes sociales: se revisan, se editan y se aprueban (publican en Facebook e Instagram) o se rechazan. */
@@ -157,10 +156,12 @@ export function SocialQueue() {
               <div className="space-y-1">
                 <span className="flex items-center justify-between text-xs font-bold text-[#2F183C]">
                   X (se publica a mano)
-                  <button type="button" onClick={() => copiar(`${p.x.copy} ${it.url}`, it.id)} className="inline-flex items-center gap-1 text-[#7B4382] cursor-pointer"><Copy className="w-3 h-3" />{copied === it.id ? 'Copiado' : 'Copiar'}</button>
+                  <button type="button" onClick={() => copiar(textoXConEnlace(p.x.copy, it.tipo, it.slug), it.id)} className="inline-flex items-center gap-1 text-[#7B4382] cursor-pointer"><Copy className="w-3 h-3" />{copied === it.id ? 'Copiado' : 'Copiar con enlace'}</button>
                 </span>
                 <textarea className="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm min-h-[140px] resize-y" value={p.x.copy} onChange={e => editar(it, { x: { copy: e.target.value } })} />
-                <span className={`block text-xs ${pesoX(p.x.copy) + 24 > 280 ? 'text-red-700 font-bold' : 'text-stone-500'}`}>{pesoX(p.x.copy) + 24}/280 (incluye el enlace)</span>
+                <span className={`block text-xs ${pesoTotalX(p.x.copy) > 280 ? 'text-red-700 font-bold' : 'text-stone-500'}`}>{pesoTotalX(p.x.copy)}/280 (texto + enlace a la tienda)</span>
+                <span className="block text-xs text-stone-500 break-all">Enlace que lleva siempre: {enlaceTiendaX(it.tipo, it.slug)}</span>
+                <a href={intentX(p.x.copy, it.tipo, it.slug)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs font-bold text-[#7B4382] underline">Abrir en X con el enlace <ExternalLink className="w-3 h-3" /></a>
               </div>
             </div>
 

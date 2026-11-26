@@ -4,6 +4,7 @@ import { Copy, RefreshCw, Loader2, Check, X, ExternalLink } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { intentX, pesoTotalX, textoXConEnlace } from '../lib/socialLinks';
 
 export type SocialPieces = {
   instagram: { copy: string; hashtags: string[] };
@@ -151,7 +152,7 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
 
   function openX(copy: string) {
     window.open(
-      `https://twitter.com/intent/tweet?text=${encodeURIComponent(copy)}`,
+      intentX(copy, content.tipo, content.slug),
       '_blank',
       'noopener,noreferrer,width=600,height=560'
     );
@@ -338,7 +339,7 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
                 <h3 className="font-bold text-[#2F183C]">X</h3>
                 <button
                   type="button"
-                  onClick={() => copyText(pieces.x.copy, 'x')}
+                  onClick={() => copyText(textoXConEnlace(pieces.x.copy, content.tipo, content.slug), 'x')}
                   className="p-1.5 rounded-lg hover:bg-stone-100"
                   title="Copiar"
                 >
@@ -350,7 +351,7 @@ export function GenerateSocialPieces({ content, initialPieces, onClose, onSaved 
                 value={pieces.x.copy}
                 onChange={e => setPieces({ ...pieces, x: { copy: e.target.value } })}
               />
-              <p className="text-xs text-stone-500">{pieces.x.copy.length}/280</p>
+              <p className={`text-xs ${pesoTotalX(pieces.x.copy) > 280 ? 'text-red-700 font-bold' : 'text-stone-500'}`}>{pesoTotalX(pieces.x.copy)}/280 (texto + enlace a la tienda, que se añade solo)</p>
               <button
                 type="button"
                 onClick={() => openX(pieces.x.copy)}

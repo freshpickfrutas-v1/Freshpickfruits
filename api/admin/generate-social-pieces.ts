@@ -3,6 +3,7 @@
 // Solo administradores. Usa GEMINI_API_KEY (la misma que la automatización de contenido).
 import { GoogleGenAI } from '@google/genai';
 import { adminDb } from '../_lib/admin.js';
+import { ajustarX, quitarEnlaces } from '../_lib/social.js';
 import firebaseConfig from '../../firebase-applet-config.json' with { type: 'json' };
 
 /** Misma lógica que api/_lib/youtube, sin importar ese módulo (evita arrastrar scripts al bundle). */
@@ -28,7 +29,7 @@ Debes devolver ÚNICAMENTE un JSON válido con esta forma exacta:
 Reglas por red:
 - Instagram: gancho fuerte en las 1-2 primeras líneas → valor/beneficio → CTA (guarda, comparte, enlace en perfil). 8-12 hashtags relevantes. Longitud ideal 1200-1800 caracteres con saltos de línea.
 - Facebook: tono conversacional y cercano, contexto breve, invitación a comentar/compartir, enlace natural al final. 300-700 caracteres.
-- X: mensaje directo y breve (máx. 260 caracteres recomendados, nunca >280). Gancho + beneficio + enlace + 2-4 hashtags máximo.
+- X: mensaje directo y breve, MÁXIMO 150 caracteres en total (cuenta hashtags y emoji). Gancho + beneficio + 2-3 hashtags. NO incluyas ningún enlace: el enlace a la tienda se añade aparte.
 
 Adaptaciones por tipo:
 - receta: facilidad, tiempo, sabor, beneficio saludable, "ideal para…".
@@ -158,6 +159,8 @@ URL canónica: ${url || `https://www.freshpickfruits.com/${basePath}/${slug || '
     if (!pieces?.instagram?.copy || !pieces?.facebook?.copy || !pieces?.x?.copy) {
       throw new Error('JSON incompleto de la IA');
     }
+
+    pieces.x.copy = ajustarX(quitarEnlaces(String(pieces.x.copy)));
 
     return res.status(200).json({ success: true, pieces });
   } catch (err: any) {

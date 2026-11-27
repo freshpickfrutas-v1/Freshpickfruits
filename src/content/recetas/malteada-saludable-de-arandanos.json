@@ -1,0 +1,54 @@
+{
+  "slug": "malteada-saludable-de-arandanos",
+  "title": "Malteada Saludable de Arándanos con Yogur",
+  "excerpt": "Disfruta de una cremosísima malteada saludable de arándanos con yogur, natural, refrescante y perfecta para compartir en la merienda o al desayuno.",
+  "imageAlt": "Vaso alto con malteada cremosita de arándanos y yogur, decorada con arándanos frescos por encima y un pitillo.",
+  "category": "smoothies-batidos",
+  "extraCategories": [
+    "desayunos",
+    "snacks-meriendas"
+  ],
+  "prepMinutes": 5,
+  "cookMinutes": 0,
+  "difficulty": "Fácil",
+  "servings": 2,
+  "ingredients": [
+    {
+      "text": "1 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 taza de yogur griego natural sin azúcar"
+    },
+    {
+      "text": "1/2 taza de leche fría (lait o bebida vegetal)"
+    },
+    {
+      "text": "1 cucharadita de extracto de vainilla"
+    },
+    {
+      "text": "1 a 2 cucharadas de miel de abejas"
+    },
+    {
+      "text": "4 cubos de hielo"
+    }
+  ],
+  "steps": [
+    "Alista tus ingredientes. Si buscas la textura espesa tradicional de una malteada, puedes congelar los arándanos durante dos horas antes de preparar.",
+    "Agrega en el vaso de la licuadora el yogur griego, la leche fría, el extracto de vainilla y la miel de abejas.",
+    "Incorpora los arándanos Fresh Pick, cultivados en las frías montañas de Guasca para asegurar ese dulzor natural perfecto, junto con los cubos de hielo.",
+    "Licúa a velocidad máxima durante un minuto o hasta lograr una consistencia sedosa, homogénea y cremosa.",
+    "Sirve de inmediato en vasos altos bien fríos y disfruta al instante con un pitillo."
+  ],
+  "tips": [
+    "Para conservar tus arándanos Fresh Pick en perfecto estado dentro de la nevera, guárdalos en su empaque original sin lavarlos; pásalos por agua únicamente justo antes de usarlos.",
+    "Si prefieres una malteada aún más espesa sin diluir el sabor con hielo, congela previamente el yogur en una cubeta para hielo e intégralo directamente a la licuadora."
+  ],
+  "date": "2026-11-26",
+  "publicadoEn": "2026-11-26T13:16:03.835Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/malteada-saludable-de-arandanos.jpg"
+}

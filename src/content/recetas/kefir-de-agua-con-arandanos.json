@@ -1,0 +1,49 @@
+{
+  "slug": "kefir-de-agua-con-arandanos",
+  "title": "Kéfir de Agua con Arándanos",
+  "excerpt": "Aprende a preparar un refrescante kéfir de agua infusionado con arándanos Fresh Pick. Una bebida efervescente, frutal y hecha en casa.",
+  "imageAlt": "Un vaso transparente con kéfir de agua teñido de morado intenso, con burbujas finas, hielo y arándanos flotando.",
+  "category": "bebidas-refrescos",
+  "extraCategories": [
+    "preparaciones-conservas"
+  ],
+  "prepMinutes": 15,
+  "cookMinutes": 0,
+  "restMinutes": 1440,
+  "difficulty": "Intermedio",
+  "servings": 4,
+  "ingredients": [
+    {
+      "text": "1 litro de kéfir de agua neutro (de primera fermentación)"
+    },
+    {
+      "text": "1/2 taza de arándanos Fresh Pick",
+      "freshPick": true
+    },
+    {
+      "text": "1 cucharadita de panela molida"
+    },
+    {
+      "text": "1 tiritas de cáscara de limón"
+    }
+  ],
+  "steps": [
+    "En un plato hondo, machaca suavemente los arándanos Fresh Pick con la panela molida usando un tenedor para que liberen su jugo característico.",
+    "Usamos solo 1 cucharadita de panela (la mitad de lo habitual) porque los arándanos Fresh Pick, cultivados a más de 2.800 m.s.n.m. en Guasca, tienen entre 13° y 15° Brix de dulzor natural, perfecto para activar la segunda fermentación sin recargar de azúcar.",
+    "Pasa la mezcla de arándanos machacados y la tira de cáscara de limón al interior de una botella de vidrio con cierre hermético.",
+    "Vierte el litro de kéfir de agua neutro sobre la fruta, dejando un espacio de unos 4 centímetros libre en el cuello de la botella.",
+    "Cierra muy bien la botella y déjala reposar en un lugar fresco y oscuro durante 24 horas a temperatura ambiente para que tome gas y color.",
+    "Pasadas las 24 horas, lleva la botella a la nevera para detener la fermentación. Sirve bien frío con hielo y disfruta de sus finas burbujas."
+  ],
+  "tips": [
+    "Al macerar la fruta nota que reducimos el endulzante a la mitad, ya que la fructosa natural de nuestros arándanos de alta montaña alimenta perfectamente los fermentos de tu kéfir.",
+    "Una vez abierto el kéfir, consérvalo siempre tapado en la nevera hasta por 5 días para mantener sus burbujas frescas y su delicioso sabor frutal."
+  ],
+  "date": "2026-11-27",
+  "publicadoEn": "2026-11-27T22:27:05.167Z",
+  "estado": "publicado",
+  "modo": "automatico",
+  "imagenTipo": "generada",
+  "imagenCredit": "Imagen ilustrativa generada con IA",
+  "image": "/img/generadas/kefir-de-agua-con-arandanos.jpg"
+}

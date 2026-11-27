@@ -1,0 +1,33 @@
+{
+  "title": "Blueberry Water Kefir",
+  "excerpt": "Learn how to prepare a refreshing water kefir infused with Fresh Pick blueberries. An effervescent, fruity, homemade beverage.",
+  "imageAlt": "A clear glass with deep purple-tinted water kefir, with fine bubbles, ice, and floating blueberries.",
+  "ingredients": [
+    {
+      "text": "1 liter of plain water kefir (first fermentation)"
+    },
+    {
+      "text": "1/2 cup of Fresh Pick blueberries",
+      "freshPick": true
+    },
+    {
+      "text": "1 teaspoon of ground panela (unrefined cane sugar)"
+    },
+    {
+      "text": "1 strip of lemon peel"
+    }
+  ],
+  "steps": [
+    "In a shallow bowl, gently mash the Fresh Pick blueberries with the ground panela using a fork to release their signature juice.",
+    "We use only 1 teaspoon of panela (half the usual amount) because Fresh Pick blueberries, grown at over 2,800 m.a.s.l. in Guasca, have between 13° and 15° Brix of natural sweetness, perfect for activating the second fermentation without overloading with sugar.",
+    "Transfer the mashed blueberry mixture and the strip of lemon peel into an airtight glass bottle.",
+    "Pour the liter of plain water kefir over the fruit, leaving a space of about 4 centimeters free in the neck of the bottle.",
+    "Seal the bottle tightly and let it rest in a cool, dark place for 24 hours at room temperature so that it gains carbonation and color.",
+    "After 24 hours, place the bottle in the refrigerator to stop fermentation. Serve very cold with ice and enjoy its fine bubbles."
+  ],
+  "tips": [
+    "When mashing the fruit, notice that we reduce the sweetener by half, since the natural fructose of our high-mountain blueberries perfectly feeds your kefir's cultures.",
+    "Once opened, always keep the kefir covered in the refrigerator for up to 5 days to maintain its fresh bubbles and delicious fruity flavor."
+  ],
+  "imagenCredit": "Illustrative AI-generated image"
+}

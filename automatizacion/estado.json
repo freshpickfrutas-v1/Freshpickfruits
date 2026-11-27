@@ -61,7 +61,8 @@
     "https://pubmed.ncbi.nlm.nih.gov/43078450/",
     "https://pubmed.ncbi.nlm.nih.gov/43094297/",
     "https://pubmed.ncbi.nlm.nih.gov/43089131/",
-    "https://pubmed.ncbi.nlm.nih.gov/43093531/"
+    "https://pubmed.ncbi.nlm.nih.gov/43093531/",
+    "https://pubmed.ncbi.nlm.nih.gov/43089332/"
   ],
   "historial": [
     {
@@ -614,6 +615,24 @@
       "fecha": "2026-11-26",
       "tipo": "video",
       "slug": "yZF4McFfq10",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-27",
+      "tipo": "receta",
+      "slug": "kefir-de-agua-con-arandanos",
+      "modo": "automatico"
+    },
+    {
+      "fecha": "2026-11-27",
+      "tipo": "noticia",
+      "slug": "conservacion-de-arandanos-el-extracto-he-atenua-el-estres-poscosecha-y",
+      "modo": "revision"
+    },
+    {
+      "fecha": "2026-11-27",
+      "tipo": "video",
+      "slug": "0mtEJo1lS3U",
       "modo": "revision"
     }
   ]

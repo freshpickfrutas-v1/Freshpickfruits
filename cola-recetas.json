@@ -488,7 +488,8 @@
     "titulo": "Malteada Saludable de Arándanos con Yogur",
     "categoria": "smoothies-batidos",
     "modo": "automatico",
-    "estado": "pendiente"
+    "estado": "publicado",
+    "fechaPublicacion": "2026-11-26"
   },
   {
     "orden": 55,
@@ -496,9 +497,9 @@
     "titulo": "Mezcla de Frutos Secos con Arándanos Deshidratados en Casa",
     "categoria": "snacks-meriendas",
     "modo": "automatico",
-    "estado": "pendiente",
-    "intentos": 2,
-    "ultimoError": "no se consiguió una imagen aprobada: intento 1: rechazada: La imagen muestra arándanos frescos y jugosos en vez de deshidratados, además de presentar leves artefactos visuales típicos de la generación por inteligencia artificial. | intento 2: rechazada: Muestra arándanos frescos en lugar de deshidratados y presenta artefactos antinaturales en la mezcla de frutos secos. | intento 3: rechazada: Los arándanos mostrados en el tazón son frescos en lugar de deshidratados, no correspondiendo al tema de la receta."
+    "estado": "borrador",
+    "intentos": 3,
+    "ultimoError": "no se consiguió una imagen aprobada: intento 1: rechazada: La imagen contiene moras en lugar de solo arándanos y presenta deformaciones típicas de IA en los frutos secos. | intento 2: rechazada: La imagen presenta frutos secos con deformaciones por IA y los arándanos se ven frescos en vez de deshidratados. | intento 3: rechazada: La imagen muestra arándanos frescos en lugar de deshidratados."
   },
   {
     "orden": 56,

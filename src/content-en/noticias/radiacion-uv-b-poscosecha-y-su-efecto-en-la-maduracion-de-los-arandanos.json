@@ -1,0 +1,74 @@
+{
+  "title": "Postharvest UV-B Radiation and Its Effect on Blueberry Ripening",
+  "metaDescription": "Discover how postharvest UV-B radiation influences antioxidants and pigmentation in blueberries based on their ripening stage.",
+  "excerpt": "A scientific analysis demonstrates that postharvest UV-B radiation affects antioxidant accumulation in blueberries differently depending on their degree of maturity.",
+  "imageAlt": "Fresh blueberries at different stages of ripening arranged on a wooden surface.",
+  "blocks": [
+    {
+      "type": "h2",
+      "text": "Introduction: The Challenge of Heterogeneous Fruit Ripening"
+    },
+    {
+      "type": "p",
+      "text": "Cultivating and harvesting small fruits presents particular challenges, with non-uniform ripening on bushes being one of the main ones. During harvest days, it is common for some green or partially developed fruits to be harvested involuntarily alongside ripe fruits. This variation in the degree of maturity directly impacts the concentration of bioactive compounds, as fruit acquires its characteristic color and antioxidant properties mainly thanks to the accumulation of anthocyanins and phenolic acids throughout its natural development."
+    },
+    {
+      "type": "p",
+      "text": "To respond to this technological challenge and evaluate whether it is possible to improve the characteristics of early-harvested fruit, various researchers are examining postharvest treatments. In this scenario, interest arises in exploring ultraviolet B (UV-B) radiation, a postharvest tool aimed at analyzing how different pigments and antioxidants respond when fruits are exposed to controlled pulses of light after being harvested from the plant."
+    },
+    {
+      "type": "h2",
+      "text": "What the Source Says: The Influence of UV-B Light According to Ripening Stage"
+    },
+    {
+      "type": "p",
+      "text": "Research published in the journal Antioxidants evaluated the effects of postharvest UV-B radiation on anthocyanidin accumulation and antioxidant activity in blueberries classified into five distinct ripening stages. The experimental design included stages S1 (unripe green), S2 (unripe pinkish-green), S3 (unripe pink), S4 (ripe purple), and S5 (fully ripe purple). The fruits in each group were exposed to radiation doses from 0 to 3 W·m⁻² for a continuous period of 72 hours to compare their responses against non-irradiated controls."
+    },
+    {
+      "type": "p",
+      "text": "The results showed that UV-B application promoted color development and anthocyanidin accumulation in the earliest stages (S1 and S2) compared to fruits that received no radiation. However, researchers observed that the final anthocyanidin content in these immature stages remained below the levels present in fully ripe fruits (S5). In stage S3, total anthocyanidin content remained relatively unchanged; in stage S4, a decrease was recorded; while in stage S5, anthocyanidin accumulation increased when an intensity of 1 W·m⁻² was applied."
+    },
+    {
+      "type": "p",
+      "text": "The research also revealed that changes in antioxidant capacity did not consistently follow the same pattern as anthocyanidins. For instance, in stage S2, exposure to 3 W·m⁻² increased anthocyanidin content but decreased both chlorogenic acid (CGA) content and free radical scavenging activity measured via the ABTS assay. Conversely, in stage S5, ABTS activity reached its peak at 1 W·m⁻², while the chlorogenic acid level was highest with the 3 W·m⁻² dose. These differences demonstrated that neither anthocyanidin nor chlorogenic acid content alone explains the overall antioxidant response of the fruit, concluding that UV-B radiation modulates phenols and antioxidant capacity in a manner dependent on fruit maturity and the applied intensity."
+    },
+    {
+      "type": "h2",
+      "text": "Context: The Complexity of the Blueberry Antioxidant Profile"
+    },
+    {
+      "type": "p",
+      "text": "These findings integrate into the scientific understanding of the blueberry's biochemical complexity. Traditionally, anthocyanins and chlorogenic acid have been recognized as fundamental components of this fruit's antioxidant matrix. The research highlights that a berry's total antioxidant capacity is the result of dynamic interactions among multiple phenolic substances and not the isolated presence of a single compound."
+    },
+    {
+      "type": "p",
+      "text": "Likewise, evidence confirms that the postharvest physiology of the fruit is receptive to environmental stress factors, such as light radiation. Different ripening stages exhibit unequal metabolic responses: while an unripe fruit may activate pigment synthesis as a defense mechanism against UV-B radiation, its reserves of other main antioxidants may be reduced under high intensities."
+    },
+    {
+      "type": "h2",
+      "text": "What It Means for You: The Importance of Choosing Naturally Ripened Fruits"
+    },
+    {
+      "type": "p",
+      "text": "Although the application of UV-B radiation represents a field of study for postharvest technology, these data offer a practical perspective for consumers. Research suggests that treating unripe fruits using external technologies can stimulate the appearance of color or certain anthocyanins, but fails to identically replicate the balanced phytonutrient profile of a fruit that has completed its ripening naturally on the plant."
+    },
+    {
+      "type": "p",
+      "text": "For those looking to incorporate fresh fruits into their daily diet, the greatest lesson lies in valuing fruits harvested at their ideal point of development. Choosing berries that have reached adequate maturity guarantees enjoying their organoleptic characteristics, sweetness, and the entirety of their phenolic compounds without relying on post-harvest interventions."
+    },
+    {
+      "type": "h2",
+      "text": "Conclusion"
+    },
+    {
+      "type": "p",
+      "text": "Recent scientific evidence demonstrates that a blueberry's response to stimuli such as postharvest UV-B radiation is conditioned by its ripening stage and the light intensity received. Since antioxidant capacity does not depend on a single type of molecule, natural fruit development on the bush remains the determining factor for the optimal concentration of anthocyanins and phenolic acids."
+    },
+    {
+      "type": "p",
+      "text": "At Fresh Pick, we respect every phase of cultivation to deliver hand-picked berries harvested at their ideal point of maturity, naturally preserving their antioxidant profile and freshness."
+    }
+  ],
+  "author": "Fresh Pick Team",
+  "imagenCredit": "Illustrative AI-generated image"
+}
